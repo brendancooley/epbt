@@ -4,6 +4,7 @@
   # We actually have this data! Comes from non-EU countries that provide data before ascension
   # drop ROW from delta estimation?
 # what about NAs in year?
+# Cross validation wrapper on CHL/NZL data, try out MARS again but cross validate with aggregated output
 
 # function to recompile flows matrix with subsample of countries...remap ROW
 
