@@ -6,12 +6,13 @@
 #	- "make all" to build files
 #	- "make post" to copy public files to GitHub
 
-path = Users/brendancooley/Dropbox/8_Templates/
+path = Users/bcooley/Dropbox/8_Templates/
 # RDIR = ./estimation
 # RFILES := $(wildcard $(RDIR)/*.R)
 # OUT_FILES := $(RFILES:.R=.Rout)
 
 github = ~/GitHub/epbt
+# github_slides = ~/GitHub/epbt_slides
 Rscripts = estimation/*.R
 
 post: 
@@ -25,11 +26,11 @@ post:
 	mkdir -p $(github)/figure/;
 	cp -a figure/ $(github)/figure/;
 	cp -a Makefile $(github);
-	cp -R epbt_slides $(github)
+	cp -a epbt_slides.pdf $(github)
 
 
 
-all: epbt.md epbt.pdf epbt_slides.html 
+all: epbt.md epbt.pdf epbt_slides.pdf
 	# $(OUT_FILES)
 
 # theta: estimation/1_theta.R 
@@ -54,13 +55,16 @@ epbt.pdf: epbt.md
 	--filter pandoc-citeproc \
 	-o epbt.pdf epbt.md
 
-epbt_slides.html: epbt_slides.md
-	reveal-md epbt_slides.md --theme simple --static epbt_slides
+# epbt_slides: epbt_slides.rmd
+# 	Rscript -e "rmarkdown::render('epbt_slides.rmd')"
 
-# epbt_slides.pdf: epbt_slides.md
-# 	pandoc -t beamer --template=/$(path)$/cooley-latex-beamer.tex --slide-level 2 \
-# 	--filter pandoc-citeproc \
-# 	epbt_slides.md -o epbt_slides.pdf
+# epbt_slides.html: epbt_slides.md
+# 	reveal-md epbt_slides.md --static epbt_slides
+
+epbt_slides.pdf: epbt_slides.md
+	pandoc -t beamer --template=/$(path)$/cooley-latex-beamer.tex --slide-level 2 \
+	--filter pandoc-citeproc \
+	epbt_slides.md -o epbt_slides.pdf
 
 clean:
 	rm -fv $(OUT_FILES) 
