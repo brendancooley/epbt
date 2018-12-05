@@ -26,11 +26,11 @@ post:
 	mkdir -p $(github)/figure/;
 	cp -a figure/ $(github)/figure/;
 	cp -a Makefile $(github);
-	cp -a epbt_slides.pdf $(github)
+	cp -a epbt_slides.pdf $(github);
+	cp -a epbt_handout.pdf $(github);
 
 
-
-all: epbt.md epbt.pdf epbt_slides.pdf
+all: epbt.md epbt.pdf epbt_slides.pdf epbt_handout.pdf
 	# $(OUT_FILES)
 
 # theta: estimation/1_theta.R 
@@ -68,6 +68,11 @@ epbt_slides.pdf: epbt_slides.md
 	pandoc -t beamer --template=/$(path)$/cooley-latex-beamer.tex --slide-level 2 \
 	--filter pandoc-citeproc \
 	epbt_slides.md -o epbt_slides.pdf
+
+epbt_handout.pdf: epbt_slides.md
+	pandoc -t beamer --template=/$(path)$/cooley-latex-beamer-handout.tex --slide-level 2 \
+	--filter pandoc-citeproc \
+	epbt_slides.md -o epbt_handout.pdf
 
 clean:
 	rm -fv $(OUT_FILES) 
