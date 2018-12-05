@@ -61,6 +61,9 @@ epbt.pdf: epbt.md
 # epbt_slides.html: epbt_slides.md
 # 	reveal-md epbt_slides.md --static epbt_slides
 
+epbt_slides.md: epbt_slides.Rmd
+	R --slave -e "set.seed(100);knitr::knit('$<')"
+
 epbt_slides.pdf: epbt_slides.md
 	pandoc -t beamer --template=/$(path)$/cooley-latex-beamer.tex --slide-level 2 \
 	--filter pandoc-citeproc \

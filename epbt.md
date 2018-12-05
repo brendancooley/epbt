@@ -6,7 +6,7 @@ abstract: To what extent is international trade free and fair? Because policy ba
 thanks: Ph.D. candidate, Department of Politics, Princeton University. Thanks to Haosen Ge, Helen Milner, Sayumi Miyano, Steve Monroe, Sondre Solstad, Kris Ramsay, Alexandra Zeitz, Grace Zeng for comments on earlier drafts of this paper and helpful discussions.
 # jelcodes: JEL codes go here
 
-bibliography: /Users/brendancooley/Dropbox/References/library.bib
+bibliography: /Users/bcooley/Dropbox/References/library.bib
 biblio-style: apsr
 
 papersize: letter
@@ -179,7 +179,7 @@ X_i = \sum_{j=1}^N \lambda_{ji}(\bm{w}) E_j
 \end{equation}
 where
 $$
-\Phi_i = \sum_j T_j \left( d_{ij} w_j^{1 - \beta} P_j^{\beta} \right)^{- \theta}
+\Phi_i =  T_j \left( d_{ij} w_j^{1 - \beta} P_j^{\beta} \right)^{- \theta}
 $$
 The equilibrium price index in country $i$ is
 \begin{equation} \label{eq:eqP}

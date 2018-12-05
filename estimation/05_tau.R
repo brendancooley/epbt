@@ -131,6 +131,5 @@ write_csv(tauHMY, "results/tauHMY.csv")
 trimai <- left_join(TRI %>% select(j_iso3, year, tau), MAI %>% select(i_iso3, year, tau), by=c("j_iso3"="i_iso3", "year")) %>% ungroup()
 colnames(trimai) <- c("iso3", "year", "TRI", "MAI")
 trimaiY <- trimai %>% filter(year==Y)
-trimaiY %>% print(n=40)
 
 write_csv(trimaiY, "results/trimaiY.csv")

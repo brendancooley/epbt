@@ -6,7 +6,7 @@ abstract: To what extent is international trade free and fair? Because policy ba
 thanks: Ph.D. candidate, Department of Politics, Princeton University. Thanks to Haosen Ge, Helen Milner, Sayumi Miyano, Steve Monroe, Sondre Solstad, Kris Ramsay, Alexandra Zeitz, Grace Zeng for comments on earlier drafts of this paper and helpful discussions.
 # jelcodes: JEL codes go here
 
-bibliography: /Users/brendancooley/Dropbox/References/library.bib
+bibliography: /Users/bcooley/Dropbox/References/library.bib
 biblio-style: apsr
 
 papersize: letter
@@ -26,25 +26,8 @@ rm(list=ls())
 libs <- c('tidyverse', "stargazer", "countrycode", "knitr", "ggrepel", "patchwork", "ggthemes", "latex2exp")
 sapply(libs, require, character.only = TRUE)
 
-Y <- 2005
-EUntmY <- read_csv("estimation/clean/EUntmY.csv") %>% pull(.)
-tarYval <- read_csv("estimation/clean/tarYval.csv") %>% pull(.)
-
-gdp <- read_csv("estimation/clean/gdp.csv")
-pop <- read_csv("estimation/clean/pop.csv")
-delta <- read_csv('estimation/clean/delta.csv') %>% filter(year==Y)
-tau <- read_csv("estimation/results/tauY.csv")
-tar <- read_csv("estimation/clean/tarY.csv")
-correlates <- read_csv("estimation/results/correlates.csv")
-tauHMY <- read_csv("estimation/results/tauHMY.csv")
-trimaiY <- read_csv("estimation/results/triMaiY.csv")
-
-# global variables
-N <- read_csv("estimation/clean/ccodes.csv") %>% pull(.) %>% length()
-gdpSample <- gdp %>% filter(iso3 != "ROW", year==2005) %>% pull(gdp) %>% sum()
-gdpWorld <- gdp %>% filter(year==2005) %>% pull(gdp) %>% sum()
-sigma <- read_csv("estimation/clean/sigma.csv") %>% pull(.)
-sigmaAlt <- read_csv("estimation/clean/sigmaAlt.csv") %>% pull(.)
+# grab environment
+source("figs/env.R")
 
 # get freight cost model results
 source("estimation/04_freight.R")
@@ -73,37 +56,7 @@ The results point to far more policy distortion and effective discrimination tha
 
 ```{r triIncome, echo=FALSE, warning=FALSE, message=FALSE, fig.cap = "Tariff rates (left) and structural trade restrictiveness (right) against GDP per capita \\label{fig:triIncome}", fig.height=5, dpi=300}
 
-trimaiY <- left_join(trimaiY, gdp)
-trimaiY <- left_join(trimaiY, pop)
-
-trimaiY$gdppc <- trimaiY$gdp / trimaiY$pop
-
-# TRI versus GDPPC
-triIncome <- ggplot(data=trimaiY, aes(x=gdppc, y=TRI, label=iso3))  +
-  geom_point() +
-  geom_text_repel(size=3) +
-  geom_smooth(method='lm', lty=2, se=FALSE) +
-  xlab('GDP Per Capita') +
-  ylab('Trade Restrictiveness Index') +
-  ggtitle(paste0('National Income and Structural \n Trade Restrictivenesss, ', Y)) +
-  theme_classic()
-
-# Tariffs versus GDPPC
-tarAggYC <- tar %>% group_by(j_iso3) %>%
-  summarise(wtar=weighted.mean(wtar, val))
-colnames(tarAggYC) <- c("iso3", "wtar")
-
-trimaiY <- left_join(trimaiY, tarAggYC)
-trimaiY$wtar <- trimaiY$wtar + 1
-
-tarIncome <- ggplot(data=trimaiY, aes(x=gdppc, y=wtar, label=iso3))  +
-  geom_point() +
-  geom_text_repel(size=3) +
-  geom_smooth(method='lm', lty=2, se=FALSE) +
-  xlab('GDP Per Capita') +
-  ylab('Weighted Ad Valorem Tariff Rate') +
-  ggtitle(paste0('National Income and Ad Valorem \n Tariff Rates, ', Y)) +
-  theme_classic()
+source("figs/triIncome.R")
 
 tarIncome + triIncome
 
@@ -244,7 +197,7 @@ X_i = \sum_{j=1}^N \lambda_{ji}(\bm{w}) E_j
 \end{equation}
 where
 $$
-\Phi_i = \sum_j T_j \left( d_{ij} w_j^{1 - \beta} P_j^{\beta} \right)^{- \theta}
+\Phi_i =  T_j \left( d_{ij} w_j^{1 - \beta} P_j^{\beta} \right)^{- \theta}
 $$
 The equilibrium price index in country $i$ is
 \begin{equation} \label{eq:eqP}
@@ -297,27 +250,7 @@ $$
 
 ```{r P, echo=FALSE, warning=FALSE, message=FALSE, fig.cap = "Price indices and tradable expenditure shares \\label{fig:P}", fig.height=5, dpi=300}
 
-P <- read_csv("estimation/clean/priceIndex.csv") %>% filter(year==Y)
-
-plotP <- ggplot(P, aes(x=gdppc, y=P, label=iso3)) + 
-  geom_point() +
-  geom_text_repel(size=3) +
-  # geom_hline(yintercept=1, lty=2) +
-  ylim(50, 200) +
-  xlab('GDP Per Capita') +
-  ylab('Price Index') +
-  ggtitle(paste0('Price Indices and Per Capita \n National Income, ', Y)) +
-  theme_classic()
-
-plotTshare <- ggplot(P, aes(x=gdppc, y=Tshare, label=iso3)) + 
-  geom_point() +
-  geom_text_repel(size=3) +
-  # geom_hline(yintercept=1, lty=2) +
-  ylim(0, 1) +
-  xlab('GDP Per Capita') +
-  ylab('Share of Tradables in Consumer Expenditure') +
-  ggtitle(paste0('Tradable Shares and Per Capita \n National Income, ', Y)) +
-  theme_classic()
+source("figs/P.R")
 
 plotP + plotTshare
 
@@ -339,35 +272,9 @@ I combine a variety of data sources on factual freight costs and modes of transp
 
 ```{r freight, echo=FALSE, warning=FALSE, message=FALSE, fig.cap = "Factual versus predicted freight costs \\label{fig:freight}", fig.height=6, dpi=300}
 
-freight <- read_csv("estimation/clean/freight.csv")
-freight$avc <- freight$adv + 1
-freight$cyid <- paste0(freight$j_iso3, "-", freight$year)
+source("figs/freight.R")
 
-delta$cyid <- paste0(delta$j_iso3, "-", delta$year)
-delta$dpred <- delta$avc
-
-fcyid <- freight$cyid
-deltaVal <- delta %>% filter(cyid %in% fcyid)
-
-freight$dobs <- freight$avc
-
-deltaVal <- left_join(deltaVal, freight, by=c("i_iso3", "j_iso3", "year"))
-
-deltaValY <- deltaVal %>% filter(year==Y, !is.na(dobs))
-dvyCHL_NZL <- deltaValY %>% filter(j_iso3 %in% c("NZL", "CHL")) # NZL and CHL observations for out of sample mae
-
-ggplot(deltaValY, aes(x=dobs, y=dpred, label=i_iso3, color=j_iso3)) +
-  geom_point(size=1.5) +
-  geom_text_repel(size=2) +
-  geom_abline(slope=1, lty='dashed') +
-  xlim(1,1.2) +
-  ylim(1,1.2) +
-  scale_colour_tableau("Tableau 20") +
-  ggtitle(paste0('Factual and Predicted Freight Costs, ', Y)) +
-  ylab("Observed") +
-  xlab("Predicted") +
-  guides(color=guide_legend(title="Importer")) +
-  theme_classic()
+freightCV
 
 ```
 
@@ -379,18 +286,9 @@ The results of this exercise reveal substantial unobserved policy barriers to tr
 
 ```{r tcosts, echo=FALSE, warning=FALSE, message=FALSE, fig.cap = "Distribution of freight costs, tariff barriers, and structural policy barriers to trade ($\\tau_{ij}$). Dashed lines show mean of each distribution. \\label{fig:tcosts}", fig.height=5, dpi=300}
 
-CP <- correlates %>% gather(tau, wtar, avc, key="cost_type", value="cost") %>% select(i_iso3, j_iso3, cost_type, cost)
-CP <- CP %>% group_by(cost_type) %>% mutate(meanC=mean(cost)) %>% ungroup()
+source("figs/tcosts.R")
 
-CP$cost_type <- ifelse(CP$cost_type=="tau", "A: Policy Barriers",
-                       ifelse(CP$cost_type=="wtar", "C: Tariffs", "B: Freight Costs"))
-CP <- CP %>% mutate(cost_type=reorder(cost_type, -meanC))
-
-ggplot(CP, aes(x=cost)) +
-  geom_line(stat="density", size=1) +
-  theme_classic() +
-  geom_vline(aes(xintercept=meanC), lty=2) +
-  facet_wrap(~cost_type, scales="free")
+tCostsPlot
 
 ```
 
@@ -400,31 +298,10 @@ International trade is also far from fair. A fair international trading system m
 
 ```{r hm, echo=FALSE, warning=FALSE, message=FALSE, fig.cap = "Distribution of policy barriers to trade. Each cell reports the magnitude of the policy barrier each importing country (y-axis) imposes on every exporting country (x-axis). In the margins are the magnitudes of each country's Trade Restrictivenss Index (TRI) and Market Access Index (MAI), defined in Equations \\ref{eq:tri} and \\ref{eq:mai}, respectively. \\label{fig:hm}", fig.height=6, dpi=300}
 
-ccodes <- tauHMY$i_iso3 %>% unique() %>% setdiff("TRI")
+source("figs/hm.R")
 
-tauHMY$i_iso3 <- factor(tauHMY$i_iso3, levels=c(sort(ccodes), "TRI"))
-tauHMY$j_iso3 <- factor(tauHMY$j_iso3, levels=c(sort(ccodes), "MAI"))
+hm
 
-i_iso3 <- unique(tauHMY$i_iso3)
-j_iso3 <- unique(tauHMY$j_iso3)
-
-x <- seq(0, 1, length = 25)
-hmColors <- tableau_seq_gradient_pal("Orange-Gold")(x)
-
-ggplot(tauHMY, aes(x=i_iso3, y=j_iso3, fill=tau)) +
-  geom_tile(colour="white", width=.9, height=.9) +
-  scale_fill_gradient(low=hmColors[1], high=hmColors[length(hmColors)], trans="log", breaks=c(1, max(tauHMY$tau)), labels=c("Low", "High"), guide="colorbar") +
-  geom_segment(y=length(i_iso3)-.5, yend=length(j_iso3)-.5, x=.5, xend=length(i_iso3)+.5) +
-  geom_segment(y=.5, yend=length(j_iso3)+.5, x=length(i_iso3)-.5, xend=length(i_iso3)-.5) +
-  labs(x='Exporter', y='Importer', title=paste0('Policy Barriers to Trade, ', Y, " (Log Scale)")) +
-  labs(fill="Policy Barrier") +
-  theme_classic() +
-  coord_fixed() +
-  theme(axis.text.x=element_text(angle=60, hjust=1),
-        axis.ticks.y=element_blank(),
-        axis.ticks.x=element_blank(),
-        axis.line.y=element_blank(),
-        axis.line.x=element_blank())
 ```
 
 Figure \ref{fig:hm} shows the distribution of directed policy barriers to trade in the data. The latent trade discrimination implemented by the United States is not unique -- openness varies significantly at the importer-exporter level. Figure \ref{fig:hm} also reports the magnitude of two indices -- a Trade Restrictiveness Index (TRI) and a Market Access Index (MAI) -- that summarize each country's import restrictiveness and international market access conditions, respectively. The TRI is simply a weighted average of the policy barriers an importing country imposes on all other countries, where the weights are the gross tradable expenditures of these other countries.^[I use gross consumption, rather than observed flows, as weights for consistency with the theoretical framework. Trade flows are endogenous to each country's trade policy decisions. In a friction-less world, exporters would capture a constant share of every market's gross expenditure on tradables.]
@@ -439,14 +316,9 @@ Higher values of the TRI correspond to higher aggregate trade restrictiveness. C
 
 ```{r trimai, echo=FALSE, warning=FALSE, message=FALSE, fig.cap = "Trade restrictiveness and market access conditions by country \\label{fig:trimai}", fig.height=6, dpi=300}
 
-ggplot(data=trimaiY, aes(x=TRI, y=MAI, label=iso3)) +
-  geom_point() +
-  geom_text_repel() +
-  xlab('Trade Restrictiveness Index') +
-  ylab('Market Access Index') +
-  ggtitle(paste0('Trade Restrictiveness and Market Access, ', Y)) +
-  coord_fixed() +
-  theme_classic()
+source("figs/trimai.R")
+
+trimaiPlot
 
 ```
 
@@ -464,9 +336,10 @@ I measure aggregate tariff protection with a trade-weighted average of applied t
 
 ```{r correlates, echo=FALSE, warning=FALSE, message=FALSE, results="asis"}
 
-correlatesModel <- lm(tau ~ wtar + pta + core + health_safety + other + j_iso3 + i_iso3, data=correlates)
+source("figs/correlates.R")
 
 stargazer(correlatesModel, header=FALSE, type='latex', omit=c("i_iso3", "j_iso3", "Constant"), omit.stat=c("adj.rsq", "f", "ser"), add.lines = list(c("Importer Fixed Effects", "\\checkmark"), c("Exporter Fixed Effects", "\\checkmark")), dep.var.labels = c("Structural Policy Barrier"), covariate.labels = c("Tariffs", "PTAs", "Core NTM", "Health/Safety NTM", "Other NTM"), title = paste0("Correlates of Structural Policy Barriers, ", Y, "\\label{tab:correlates}"))
+
 ```
 
 The results are shown in Table \ref{tab:correlates}. Estimated policy barriers are positively correlated with observed tariffs. Independently of tariff rate reductions, policy barriers are negatively correlated with the existence of a PTA. This is consistent with PTAs as a tool of "deep liberalization" that reduce trade costs in excess of those imposed by tariffs. In particular, the existence of a PTA is associated with a tariff-equivalent decrease in $\tau_{ij}$ of `r coef(correlatesModel)[3] %>% as.numeric() %>% round(2) * -100` percentage points. Policy barriers show no significant association with any category of NTMs. However, coverage ratios are an extremely coarse measure of the magnitude of NTMs, and the TRAINS data are of imperfect quality [@Kono2008].
@@ -477,15 +350,9 @@ In the introduction, I noted that richer countries tend to have higher policy ba
 
 ```{r maiGdppc, echo=FALSE, warning=FALSE, message=FALSE, fig.cap = "Market access conditions and per capita national income \\label{fig:maiGdppc}", fig.height=5, dpi=300}
 
-ggplot(data=trimaiY, aes(x=gdppc, y=MAI, label=iso3))  +
-  geom_point() +
-  geom_text_repel() +
-  geom_smooth(method='lm', lty=2, se=FALSE) +
-  xlab('GDP Per Capita') +
-  ylab('Market Access Index') +
-  ggtitle(paste0('National Income and Market Access, ', Y)) +
-  theme_classic() +
-  theme(aspect.ratio=1)
+source("figs/maigdppc.R")
+
+maigdppcPlot
 
 ```
 
