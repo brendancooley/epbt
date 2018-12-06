@@ -13,13 +13,16 @@
 ### SETUP ###
 
 rm(list=ls())
-libs <- c('tidyverse', 'latex2exp', 'ggrepel', 'ggthemes', "scales")
-sapply(libs, require, character.only = TRUE)
 
 sourceFiles <- list.files("source/")
 for (i in sourceFiles) {
   source(paste0("source/", i))
 }
+
+# devtools::install_github("timelyportfolio/d3treeR")
+libs <- c('tidyverse', 'latex2exp', 'ggrepel', 'ggthemes', "scales", "treemap", "d3treeR", 
+          "data.tree", "jsonlite", "ggraph", "igraph", "viridis")
+ipak(libs)
 
 # Y <- 2011
 
@@ -81,11 +84,16 @@ Ximp$i_home_expT <- Ximp$i_gcT - Ximp$i_tot_imp
 Ximp <- Ximp %>% select(i_iso3, year, i_home_expT)
 
 X <- left_join(X, Ximp, by=c("i_iso3", "year"))
-X %>% filter(j_iso3=="JPN")
+
+colnames(Ximp) <- c("j_iso3", "year", "j_home_expT")
+
+X <- left_join(X, Ximp, by=c("j_iso3", "year"))
+
 
 # calculate shares of total tradable expenditure
 X$Lji <- X$val / X$j_gcT
 X$Lii <- X$i_home_expT / X$i_gcT
+X$Ljj <- X$j_home_expT / X$j_gcT
 
 # append price indices
 colnames(P) <- c("i_iso3", "year", "Pi")
@@ -133,3 +141,97 @@ colnames(trimai) <- c("iso3", "year", "TRI", "MAI")
 trimaiY <- trimai %>% filter(year==Y)
 
 write_csv(trimaiY, "results/trimaiY.csv")
+
+
+
+
+
+
+
+
+
+
+# https://stackoverflow.com/questions/33644266/visualizing-hierarchical-data-with-circle-packing-in-ggplot2
+Xlambda <- X %>% select(i_iso3, j_iso3, Lji, Ljj, j_gcT) %>% arrange(j_iso3)
+Xlambda$LjiX <- Xlambda$Lji * Xlambda$j_gcT
+Xlambda$ij <- paste0(Xlambda$i_iso3, "-", Xlambda$j_iso3)
+Xlambda %>% filter(LjiX > j_gcT)
+
+# We need a data frame giving a hierarchical structure. Let's consider the flare dataset:
+edges <- Xlambda %>% select(j_iso3, ij)
+colnames(edges) <- c("from", "to")
+
+# Usually we associate another dataset that give information about each node of the dataset:
+Xlambda$j_iso3_2 <- Xlambda$j_iso3
+v1 <- Xlambda %>% select(j_iso3, j_iso3_2, j_gcT) %>% unique()
+colnames(v1) <- c("name", "fill", "share")
+v1$color <- "black"
+v2 <- Xlambda %>% select(ij, i_iso3, LjiX)
+colnames(v2) <- c("name", "fill", "share")
+v2$color <- "black"
+
+vertices <- bind_rows(v1, v2)
+vertices <- vertices %>% add_row(name="origin", share=0, fill="white", color="white")
+
+edgesO <- data.frame("origin", Xlambda$j_iso3)
+colnames(edgesO) <- c("from", "to")
+
+edges <- bind_rows(edges, edgesO)
+
+# Then we have to make a 'graph' object using the igraph library:
+mygraph <- graph_from_data_frame(edges, vertices=vertices)
+
+# Make the plot
+ggraph(mygraph, layout = 'circlepack', weight="share") + 
+  geom_node_circle(aes(fill = as.factor(depth), color = as.factor(depth))) +
+  scale_fill_manual(values=c("0" = "white", "1" = viridis(4)[1], "2" = viridis(4)[2])) +
+  scale_color_manual(values=c("0" = "white", "1" = "black", "2" = "black")) +
+  theme_void()
+
+
+
+
+edges=flare$edges
+
+# Usually we associate another dataset that give information about each node of the dataset:
+vertices = flare$vertices
+
+# Then we have to make a 'graph' object using the igraph library:
+mygraph <- graph_from_data_frame( edges, vertices=vertices )
+
+# Make the plot
+ggraph(mygraph, layout = 'circlepack') + 
+  geom_node_circle() +
+  theme_void()
+
+ggraph(mygraph, layout='dendrogram', circular=TRUE) + 
+  geom_edge_diagonal() +
+  theme_void() +
+  theme(legend.position="none")
+
+ggraph(mygraph, layout='dendrogram', circular=FALSE) + 
+  geom_edge_diagonal() +
+  theme_void() +
+  theme(legend.position="none")
+
+ggraph(mygraph, 'treemap', weight = 'size') + 
+  geom_node_tile(aes(fill = depth), size = 0.25) +
+  theme_void() +
+  theme(legend.position="none")
+
+ggraph(mygraph, 'partition', circular = TRUE) + 
+  geom_node_arc_bar(aes(fill = depth), size = 0.25) +
+  theme_void() +
+  theme(legend.position="none")
+
+ggraph(mygraph) + 
+  geom_edge_link() + 
+  geom_node_point() +
+  theme_void() +
+  theme(legend.position="none")
+
+Xlambda %>% mutate_each_(funs(factor), c("i_iso3", "j_iso3"))
+
+indexList <- c("i_iso3", "j_iso3")
+treeData <- treemap(Xlambda, index=indexList, vSize="LjiX", type="value", fun.aggregate = "sum",
+                    palette = 'RdYlBu')
