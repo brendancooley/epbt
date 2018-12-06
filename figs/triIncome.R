@@ -5,9 +5,9 @@ trimaiY$gdppc <- trimaiY$gdp / trimaiY$pop
 
 # TRI versus GDPPC
 triIncome <- ggplot(data=trimaiY, aes(x=gdppc, y=TRI, label=iso3))  +
+  geom_smooth(method='lm', lty=2, se=FALSE) +
   geom_point() +
   geom_text_repel(size=3) +
-  geom_smooth(method='lm', lty=2, se=FALSE) +
   xlab('GDP Per Capita') +
   ylab('Trade Restrictiveness Index') +
   ggtitle(paste0('National Income and Structural \n Trade Restrictivenesss, ', Y)) +
@@ -22,10 +22,10 @@ trimaiY <- left_join(trimaiY, tarAggYC)
 trimaiY$wtar <- trimaiY$wtar + 1
 
 tarIncome <- ggplot(data=trimaiY, aes(x=gdppc, y=wtar, label=iso3))  +
+  geom_smooth(method='lm', lty=2, se=FALSE) +
   geom_point() +
   geom_text_repel(size=3) +
-  geom_smooth(method='lm', lty=2, se=FALSE) +
   xlab('GDP Per Capita') +
   ylab('Weighted Ad Valorem Tariff Rate') +
-  ggtitle(paste0('National Income and Ad Valorem \n Tariff Rates, ', Y)) +
+  ggtitle(paste0('National Income and Ad Valorem \n Tariff Rates, ', tarYval)) +
   theme_classic()
