@@ -10,7 +10,7 @@ triIncome <- ggplot(data=trimaiY, aes(x=gdppc, y=TRI, label=iso3))  +
   geom_text_repel(size=3) +
   xlab('GDP Per Capita') +
   ylab('Trade Restrictiveness Index') +
-  ggtitle(paste0('National Income and Structural \n Trade Restrictivenesss, ', tarYval)) +
+  ggtitle(paste0('National Income and Structural \n Trade Restrictivenesss, ', Y)) +
   theme_classic()
 
 # Tariffs versus GDPPC
@@ -27,5 +27,5 @@ tarIncome <- ggplot(data=trimaiY, aes(x=gdppc, y=wtar, label=iso3))  +
   geom_text_repel(size=3) +
   xlab('GDP Per Capita') +
   ylab('Weighted Ad Valorem Tariff Rate') +
-  ggtitle(paste0('National Income and Ad Valorem \n Tariff Rates, ', Y)) +
+  ggtitle(paste0('National Income and Ad Valorem \n Tariff Rates, ', tarYval)) +
   theme_classic()
