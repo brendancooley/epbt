@@ -15,7 +15,7 @@ trimaiY <- read_csv("estimation/results/triMaiY.csv")
 
 # global variables
 N <- read_csv("estimation/clean/ccodes.csv") %>% pull(.) %>% length()
-gdpSample <- gdp %>% filter(iso3 != "ROW", year==2005) %>% pull(gdp) %>% sum()
-gdpWorld <- gdp %>% filter(year==2005) %>% pull(gdp) %>% sum()
+gdpSample <- gdp %>% filter(iso3 != "ROW", year==Y) %>% pull(gdp) %>% sum()
+gdpWorld <- gdp %>% filter(year==Y) %>% pull(gdp) %>% sum()
 sigma <- read_csv("estimation/clean/sigma.csv") %>% pull(.)
 sigmaAlt <- read_csv("estimation/clean/sigmaAlt.csv") %>% pull(.)

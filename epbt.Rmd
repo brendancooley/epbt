@@ -6,7 +6,7 @@ abstract: To what extent is international trade free and fair? Because policy ba
 thanks: Ph.D. candidate, Department of Politics, Princeton University. Thanks to Haosen Ge, Helen Milner, Sayumi Miyano, Steve Monroe, Sondre Solstad, Kris Ramsay, Alexandra Zeitz, Grace Zeng for comments on earlier drafts of this paper and helpful discussions.
 # jelcodes: JEL codes go here
 
-bibliography: /Users/bcooley/Dropbox/References/library.bib
+bibliography: /Users/brendancooley/Dropbox/References/library.bib
 biblio-style: apsr
 
 papersize: letter
