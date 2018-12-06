@@ -6,7 +6,7 @@
 #	- "make all" to build files
 #	- "make post" to copy public files to GitHub
 
-path = Users/brendancooley/Dropbox/8_Templates/
+path = Users/bcooley/Dropbox/8_Templates/
 # RDIR = ./estimation
 # RFILES := $(wildcard $(RDIR)/*.R)
 # OUT_FILES := $(RFILES:.R=.Rout)
