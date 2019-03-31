@@ -6,12 +6,13 @@
 #	- "make all" to build files
 #	- "make post" to copy public files to GitHub
 
-path = Users/brendancooley/Dropbox/8_Templates/
+path = Users/brendancooley/Dropbox\ \(Princeton\)/8_Templates/
 # RDIR = ./estimation
 # RFILES := $(wildcard $(RDIR)/*.R)
 # OUT_FILES := $(RFILES:.R=.Rout)
 
 github = ~/GitHub/epbt
+website_docs = ~/Dropbox\ \(Princeton\)/5_CV/website/static/docs
 # github_slides = ~/GitHub/epbt_slides
 Rscripts = estimation/*.R
 
@@ -28,6 +29,9 @@ post:
 	cp -a Makefile $(github);
 	cp -a epbt_slides.pdf $(github);
 	cp -a epbt_handout.pdf $(github);
+	# post to website
+	cp -a epbt.pdf $(website_docs);
+	cp -a epbt_handout.pdf $(website_docs)
 
 
 all: epbt.md epbt.pdf epbt_slides.pdf epbt_handout.pdf

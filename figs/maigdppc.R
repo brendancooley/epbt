@@ -1,3 +1,10 @@
+# trimaiY <- read_csv("results/tauY.csv")
+
+trimaiY <- left_join(trimaiY, gdp)
+trimaiY <- left_join(trimaiY, pop)
+
+trimaiY$gdppc <- trimaiY$gdp / trimaiY$pop
+
 maigdppcPlot <- ggplot(data=trimaiY, aes(x=gdppc, y=MAI, label=iso3))  +
   geom_point() +
   geom_text_repel() +

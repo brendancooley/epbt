@@ -1,3 +1,11 @@
+# source("params.R")
+
+# trimaiY <- read_csv("results/triMaiY.csv")
+# gdp <- read_csv("clean/gdp.csv")
+# pop <- read_csv("clean/pop.csv")
+# tar <- read_csv("clean/tarY.csv")
+
+
 trimaiY <- left_join(trimaiY, gdp)
 trimaiY <- left_join(trimaiY, pop)
 

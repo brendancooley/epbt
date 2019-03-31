@@ -11,6 +11,9 @@ for (i in sourceFiles) {
   source(paste0("source/", i))
 }
 
+source("params.R")
+
+EUD <- TRUE # disaggregate EU?
 startY <- 1995
 endY <- 2011
 
@@ -40,11 +43,15 @@ summary(wiot)
 ccodes <- unique(wiot$col_country)
 
 # aggregate European Union (CHE is Switzerland, HRV is Croatia)
-wiot$col_country <- mapEU(wiot$col_country, wiot$year)
+if (EUD==FALSE) {
+  wiot$col_country <- mapEU(wiot$col_country, wiot$year)
+}
 
 # drop HRV CHE due to limited trade observations, Croatia doesn't join EU until 2013, TWN difficult to map to COMTRADE
 ccodesWIOT <- setdiff(wiot$col_country, c("RoW", "TWN", "HRV", "CHE"))
-ccodesWIOT <- setdiff(ccodesWIOT, EU27)
+if (EUD==FALSE) {
+  ccodesWIOT <- setdiff(ccodesWIOT, EU27)
+}
 
 wiot$col_country <- ifelse(wiot$col_country %in% ccodesWIOT, wiot$col_country, "ROW")
 
@@ -52,7 +59,7 @@ wiot$col_country <- ifelse(wiot$col_country %in% ccodesWIOT, wiot$col_country, "
 gdp <- wiot %>% group_by(col_country, year) %>% filter(row_country=="VA") %>%
   summarise(gdp=sum(value)) %>% ungroup()
 colnames(gdp) <- c("iso3", "year", "gdp")
-gdp %>% filter(year==2011)
+# gdp %>% filter(year==2011)
 
 # calculate gross output
 go <- wiot %>% group_by(col_country, year) %>% filter(row_country=="GO") %>%
@@ -65,7 +72,7 @@ gc <- wiot %>% group_by(col_country, year) %>% filter(row_country=="TOT") %>%
 colnames(gc) <- c("iso3", "year", "gc")
 
 # drop <- setdiff(ccodesOECD, "SGP")  # just Singapore version
-drop <- c()  # all OECD version
+drop <- ccodesDrop  # all OECD version
 include <- setdiff(ccodesOECD, drop)
 
 for (i in seq(startY, endY)) {
@@ -100,7 +107,7 @@ goOECD <- go %>% filter(iso3 %in% ccodesOECD) %>% group_by(year) %>%
 gdp <- left_join(gdp, gdpOECD)
 gdp$gdp <- ifelse(gdp$iso3=="ROW", gdp$gdp - gdp$gdpOECD, gdp$gdp)
 gdp <- gdp %>% select(-one_of(c("gdpOECD")))
-gdp %>% filter(year==2011) %>% print(n=50)
+# gdp %>% filter(year==2011) %>% print(n=50)
 
 gc <- left_join(gc, gcOECD)
 gc$gc <- ifelse(gc$iso3=="ROW", gc$gc - gc$gcOECD, gc$gc)
@@ -118,6 +125,15 @@ goc$deficit <- goc$gc - goc$go
 ccodes <- c(ccodesWIOT, include)
 
 # write to clean dir
-write_csv(ccodes %>% as.data.frame(), paste0(cleandir, "ccodes.csv"))
-write_csv(gc, paste0(cleandir, "gc.csv"))
-write_csv(gdp, paste0(cleandir, "gdp.csv"))
+if (EUD==FALSE) {
+  write_csv(ccodes %>% as.data.frame(), paste0(cleandir, "ccodes.csv"))
+  write_csv(gc, paste0(cleandir, "gc.csv"))
+  write_csv(gdp, paste0(cleandir, "gdp.csv"))
+} else {
+  write_csv(ccodes %>% as.data.frame(), paste0(cleandir, "ccodesEUD.csv"))
+  write_csv(gc, paste0(cleandir, "gcEUD.csv"))
+  write_csv(gdp, paste0(cleandir, "gdpEUD.csv"))
+}
+
+# test <- read_csv("clean/ccodesEUD.csv")
+# test <- read_csv("clean/gcEUD.csv") %>% filter(year==2011)

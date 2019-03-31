@@ -404,6 +404,8 @@ checkwritecsv(mtc, mtcpath)
 ### PROTECTION ###
 
 # tariff barriers
+
+# macmap
 tardir <- paste0(datadir, "tar/")
 mkdir(tardir)
 
@@ -423,6 +425,13 @@ for (i in 1:length(mmap)) {
   file.rename(paste0(tardir, "mmhs2_", y, ".txt"), paste0(tardir, y, ".txt"))
   file.remove(paste0(tardir, "README_MMHS2.txt"))
 }
+
+# unctad tariffs (2011)
+unctad2011url <- "https://www.dropbox.com/s/o1k0rgd3nrm2amt/wtar2011.csv?dl=1"
+unctad2011 <- read_csv(unctad2011url)
+unctad2011 <- unctad2011[seq(1, nrow(unctad2011) - 5), ] # drop trailing rows
+
+write_csv(unctad2011, paste0(tardir, "2011.csv"))
 
 # non tariff measures
 ntmdir <- paste0(datadir, "ntm/")

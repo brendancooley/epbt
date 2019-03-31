@@ -1,6 +1,6 @@
 # setwd('..')
 
-Y <- 2005
+Y <- 2011
 EUntmY <- read_csv("estimation/clean/EUntmY.csv") %>% pull(.)
 tarYval <- read_csv("estimation/clean/tarYval.csv") %>% pull(.)
 
@@ -12,6 +12,9 @@ tar <- read_csv("estimation/clean/tarY.csv")
 correlates <- read_csv("estimation/results/correlates.csv")
 tauHMY <- read_csv("estimation/results/tauHMY.csv")
 trimaiY <- read_csv("estimation/results/triMaiY.csv")
+P <- read_csv("estimation/clean/priceIndex.csv") %>% filter(year==Y)
+freight <- read_csv("estimation/clean/freight.csv")
+
 
 # global variables
 N <- read_csv("estimation/clean/ccodes.csv") %>% pull(.) %>% length()

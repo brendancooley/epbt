@@ -11,7 +11,7 @@ hmColors <- tableau_seq_gradient_pal("Orange-Gold")(x)
 
 hm <- ggplot(tauHMY, aes(x=i_iso3, y=j_iso3, fill=tau)) +
   geom_tile(colour="white", width=.9, height=.9) +
-  scale_fill_gradient(low=hmColors[1], high=hmColors[length(hmColors)], trans="log", breaks=c(1, max(tauHMY$tau)), labels=c("Low", "High"), guide="colorbar") +
+  scale_fill_gradient(low=hmColors[1], high=hmColors[length(hmColors)], trans="log", breaks=c(min(tauHMY$tau), max(tauHMY$tau)), labels=c("Low", "High"), guide="colorbar") +
   geom_segment(y=length(i_iso3)-.5, yend=length(j_iso3)-.5, x=.5, xend=length(i_iso3)+.5) +
   geom_segment(y=.5, yend=length(j_iso3)+.5, x=length(i_iso3)-.5, xend=length(i_iso3)-.5) +
   labs(x='Exporter', y='Importer', title=paste0('Policy Barriers to Trade, ', Y, " (Log Scale)")) +
