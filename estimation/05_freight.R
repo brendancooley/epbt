@@ -20,7 +20,7 @@ for (i in sourceFiles) {
   source(paste0(sourcePath, "/", i))
 }
 
-EUD <- TRUE # disaggregate EU?
+EUD <- FALSE # disaggregate EU?
 
 # variable search for calling locally or from Rmd
 wd <- getwd()
@@ -56,8 +56,9 @@ flows$avcsea <- ifelse(flows$avcsea > thres, NA, flows$avcsea)
 flows$avcland <- ifelse(flows$avcland > thres, NA, flows$avcland)
 flows$avcair <- ifelse(flows$avcair > thres, NA, flows$avcair)
 
-# drop ROW
-flows <- flows %>% filter(i_iso3 != "ROW" & j_iso3 != "ROW")
+# drop ROW (don't want to do this because we need this as part of output)
+# just estimate with weighted average of distances
+# flows <- flows %>% filter(i_iso3 != "ROW" & j_iso3 != "ROW")
 # flows %>% filter(j_iso3=="AUS") %>% print(n=100)
 
 ### island indicator
@@ -210,7 +211,7 @@ if (runPreds == TRUE) {
   print("done")
 }
 
-delta %>% filter(j_iso3=="IRL", year==2011) %>% print(n=50)
+# delta %>% filter(j_iso3=="IRL", year==2011) %>% print(n=50)
 
 ### DIAGNOSTICS ###
 
