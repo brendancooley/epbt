@@ -1,7 +1,7 @@
-library(tidyverse)
+# library(tidyverse)
 
-shares <- read_csv("clean/shares.csv")
-source("params.R")
+# shares <- read_csv("clean/shares.csv")
+# source("params.R")
 
 sharesH <- shares %>% select(j_iso3, year, Ljj, j_gcT) %>% unique()
 sharesH$i_iso3 <- sharesH$j_iso3
@@ -33,13 +33,13 @@ sharesA$j_iso3 <- fct_reorder(sharesA$j_iso3, sharesA$j_gcT)
 sharesA$i_iso3 <- fct_reorder(sharesA$i_iso3, sharesA$i_gcT)
 
 subtF <- "Orange bars depict proportion of tradable expenditure spent on goods produced locally."
-sharesF <- ggplot(data=sharesA, aes(x=j_iso3, y=Lji, fill=interaction(i_iso3, j_iso3))) +
-  geom_bar(stat="identity", width=.75, color="white") +
-  scale_fill_manual(values=sharesA$color) +
-  coord_flip() +
-  labs(y="Market Share", x="Importer", title=paste("Home Bias in Consumption,", Y), subtitle=subtF) +
-  theme_classic() +
-  guides(fill=FALSE)
+# sharesF <- ggplot(data=sharesA, aes(x=j_iso3, y=Lji, fill=interaction(i_iso3, j_iso3))) +
+#   geom_bar(stat="identity", width=.75, color="white") +
+#   scale_fill_manual(values=sharesA$color) +
+#   coord_flip() +
+#   labs(y="Market Share", x="Importer", title=paste("Home Bias in Consumption,", Y), subtitle=subtF) +
+#   theme_classic() +
+#   guides(fill=FALSE)
 
 ### COUNTERFACTUAL EXPENDITURE SHARES ##
 
@@ -47,13 +47,13 @@ worldGDP <- sharesH$j_gcT %>% sum(na.rm=T)
 sharesA$LjiCF <- sharesA$i_gcT / worldGDP
 
 subtCF <- "Orange bars depict proportion of tradable expenditure spent on goods produced locally."
-sharesCF <- ggplot(data=sharesA, aes(x=j_iso3, y=LjiCF, fill=interaction(i_iso3, j_iso3))) +
-  geom_bar(stat="identity", width=.75, color="white") +
-  scale_fill_manual(values=sharesA$color) +
-  coord_flip() +
-  labs(y="Market Share", x="Importer", title="Counterfactual Baseline", subtitle=subtCF) +
-  theme_classic() +
-  guides(fill=FALSE)
+# sharesCF <- ggplot(data=sharesA, aes(x=j_iso3, y=LjiCF, fill=interaction(i_iso3, j_iso3))) +
+#   geom_bar(stat="identity", width=.75, color="white") +
+#   scale_fill_manual(values=sharesA$color) +
+#   coord_flip() +
+#   labs(y="Market Share", x="Importer", title="Counterfactual Baseline", subtitle=subtCF) +
+#   theme_classic() +
+#   guides(fill=FALSE)
 
 
 

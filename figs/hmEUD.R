@@ -35,7 +35,8 @@ i_iso3 <- unique(hmEU$i_iso3)
 j_iso3 <- unique(hmEU$j_iso3)
 
 x <- seq(0, 1, length = 25)
-hmColors <- tableau_seq_gradient_pal("Orange-Gold")(x)
+# hmColors <- tableau_seq_gradient_pal("Orange-Gold")(x)
+hmColors <- colorRampPalette(c("white", "#BD6121"))(10)
 
 # how does distribution of log barriers look?
 # tauHMYEUD$tau_log <- log(tauHMYEUD$tau)

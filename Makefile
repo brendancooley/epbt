@@ -27,14 +27,24 @@ post:
 	mkdir -p $(github)/figure/;
 	cp -a figure/ $(github)/figure/;
 	cp -a Makefile $(github);
-	cp -a epbt_slides.pdf $(github);
-	cp -a epbt_handout.pdf $(github);
+	# slides
+	mkdir -p $(github)/index_files/;
+	cp -a index_files/ $(github)/index_files/;
+	mkdir -p $(github)/figure/;
+	cp -a figure/ $(github)/figure/;
+	cp -a cooley-reveal.html $(github);
+	cp -a plugins.html $(github);
+	mkdir -p $(github)/css/;
+	cp -a css/ $(github)/css/;
+	cp -a epbt_slides.Rmd index.html $(github);
+# 	cp -a epbt_slides.pdf $(github);
+# 	cp -a epbt_handout.pdf $(github);
 	# post to website
 	cp -a epbt.pdf $(website_docs);
-	cp -a epbt_handout.pdf $(website_docs)
+# 	cp -a epbt_handout.pdf $(website_docs)
 
 
-all: epbt.md epbt.pdf epbt_slides.pdf epbt_handout.pdf
+all: epbt.md epbt.pdf index.html
 	# $(OUT_FILES)
 
 # theta: estimation/1_theta.R 
@@ -65,18 +75,21 @@ epbt.pdf: epbt.md
 # epbt_slides.html: epbt_slides.md
 # 	reveal-md epbt_slides.md --static epbt_slides
 
-epbt_slides.md: epbt_slides.Rmd
-	R --slave -e "set.seed(100);knitr::knit('$<')"
+index.html: epbt_slides.Rmd
+	R --slave -e "rmarkdown::render('epbt_slides.Rmd',output_file='index.html')"
 
-epbt_slides.pdf: epbt_slides.md
-	pandoc -t beamer --template=/$(path)$/cooley-latex-beamer.tex --slide-level 2 \
-	--filter pandoc-citeproc \
-	epbt_slides.md -o epbt_slides.pdf
+# epbt_slides.md: epbt_slides.Rmd
+# 	R --slave -e "set.seed(100);knitr::knit('$<')"
 
-epbt_handout.pdf: epbt_slides.md
-	pandoc -t beamer --template=/$(path)$/cooley-latex-beamer-handout.tex --slide-level 2 \
-	--filter pandoc-citeproc \
-	epbt_slides.md -o epbt_handout.pdf
+# epbt_slides.pdf: epbt_slides.md
+# 	pandoc -t beamer --template=/$(path)$/cooley-latex-beamer.tex --slide-level 2 \
+# 	--filter pandoc-citeproc \
+# 	epbt_slides.md -o epbt_slides.pdf
+
+# epbt_handout.pdf: epbt_slides.md
+# 	pandoc -t beamer --template=/$(path)$/cooley-latex-beamer-handout.tex --slide-level 2 \
+# 	--filter pandoc-citeproc \
+# 	epbt_slides.md -o epbt_handout.pdf
 
 clean:
 	rm -fv $(OUT_FILES) 

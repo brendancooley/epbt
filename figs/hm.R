@@ -1,3 +1,7 @@
+# library(tidyverse)
+# tauHMY <- read_csv("results/tauHMY.csv")
+# source("params.R")
+
 ccodes <- tauHMY$i_iso3 %>% unique() %>% setdiff("TRI")
 
 tauHMY$i_iso3 <- factor(tauHMY$i_iso3, levels=c(sort(ccodes), "TRI"))
@@ -7,7 +11,8 @@ i_iso3 <- unique(tauHMY$i_iso3)
 j_iso3 <- unique(tauHMY$j_iso3)
 
 x <- seq(0, 1, length = 25)
-hmColors <- tableau_seq_gradient_pal("Orange-Gold")(x)
+# hmColors <- tableau_seq_gradient_pal("Orange-Gold")(x)
+hmColors <- colorRampPalette(c("white", "#BD6121"))(10)
 
 hm <- ggplot(tauHMY, aes(x=i_iso3, y=j_iso3, fill=tau)) +
   geom_tile(colour="white", width=.9, height=.9) +
