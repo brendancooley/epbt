@@ -31,6 +31,7 @@ output:
 # TODO: nested bulleted lists disappear after compilation, fine when knitting
 
 # NOTE: need to set self_contained: false and ship accompanying files with index.html to website.
+# Then make sure to publish page on Github settings
 
 # image credit: https://www.photolib.noaa.gov/htmls/ship2059.htm
 # Strait of Gibraltar
@@ -290,7 +291,7 @@ tCostsPlot
 
 ## Results (Variance) {id="variance"}
 
-```{r hm, echo=FALSE, warning=FALSE, message=FALSE, fig.height=5.5, dpi=300}
+```{r hm, echo=FALSE, warning=FALSE, message=FALSE, fig.height=5, dpi=300}
 
 tauHMY <- read_csv("estimation/results/tauHMY.csv")
 source("figs/hm.R")
@@ -320,17 +321,13 @@ stargazer(correlatesModel, header=FALSE, type='html', omit=c("i_iso3", "j_iso3",
 - Developing (more autocratic) world not necessarily more "welfare-concious" than developed counterparts
   + @Milner2005, @Gawande2009; @Gawande2015
 
-\pause
-
 **Development and Trade Discrimination**
 
 - Growth causally linked to market access conditions abroad [@Romalis2007]
 - Lack of market access by developing countries may hinder development prospects
   + @Redding2004, @Romalis2007, @Waugh2010
 
-\pause
-
-*International trading system neither free nor fair -- and developing world bears brunt of inequality*
+<a href="#/tri" style="float: right;">TRI, MAI</a>
 
 ## Thank You {.center}
 
@@ -367,6 +364,8 @@ $$
 E_i^q = \nu_i I_i + D_i = P_i Q_i^\star
 $$
 
+<a href="#/moverview" style="float: right;">Back</a>
+
 ## Model (Production)
 
 **Costs**
@@ -395,6 +394,8 @@ $$
 F_i(z) = \text{Pr} \left\{ z_i(\omega) \leq z \right\} = \exp \left\{ - T_i z^{-\theta} \right\}
 $$
 
+<a href="#/moverview" style="float: right;">Back</a>
+
 ## Model (Equilibrium)
 
 **Total Expenditure on Tradables**
@@ -413,15 +414,11 @@ $$
 \lambda_{ij}(\boldsymbol{w}) = \frac{1}{E_i} \int_{\Omega_{ij}^\star} p_{ij}(\omega) q_i \left( p_{ij} (\omega) \right) d \omega
 $$
 
-
 **Market Clearing**
 
 $$
 X_i = \sum_{j=1}^N \lambda_{ji}(\boldsymbol{w}) E_j
 $$
-
-
-**Definition:** An *international equilibrium* is a vector of wages $\boldsymbol{w}$ such that Equations \ref{eq:tIncome}, \ref{eq:lambda}, and \ref{eq:marketClearing} hold for all $i \in \left\{1, ..., N \right\}$.
 
 <a href="#/moverview" style="float: right;">Back</a>
 
@@ -483,7 +480,7 @@ $$
 
 ## Prices (Data)
 
-```{r prices, echo=FALSE, warning=FALSE, message=FALSE, fig.height=5.5, dpi=300}
+```{r prices, echo=FALSE, warning=FALSE, message=FALSE, fig.height=5, dpi=300}
 
 P <- read_csv("estimation/clean/priceIndex.csv")
 
@@ -520,7 +517,7 @@ $$
 
 ## Freight Costs (Cross Validation)
 
-```{r freightCV, echo=FALSE, warning=FALSE, message=FALSE, fig.height=5.5, dpi=300}
+```{r freightCV, echo=FALSE, warning=FALSE, message=FALSE, fig.height=5, dpi=300}
 
 freight <- read_csv("estimation/clean/freight.csv")
 delta <- read_csv("estimation/clean/delta.csv")
@@ -535,7 +532,7 @@ freightCV + theme(aspect.ratio=1)
 
 ## EU Placebo {id="euPlacebo"}
 
-```{r hmEUPlot, echo=FALSE, warning=FALSE, message=FALSE, fig.height=5.5, dpi=300}
+```{r hmEUPlot, echo=FALSE, warning=FALSE, message=FALSE, fig.height=5, dpi=300}
 
 tauHMYEUD <- read_csv("estimation/results/tauHMYEUD.csv")
 
@@ -546,5 +543,45 @@ hmEUPlot
 ```
 
 <a href="#/variance" style="float: right;">Back</a>
+
+## Trade Restrictiveness and Market Access (I) {id="tri"}
+
+**Trade Restrictiveness Index**
+
+$$
+\text{TRI}_i = \frac{1}{\sum_{j \neq i} E_j} \sum_{j \neq i} \tau_{ij} E_j
+$$
+
+**Market Access Index**
+
+$$
+\text{MAI}_j = \frac{1}{\sum_{i \neq j} E_i} \sum_{i \neq j} \tau_{ij} E_i
+$$
+
+<a href="#/conclusion" style="float: right;">Back</a>
+
+## Trade Restrictiveness and Market Access (II)
+
+```{r trimai, echo=FALSE, warning=FALSE, message=FALSE, fig.height=6, dpi=300}
+
+source("figs/trimai.R")
+
+trimaiPlot
+
+```
+
+<a href="#/conclusion" style="float: right;">Back</a>
+
+## Market Access Barriers
+
+```{r maigdppc, echo=FALSE, warning=FALSE, message=FALSE, fig.height=6, dpi=300}
+
+source("figs/maigdppc.R")
+
+maigdppcPlot
+
+```
+
+<a href="#/conclusion" style="float: right;">Back</a>
 
 <hr style="height:30em; visibility:hidden;" />
