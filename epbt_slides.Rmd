@@ -562,7 +562,7 @@ $$
 
 ## Trade Restrictiveness and Market Access (II)
 
-```{r trimai, echo=FALSE, warning=FALSE, message=FALSE, fig.height=6, dpi=300}
+```{r trimai, echo=FALSE, warning=FALSE, message=FALSE, fig.height=5, dpi=300}
 
 source("figs/trimai.R")
 
@@ -574,7 +574,7 @@ trimaiPlot
 
 ## Market Access Barriers
 
-```{r maigdppc, echo=FALSE, warning=FALSE, message=FALSE, fig.height=6, dpi=300}
+```{r maigdppc, echo=FALSE, warning=FALSE, message=FALSE, fig.height=5, dpi=300}
 
 source("figs/maigdppc.R")
 
