@@ -13,7 +13,7 @@ trimaiY$gdppc <- trimaiY$gdp / trimaiY$pop
 
 # TRI versus GDPPC
 triIncome <- ggplot(data=trimaiY, aes(x=gdppc, y=TRI, label=iso3))  +
-  geom_smooth(method='lm', lty=2, se=FALSE) +
+  geom_smooth(method='lm', lty=2, se=FALSE, color=bcOrange, size=.75) +
   geom_point() +
   geom_text_repel(size=3) +
   xlab('GDP Per Capita') +
@@ -30,7 +30,7 @@ trimaiY <- left_join(trimaiY, tarAggYC)
 trimaiY$wtar <- trimaiY$wtar + 1
 
 tarIncome <- ggplot(data=trimaiY, aes(x=gdppc, y=wtar, label=iso3))  +
-  geom_smooth(method='lm', lty=2, se=FALSE) +
+  geom_smooth(method='lm', lty=2, se=FALSE, color=bcOrange, size=.75) +
   geom_point() +
   geom_text_repel(size=3) +
   xlab('GDP Per Capita') +

@@ -21,7 +21,7 @@ source("params.R")
 # Basic Headings or Analytical Categories?
 BH <- TRUE
 
-EUD <- TRUE # disaggregate EU?
+EUD <- FALSE # disaggregate EU?
 
 if (EUD==FALSE) {
   ccodes <- read_csv("clean/ccodes.csv") %>% pull(.)
@@ -175,7 +175,7 @@ if (BH == FALSE) {
   icpBHA <- icpBH
   
   if(EUD==FALSE) {
-    icpBHA$ccode <- mapEU(icpBHA$ccode, rep(2011, nrow(icpBHeu)))
+    icpBHA$ccode <- mapEU(icpBHA$ccode, rep(2011, nrow(icpBHA)))
   }
   
   icpG <- icpBHA %>% group_by(ccode) %>%

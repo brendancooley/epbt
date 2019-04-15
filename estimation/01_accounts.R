@@ -48,7 +48,8 @@ if (EUD==FALSE) {
 }
 
 # drop HRV CHE due to limited trade observations, Croatia doesn't join EU until 2013, TWN difficult to map to COMTRADE
-ccodesWIOT <- setdiff(wiot$col_country, c("RoW", "TWN", "HRV", "CHE"))
+# Also drop Malta due to inconsistencies between trade and national accounts data
+ccodesWIOT <- setdiff(wiot$col_country, c("RoW", "TWN", "HRV", "CHE", "MLT"))
 if (EUD==FALSE) {
   ccodesWIOT <- setdiff(ccodesWIOT, EU27)
 }
