@@ -16,6 +16,7 @@ ccodes <- unique(tauHMYEUD$i_iso3)
 # ccodesNEU <- setdiff(ccodes, EU27)
 
 eucu <- c(EU27, "TUR") %>% sort()
+eucuS <- eucu[eucu %in% ccodes]
 nafta <- c("CAN", "MEX", "USA")
 asean <- c("IDN", "MYS", "PHL", "SGP", "THA", "VNM")
 
@@ -56,7 +57,7 @@ strokeSize <- 1
 hmEUPlot <- ggplot(hmEU, aes(x=i_iso3, y=j_iso3, fill=tau)) +
   geom_tile(colour="white", width=.9, height=.9) +
   scale_fill_gradient(low=hmColors[1], high=hmColors[length(hmColors)], trans="log", breaks=c(min(hmEU$tau), max(hmEU$tau)), labels=c("Low", "High"), guide="colorbar") +
-  annotate("segment", x=length(eucu)-.5, xend=length(eucu)-.5, y=.5, yend=length(eucu)-.5, size=strokeSize) +
+  annotate("segment", x=length(eucuS)+.5, xend=length(eucuS)+.5, y=.5, yend=length(eucuS)+.5, size=strokeSize) +
   labs(x='Exporter', y='Importer', title=paste0('EU Country-Level Policy Barriers, ', Y, " (Log Scale)")) +
   labs(fill="Policy Barrier") +
   theme_classic() +
