@@ -1,7 +1,7 @@
 ---
 title: Estimating Policy Barriers to Trade
 author: Brendan Cooley
-date: 15 April 2019
+date: 25 April 2019
 abstract: To what extent is international trade free and fair? Because policy barriers to trade are often opaque and take on many forms, it is difficult to answer this question while relying on data on observable trade barriers. Here, I propose and implement a structural approach to estimating the magnitude of policy barriers to trade, measured at the trade partner level. The method allows for the possibility that these barriers are both *asymmetric* and *discriminatory*, affecting certain trade partners disproportionately. The approach reveals substantial latent policy barriers to trade, many times larger than observed tariffs. It also implies substantial effective policy discrimination, with exporters in subset of favored countries enjoying far superior market access conditions than their peers in unfavored countries. Combined, these results suggest that the existing world trading system remains far from a free and fair ideal.
 thanks: Ph.D. candidate, Department of Politics, Princeton University. Princeton's Research Program in Political Economy provided financial support for this research. The World Bank's International Comparison Program kindly shared data. Thanks to Haosen Ge, Gene Grossman, Marco Martini, Helen Milner, Sayumi Miyano, Steve Monroe, Sondre Solstad, Kris Ramsay, Steve Redding, Alexandra Zeitz, Grace Zeng for comments on earlier drafts of this paper, as well as an audience at the Princeton Political Economy Graduate Colloquium.
 # jelcodes: JEL codes go here
@@ -239,7 +239,7 @@ If the trade elasticity is known, data on trade shares, relative prices, and fre
 
 
 
-I present results from a calibration on a set of 24 of the world's largest economies in 2011.^[The list of the economies in the sample is included in the Appendix.] These in-sample countries collectively made up 87 percent of world GDP. I treat the rest of the world as an aggregate outside economy. The calibration requires me to take a stance on two structural parameters, the Frechet parameter $\theta$ and the consumers' elasticity of substitution $\sigma$. I set $\sigma - 1 = \theta =$ 5, in line with the estimates from the structural gravity literature [@Head2014].
+I present results from a calibration on a set of 24 of the world's largest economies in 2011.^[The list of the economies in the sample is included in the Appendix.] These in-sample countries collectively made up 87 percent of world GDP. I treat the rest of the world as an aggregate outside economy. The calibration requires me to take a stance on two structural parameters, the Frechet parameter $\theta$ and the consumers' elasticity of substitution $\sigma$. I set $\sigma - 1 = \theta =$ 6, in line with the estimates from the structural gravity literature [@Head2014].
 
 ## Prices and Consumer Expenditures
 
@@ -255,20 +255,24 @@ If the elasticity of substitution and the vector $\bm{\alpha} = \left\{ \alpha_0
 
 ![Price indices and tradable expenditure shares \label{fig:P}](figure/P-1.png)
 
-I plot the distribution of price indices and tradable expenditure shares on tradables that emerge from this procedure against per capita GDPs in Figure \ref{fig:P}. Within my sample, consumers in wealthier countries tend to face higher prices. The total share of consumer expenditure on tradable goods $(\sum_{k=0}^{K-1} x_{ik})$ is the empirical analogue to $\nu_i$. On average, consumers spend 38 percent of their income on tradable goods.
+I plot the distribution of price indices and tradable expenditure shares on tradables that emerge from this procedure against per capita GDPs in Figure \ref{fig:P}. Within my sample, consumers in wealthier countries tend to face higher prices. The total share of consumer expenditure on tradable goods $(\sum_{k=0}^{K-1} x_{ik})$ is the empirical analogue to $\nu_i$. On average, consumers spend 40 percent of their income on tradable goods.
 
 ## Expenditure Shares
 
-The theory makes predictions about the share of consumer expenditure that will be devoted to products from each country. In the data, however, I only observe the value of imports *at the border*. Price distortions due to policy barriers to trade are not included in the valuations of shipments. Let $\lambda_{ij}^{\text{cif}}$ denote the share of $i$'s expenditure on tradables spent on goods from $j$, inclusive of freight rates and exclusive of policy barriers. We can then write $\lambda_{ij} = \tau_{ij} \lambda_{ij}^{\text{cif}}$.^[While tariffs are usually assessed on the f.o.b. value of shipments, non-tariff barriers cannot be tailored in this manner. For this reason, I assume the costs of policy barriers are assessed on shipments' c.i.f. values.] Substituting this relationship into \ref{eq:tau} gives a modified equation relating observed trade flows, prices, and freight rates to unobserved policy barriers to trade
+The theory makes predictions about the share of consumer expenditure that will be devoted to products from each country. In the data, however, I only observe the value of imports *at the border*. Price distortions due to policy barriers to trade are not included in the valuations of shipments. Let $\lambda_{ij}^{\text{cif}}$ denote the share of $i$'s expenditure on tradables spent on goods from $j$, inclusive of freight rates and exclusive of policy barriers.^[While tariffs are usually assessed on the f.o.b. value of shipments, non-tariff barriers cannot be tailored in this manner. For this reason, I assume the costs of policy barriers are assessed on shipments' c.i.f. values.] We can then write $\lambda_{ij} = \tau_{ij} \lambda_{ij}^{\text{cif}}$ and 
+\begin{equation} \label{eq:lambda_jj}
+\lambda_{jj}(\bm{\tau}_j) = \left( 1 - \sum_{i \neq j} \tau_{ji} \lambda_{ji}^{\text{cif}} \right)
+\end{equation}
+This formulation requires that policy barriers to trade are assessed "behind the border," as discussed in the introduction.
+
+Substituting this relationship into \ref{eq:tau} gives a modified equation relating observed trade flows, prices, and freight rates to unobserved policy barriers to trade
 \begin{equation} \label{eq:tauCIF}
-\tau_{ij} = \left( \frac{\lambda_{ij}^{\text{cif}}}{\lambda_{jj}} \right)^{-\frac{1}{\theta + 1}} \left( \frac{P_i}{P_j} \right)^{\frac{\theta}{\theta+1}} \left( \frac{1}{\delta_{ij}(\bm{Z}_{ij})} \right)^{\frac{\theta}{\theta+1}}
+\tau_{ij} = \left( \frac{\lambda_{ij}^{\text{cif}}}{\lambda_{jj}(\bm{\tau}_j)} \right)^{-\frac{1}{\theta + 1}} \left( \frac{P_i}{P_j} \right)^{\frac{\theta}{\theta+1}} \left( \frac{1}{\delta_{ij}(\bm{Z}_{ij})} \right)^{\frac{\theta}{\theta+1}}
 \end{equation}
 
-Then, to calculate $\lambda_{ij}^{\text{cif}}$ and $\lambda_{jj}$, I need data on international trade flows as well as the market share of domestic tradables producers in their home market. Data on trade flows comes from the United Nations' [COMTRADE](https://comtrade.un.org/db/default.aspx), cleaned and harmonized by [CEPII](http://www.cepii.fr/CEPII/en/welcome.asp)'s [BACI](http://www.cepii.fr/cepii/en/bdd_modele/presentation.asp?id=1). BACI denominates trade flows in f.o.b. value, so predicted c.i.f. values can be calculated simply by multiplying these flows by $\delta_{ij}$, estimated below. Total domestic consumption on tradables can then be inferred from national accounts data, which report gross output, gross consumption, and GDP.^[Gross consumption includes consumer final expenditure as well as producers' expenditure on intermediates and is inclusive of trade deficits.] I simply subtract the share of consumer expenditure on services implied by the ICP data from each country's gross consumption, which provides a measure of gross consumption on tradables, the empirical analogue to $E_i = \nu_i I_i$. These national accounts data are taken from the [World Input Output Database (WIOD)](http://www.wiod.org/home) and the [OECD's National Input Output Tables](https://stats.oecd.org/Index.aspx?DataSetCode=IOTS). The share of domestic tradables producers of their home market is
-$$
-\lambda_{jj} = \left( 1 - \sum_{i \neq j} \lambda_{ji}^{\text{cif}} \right)
-$$
-or total expenditures minus imports.
+Then, to calculate $\lambda_{ij}^{\text{cif}}$ and $\lambda_{jj}$, I need data on international trade flows as well as the market share of domestic tradables producers in their home market. Data on trade flows comes from the United Nations' [COMTRADE](https://comtrade.un.org/db/default.aspx), cleaned and harmonized by [CEPII](http://www.cepii.fr/CEPII/en/welcome.asp)'s [BACI](http://www.cepii.fr/cepii/en/bdd_modele/presentation.asp?id=1). BACI denominates trade flows in f.o.b. value, so predicted c.i.f. values can be calculated simply by multiplying these flows by $\delta_{ij}$, estimated below. Total domestic consumption on tradables can then be inferred from national accounts data, which report gross output, gross consumption, and GDP.^[Gross consumption includes consumer final expenditure as well as producers' expenditure on intermediates and is inclusive of trade deficits.] I simply subtract the share of consumer expenditure on services implied by the ICP data from each country's gross consumption, which provides a measure of gross consumption on tradables, the empirical analogue to $E_i = \nu_i I_i$. These national accounts data are taken from the [World Input Output Database (WIOD)](http://www.wiod.org/home) and the [OECD's National Input Output Tables](https://stats.oecd.org/Index.aspx?DataSetCode=IOTS). 
+
+Note that implicit domestic consumption in Equation \ref{eq:lambda_jj} depends on the magnitude of policy barriers to trade. This is because consumers' expenditure on foreign goods inclusive of policy barriers is greater than the value of these purchases observed at the border. Because $\lambda_{jj}(\bm{\tau}_j)$ is a decreasing function, a unique solution to Equation \ref{eq:tauCIF} is guaranteed to exist, so I simply iterate on the values of $\bm{\tau}$ and $\bm{\lambda}$ until convergence.
 
 ## Freight Costs
 
@@ -283,13 +287,13 @@ Figure \ref{fig:freight} depicts factual and predicted freight costs for the Uni
 
 
 
-The results of this exercise reveal substantial unobserved policy barriers to trade. In 2011, across all in-sample markets, exporters faced an average $\tau$ of 3.01, equivalent to a 201 percent import tariff.^[Of course, this result is sensitive to my stance on the trade elasticity. Doubling the trade elasticity to 9 cuts the average $\tau$ in half to 1.88] The magnitude of these barriers dwarfs that of applied aggregate tariffs, which average only 4 percent within my sample. This result is consistent with @Anderson2003, @Bradford2003, @deSousa2012, and @Waugh2016 which also uncover large implied trade costs using indirect measurement methods. Figure \ref{fig:tcosts} shows the distribution of implied policy barriers (panel A), relative to tariffs and predicted freight costs. 
+The results of this exercise reveal substantial unobserved policy barriers to trade. In 2011, across all in-sample markets, exporters faced an average $\tau$ of 2.56, equivalent to a 156 percent import tariff.^[Of course, this result is sensitive to my stance on the trade elasticity. Doubling the trade elasticity to 12 cuts the average $\tau$ in half to 1.71] The magnitude of these barriers dwarfs that of applied aggregate tariffs, which average only 4 percent within my sample. This result is consistent with @Anderson2003, @Bradford2003, @deSousa2012, and @Waugh2016 which also uncover large implied trade costs using indirect measurement methods. Figure \ref{fig:tcosts} shows the distribution of implied policy barriers (panel A), relative to tariffs and predicted freight costs. 
 
 ![Distribution of freight costs, tariff barriers, and structural policy barriers to trade ($\tau_{ij}$). Dashed lines show mean of each distribution. \label{fig:tcosts}](figure/tcosts-1.png)
 
 The model and data jointly suggest that international trade remains far from free, even taking into account unavoidable freight costs. Returning to Equation \ref{eq:tau}, this result suggests that the observed international price gaps and trade flows are inconsistent with a trade barrier-less world, given predicted freight costs. The model suggests that if implied policy barriers were removed, some combination of increases in trade flows and the reduction of price gaps would occur. 
 
-International trade is also far from fair. A fair international trading system might allow for trade restrictions, but require that these restrictions affect all trading partners equally. In fact, policy barriers to trade are quite discriminatory. In 2011, the mean within-country standard deviation of $\tau_{ij}$ is 1.36, representing a significant preferential margin for preferred trade partners. For example, in 2011, U.S. trade with Canada ($\tau_{ij} =$ 1.49), Japan (1.59), and the European Union (1.53) was relatively unhindered. Conversely, U.S. trade with Peru (4.13) and Vietnam (5.27) was highly restricted. 
+International trade is also far from fair. A fair international trading system might allow for trade restrictions, but require that these restrictions affect all trading partners equally. In fact, policy barriers to trade are quite discriminatory. In 2011, the mean within-country standard deviation of $\tau_{ij}$ is 1.13, representing a significant preferential margin for preferred trade partners. For example, in 2011, U.S. trade with Canada ($\tau_{ij} =$ 1.32), Japan (1.36), and the European Union (1.37) was relatively unhindered. Conversely, U.S. trade with Peru (3.35) and Vietnam (4.53) was highly restricted. 
 
 ![Distribution of policy barriers to trade. Each cell reports the magnitude of the policy barrier each importing country (y-axis) imposes on every exporting country (x-axis). In the margins are the magnitudes of each country's Trade Restrictivenss Index (TRI) and Market Access Index (MAI), defined in Equations \ref{eq:tri} and \ref{eq:mai}, respectively. \label{fig:hm}](figure/hm-1.png)
 
@@ -328,33 +332,33 @@ I measure aggregate tariff protection with a trade-weighted average of applied t
 \cline{2-2} 
 \\[-1.8ex] & Structural Policy Barrier \\ 
 \hline \\[-1.8ex] 
- Tariffs & 1.791$^{**}$ \\ 
-  & (0.887) \\ 
+ Tariffs & 0.947 \\ 
+  & (0.694) \\ 
   & \\ 
- PTAs & $-$0.517$^{***}$ \\ 
-  & (0.093) \\ 
+ PTAs & $-$0.367$^{***}$ \\ 
+  & (0.076) \\ 
   & \\ 
- Core NTM & 0.181 \\ 
-  & (0.249) \\ 
+ Core NTM & 0.174 \\ 
+  & (0.199) \\ 
   & \\ 
- Health/Safety NTM & 0.368 \\ 
-  & (0.229) \\ 
+ Health/Safety NTM & 0.202 \\ 
+  & (0.184) \\ 
   & \\ 
- Other NTM & $-$0.465 \\ 
-  & (0.311) \\ 
+ Other NTM & $-$0.240 \\ 
+  & (0.252) \\ 
   & \\ 
 \hline \\[-1.8ex] 
 Importer Fixed Effects & \checkmark \\ 
 Exporter Fixed Effects & \checkmark \\ 
-Observations & 440 \\ 
-R$^{2}$ & 0.858 \\ 
+Observations & 361 \\ 
+R$^{2}$ & 0.892 \\ 
 \hline 
 \hline \\[-1.8ex] 
 \textit{Note:}  & \multicolumn{1}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
 \end{tabular} 
 \end{table} 
 
-The results are shown in Table \ref{tab:correlates}. Estimated policy barriers are positively correlated with observed tariffs. Independently of tariff rate reductions, policy barriers are negatively correlated with the existence of a PTA. This is consistent with PTAs as a tool of "deep liberalization" that reduce trade costs in excess of those imposed by tariffs. In particular, the existence of a PTA is associated with a tariff-equivalent decrease in $\tau_{ij}$ of 52 percentage points. Policy barriers show no significant association with any category of NTMs. However, coverage ratios are an extremely coarse measure of the magnitude of NTMs, and the TRAINS data are of imperfect quality [@Kono2008].
+The results are shown in Table \ref{tab:correlates}. Estimated policy barriers are positively correlated with observed tariffs. Independently of tariff rate reductions, policy barriers are negatively correlated with the existence of a PTA. This is consistent with PTAs as a tool of "deep liberalization" that reduce trade costs in excess of those imposed by tariffs. In particular, the existence of a PTA is associated with a tariff-equivalent decrease in $\tau_{ij}$ of 37 percentage points. Policy barriers show no significant association with any category of NTMs. However, coverage ratios are an extremely coarse measure of the magnitude of NTMs, and the TRAINS data are of imperfect quality [@Kono2008].
 
 ## A Placebo Test: Intra-European Union Barriers
 
@@ -362,7 +366,7 @@ In the preceding analysis, the European Union (EU) member states were treated as
 
 ![Intra and extra-European Union policy barriers to trade. Each cell reports the magnitude of the policy barrier each EU importing country (y-axis) imposes on every exporting country (x-axis). Barriers toward EU countries are on the left hand side of the solid line. Barriers toward non-EU countries are on the right hand side of the solid line. \label{fig:hmEUD}](figure/hmEUD-1.png)
 
-Figure \ref{fig:hmEUD} depicts the results of this exercise. EU policy barriers toward other EU member states are on average 51 percent the size of barriers with non-EU states.^[This comparison was made by taking weighted means of tariff-equivalent policy barriers where the weights are the expenditures on tradable goods of the exporting countries.] Barriers are far from nonexistent, however. On average, EU countries implement an tariff-equivalent barrier of 98 percent on other EU member states, compared to 189 percent on non-EU states.^[These are unweighted averages of EU member states' TRIs, calculated with respect to EU and non-EU members respectively.] From the perspective of the model, there remained substantial policy-related trade frictions within the EU in 2011. This finding is consistent with the existence of "border effects" within the EU [@Comerford2015]. Of course, these inferences might be driven by features of the model itself. I discuss these limitations in more detail in the paper's conclusion.
+Figure \ref{fig:hmEUD} depicts the results of this exercise. EU policy barriers toward other EU member states are on average 45 percent the size of barriers with non-EU states.^[This comparison was made by taking weighted means of tariff-equivalent policy barriers where the weights are the expenditures on tradable goods of the exporting countries.] Barriers are far from nonexistent, however. On average, EU countries implement an tariff-equivalent barrier of 69 percent on other EU member states, compared to 150 percent on non-EU states.^[These are unweighted averages of EU member states' TRIs, calculated with respect to EU and non-EU members respectively.] From the perspective of the model, there remained substantial policy-related trade frictions within the EU in 2011. This finding is consistent with the existence of "border effects" within the EU [@Comerford2015]. Of course, these inferences might be driven by features of the model itself. I discuss these limitations in more detail in the paper's conclusion.
 
 ## Discussion
 
@@ -501,6 +505,9 @@ This results in three functions $\hat{g}^m$ for each transportation mode (air, l
 
 
 
+```
+## Error in file(filename, "r", encoding = encoding): cannot open the connection
+```
 
 
 ### Maritime Freight Costs
@@ -665,13 +672,13 @@ ISR & Israel\\
 JPN & Japan\\
 KOR & Republic of Korea\\
 MEX & Mexico\\
-MYS & Malaysia\\
+MYSG & NA\\
 NZL & New Zealand\\
 \addlinespace
 PER & Peru\\
 PHL & Philippines\\
+ROW & NA\\
 RUS & Russian Federation\\
-SGP & Singapore\\
 THA & Thailand\\
 \addlinespace
 TUR & Turkey\\
@@ -752,7 +759,7 @@ Code & Basic Heading & Tradable?\\
 1104311 & Maintenance and repair of the dwelling & \\
 1104411 & Water supply & \\
 1104421 & Miscellaneous services relating to the dwelling & \\
-1104511 & Electricity & \\
+1104511 & Electricity & \checkmark\\
 1104521 & Gas & \checkmark\\
 \addlinespace
 1104531 & Other fuels & \checkmark\\

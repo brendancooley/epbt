@@ -57,8 +57,8 @@ C <- left_join(C, delta)
 write_csv(C, "results/correlates.csv")
 
 # heterogeneity between and across governments
-ggplot(C, aes(x=tau)) +
-  geom_line(stat="density", size=1) +
-  theme_classic() +
-  facet_wrap(~j_iso3)
+# ggplot(C, aes(x=tau)) +
+#   geom_line(stat="density", size=1) +
+#   theme_classic() +
+#   facet_wrap(~j_iso3)
 

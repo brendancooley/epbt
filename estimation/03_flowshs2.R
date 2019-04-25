@@ -13,7 +13,8 @@ for (i in sourceFiles) {
   source(paste0("source/", i))
 }
 
-EUD <- TRUE # disaggregate EU?
+source("params.R")
+
 startY <- 1995
 endY <- 2011
 
@@ -22,7 +23,6 @@ if(EUD==FALSE) {
 } else {
   ccodes <- read_csv("clean/ccodesEUD.csv") %>% pull(.)
 }
-# length(ccodes)
 
 # modes directory
 mdir <- paste0("data/modes/")
@@ -65,8 +65,20 @@ usmodes$hs2 <- substring(usmodes$scommodity, 1, 2)
 # data for freight, map straight to EU/ROW categories
 usmodesF <- usmodes
 
+# EU aggregation
 if(EUD==FALSE) {
   usmodesF$iso3 <- mapEU(usmodesF$iso3, usmodesF$year)
+}
+
+# other aggregations
+if (BNL==TRUE) {
+  usmodesF$iso3 <- ifelse(usmodesF$iso3 %in% BNLccodes, "BNL", usmodesF$iso3)
+}
+if (ELL==TRUE) {
+  usmodesF$iso3 <- ifelse(usmodesF$iso3 %in% ELLccodes, "ELL", usmodesF$iso3)
+}
+if (MYSG==TRUE) {
+  usmodesF$iso3 <- ifelse(usmodesF$iso3 %in% MYSGccodes, "MYSG", usmodesF$iso3)
 }
 
 usmodesF$iso3 <- ifelse(usmodesF$iso3 %in% ccodes, usmodesF$iso3, "ROW")
@@ -96,7 +108,7 @@ saccC$exporter <- str_trim(saccC$exporter, "right")
 
 # filter out "confidential items," which seem to be about balancing accounts
 aus <- aus %>% filter(hsCode != 99)
-aus$iso3 <- as.character(aus$iso3)
+# aus$iso3 <- as.character(aus$iso3)
 
 # map country codes
 # China
@@ -149,6 +161,17 @@ if(EUD==FALSE) {
   ausF$iso3 <- mapEU(ausF$iso3, ausF$year)
 }
 
+# other aggregations
+if (BNL==TRUE) {
+  ausF$iso3 <- ifelse(ausF$iso3 %in% BNLccodes, "BNL", ausF$iso3)
+}
+if (ELL==TRUE) {
+  ausF$iso3 <- ifelse(ausF$iso3 %in% ELLccodes, "ELL", ausF$iso3)
+}
+if (MYSG==TRUE) {
+  ausF$iso3 <- ifelse(ausF$iso3 %in% MYSGccodes, "MYSG", ausF$iso3)
+}
+
 ausF$iso3 <- ifelse(ausF$iso3 %in% ccodes, ausF$iso3, "ROW")
 # ausF %>% pull(iso3) %>% unique()
 
@@ -189,16 +212,24 @@ if (EUD==FALSE) {
   nz$i_iso3 <- mapEU(nz$i_iso3, nz$year)
 }
 
+# other aggregations
+if (BNL==TRUE) {
+  nz$i_iso3 <- ifelse(nz$i_iso3 %in% BNLccodes, "BNL", nz$i_iso3)
+}
+if (ELL==TRUE) {
+  nz$i_iso3 <- ifelse(nz$i_iso3 %in% ELLccodes, "ELL", nz$i_iso3)
+}
+if (MYSG==TRUE) {
+  nz$i_iso3 <- ifelse(nz$i_iso3 %in% MYSGccodes, "MYSG", nz$i_iso3)
+}
+
 nz$i_iso3 <- ifelse(nz$i_iso3 %in% ccodes, nz$i_iso3, "ROW")
 nz <- nz %>% filter(i_iso3!="NZL")  # filter NZ own trade observations
-# nz %>% filter(cname=="Japan") %>% summary()
 nz <- nz %>% filter(!(is.na(cif) | is.na(vfd)))  # filter unobserved costs
 
 nzCosts <- nz %>% group_by(year, i_iso3) %>%
   summarise(cif=sum(cif),
             vfd=sum(vfd))
-# nzCosts$i_iso3 %>% unique()
-# nzCosts %>% filter(i_iso3 == "JPN")
 
 nzCosts <- nzCosts %>% filter(vfd > 0)
 nzCosts$adv <- nzCosts$cif / nzCosts$vfd - 1
@@ -230,6 +261,18 @@ chl$i_iso3 <- countrycode(chl$Importer, "country.name", "iso3c")
 if (EUD==FALSE) {
   chl$i_iso3 <- mapEU(chl$i_iso3, chl$year)
 }
+
+# other aggregations
+if (BNL==TRUE) {
+  chl$i_iso3 <- ifelse(chl$i_iso3 %in% BNLccodes, "BNL", chl$i_iso3)
+}
+if (ELL==TRUE) {
+  chl$i_iso3 <- ifelse(chl$i_iso3 %in% ELLccodes, "ELL", chl$i_iso3)
+}
+if (MYSG==TRUE) {
+  chl$i_iso3 <- ifelse(chl$i_iso3 %in% MYSGccodes, "MYSG", chl$i_iso3)
+}
+
 chl$i_iso3 <- ifelse(chl$i_iso3 %in% ccodes, chl$i_iso3, "ROW")
 
 chlCosts <- chl %>% group_by(year, i_iso3) %>%
@@ -390,7 +433,7 @@ jpnmodes$hs2 <- substring(jpnmodes$HS, 2, 3)
 
 # Relabel LUX to BEL
 jpnmodes$iso3 <- ifelse(jpnmodes$iso3=="LUX", "BEL", jpnmodes$iso3)
-jpnmodes$iso3 %>% unique() %>% sort()
+# jpnmodes$iso3 %>% unique() %>% sort()
 
 # aggregate EU/ROW
 # jpnmodes$iso3 <- ifelse(jpnmodes$iso3 %in% EU, "EU", jpnmodes$iso3)
@@ -598,6 +641,20 @@ if(EUD==FALSE) {
   flowshs2$j_iso3 <- mapEU(flowshs2$j_iso3, flowshs2$year)
 }
 
+# other aggregations
+if (BNL==TRUE) {
+  flowshs2$i_iso3 <- ifelse(flowshs2$i_iso3 %in% BNLccodes, "BNL", flowshs2$i_iso3)
+  flowshs2$j_iso3 <- ifelse(flowshs2$j_iso3 %in% BNLccodes, "BNL", flowshs2$j_iso3)
+}
+if (ELL==TRUE) {
+  flowshs2$i_iso3 <- ifelse(flowshs2$i_iso3 %in% ELLccodes, "ELL", flowshs2$i_iso3)
+  flowshs2$j_iso3 <- ifelse(flowshs2$j_iso3 %in% ELLccodes, "ELL", flowshs2$j_iso3)
+}
+if (MYSG==TRUE) {
+  flowshs2$i_iso3 <- ifelse(flowshs2$i_iso3 %in% MYSGccodes, "MYSG", flowshs2$i_iso3)
+  flowshs2$j_iso3 <- ifelse(flowshs2$j_iso3 %in% MYSGccodes, "MYSG", flowshs2$j_iso3)
+}
+
 # drop internal EU flows
 flowshs2 <- flowshs2 %>% filter(!(i_iso3 == "EU" & j_iso3 == "EU"))
 # flowshs2$i_iso3 %>% unique() %>% sort()
@@ -616,9 +673,20 @@ mtc <- left_join(mtcadva, mtccif)
 # note: EU reporting seems to be for EU as a whole, presumably evolves over time?
 mtc$j_iso3 <- ifelse(mtc$j_iso3 == "EU15", "EU", mtc$j_iso3)
 mtc$i_iso3 <- ifelse(mtc$i_iso3 == "EU15", "EU", mtc$i_iso3)
-# mtc$i_iso3 <- ifelse(mtc$i_iso3 %in% EU, "EU", mtc$i_iso3)
-# mtc$j_iso3 %>% unique() %>% sort()
-# mtc$i_iso3 %>% unique() %>% sort()
+
+# other aggregations
+if (BNL==TRUE) {
+  mtc$i_iso3 <- ifelse(mtc$i_iso3 %in% BNLccodes, "BNL", mtc$i_iso3)
+  mtc$j_iso3 <- ifelse(mtc$j_iso3 %in% BNLccodes, "BNL", mtc$j_iso3)
+}
+if (ELL==TRUE) {
+  mtc$i_iso3 <- ifelse(mtc$i_iso3 %in% ELLccodes, "ELL", mtc$i_iso3)
+  mtc$j_iso3 <- ifelse(mtc$j_iso3 %in% ELLccodes, "ELL", mtc$j_iso3)
+}
+if (MYSG==TRUE) {
+  mtc$i_iso3 <- ifelse(mtc$i_iso3 %in% MYSGccodes, "MYSG", mtc$i_iso3)
+  mtc$j_iso3 <- ifelse(mtc$j_iso3 %in% MYSGccodes, "MYSG", mtc$j_iso3)
+}
 
 mtc$v <- mtc$cif / (1 + mtc$adva) # convert to fob value for weighting
 
@@ -631,11 +699,6 @@ mtcagg1995 <- mtcagg %>% filter(year==1995)
 mtcagg2007 <- mtcagg %>% filter(year==2007)
 # mean(mtcagg1995$avcsea) - mean(mtcagg2007$avcsea)  # consistent with ACD data
 
-# mtcagg %>% filter(j_iso3=="IDN", year==1996, hs2==71)
-
-# mtcagg %>% select(year, i_iso3, j_iso3, hs2) %>% nrow()
-# mtcagg %>% select(year, i_iso3, j_iso3, hs2) %>% unique() %>% nrow()
-
 rm(mtc)
 
 flowshs2 <- left_join(flowshs2, mtcagg, by=c("year", "i_iso3", "j_iso3", "hs2"))
@@ -647,10 +710,19 @@ flowshs2 <- flowshs2 %>% select(-one_of(c("avcsea.x", "avcsea.y")))
 flowshs2$i_iso3 <- ifelse(flowshs2$i_iso3 %in% ccodes, flowshs2$i_iso3, 'ROW')
 flowshs2$j_iso3 <- ifelse(flowshs2$j_iso3 %in% ccodes, flowshs2$j_iso3, 'ROW')
 
-# filter ROW internal trade
+# filter internal trade
 flowshs2 <- flowshs2 %>% filter(!(i_iso3 == "ROW" & j_iso3 == "ROW"))
+if (ELL==TRUE) {
+  flowshs2 <- flowshs2 %>% filter(!(i_iso3 == "ELL" & j_iso3 == "ELL"))
+}
+if (BNL==TRUE) {
+  flowshs2 <- flowshs2 %>% filter(!(i_iso3 == "BNL" & j_iso3 == "BNL"))
+}
+if (MYSG==TRUE) {
+  flowshs2 <- flowshs2 %>% filter(!(i_iso3 == "MYSG" & j_iso3 == "MYSG"))
+}
 
-summary(flowshs2)
+# summary(flowshs2)
 
 # aggregate and export trade matrix
 flowsAgg <- flowshs2 %>% group_by(year, i_iso3, j_iso3) %>%
@@ -662,7 +734,6 @@ if(EUD==FALSE) {
 } else{
   write_csv(flowsAgg, "clean/flowsAggEUD.csv")
 }
-# flowsAgg[3764:3775, ]
 
 # summarize EU and ROW share and cost data
 flowshs2econ <- flowshs2 %>% group_by(year, hs2, i_iso3, j_iso3) %>%
@@ -702,6 +773,7 @@ colnames(flowshs2export)[colnames(flowshs2export) == "v"] <- "val"
 
 # summary(flowshs2export)
 flowshs2export$year <- flowshs2export$year %>% as.integer()  # weird things happen when years saved as double
+# flowshs2export %>% filter(i_iso3==j_iso3)
 
 if(EUD==FALSE) {
   write_csv(flowshs2export, "clean/flowshs2.csv")
@@ -710,3 +782,7 @@ if(EUD==FALSE) {
 }
 
 # flowshs2export %>% filter(j_iso3=="IRL")
+
+# flowshs2export %>% filter(year==2011)
+# flowshs2export$i_iso3 %>% unique()
+# flowshs2export$j_iso3 %>% unique()

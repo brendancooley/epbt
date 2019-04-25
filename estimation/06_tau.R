@@ -24,21 +24,9 @@ libs <- c('tidyverse', 'latex2exp', 'ggrepel', 'ggthemes', "scales", "treemap",
           "data.tree", "jsonlite", "ggraph", "igraph", "viridis")
 ipak(libs)
 
-tau1 <- function(Lji, Lii, delta, Pj, Pi, theta) {
-  return((Lji / Lii)^(-1/(theta+1)) * (Pj / Pi)^(theta/(theta+1)) * (1 / delta)^(theta/(theta+1)))
-}
-
-tau2 <- function(Lji, Lii, delta, Pj, Pi, theta) {
-  return((Lji / Lii)^(-1/theta) * Pj / Pi * 1 / delta)
-}
-
 source("params.R")
 
-EUD <- TRUE # disaggregate EU?
-tauCIF <- TRUE # estimate using eq:tauCIF?
-
-# sigma <- 6
-# sigmaAlt <- 11
+# tauCIF <- TRUE # estimate using eq:tauCIF?
 
 # write_csv(sigma %>% as.data.frame(), "clean/sigma.csv")
 # write_csv(sigmaAlt %>% as.data.frame(), "clean/sigmaAlt.csv")
@@ -52,6 +40,8 @@ if (EUD==FALSE) {
   X <- read_csv('clean/deltaEUD.csv') %>% filter(year==Y)
 }
 # X$j_iso3 %>% unique() %>% sort()
+# X %>% filter(j_iso3=="AUS") %>% print(n=100)
+# X %>% filter(i_iso3==j_iso3)
 
 # prices
 if (EUD==FALSE) {
@@ -61,6 +51,7 @@ if (EUD==FALSE) {
   P <- read_csv('clean/priceIndexEUD.csv') %>% select(iso3, year, priceIndex) %>% filter(year==Y)
   Tshare <- read_csv('clean/priceIndexEUD.csv') %>% select(iso3, year, Tshare) %>% filter(year==Y)
 }
+# P %>% print(n=100)
 
 # gross consumption
 if (EUD==FALSE) {
@@ -68,9 +59,11 @@ if (EUD==FALSE) {
 } else {
   gc <- read_csv("clean/gcEUD.csv") %>% filter(year==Y)
 }
+# gc %>% print(n=100)
 
 gc$gc <- gc$gc * 1000
 colnames(gc)[colnames(gc)=="gc"] <- "j_tot_exp"
+# gc %>% print(n=50)
 
 # gdp
 if (EUD==FALSE) {
@@ -78,13 +71,15 @@ if (EUD==FALSE) {
 } else {
   gdp <- read_csv("clean/gdpEUD.csv") %>% filter(year==Y)
 }
+gdp %>% print(n=100)
 
-gdp$gdp <- gdp$gdp * 1000
+gdp$exp <- gdp$exp * 1000
 gdp <- left_join(gdp, Tshare)
-gdp$gdpS <- gdp$gdp * (1 - gdp$Tshare)
+gdp$expS <- gdp$exp * (1 - gdp$Tshare)
+# gdp %>% arrange(Tshare) %>% print(n=100)
 
-gdp <- gdp %>% select(iso3, year, gdpS)
-colnames(gdp)[colnames(gdp)=="gdpS"] <- "j_gdpS"
+gdp <- gdp %>% select(iso3, year, expS)
+colnames(gdp)[colnames(gdp)=="expS"] <- "j_expS"
 
 # get home_exp and own share
 X <- left_join(X, gc, by=c("year"="year", "j_iso3"="iso3"))
@@ -93,22 +88,22 @@ X <- left_join(X, gc, by=c("year"="year", "i_iso3"="iso3"))
 X$delta <- X$avc
 X$val <- X$fob
 
+X %>% filter(i_iso3==j_iso3)
+
 # correct for tradable shares
 X <- left_join(X, gdp, by=c("year"="year", "j_iso3"="iso3"))
-colnames(gdp)[colnames(gdp)=="j_gdpS"] <- "i_gdpS"
+colnames(gdp)[colnames(gdp)=="j_expS"] <- "i_expS"
 X <- left_join(X, gdp, by=c("year"="year", "i_iso3"="iso3"))
-X$j_gcT <- X$j_tot_exp - X$j_gdpS
-X$i_gcT <- X$i_tot_exp - X$i_gdpS
+X$j_gcT <- X$j_tot_exp - X$j_expS
+X$i_gcT <- X$i_tot_exp - X$i_expS
 
-if(tauCIF==TRUE) {
-  Ximp <- X %>% group_by(j_iso3, year) %>%
-    summarise(j_tot_imp=sum(cif),
-              j_gcT=mean(j_gcT))
-} else {
-  Ximp <- X %>% group_by(j_iso3, year) %>%
-    summarise(j_tot_imp=sum(fob),
-              j_gcT=mean(j_gcT))
-}
+Ximp <- X %>% group_by(j_iso3, year) %>%
+  summarise(j_tot_imp=sum(cif),
+            j_gcT=mean(j_gcT))
+
+# Ximp <- X %>% group_by(j_iso3, year) %>%
+#   summarise(j_tot_imp=sum(fob),
+#             j_gcT=mean(j_gcT))
 
 Ximp$j_home_expT <- Ximp$j_gcT - Ximp$j_tot_imp
 Ximp <- Ximp %>% select(j_iso3, year, j_home_expT)
@@ -120,31 +115,50 @@ colnames(Ximp) <- c("i_iso3", "year", "i_home_expT")
 X <- left_join(X, Ximp, by=c("i_iso3", "year"))
 
 # calculate shares of total tradable expenditure
-if(tauCIF==TRUE) {
-  X$Lji <- X$cif / X$j_gcT
-} else {
-  X$Lji <- X$fob / X$j_gcT
-}
-X$Lii <- X$i_home_expT / X$i_gcT
-X$Ljj <- X$j_home_expT / X$j_gcT
+X$Lji <- X$cif / X$j_gcT
+# X$Lji <- X$fob / X$j_gcT
 
-X %>% filter(i_iso3=="MLT") %>% select(Lji, Lii, Ljj, i_gcT, i_home_expT, everything()) %>% print(n=50)
+# initialize starting values for home expenditure
+X$Lii <- X$i_home_expT / X$i_gcT  
+X$Ljj <- X$j_home_expT / X$j_gcT
 
 # append price indices
 colnames(P) <- c("i_iso3", "year", "Pi")
 X <- left_join(X, P)
-# X %>% select(Pi, everything()) %>% print()
 colnames(P) <- c("j_iso3", "year", "Pj")
 X <- left_join(X, P)
-# X %>% select(Pi, Pj, everything())
 
-if(tauCIF==TRUE) {
-  X$tau <- tau1(X$Lji, X$Lii, X$delta, X$Pj, X$Pi, theta)
-  X$tauAlt <- tau1(X$Lji, X$Lii, X$delta, X$Pj, X$Pi, thetaAlt)
-} else {
-  X$tau <- tau2(X$Lji, X$Lii, X$delta, X$Pj, X$Pi, theta)
-  X$tauAlt <- tau2(X$Lji, X$Lii, X$delta, X$Pj, X$Pi, thetaAlt)
-}
+# X %>% select(Lii, Lji, everything()) %>% print(n=100)
+# X %>% select(Lii, Lji, everything()) %>% filter(i_iso3=="BNL")
+# X %>% select(Lii, Lji, everything()) %>% filter(j_iso3=="BNL")
+# 
+# X %>% filter(i_iso3==j_iso3)
+
+# calculate taus and lambda_iis jointly
+
+X <- X %>% tauLambda(theta, "tau")
+X <- X %>% tauLambda(thetaAlt, "tauAlt")
+
+# Xtest %>% select(Lii, Lji, tau, everything()) %>% filter(j_iso3=="BNL") %>% print(n=100)
+# Xtest %>% select(Lii, Lji, tau, everything()) %>% filter(i_iso3=="BNL") %>% print(n=100)
+# Xtest %>% select(Lii, Lji, tau, everything()) %>% filter(j_iso3=="MYSG") %>% print(n=100)
+# 
+# Xtest %>% select(Lii, Lji, tau, everything()) %>% filter(j_iso3=="DEU") %>% print(n=100)
+# 
+# Xtest %>% select(Lii, Lji, tau, everything()) %>% filter(j_iso3=="SGP")
+# Xtest %>% select(Lii, Lji, tau, everything()) %>% filter(j_iso3=="NLD") %>% print(n=100)
+# Xtest %>% select(Lii, Lji, tau, everything()) %>% filter(j_iso3=="EST") %>% print(n=100)
+# 
+# Xtest %>% group_by(j_iso3) %>% 
+#   summarise(Lji=sum(Lji*tau)) %>% print(n=100)
+
+# if(tauCIF==TRUE) {
+#   X$tau <- tau1(X$Lji, X$Lii, X$delta, X$Pj, X$Pi, theta)
+#   X$tauAlt <- tau1(X$Lji, X$Lii, X$delta, X$Pj, X$Pi, thetaAlt)
+# } else {
+#   X$tau <- tau2(X$Lji, X$Lii, X$delta, X$Pj, X$Pi, theta)
+#   X$tauAlt <- tau2(X$Lji, X$Lii, X$delta, X$Pj, X$Pi, thetaAlt)
+# }
 
 # export trade shares
 Xshares <- X %>% select(i_iso3, j_iso3, year, Lji, Ljj, j_gcT, i_gcT)

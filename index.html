@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="generator" content="pandoc">
   <meta name="author" content="Brendan Cooley" />
+  <meta name="dcterms.date" content="2019-04-05" />
   <title>Estimating Policy Barriers to Trade</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -569,9 +570,9 @@ document.getElementsByTagName('head')[0].appendChild(style);
 </ul>
 <div class="fragment">
 <p><strong>Structural Relationship</strong></p>
-<span class="math display">\[\begin{equation} \label{eq:Waugh}
+<p><span class="math display">\[\begin{equation} \label{eq:Waugh}
 d_{ij} = \left( \frac{\lambda_{ij}}{\lambda_{jj}} \right)^{-\frac{1}{\theta}} \frac{P_i}{P_j}
-\end{equation}\]</span>
+\end{equation}\]</span></p>
 <ul>
 <li><span class="math inline">\(d_{ij}\)</span> - trade costs</li>
 <li><span class="math inline">\(\lambda_{ij}\)</span> - share of <span class="math inline">\(j\)</span>’s producers in <span class="math inline">\(i\)</span>’s market for tradables</li>
@@ -586,7 +587,7 @@ d_{ij} = \left( \frac{\lambda_{ij}}{\lambda_{jj}} \right)^{-\frac{1}{\theta}} \f
 <h2>Decomposing Trade Costs</h2>
 <hr style="height:2em; visibility:hidden;" />
 <div id="left">
-<p><img src="figs/tcosts.png" /></p>
+<p><img data-src="figs/tcosts.png" /></p>
 </div>
 <div id="right">
 
@@ -677,14 +678,14 @@ Structural Policy Barrier
 Tariffs
 </td>
 <td>
-1.791<sup>**</sup>
+0.947
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.886)
+(0.694)
 </td>
 </tr>
 <tr>
@@ -698,14 +699,14 @@ Tariffs
 PTAs
 </td>
 <td>
--0.517<sup>***</sup>
+-0.367<sup>***</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.093)
+(0.076)
 </td>
 </tr>
 <tr>
@@ -719,14 +720,14 @@ PTAs
 Core NTM
 </td>
 <td>
-0.181
+0.174
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.249)
+(0.199)
 </td>
 </tr>
 <tr>
@@ -740,14 +741,14 @@ Core NTM
 Health/Safety NTM
 </td>
 <td>
-0.367
+0.202
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.229)
+(0.184)
 </td>
 </tr>
 <tr>
@@ -761,14 +762,14 @@ Health/Safety NTM
 Other NTM
 </td>
 <td>
--0.465
+-0.240
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.311)
+(0.252)
 </td>
 </tr>
 <tr>
@@ -802,7 +803,7 @@ Yes
 Observations
 </td>
 <td>
-440
+361
 </td>
 </tr>
 <tr>
@@ -810,7 +811,7 @@ Observations
 R<sup>2</sup>
 </td>
 <td>
-0.858
+0.892
 </td>
 </tr>
 <tr>
@@ -831,16 +832,22 @@ R<sup>2</sup>
 <h2>Conclusion</h2>
 <p><strong>State Capacity and Protectionism</strong></p>
 <ul>
-<li>Tariffs as “second-best” solution to revenue-raising problem facing low-capacity governments</li>
+<li>Tariffs as “second-best” solution to revenue-raising problem facing low-capacity governments
+<ul>
 <li><span class="citation" data-cites="Acemoglu2005b">Acemoglu (2005)</span>, <span class="citation" data-cites="Rodrik2008">Rodrik (2008)</span>, and <span class="citation" data-cites="Queralt2015">Queralt (2015)</span></li>
-<li>Developing (more autocratic) world not necessarily more “welfare-concious” than developed counterparts</li>
+</ul></li>
+<li>Developing (more autocratic) world not necessarily more “welfare-concious” than developed counterparts
+<ul>
 <li><span class="citation" data-cites="Milner2005">Milner and Kubota (2005)</span>, <span class="citation" data-cites="Gawande2009">Gawande, Krishna, and Olarreaga (2009)</span>; <span class="citation" data-cites="Gawande2015">Gawande, Krishna, and Olarreaga (2015)</span></li>
+</ul></li>
 </ul>
 <p><strong>Development and Trade Discrimination</strong></p>
 <ul>
 <li>Growth causally linked to market access conditions abroad <span class="citation" data-cites="Romalis2007">(Romalis 2007)</span></li>
-<li>Lack of market access by developing countries may hinder development prospects</li>
+<li>Lack of market access by developing countries may hinder development prospects
+<ul>
 <li><span class="citation" data-cites="Redding2004">Redding and Venables (2004)</span>, <span class="citation" data-cites="Romalis2007">Romalis (2007)</span>, <span class="citation" data-cites="Waugh2010">Waugh (2010)</span></li>
+</ul></li>
 </ul>
 <p><a href="#/tri" style="float: right;">TRI, MAI</a></p>
 </section>
@@ -852,12 +859,12 @@ R<sup>2</sup>
 <section id="model" class="slide level2">
 <h2>Model (Consumption)</h2>
 <p><strong>Consumer’s Problem</strong></p>
-<span class="math display">\[\begin{equation*} \label{eq:consumer}
+<p><span class="math display">\[\begin{equation*} \label{eq:consumer}
 \begin{split}
 \max &amp; \quad U_i = Q_i^{\nu_i} S_i^{1 - \nu_i} \\
 \text{subject to} &amp; \quad P_i Q_i + P_i^s S_i \leq w_i L_i
 \end{split}
-\end{equation*}\]</span>
+\end{equation*}\]</span></p>
 <p><strong>CES Preferences over Tradable Varieties</strong></p>
 <p><span class="math display">\[
 Q_i = \left( \int_{[0,1]} \alpha_{h(\omega)}^{\frac{1}{\sigma}} q_i(\omega)^{\frac{\sigma - 1}{\sigma}} d \omega \right)^{\frac{\sigma}{\sigma - 1}}
@@ -875,13 +882,15 @@ E_i^q = \nu_i I_i + D_i = P_i Q_i^\star
 <section id="model-production" class="slide level2">
 <h2>Model (Production)</h2>
 <p><strong>Costs</strong></p>
-<span class="math display">\[\begin{equation} \label{eq:c}
+<p><span class="math display">\[\begin{equation} \label{eq:c}
 c_i = w_i^{1 - \beta} P_i^{\beta}
-\end{equation}\]</span>
+\end{equation}\]</span></p>
 <ul>
 <li><span class="math inline">\(w_i\)</span> - cost of labor</li>
-<li><span class="math inline">\(P_i\)</span> - cost of composite intermediate good</li>
+<li><span class="math inline">\(P_i\)</span> - cost of composite intermediate good
+<ul>
 <li>equivalent to composite consumption good</li>
+</ul></li>
 </ul>
 <p><span class="math display">\[
 E_i^x = \beta X_i
@@ -918,10 +927,10 @@ X_i = \sum_{j=1}^N \lambda_{ji}(\boldsymbol{w}) E_j
 <section id="differences" class="slide level2">
 <h2>Isolating Policy Barriers (I)</h2>
 <p><strong>Trade Shares (w/ Frechet)</strong></p>
-<span class="math display">\[\begin{align*}
+<p><span class="math display">\[\begin{align*}
 \lambda_{ij}(\boldsymbol{w}) &amp;= \frac{ T_j \left( d_{ij} w_j^{1 - \beta} P_j^{\beta} \right)^{- \theta} }{\sum_j T_j \left( d_{ij} w_j^{1 - \beta} P_j^{\beta} \right)^{- \theta}} \\
 &amp;= \frac{ T_j \left( \underbrace{\rho_j \delta_{ij} \tau_{ij}}_{d_{ij}} w_j^{1 - \beta} P_j^{\beta} \right)^{- \theta} }{ \frac{1}{\gamma} P_i^{-\theta}}
-\end{align*}\]</span>
+\end{align*}\]</span></p>
 </section>
 <section id="isolating-policy-barriers-ii" class="slide level2">
 <h2>Isolating Policy Barriers (II)</h2>
@@ -1032,7 +1041,7 @@ h: \left\{ \boldsymbol{Z}_{ij}, d^m \right\} \rightarrow \zeta_{ij}^{m k}
 <p>Evenett, Simon J., and Bernard Hoekman. 2004. <em>Government Procurement: Market Access, Transparency, and Multilateral Trade Rules</em>. Policy Research Working Papers. The World Bank.</p>
 </div>
 <div id="ref-Gawande1999">
-<p>Gawande, Kishore, and Wendy L. Hansen. 1999. “Retaliation, Bargaining, and the Pursuit of ‘Free and Fair’ Trade.” <em>International Organization</em> 53 (1): 117–59.</p>
+<p>Gawande, Kishore, and Wendy L. Hansen. 1999. “Retaliation, Bargaining, and the Pursuit of &quot;Free and Fair&quot; Trade.” <em>International Organization</em> 53 (1): 117–59.</p>
 </div>
 <div id="ref-Gawande2009">
 <p>Gawande, Kishore, Pravin Krishna, and Marcelo Olarreaga. 2009. “What governments maximize and why: the view from trade.” <em>International Organization</em> 63 (03): 491–532.</p>

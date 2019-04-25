@@ -13,7 +13,6 @@ for (i in sourceFiles) {
 
 source("params.R")
 
-EUD <- TRUE # disaggregate EU?
 startY <- 1995
 endY <- 2011
 
@@ -56,6 +55,17 @@ if (EUD==FALSE) {
 
 wiot$col_country <- ifelse(wiot$col_country %in% ccodesWIOT, wiot$col_country, "ROW")
 
+# combine Belgium and Luxemborg to match trade data
+wiot$col_country <- ifelse(wiot$col_country == "LUX", "BEL", wiot$col_country)
+
+# other country groupings (wiot)
+if (BNL==TRUE) {
+  wiot$col_country <- ifelse(wiot$col_country %in% BNLccodes, "BNL", wiot$col_country)
+}
+if (ELL==TRUE) {
+  wiot$col_country <- ifelse(wiot$col_country %in% ELLccodes, "ELL", wiot$col_country)
+}
+
 # calculate GDP
 gdp <- wiot %>% group_by(col_country, year) %>% filter(row_country=="VA") %>%
   summarise(gdp=sum(value)) %>% ungroup()
@@ -72,7 +82,6 @@ gc <- wiot %>% group_by(col_country, year) %>% filter(row_country=="TOT") %>%
   summarise(gc=sum(value)) %>% ungroup()
 colnames(gc) <- c("iso3", "year", "gc")
 
-# drop <- setdiff(ccodesOECD, "SGP")  # just Singapore version
 drop <- ccodesDrop  # all OECD version
 include <- setdiff(ccodesOECD, drop)
 
@@ -118,12 +127,44 @@ go <- left_join(go, goOECD)
 go$go <- ifelse(go$iso3=="ROW", go$go - go$goOECD, go$go)
 go <- go %>% select(-one_of(c("goOECD")))
 
+# other country groupings (OECD)
+if (MYSG==TRUE) {
+  gc$iso3 <- ifelse(gc$iso3 %in% MYSGccodes, "MYSG", gc$iso3)
+  go$iso3 <- ifelse(go$iso3 %in% MYSGccodes, "MYSG", go$iso3)
+  gdp$iso3 <- ifelse(gdp$iso3 %in% MYSGccodes, "MYSG", gdp$iso3)
+}
+# gdp %>% filter(year==2011) %>% print(n=100)
+
+# re-aggregate
+gdp <- gdp %>% group_by(iso3, year) %>%
+  summarise(gdp=sum(gdp)) %>% ungroup()
+colnames(gdp) <- c("iso3", "year", "gdp")
+gdp %>% filter(year==2011) %>% print(n=100)
+
+# calculate gross output
+go <- go %>% group_by(iso3, year)%>%
+  summarise(go=sum(go)) %>% ungroup()
+colnames(go) <- c("iso3", "year", "go")
+go %>% filter(year==2011) %>% print(n=100)
+
+# calculate gross consumption
+gc <- gc %>% group_by(iso3, year) %>%
+  summarise(gc=sum(gc)) %>% ungroup()
+colnames(gc) <- c("iso3", "year", "gc")
+gc %>% filter(year==2011) %>% print(n=100)
+
 # calculate trade deficits
 goc <- left_join(go, gc)
 goc$deficit <- goc$gc - goc$go
+deficit <- goc %>% select(iso3, year, deficit)
+deficit %>% filter(year==2011) %>% print(n=100)
 # sum(goc$deficit)  # check market clearing with deficits
 
-ccodes <- c(ccodesWIOT, include)
+# calculate consumer expenditure
+gdp <- left_join(gdp, deficit)
+gdp$exp <- gdp$gdp - gdp$deficit
+
+ccodes <- gdp$iso3 %>% unique()
 
 # write to clean dir
 if (EUD==FALSE) {
@@ -136,5 +177,6 @@ if (EUD==FALSE) {
   write_csv(gdp, paste0(cleandir, "gdpEUD.csv"))
 }
 
-# test <- read_csv("clean/ccodesEUD.csv")
-# test <- read_csv("clean/gcEUD.csv") %>% filter(year==2011)
+# gdp %>% filter(year==2011) %>% print(n=100)
+# go %>% filter(year==2011) %>% print(n=100)
+# gc %>% filter(year==2011) %>% print(n=100)

@@ -20,7 +20,7 @@ for (i in sourceFiles) {
   source(paste0(sourcePath, "/", i))
 }
 
-EUD <- FALSE # disaggregate EU?
+source("params.R")
 
 # variable search for calling locally or from Rmd
 wd <- getwd()
