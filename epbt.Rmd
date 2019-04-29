@@ -26,6 +26,7 @@ rm(list=ls())
 libs <- c('tidyverse', "stargazer", "countrycode", "knitr", "ggrepel", "patchwork", "ggthemes", "latex2exp", "readxl", "kableExtra")
 sapply(libs, require, character.only = TRUE)
 
+
 ```
 
 \newpage
