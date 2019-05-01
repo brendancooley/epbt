@@ -171,7 +171,7 @@ X_i = E_i^q + E_i^x - D_i
 \end{equation}
 or that trade less deficits is balanced.
 
-Total expenditure on tradables is the sum of expenditures from consumers and producers^[Note that expenditure on tradables can be written $$E_i = I_i + \beta X_i - (1 - \nu_i) I_i$$ which is simply gross output less consumer expenditure on services. This is the empirical quantity for $E_i$ I use when calibrating the model.]
+Total expenditure on tradables is the sum of expenditures from consumers and producers^[Note that expenditure on tradables can be written $$E_i = I_i + \beta X_i + D_i - (1 - \nu_i) I_i $$ or gross consumption less consumer expenditure on services. This is the empirical quantity for $E_i$ I use when calibrating the model.]
 $$
 E_i = E_i^q + E_i^x
 $$
