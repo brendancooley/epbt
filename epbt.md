@@ -159,7 +159,7 @@ $$
 
 For national accounts to balance, gross output and gross consumption, inclusive of trade deficits $D_i$, must be equal.
 \begin{equation} \label{eq:accounts}
-I_i + \beta X_i = E_i^q + E_i^x + (1 - \nu_i) I_i + D_i
+I_i + \beta X_i + D_i = E_i^q + E_i^x + (1 - \nu_i) I_i
 \end{equation}
 Total income is given by the sum of domestic payments for services and labor payments from the global sales of tradables, $X_i$
 $$

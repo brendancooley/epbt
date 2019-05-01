@@ -50,7 +50,6 @@ for (i in sourceFiles) {
   source(paste0("estimation/source/", i))
 }
 
-
 ```
 
 ## Free and Fair?
