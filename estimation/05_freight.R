@@ -20,8 +20,6 @@ for (i in sourceFiles) {
   source(paste0(sourcePath, "/", i))
 }
 
-source("params.R")
-
 # variable search for calling locally or from Rmd
 wd <- getwd()
 if ("sections" %in% strsplit(wd, "/")[[1]]) {
@@ -31,6 +29,7 @@ if ("sections" %in% strsplit(wd, "/")[[1]]) {
     flowsPath <- find.file('flowshs2EUD.csv', dir="../estimation", dirs="../estimation/clean")
   }
 } else{
+  source("params.R")
   if(EUD==FALSE) {
     flowsPath <- find.file('flowshs2.csv', dir="clean", dirs="estimation/clean")
   } else{

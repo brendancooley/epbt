@@ -21,3 +21,9 @@ MYSGccodes <- c("MYS", "SGP")
 
 ELL <- TRUE # aggregate Baltic countries (Estonia, Latvia, Lithuania)
 ELLccodes <- c("EST", "LVA", "LTU")
+
+# figure options
+TRIMAI <- F  # include TRI and MAI?
+cluster <- T  # cluster countries?
+Kmeans <- 3  # number of clusters
+KmeansEUD <- 3  # number of clusters with EU disaggregated
