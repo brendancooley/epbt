@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="generator" content="pandoc">
   <meta name="author" content="Brendan Cooley" />
-  <meta name="dcterms.date" content="2019-04-05" />
+  <meta name="dcterms.date" content="2019-05-08" />
   <title>Estimating Policy Barriers to Trade</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -30,7 +30,7 @@
     }
 
     .reveal table {
-      border-width: 1px;
+      border-width: 0px;
       border-spacing: 2px;
       border-style: dotted;
       border-color: gray;
@@ -39,7 +39,7 @@
     }
 
     .reveal table th {
-      border-width: 1px;
+      border-width: 0px;
       padding-left: 10px;
       padding-right: 25px;
       font-weight: bold;
@@ -48,7 +48,7 @@
     }
 
     .reveal table td {
-      border-width: 1px;
+      border-width: 0px;
       padding-left: 10px;
       padding-right: 25px;
       border-style: dotted;
@@ -450,15 +450,38 @@ document.getElementsByTagName('head')[0].appendChild(style);
     <div class="slides">
 
 <section data-background="figs/title/containerDark.jpg">
-  <h1 class="title">Estimating Policy Barriers to Trade</h1>
-    <h3 class="author">Brendan Cooley</h2>
-    <h3 class="date">5 April 2019</h3>
+	<div class="cover-top">
+	  	<h1 class="title">Estimating Policy Barriers to Trade</h1>
+						<h3 class="date">8 May 2019</h3>
+			</div>
+	<div class="cover-bottom">
+				<h3>Brendan Cooley</h3>
+						<h3>Ph.D. Candidate</h3>
+						<h3>Princeton University</h3>
+						<h3>bcooley (at) princeton.edu</h3>
+			</div>
 </section>
 
 <section id="free-and-fair" class="slide level2">
 <h2>Free and Fair?</h2>
-<hr style="height:2em; visibility:hidden;" />
-<p><img src="figs/trump.png" class="aligncenter"></p>
+<blockquote>
+<p>“We believe that trade must be fair and reciprocal. The United States will not be taken advantage of any longer.” <br/> <span class="math inline">\(\qquad\)</span> – Donald Trump, Feb. 2019</p>
+</blockquote>
+<div class="fragment">
+<blockquote>
+<p>“I’m going to have a trade prosecutor…to make sure every trade deal we’re already in is absolutely followed to the letter so nobody takes advantage of us.” <br/> <span class="math inline">\(\qquad\)</span> – Hillary Clinton, Oct. 2016</p>
+</blockquote>
+</div>
+<div class="fragment">
+<blockquote>
+<p>“Internationally, we are seeing a tendency toward protectionism and navel-gazing…What we need is trade that’s both fair and free.” <br/> <span class="math inline">\(\qquad\)</span> – Shinzo Abe, Oct. 2016</p>
+</blockquote>
+</div>
+<div class="fragment">
+<blockquote>
+<p>“An open world is only worth it if the competition that takes place there is fair.” <br/> <span class="math inline">\(\qquad\)</span> – Emmanuel Macron, Sep. 2017</p>
+</blockquote>
+</div>
 <div class="fragment">
 <ul>
 <li><strong>Free:</strong> Foreign firms enjoy same market access conditions as domestic competitors </li>
@@ -476,7 +499,15 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <li><strong>Free?</strong> Applied tariff rates are low, ~5% on average <span class="citation" data-cites="Baldwin2016">(Baldwin 2016)</span></li>
 <li><strong>Fair?</strong> WTO members (vast majority of world economy) commit to principle of non-discrimination (Most Favored Nation)</li>
 </ul>
-<p><img src="index_files/figure-revealjs/tarIncome-1.png" width="2400" /></p>
+<p><img src="index_files/figure-revealjs/tcostsF-1.png" width="2400" /></p>
+</section>
+<section id="the-tariff-system-gattwto-1" class="slide level2">
+<h2>The Tariff System (GATT/WTO)</h2>
+<ul>
+<li><strong>Free?</strong> Applied tariff rates are low, ~5% on average <span class="citation" data-cites="Baldwin2016">(Baldwin 2016)</span></li>
+<li><strong>Fair?</strong> WTO members (vast majority of world economy) commit to principle of non-discrimination (Most Favored Nation)</li>
+</ul>
+<p><img src="index_files/figure-revealjs/tcostsFT-1.png" width="2400" /></p>
 </section>
 <section id="varieties-of-barriers" class="slide level2">
 <h2>Varieties of Barriers</h2>
@@ -616,12 +647,13 @@ p_i^\star(\omega) = \min_{j \in \left\{ 1,...,N \right\}} \left\{ p_{ij} \right\
 <hr style="height:2em; visibility:hidden;" />
 <p><strong>Estimating Equation</strong></p>
 <p><span class="math display">\[
-\tau_{ij} = \left( \frac{\lambda_{ij}}{\lambda_{jj}} \right)^{-\frac{1}{\theta}} \frac{\hat{P}_i}{\hat{P}_j} \frac{1}{\delta_{ij}(\boldsymbol{Z}_{ij})}
+\tau_{ij} = \left( \frac{\lambda_{ij}^{\text{cif}}}{\lambda_{jj}} \right)^{-\frac{1}{\theta}} \frac{\hat{P}_i}{\hat{P}_j} \frac{1}{\delta_{ij}(\boldsymbol{Z}_{ij})}
 \]</span></p>
 <p><a href="#/differences" style="float: right;">Math</a></p>
 <div class="fragment">
 <p><strong>Data</strong></p>
 <ul>
+<li>Trade shares: national accounts, COMTRADE <a href="#/shares" style="float: right;">Shares</a></li>
 <li>Prices: World Bank International Comparison Program <a href="#/prices" style="float: right;">Prices</a></li>
 <li>Freight Costs: <a href="#/freight" style="float: right;">Freight Model</a>
 <ul>
@@ -629,16 +661,23 @@ p_i^\star(\omega) = \min_{j \in \left\{ 1,...,N \right\}} \left\{ p_{ij} \right\
 <li>Estimate out of sample</li>
 <li>Geography (distances, island, contiguity) <span class="math inline">\((\boldsymbol{Z}_{ij})\)</span></li>
 </ul></li>
-<li>Trade shares: national accounts, COMTRADE</li>
 </ul>
 </div>
 </section>
 <section id="results-magnitudes" class="slide level2">
 <h2>Results (Magnitudes)</h2>
-<p><img src="index_files/figure-revealjs/tCostsPlot-1.png" width="2400" /></p>
+<p><img src="index_files/figure-revealjs/tCostsPlot1-1.png" width="2400" /></p>
+</section>
+<section id="results-magnitudes-1" class="slide level2">
+<h2>Results (Magnitudes)</h2>
+<p><img src="index_files/figure-revealjs/tCostsPlot2-1.png" width="2400" /></p>
+</section>
+<section id="results-magnitudes-2" class="slide level2">
+<h2>Results (Magnitudes)</h2>
+<p><img src="index_files/figure-revealjs/tCostsPlot3-1.png" width="2400" /></p>
 </section>
 <section id="variance" class="slide level2">
-<h2>Results (Variance)</h2>
+<h2>Results (Economic Blocs)</h2>
 <p><img src="index_files/figure-revealjs/hm-1.png" width="2400" /></p>
 <p><a href="#/euPlacebo" style="float: right;">EU Placebo</a></p>
 </section>
@@ -653,20 +692,7 @@ p_i^\star(\omega) = \min_{j \in \left\{ 1,...,N \right\}} \left\{ p_{ij} \right\
 <td style="text-align:left">
 </td>
 <td>
-<em>Dependent variable:</em>
-</td>
-</tr>
-<tr>
-<td>
-</td>
-<td colspan="1" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
-<td style="text-align:left">
-</td>
-<td>
-Structural Policy Barrier
+DV: Structural Policy Barrier
 </td>
 </tr>
 <tr>
@@ -779,10 +805,6 @@ Other NTM
 </td>
 </tr>
 <tr>
-<td colspan="2" style="border-bottom: 1px solid black">
-</td>
-</tr>
-<tr>
 <td style="text-align:left">
 Importer Fixed Effects
 </td>
@@ -800,7 +822,7 @@ Yes
 </tr>
 <tr>
 <td style="text-align:left">
-Observations
+<em>N</em>
 </td>
 <td>
 361
@@ -820,10 +842,24 @@ R<sup>2</sup>
 </tr>
 <tr>
 <td style="text-align:left">
-<em>Note:</em>
+<em>Notes:</em>
 </td>
 <td style="text-align:right">
-<sup><em></sup>p&lt;0.1; <sup><strong></sup>p&lt;0.05; <sup></strong></em></sup>p&lt;0.01
+<sup>***</sup>Significant at the 1 percent level.
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td style="text-align:right">
+<sup>**</sup>Significant at the 5 percent level.
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td style="text-align:right">
+<sup>*</sup>Significant at the 10 percent level.
 </td>
 </tr>
 </table>
@@ -851,7 +887,7 @@ R<sup>2</sup>
 </ul>
 <p><a href="#/tri" style="float: right;">TRI, MAI</a></p>
 </section>
-<section id="thank-you" class="slide level2 center">
+<section id="thank-you" class="slide level2 aligncenter">
 <h2>Thank You</h2>
 <p><a href="http://brendancooley.com">brendancooley.com</a></p>
 <p><a href="bcooley@princeton.edu" class="uri">bcooley@princeton.edu</a></p>
@@ -940,6 +976,22 @@ X_i = \sum_{j=1}^N \lambda_{ji}(\boldsymbol{w}) E_j
 \]</span></p>
 <p><span class="math display">\[
 \tau_{ij} = \left( \frac{\lambda_{ij}}{\lambda_{jj}} \right)^{-\frac{1}{\theta}} \frac{P_i}{P_j} \underbrace{\frac{1}{\delta_{ij}}}_{\substack{\text{freight cost} \\ \text{correction}}}
+\]</span></p>
+<p><a href="#/estimation" style="float: right;">Back</a></p>
+</section>
+<section id="shares" class="slide level2">
+<h2>Trade Shares</h2>
+<p><strong>Behind the Border Barriers</strong></p>
+<p><span class="math display">\[
+\lambda_{ij} = \tau_{ij} \lambda_{ij}^{\text{cif}}
+\]</span></p>
+<p><strong>Home Expenditure</strong></p>
+<p><span class="math display">\[
+\lambda_{jj}(\boldsymbol{\tau}_j) = \left( 1 - \sum_{i \neq j} \tau_{ji} \lambda_{ji}^{\text{cif}} \right)
+\]</span></p>
+<p><strong>Modified Estimating Equation</strong></p>
+<p><span class="math display">\[
+\tau_{ij} = \left( \frac{\lambda_{ij}^{\text{cif}}}{\lambda_{jj}(\boldsymbol{\tau}_j)} \right)^{-\frac{1}{\theta + 1}} \left( \frac{P_i}{P_j} \right)^{\frac{\theta}{\theta+1}} \left( \frac{1}{\delta_{ij}(\boldsymbol{Z}_{ij})} \right)^{\frac{\theta}{\theta+1}}
 \]</span></p>
 <p><a href="#/estimation" style="float: right;">Back</a></p>
 </section>

@@ -57,7 +57,7 @@ $endif$
     }
 
     .reveal table {
-      border-width: 1px;
+      border-width: 0px;
       border-spacing: 2px;
       border-style: dotted;
       border-color: gray;
@@ -66,7 +66,7 @@ $endif$
     }
 
     .reveal table th {
-      border-width: 1px;
+      border-width: 0px;
       padding-left: 10px;
       padding-right: 25px;
       font-weight: bold;
@@ -75,7 +75,7 @@ $endif$
     }
 
     .reveal table td {
-      border-width: 1px;
+      border-width: 0px;
       padding-left: 10px;
       padding-right: 25px;
       border-style: dotted;
@@ -495,16 +495,29 @@ $endfor$
 
 $if(title)$
 <section data-background="$backgroundTitle$">
-  <h1 class="title">$title$</h1>
-$if(subtitle)$
-  <h2 class="subtitle">$subtitle$</h1>
-$endif$
-$for(author)$
-    <h3 class="author">$author$</h2>
-$endfor$
-$if(date)$
-    <h3 class="date">$date$</h3>
-$endif$
+	<div class="cover-top">
+	  	<h1 class="title">$title$</h1>
+		$if(subtitle)$
+	  	<h2 class="subtitle">$subtitle$</h1>
+		$endif$
+		$if(date)$
+		<h3 class="date">$date$</h3>
+		$endif$
+	</div>
+	<div class="cover-bottom">
+		$for(author)$
+		<h3>$author$</h3>
+		$endfor$
+		$if(position)$
+		<h3>$position$</h3>
+		$endif$
+		$if(institution)$
+		<h3>$institution$</h3>
+		$endif$
+		$if(email)$
+		<h3>$email$</h3>
+		$endif$
+	</div>
 </section>
 $endif$
 $if(toc)$

@@ -102,7 +102,7 @@ if (cluster==T) {
   if (EUHM==F) {
     hm <- hm + labs(title=paste0("Economic Blocs, ", Y))
   } else {
-    hm <- hm + labs(title=paste0("Economic Blocs (EU Countries), ", Y))
+    hm <- hm + labs(title=paste0("Economic Blocs (EU Disaggregated), ", Y)) 
   }
 } else {
   hm <- hm + labs(title=paste0('Policy Barriers to Trade, ', Y, " (Log Scale)"))
