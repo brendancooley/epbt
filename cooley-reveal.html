@@ -796,6 +796,15 @@ $endif$
      }); 
 </script> 
 
+<script>
+	Reveal.configure({
+	  keyboard: {
+	    40: 'next', // allow up and down to move slides left and right
+	    38: 'prev'
+	  }
+	});
+</script>
+
 $for(include-after)$
 $include-after$
 $endfor$

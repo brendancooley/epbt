@@ -6,7 +6,7 @@ position: Ph.D. Candidate
 institution: Princeton University
 email: "bcooley (at) princeton.edu"
 
-bibliography: /Users/brendancooley/Dropbox (Princeton)/References/library.bib
+bibliography: /Users/bcooley/Dropbox (Princeton)/References/library.bib
 biblio-style: apsr
 
 backgroundTitle: "figs/title/containerDark.jpg"
@@ -61,6 +61,7 @@ pop <- read_csv("estimation/clean/pop.csv")
 tar <- read_csv("estimation/clean/tarY.csv")
 
 correlates <- read_csv("estimation/results/correlates.csv")
+
 
 ```
 
