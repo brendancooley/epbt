@@ -112,3 +112,4 @@ if (TRIMAI==T) {
     annotate("segment", y=length(i_iso3)-.5, yend=length(j_iso3)-.5, x=.5, xend=length(i_iso3)+.5) +
     annotate("segment", y=.5, yend=length(j_iso3)+.5, x=length(i_iso3)-.5, xend=length(i_iso3)-.5)
 }
+hm

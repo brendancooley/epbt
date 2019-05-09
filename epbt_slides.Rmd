@@ -62,7 +62,6 @@ tar <- read_csv("estimation/clean/tarY.csv")
 
 correlates <- read_csv("estimation/results/correlates.csv")
 
-
 ```
 
 ## Free and Fair?
