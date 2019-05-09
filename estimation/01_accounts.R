@@ -175,7 +175,8 @@ colnames(gc) <- c("iso3", "year", "gc")
 # calculate trade deficits
 goc <- left_join(go, gc)
 goc$deficit <- goc$gc - goc$go
-deficit <- goc %>% arrange(iso3) %>% select(deficit)
+deficit <- goc %>% select(iso3, year, deficit)
+d <- goc %>% arrange(iso3) %>% select(deficit)
 # deficit %>% filter(year==2011) %>% print(n=100) # check OECD entries
 # sum(goc$deficit)  # check market clearing with deficits
 
@@ -191,7 +192,7 @@ if (EUD==FALSE) {
   write_csv(gc, paste0(cleandir, "gc.csv"))
   write_csv(gdp, paste0(cleandir, "gdp.csv"))
   # tpsp export
-  write_csv(deficit, "tpsp_data/d.csv", col_names=FALSE)
+  write_csv(d, "tpsp_data/d.csv", col_names=FALSE)
 } else {
   write_csv(ccodes %>% as.data.frame(), paste0(cleandir, "ccodesEUD.csv"))
   write_csv(gc, paste0(cleandir, "gcEUD.csv"))

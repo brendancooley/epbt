@@ -143,12 +143,13 @@ X <- X %>% tauLambda(thetaAlt, "tauAlt", "LiiAlt","LjjAlt")
 # }
 
 # export trade shares (in pc value)
-Xshares <- X %>% select(i_iso3, j_iso3, year, Lji, Ljj, j_gcT, i_gcT)
+Xshares <- X %>% select(i_iso3, j_iso3, year, tau, Lji, Ljj, j_gcT, i_gcT)
 Xshares
 
 # Xshares %>% pull(j_iso3) %>% unique() %>% sort()
 # Xshares %>% group_by(j_iso3) %>%
-#   summarise(test=sum(Lji))
+#   summarise(testji=sum(Lji*tau),
+#             testjj=mean(Ljj))
 
 # filter ROW
 # X <- X %>% filter(i_iso3 != "ROW", j_iso3 != "ROW")

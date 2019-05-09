@@ -192,14 +192,6 @@ shares <- read_csv("estimation/clean/shares.csv")
 
 source("figs/shares.R")
 
-sharesCF <- ggplot(data=sharesA, aes(x=j_iso3, y=LjiCF, fill=interaction(i_iso3, j_iso3))) +
-  geom_bar(stat="identity", width=.75, color="white") +
-  scale_fill_manual(values=sharesA$color) +
-  coord_flip() +
-  labs(y="Market Share", x="Importer", title="Counterfactual Baseline") +
-  theme_classic() +
-  guides(fill=FALSE)
-
 sharesCF + plot_spacer()
 
 ```
@@ -207,14 +199,6 @@ sharesCF + plot_spacer()
 ## Identification
 
 ```{r shares2, echo=FALSE, warning=FALSE, message=FALSE, fig.height=5.5, dpi=300}
-
-sharesF <- ggplot(data=sharesA, aes(x=j_iso3, y=Lji, fill=interaction(i_iso3, j_iso3))) +
-  geom_bar(stat="identity", width=.75, color="white") +
-  scale_fill_manual(values=sharesA$color) +
-  coord_flip() +
-  labs(y="Market Share", x="Importer", title=paste("Home Bias in Consumption,", Y)) +
-  theme_classic() +
-  guides(fill=FALSE)
 
 sharesCF + sharesF
 
