@@ -608,8 +608,6 @@ freightCV + theme(aspect.ratio=1)
 
 ```{r hmEUPlot, echo=FALSE, warning=FALSE, message=FALSE, fig.height=5, dpi=300}
 
-tauHMYEUD <- read_csv("estimation/results/tauHMYEUD.csv")
-
 source("figs/hmEUD.R")
 
 hmEUPlot

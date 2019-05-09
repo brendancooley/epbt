@@ -37,13 +37,16 @@ for (i in seq(startY, endY)) {
 }
 
 wiot <- bind_rows(wiotL)
-summary(wiot)
+# summary(wiot)
+# wiot$row_country %>% unique()
 
 ccodes <- unique(wiot$col_country)
+aggs <- setdiff(unique(wiot$row_country), ccodes)
 
 # aggregate European Union (CHE is Switzerland, HRV is Croatia)
 if (EUD==FALSE) {
   wiot$col_country <- mapEU(wiot$col_country, wiot$year)
+  wiot$row_country <- mapEU(wiot$row_country, wiot$year)
 }
 
 # drop HRV CHE due to limited trade observations, Croatia doesn't join EU until 2013, TWN difficult to map to COMTRADE
@@ -54,16 +57,20 @@ if (EUD==FALSE) {
 }
 
 wiot$col_country <- ifelse(wiot$col_country %in% ccodesWIOT, wiot$col_country, "ROW")
+wiot$row_country <- ifelse(wiot$row_country %in% c(ccodesWIOT, aggs), wiot$row_country, "ROW")  # leave aggregates, turn everything else into ROW
 
 # combine Belgium and Luxemborg to match trade data
 wiot$col_country <- ifelse(wiot$col_country == "LUX", "BEL", wiot$col_country)
+wiot$row_country <- ifelse(wiot$row_country == "LUX", "BEL", wiot$row_country)
 
 # other country groupings (wiot)
 if (BNL==TRUE) {
   wiot$col_country <- ifelse(wiot$col_country %in% BNLccodes, "BNL", wiot$col_country)
+  wiot$row_country <- ifelse(wiot$row_country %in% BNLccodes, "BNL", wiot$row_country)
 }
 if (ELL==TRUE) {
   wiot$col_country <- ifelse(wiot$col_country %in% ELLccodes, "ELL", wiot$col_country)
+  wiot$row_country <- ifelse(wiot$row_country %in% ELLccodes, "ELL", wiot$row_country)
 }
 
 # calculate GDP
@@ -72,15 +79,26 @@ gdp <- wiot %>% group_by(col_country, year) %>% filter(row_country=="VA") %>%
 colnames(gdp) <- c("iso3", "year", "gdp")
 # gdp %>% filter(year==2011)
 
-# calculate gross output
-go <- wiot %>% group_by(col_country, year) %>% filter(row_country=="GO") %>%
+# drop aggregates
+wiotCountries <- wiot$col_country %>% unique()
+wiotC <- wiot %>% filter(row_country %in% wiotCountries)
+wiotC$col_country %>% unique()
+wiotC$row_country %>% unique()
+
+# calculate gross output (colSums, collapse rows)
+go <- wiotC %>% group_by(row_country, year) %>% # %>% filter(row_country=="GO") %>%
   summarise(go=sum(value)) %>% ungroup()
 colnames(go) <- c("iso3", "year", "go")
 
-# calculate gross consumption
-gc <- wiot %>% group_by(col_country, year) %>% filter(row_country=="TOT") %>%
+# calculate gross consumption (rowSums, collapse columns)
+gc <- wiotC %>% group_by(col_country, year) %>% # %>% filter(row_country=="TOT") %>%
   summarise(gc=sum(value)) %>% ungroup()
 colnames(gc) <- c("iso3", "year", "gc")
+
+# test <- left_join(go, gc) %>% filter(year==2011)
+# test$deficit <- test$gc - test$go
+# test %>% print(n=50)
+# sum(test$deficit)
 
 drop <- ccodesDrop  # all OECD version
 include <- setdiff(ccodesOECD, drop)
@@ -92,7 +110,8 @@ for (i in seq(startY, endY)) {
     
     iot <- read_csv(iotpath)
     
-    iotttl <- iot %>% filter(ROW == 'TTL_INT_FNL')
+    iotttl <- iot %>% filter(ROW == 'TTL_INT_FNL')  # row includes consumer expenditure and impexp balance
+    # iotttl %>% print(n=100)
     iotoutput <- iot %>% filter(ROW == 'OUTPUT')
     iotva <- iot %>% filter(ROW=="VALU")
     iotgc <- sum(iotttl$obsValue)
@@ -145,19 +164,19 @@ gdp %>% filter(year==2011) %>% print(n=100)
 go <- go %>% group_by(iso3, year)%>%
   summarise(go=sum(go)) %>% ungroup()
 colnames(go) <- c("iso3", "year", "go")
-go %>% filter(year==2011) %>% print(n=100)
+# go %>% filter(year==2011) %>% print(n=100)
 
 # calculate gross consumption
 gc <- gc %>% group_by(iso3, year) %>%
   summarise(gc=sum(gc)) %>% ungroup()
 colnames(gc) <- c("iso3", "year", "gc")
-gc %>% filter(year==2011) %>% print(n=100)
+# gc %>% filter(year==2011) %>% print(n=100)
 
 # calculate trade deficits
 goc <- left_join(go, gc)
 goc$deficit <- goc$gc - goc$go
-deficit <- goc %>% select(iso3, year, deficit)
-deficit %>% filter(year==2011) %>% print(n=100)
+deficit <- goc %>% arrange(iso3) %>% select(deficit)
+# deficit %>% filter(year==2011) %>% print(n=100) # check OECD entries
 # sum(goc$deficit)  # check market clearing with deficits
 
 # calculate consumer expenditure
@@ -171,6 +190,8 @@ if (EUD==FALSE) {
   write_csv(ccodes %>% as.data.frame(), paste0(cleandir, "ccodes.csv"))
   write_csv(gc, paste0(cleandir, "gc.csv"))
   write_csv(gdp, paste0(cleandir, "gdp.csv"))
+  # tpsp export
+  write_csv(deficit, "tpsp_data/d.csv", col_names=FALSE)
 } else {
   write_csv(ccodes %>% as.data.frame(), paste0(cleandir, "ccodesEUD.csv"))
   write_csv(gc, paste0(cleandir, "gcEUD.csv"))

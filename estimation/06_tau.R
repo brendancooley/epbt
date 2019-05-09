@@ -61,7 +61,7 @@ if (EUD==FALSE) {
 } else {
   gdp <- read_csv("clean/gdpEUD.csv") %>% filter(year==Y)
 }
-gdp %>% print(n=100)
+# gdp %>% print(n=100)
 
 gdp$exp <- gdp$exp * 1000
 gdp <- left_join(gdp, Tshare)
@@ -118,7 +118,8 @@ X <- X %>% tauLambda(theta, "tau", "Lii", "Ljj")
 X$LiiAlt <- X$Lii
 X$LjjAlt <- X$Ljj
 X <- X %>% tauLambda(thetaAlt, "tauAlt", "LiiAlt","LjjAlt")
-# X %>% select(i_iso3, j_iso3, year, tauAlt, Lji, LiiAlt, LjjAlt, j_gcT, i_gcT) %>% print(n=50)
+# X %>% select(i_iso3, j_iso3, year, tau, tauAlt, Lji, Lii, Ljj, LiiAlt, LjjAlt, j_gcT, i_gcT) %>% print(n=50)
+# X %>% select(i_iso3, j_iso3, year, tau, tauAlt, Lji, Lii, Ljj, LiiAlt, LjjAlt, j_gcT, i_gcT) %>% filter(j_iso3=="AUS") %>% print(n=50)
 
 # Xtest %>% select(Lii, Lji, tau, everything()) %>% filter(j_iso3=="BNL") %>% print(n=100)
 # Xtest %>% select(Lii, Lji, tau, everything()) %>% filter(i_iso3=="BNL") %>% print(n=100)
