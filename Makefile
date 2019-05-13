@@ -15,6 +15,7 @@ github = ~/GitHub/epbt
 website_docs = ~/Dropbox\ \(Princeton\)/5_CV/website/static/docs
 # github_slides = ~/GitHub/epbt_slides
 Rscripts = estimation/*.R
+tpspPath = ~/Dropbox\ \(Princeton\)/2_Projects/tpsp/analysis
 
 post: 
 	mkdir -p $(github)/estimation/;
@@ -43,6 +44,10 @@ post:
 	cp -a epbt.pdf $(website_docs);
 # 	cp -a epbt_handout.pdf $(website_docs)
 
+tpsp:
+	mkdir -p estimation/tpsp_data;
+	cd estimation; R CMD BATCH tpsp.R;
+	cp -a estimation/tpsp_data $(tpspPath)
 
 all: epbt.md epbt.pdf index.html
 	# $(OUT_FILES)

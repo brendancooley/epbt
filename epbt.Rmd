@@ -23,9 +23,8 @@ output:
 ```{r libs, echo=FALSE, warning=FALSE, message=FALSE, results='hide'}
 
 rm(list=ls())
-libs <- c('tidyverse', "stargazer", "countrycode", "knitr", "ggrepel", "patchwork", "ggthemes", "latex2exp", "readxl", "kableExtra", "skmeans")
+libs <- c('tidyverse', "stargazer", "countrycode", "knitr", "ggrepel", "patchwork", "ggthemes", "latex2exp", "readxl", "kableExtra", "skmeans", "ggridges")
 sapply(libs, require, character.only = TRUE)
-
 
 ```
 

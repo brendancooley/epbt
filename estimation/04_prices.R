@@ -250,11 +250,6 @@ P <- icpP
 # icpBH %>% filter(ccode=="SGP") %>% arrange(expReal) %>% print(n=200)
 # icpBH %>% filter(ccode=="NLD") %>% arrange(expReal) %>% print(n=200)
 
-# extract nus (CD-share on tradables)
-nu <- P %>% select(iso3, Tshare) %>% arrange(iso3)
-colnames(nu) <- c("iso3", "nu")
-nu <- nu %>% select(nu)
-
 ### EXPORT ###
 
 # price indices
@@ -271,11 +266,6 @@ if(EUD==FALSE) {
   write_csv(pop, "clean/pop.csv")
 } else {
   write_csv(pop, "clean/popEUD.csv")
-}
-
-# nus
-if(EUD==FALSE) {
-  write_csv(nu, "tpsp_data/nu.csv", col_names=FALSE)
 }
 
 # P %>% filter(iso3=="IRL")

@@ -11,7 +11,7 @@ bcOrange <- "#BD6121"
 # countries to drop
 ccodesDrop <- c("ARG")
 
-EUD <- TRUE # disaggregate EU?
+EUD <- FALSE # disaggregate EU?
 
 BNL <- TRUE # aggregate Belgium, Netherlands, Luxembourg (as in Dekle et al)
 BNLccodes <- c("BEL", "LUX", "NLD")
@@ -27,3 +27,7 @@ TRIMAI <- F  # include TRI and MAI?
 cluster <- T  # cluster countries?
 Kmeans <- 3  # number of clusters
 KmeansEUD <- 4  # number of clusters with EU disaggregated
+
+# revenues
+tauRev <- TRUE
+mu <- .5  # share of potential revenues captured by government

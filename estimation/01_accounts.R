@@ -158,7 +158,7 @@ if (MYSG==TRUE) {
 gdp <- gdp %>% group_by(iso3, year) %>%
   summarise(gdp=sum(gdp)) %>% ungroup()
 colnames(gdp) <- c("iso3", "year", "gdp")
-gdp %>% filter(year==2011) %>% print(n=100)
+# gdp %>% filter(year==2011) %>% print(n=100)
 
 # calculate gross output
 go <- go %>% group_by(iso3, year)%>%
@@ -176,13 +176,12 @@ colnames(gc) <- c("iso3", "year", "gc")
 goc <- left_join(go, gc)
 goc$deficit <- goc$gc - goc$go
 deficit <- goc %>% select(iso3, year, deficit)
-d <- goc %>% arrange(iso3) %>% select(deficit)
 # deficit %>% filter(year==2011) %>% print(n=100) # check OECD entries
 # sum(goc$deficit)  # check market clearing with deficits
 
 # calculate consumer expenditure
 gdp <- left_join(gdp, deficit)
-gdp$exp <- gdp$gdp - gdp$deficit
+gdp$exp <- gdp$gdp + gdp$deficit
 
 ccodes <- gdp$iso3 %>% unique()
 
@@ -190,12 +189,12 @@ ccodes <- gdp$iso3 %>% unique()
 if (EUD==FALSE) {
   write_csv(ccodes %>% as.data.frame(), paste0(cleandir, "ccodes.csv"))
   write_csv(gc, paste0(cleandir, "gc.csv"))
+  write_csv(go, paste0(cleandir, "go.csv"))
   write_csv(gdp, paste0(cleandir, "gdp.csv"))
-  # tpsp export
-  write_csv(d, "tpsp_data/d.csv", col_names=FALSE)
 } else {
   write_csv(ccodes %>% as.data.frame(), paste0(cleandir, "ccodesEUD.csv"))
   write_csv(gc, paste0(cleandir, "gcEUD.csv"))
+  write_csv(go, paste0(cleandir, "goEUD.csv"))
   write_csv(gdp, paste0(cleandir, "gdpEUD.csv"))
 }
 
