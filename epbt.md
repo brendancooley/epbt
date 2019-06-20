@@ -3,7 +3,7 @@ title: Estimating Policy Barriers to Trade
 author: Brendan Cooley
 date: 3 May 2019
 abstract: To what extent is international trade free and fair? Because policy barriers to trade are often opaque and take on many forms, it is difficult to answer this question while relying on data on observable trade barriers. Here, I propose and implement a structural approach to estimating the magnitude of policy barriers to trade, measured at the trade partner level. The method allows for the possibility that these barriers are both *asymmetric* and *discriminatory*, affecting certain trade partners disproportionately. The approach reveals substantial latent policy barriers to trade, many times larger than observed tariffs. It also implies substantial effective policy discrimination, with exporters in subset of favored countries enjoying far superior market access conditions than their peers in unfavored countries. Combined, these results suggest that the existing world trading system remains far from a free and fair ideal.
-thanks: Ph.D. candidate, Department of Politics, Princeton University. Princeton's Research Program in Political Economy provided financial support for this research. The World Bank's International Comparison Program kindly shared data. Thanks to Haosen Ge, Gene Grossman, Marco Martini, Helen Milner, Sayumi Miyano, Steve Monroe, Sondre Solstad, Kris Ramsay, Steve Redding, Alexandra Zeitz, Grace Zeng for comments on earlier drafts of this paper, as well as an audience at the Princeton Political Economy Graduate Colloquium.
+thanks: Ph.D. candidate, Department of Politics, Princeton University. Princeton's Research Program in Political Economy provided financial support for this research. The World Bank's International Comparison Program kindly shared data. Thanks to Haosen Ge, Gene Grossman, Gleason Judd, Marco Martini, Helen Milner, Sayumi Miyano, Steve Monroe, Sondre Solstad, Kris Ramsay, Steve Redding, Alexandra Zeitz, Grace Zeng for comments on earlier drafts of this paper, as well as an audience at the Princeton Political Economy Graduate Colloquium.
 # jelcodes: JEL codes go here
 
 bibliography: /Users/bcooley/Dropbox (Princeton)/References/library.bib
@@ -122,7 +122,7 @@ P_i = \left( \int_{[0,1]} \alpha_{h(\omega)} p_i(\omega)^{1 - \sigma} d \omega \
 
 Every country can produce every tradable variety $\omega$. Each country has an underlying mean productivity level $T_i$, but $\omega$-specific productivites $z_i(\omega)$ are modeled as the realization of a random variable drawn from a Frechet distribution. Production requires both labor and a composite intermediate good that is exactly analagous to an aggregate consumption good $Q_i$. The cost of producing a unit of variety $\omega$ is
 \begin{equation} \label{eq:c}
-c_i = w_i^{1 - \beta} P_i^{\beta}
+c_i(\omega) = \frac{1}{z_i(\omega)} w_i^{1 - \beta} P_i^{\beta}
 \end{equation}
 where the global parameter $\beta \in [0, 1]$ governs the share of intermediates required in production.^[Services are produced at cost $c_i^s = \frac{w_i}{A_i}$, where $A_i$ is a country-specific services productivity.] Let $X_i$ denote the value of tradable production in country $i$. A constant share, $\beta$, of this value will be spent on intermediates
 $$
@@ -131,7 +131,7 @@ $$
 
 Countries require $1/z_i(\omega)$ labor-intermediate bundles to produce one unit of variety $\omega$. Markets are competitive, so prices are equal to marginal costs. The local price ($p_{ii}(\omega)$) of variety $\omega$ is therefore
 \begin{equation} \label{eq:pii}
-p_{ii}(\omega) = \frac{c_i}{z_i(\omega)}
+p_{ii}(\omega) = c_i(\omega)
 \end{equation}
 
 $\omega$-specific productivities are stochastic. Let $F_i(z)$ denote the probability that country $i$'s productivity is less than or equal to $z$, formally
@@ -239,7 +239,7 @@ If the trade elasticity is known, data on trade shares, relative prices, and fre
 
 
 
-I present results from a calibration on a set of 24 of the world's largest economies in 2011.^[The list of the economies in the sample is included in the Appendix.] These in-sample countries collectively made up 87 percent of world GDP. I treat the rest of the world as an aggregate outside economy. The calibration requires me to take a stance on two structural parameters, the Frechet parameter $\theta$ and the consumers' elasticity of substitution $\sigma$. I set $\sigma - 1 = \theta =$ 6, in line with the estimates from the structural gravity literature [@Head2014].
+I present results from a calibration on a set of 24 of the world's largest economies in 2011.^[The list of the economies in the sample is included in the Appendix.] These in-sample countries collectively made up 87 percent of world GDP. I treat the rest of the world as an aggregate outside economy. The calibration requires me to take a stance on two structural parameters, the Frechet parameter $\theta$ and the consumers' elasticity of substitution $\sigma$. I set $\sigma - 1 = \theta =$ 4, in line with the estimates from the structural gravity literature [@Head2014].
 
 ## Prices and Consumer Expenditures
 
@@ -287,7 +287,7 @@ Figure \ref{fig:freight} depicts factual and predicted freight costs for the Uni
 
 
 
-The results of this exercise reveal substantial unobserved policy barriers to trade. In 2011, across all in-sample markets, exporters faced an average $\tau$ of 2.5, equivalent to a 150 percent import tariff.^[Of course, this result is sensitive to my stance on the trade elasticity. Doubling the trade elasticity to 12 cuts the average $\tau$ to 1.7] The magnitude of these barriers dwarfs that of applied aggregate tariffs, which average only 4 percent within my sample. This result is consistent with @Anderson2003, @Bradford2003, @deSousa2012, and @Waugh2016 which also uncover large implied trade costs using indirect measurement methods. Figure \ref{fig:tcosts} shows the distribution of implied policy barriers (panel A), relative to tariffs and predicted freight costs. 
+The results of this exercise reveal substantial unobserved policy barriers to trade. In 2011, across all in-sample markets, exporters faced an average $\tau$ of 2.5, equivalent to a 150 percent import tariff.^[Of course, this result is sensitive to my stance on the trade elasticity. Doubling the trade elasticity to 8 cuts the average $\tau$ to 1.7] The magnitude of these barriers dwarfs that of applied aggregate tariffs, which average only 4 percent within my sample. This result is consistent with @Anderson2003, @Bradford2003, @deSousa2012, and @Waugh2016 which also uncover large implied trade costs using indirect measurement methods. Figure \ref{fig:tcosts} shows the distribution of implied policy barriers (panel A), relative to tariffs and predicted freight costs. 
 
 ![Distribution of freight costs, tariff barriers, and structural policy barriers to trade ($\tau_{ij}$). Dashed lines show mean of each distribution. \label{fig:tcosts}](figure/tcosts-1.png)
 

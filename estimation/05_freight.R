@@ -31,7 +31,11 @@ if ("sections" %in% strsplit(wd, "/")[[1]]) {
 } else{
   source("params.R")
   if(EUD==FALSE) {
-    flowsPath <- find.file('flowshs2.csv', dir="clean", dirs="estimation/clean")
+    if (tpspC==FALSE) {
+      flowsPath <- find.file('flowshs2.csv', dir="clean", dirs="estimation/clean")
+    } else {
+      flowsPath <- find.file('flowshs2TPSP.csv', dir="clean", dirs="estimation/clean")
+    }
   } else{
     flowsPath <- find.file('flowshs2EUD.csv', dir="clean", dirs="estimation/clean")
   }
@@ -202,7 +206,11 @@ if (runPreds == TRUE) {
   delta$avc <- delta$cif / delta$fob
   
   if(EUD==FALSE) {
-    write_csv(delta, "clean/delta.csv")
+    if (tpspC==FALSE) {
+      write_csv(delta, "clean/delta.csv")
+    } else {
+      write_csv(delta, "clean/deltaTPSP.csv")
+    }
   } else {
     write_csv(delta, "clean/deltaEUD.csv")
   }

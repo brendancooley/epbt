@@ -44,9 +44,10 @@ post:
 	cp -a epbt.pdf $(website_docs);
 # 	cp -a epbt_handout.pdf $(website_docs)
 
+# need to make sure tauRev=TRUE before executing
 tpsp:
 	mkdir -p estimation/tpsp_data;
-	cd estimation; R CMD BATCH tpsp.R;
+	cd estimation; R CMD BATCH 06_tau.R; R CMD BATCH tpsp.R;
 	cp -a estimation/tpsp_data $(tpspPath)
 
 all: epbt.md epbt.pdf index.html

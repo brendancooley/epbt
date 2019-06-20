@@ -18,8 +18,13 @@ source("params.R")
 startY <- 1995
 endY <- 2011
 
-if(EUD==FALSE) {
-  ccodes <- read_csv("clean/ccodes.csv") %>% pull(.)
+if (EUD==FALSE) {
+  if (tpspC==FALSE) {
+    ccodes <- read_csv("clean/ccodes.csv") %>% pull(.)
+  }
+  else {
+    ccodes <- read_csv("clean/ccodesTPSP.csv") %>% pull(.)
+  }
 } else {
   ccodes <- read_csv("clean/ccodesEUD.csv") %>% pull(.)
 }
@@ -288,9 +293,15 @@ chlCosts <- chlCosts %>% select(year, i_iso3, j_iso3, adv)
 freightC <- list(usCosts, ausCosts, nzCosts, chlCosts)
 
 freight <- bind_rows(freightC)
+freight$j_iso3 <- ifelse(freight$j_iso3 %in% ccodes, freight$j_iso3, "ROW")
+freight <- freight %>% filter(!(i_iso3=="ROW" & j_iso3=="ROW")) # filter ROW internal trade
 
-if(EUD==FALSE) {
-  write_csv(freight, "clean/freight.csv")
+if (EUD==FALSE) {
+  if (tpspC==FALSE) {
+    write_csv(freight, "clean/freight.csv")
+  } else {
+    write_csv(freight, "clean/freightTPSP.csv")
+  }
 } else {
   write_csv(freight, "clean/freightEUD.csv")
 }
@@ -730,7 +741,11 @@ flowsAgg <- flowshs2 %>% group_by(year, i_iso3, j_iso3) %>%
 flowsAgg$year <- flowsAgg$year %>% as.integer()
 
 if(EUD==FALSE) {
-  write_csv(flowsAgg, "clean/flowsAgg.csv")
+  if (tpspC==FALSE) {
+    write_csv(flowsAgg, "clean/flowsAgg.csv")
+  } else {
+    write_csv(flowsAgg, "clean/flowsAggTPSP.csv")
+  }
 } else{
   write_csv(flowsAgg, "clean/flowsAggEUD.csv")
 }
@@ -776,7 +791,11 @@ flowshs2export$year <- flowshs2export$year %>% as.integer()  # weird things happ
 # flowshs2export %>% filter(i_iso3==j_iso3)
 
 if(EUD==FALSE) {
-  write_csv(flowshs2export, "clean/flowshs2.csv")
+  if (tpspC==FALSE) {
+    write_csv(flowshs2export, "clean/flowshs2.csv")
+  } else {
+    write_csv(flowshs2export, "clean/flowshs2TPSP.csv")
+  }
 } else{
   write_csv(flowshs2export, "clean/flowshs2EUD.csv")
 }

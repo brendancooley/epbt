@@ -1,10 +1,10 @@
 Y <- 2011
 
-theta <- 6
-thetaAlt <- 12
+theta <- 4
+thetaAlt <- 2 * theta
 
-sigma <- 6
-sigmaAlt <- 11
+sigma <- theta + 1
+sigmaAlt <- 2 * sigma - 2
 
 bcOrange <- "#BD6121"
 
@@ -30,4 +30,8 @@ KmeansEUD <- 4  # number of clusters with EU disaggregated
 
 # revenues
 tauRev <- TRUE
-mu <- .5  # share of potential revenues captured by government
+mu <- 1  # share of potential revenues captured by government
+
+# mini economy for tpsp
+tpspC <- TRUE
+ccodesTPSP <- c("CHN", "EU", "JPN", "BRA", "USA")

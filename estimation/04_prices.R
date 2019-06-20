@@ -19,7 +19,11 @@ for (i in sourceFiles) {
 source("params.R")
 
 if (EUD==FALSE) {
-  ccodes <- read_csv("clean/ccodes.csv") %>% pull(.)
+  if (tpspC==FALSE) {
+    ccodes <- read_csv("clean/ccodes.csv") %>% pull(.)
+  } else {
+    ccodes <- read_csv("clean/ccodesTPSP.csv") %>% pull(.)
+  }
 } else {
   ccodes <- read_csv("clean/ccodesEUD.csv") %>% pull(.)
 }
@@ -216,7 +220,11 @@ icpBHTAgg$expShareT <- icpBHTAgg$expReal / icpBHTAgg$gdpUSDT
 
 # export
 if(EUD==FALSE) {
-  write_csv(icpBHTAgg, "clean/icpBHTAgg.csv")
+  if (tpspC==FALSE) {
+    write_csv(icpBHTAgg, "clean/icpBHTAgg.csv")
+  } else {
+    write_csv(icpBHTAgg, "clean/icpBHTAggTPSP.csv")
+  }
 } else {
   write_csv(icpBHTAgg, "clean/icpBHTAggEUD.csv")
 }
@@ -254,7 +262,11 @@ P <- icpP
 
 # price indices
 if(EUD==FALSE) {
-  write_csv(P, "clean/priceIndex.csv")
+  if (tpspC==FALSE) {
+    write_csv(P, "clean/priceIndex.csv")
+  } else {
+    write_csv(P, "clean/priceIndexTPSP.csv")
+  }
 } else {
   write_csv(P, "clean/priceIndexEUD.csv")
 }
@@ -263,7 +275,11 @@ if(EUD==FALSE) {
 pop <- P %>% select(year, iso3, pop)
 
 if(EUD==FALSE) {
-  write_csv(pop, "clean/pop.csv")
+  if (tpspC==FALSE) {
+    write_csv(pop, "clean/pop.csv")
+  } else {
+    write_csv(P, "clean/popTPSP.csv")
+  }
 } else {
   write_csv(pop, "clean/popEUD.csv")
 }
