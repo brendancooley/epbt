@@ -1,7 +1,10 @@
+library(tidyverse)
+
 ### SOURCE HELPERS ###
 
+ccodesAll <- c()
+
 wd <- getwd()
-print(wd)
 if ("sections" %in% strsplit(wd, "/")[[1]]) {
   sourceFiles <- list.files("../estimation/source/")
   for (i in sourceFiles) {
@@ -13,6 +16,7 @@ if ("sections" %in% strsplit(wd, "/")[[1]]) {
     for (i in sourceFiles) {
       source(paste0("source/", i))
     }
+    ccodesAll <- read_csv(paste0(cleandir, "ccodes.csv")) %>% pull(.)  # all
   } else {
     sourceFiles <- list.files("estimation/source/")
     for (i in sourceFiles) {
@@ -85,7 +89,8 @@ mu <- 1  # share of potential revenues captured by government
 
 # mini economy for tpsp
 # tpspC <- TRUE
-ccodesTPSP <- c("CHN", "EU", "JPN", "BRA", "USA")
+# ccodesTPSP <- c("CHN", "EU", "JPN", "BRA", "USA")  # subset
+ccodesTPSP <- ccodesAll
 
 # island indicator
 island <- c("AUS", "CYP", "GBR", "IRL", "JPN", "IDN", "PHL")

@@ -29,17 +29,17 @@ if (TPSP==FALSE) {
   
 } else {
   
-  P <- read_csv(paste0(cleandirTPSP, "priceIndexTPSP.csv"))
-  tau <- read_csv(paste0(resultsdirTPSP, "tauYTRTPSP.csv")) %>% select(-tauAlt)
-  shares <- read_csv(paste0(cleandirTPSP, "sharesTRTPSP.csv"))  # in cif value
-  delta <- read_csv(paste0(cleandirTPSP, "deltaTPSP.csv")) %>% filter(year==Y)
+  P <- read_csv(paste0(cleandirTPSP, "priceIndex.csv"))
+  tau <- read_csv(paste0(resultsdirTPSP, "tauYTR.csv")) %>% select(-tauAlt)
+  shares <- read_csv(paste0(cleandirTPSP, "sharesTR.csv"))  # in cif value
+  delta <- read_csv(paste0(cleandirTPSP, "delta.csv")) %>% filter(year==Y)
   
-  gc <- read_csv(paste0(cleandirTPSP,"gcTPSP.csv")) %>% filter(year==Y)
+  gc <- read_csv(paste0(cleandirTPSP,"gc.csv")) %>% filter(year==Y)
   # go <- read_csv("clean/go.csv") %>% filter(year==Y)
-  gdp <- read_csv(paste0(cleandirTPSP, "gdpTPSP.csv")) %>% filter(year==Y) %>% select(-deficit, -gdp)
-  deficits <- read_csv(paste0(cleandirTPSP, "dTRTPSP.csv"))
+  gdp <- read_csv(paste0(cleandirTPSP, "gdp.csv")) %>% filter(year==Y) %>% select(-deficit, -gdp)
+  deficits <- read_csv(paste0(cleandirTPSP, "dTR.csv"))
   
-  ccodes <- read_csv(paste0(cleandirTPSP, "ccodesTPSP.csv"))
+  ccodes <- read_csv(paste0(cleandirTPSP, "ccodes.csv"))
   
 }
 

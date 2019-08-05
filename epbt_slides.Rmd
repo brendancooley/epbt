@@ -13,8 +13,8 @@ backgroundTitle: "figs/title/containerDark.jpg"
 
 output:
   revealjs::revealjs_presentation:
-    template: "cooley-reveal.html"
-    css: "css/cooley-Roboto-reveal.css"
+    template: "/Users/bcooley/Dropbox (Princeton)/8_Templates/slides/cooley-reveal.html"
+    css: "/Users/bcooley/Dropbox (Princeton)/8_Templates/slides/cooley-reveal.css"
     backgroundTransition: none
     transition: none
     self_contained: false

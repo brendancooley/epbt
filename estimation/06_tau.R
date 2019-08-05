@@ -23,8 +23,12 @@ if (TPSP == TRUE) {
 
 if (EUD==TRUE) {
   mkdir(resultsdirEU)
-} else {
-  mkdir(resultsdir)
+} else{
+  if (TPSP==FALSE) {
+    mkdir(resultsdir)
+  } else {
+    mkdir(resultsdirTPSP)
+  }
 }
 
 # devtools::install_github("timelyportfolio/d3treeR")

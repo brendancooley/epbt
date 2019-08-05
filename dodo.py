@@ -92,7 +92,8 @@ def task_tpsp():
 					'cd ' + estdir + '; Rscript ' + freight + ' False True',
 					'cd ' + estdir + '; Rscript ' + tau + ' False True',
 					'cd ' + estdir + '; Rscript tpsp.R',
-					"cp -a " + estdir + "tpsp_data/ " + tpspPath],
+					"mkdir -p " + tpspPath + "tpsp_data/",
+					"cp -a " + estdir + "tpsp_data/ " + tpspPath + "tpsp_data/"],
 		'verbosity': 2,
 	}
 
