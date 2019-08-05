@@ -22,7 +22,7 @@ CPdyads <- CPdyads %>% filter(dups) %>% select(dyad, cost_type, cost_ji, cost_ij
 ### DISTRIBUTION PLOT ###
 
 # calculate means
-CP <- CP %>% group_by(cost_type) %>% mutate(meanC=mean(cost)) %>% ungroup()
+CP <- CP %>% group_by(cost_type) %>% mutate(meanC=mean(cost, na.rm=T)) %>% ungroup()
 
 # CPP <- CP %>% filter(cost_type=="tau")
 # CPF <- CP %>% filter(cost_type=="avc")

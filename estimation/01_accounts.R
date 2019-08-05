@@ -1,26 +1,27 @@
-### TODOs ###
+### Get customizable arguments from command line ###
+
+args <- commandArgs(trailingOnly=TRUE)
+if (is.null(args) | identical(args, character(0))) {
+  EUD <- FALSE
+  TPSP <- FALSE
+} else { 
+  EUD <- ifelse(args[1] == "True", TRUE, FALSE)
+  TPSP <- ifelse(args[2] == "True", TRUE, FALSE)
+}
+
+
+# EUD <- FALSE
+# TPSP <- FALSE
 
 ### SETUP ###
 
-rm(list=ls())
-libs <- c('tidyverse', 'R.utils', 'countrycode', 'stargazer')
-sapply(libs, require, character.only = TRUE)
-
-sourceFiles <- list.files("source/")
-for (i in sourceFiles) {
-  source(paste0("source/", i))
-}
-
 source("params.R")
 
-startY <- 1995
-endY <- 2011
-
-cleandir <- "clean/"
-mkdir(cleandir)
+libs <- c('tidyverse', 'R.utils', 'countrycode', 'stargazer')
+ipak(libs)
 
 # import OECD IOTS and select which countries to include in analysis
-ccodesOECD <- list.dirs("data/iots/", full.names=FALSE)
+ccodesOECD <- list.dirs(paste0(datadir, "iots/"), full.names=FALSE)
 ccodesOECD <- ccodesOECD[nchar(ccodesOECD) > 0]
 
 ### GROSS OUTPUT CALCULATIONS ###
@@ -30,15 +31,13 @@ wiotL <- list()
 tick <- 1
 for (i in seq(startY, endY)) {
   year <- i
-  wiotpath <- paste0('data/wiot/', year, '.csv')
+  wiotpath <- paste0(datadir, 'wiot/', year, '.csv')
   wiotY <- read_csv(wiotpath)
   wiotL[[tick]] <- wiotY
   tick <- tick + 1
 }
 
 wiot <- bind_rows(wiotL)
-# summary(wiot)
-# wiot$row_country %>% unique()
 
 ccodes <- unique(wiot$col_country)
 aggs <- setdiff(unique(wiot$row_country), ccodes)
@@ -56,7 +55,7 @@ if (EUD==FALSE) {
   ccodesWIOT <- setdiff(ccodesWIOT, EU27)
 }
 
-if (tpspC==FALSE) {
+if (TPSP==FALSE) {
   wiot$col_country <- ifelse(wiot$col_country %in% ccodesWIOT, wiot$col_country, "ROW")
   wiot$row_country <- ifelse(wiot$row_country %in% c(ccodesWIOT, aggs), wiot$row_country, "ROW")  # leave aggregates, turn everything else into ROW
 } else {
@@ -105,7 +104,7 @@ colnames(gc) <- c("iso3", "year", "gc")
 # test %>% print(n=50)
 # sum(test$deficit)
 
-if (tpspC==FALSE) {
+if (TPSP==FALSE) {
   drop <- ccodesDrop  # all OECD version
   include <- setdiff(ccodesOECD, drop)
 } else {
@@ -116,7 +115,7 @@ if (tpspC==FALSE) {
 for (i in seq(startY, endY)) {
   for (j in include) {
     
-    iotpath <- paste0("data/iots/", j, "/", i, ".csv")
+    iotpath <- paste0(datadir, "iots/", j, "/", i, ".csv")
     
     iot <- read_csv(iotpath)
     
@@ -155,7 +154,7 @@ gc$gc <- ifelse(gc$iso3=="ROW", gc$gc - gc$gcOECD, gc$gc)
 gc <- gc %>% select(-one_of(c("gcOECD")))
 
 go <- left_join(go, goOECD)
-go$goOECD <- ifelse(is.na(go$goOECD), 0, gdp$goOECD)
+go$goOECD <- ifelse(is.na(go$goOECD), 0, go$goOECD)
 go$go <- ifelse(go$iso3=="ROW", go$go - go$goOECD, go$go)
 go <- go %>% select(-one_of(c("goOECD")))
 
@@ -189,7 +188,7 @@ colnames(gc) <- c("iso3", "year", "gc")
 goc <- left_join(go, gc)
 goc$deficit <- goc$gc - goc$go
 deficit <- goc %>% select(iso3, year, deficit)
-deficit %>% filter(year==2011) %>% print(n=100) # check OECD entries
+# deficit %>% filter(year==2011) %>% print(n=100) # check OECD entries
 # sum(goc$deficit)  # check market clearing with deficits
 
 # calculate consumer expenditure
@@ -200,20 +199,23 @@ ccodes <- gdp$iso3 %>% unique()
 
 # write to clean dir
 if (EUD==FALSE) {
-  if (tpspC==FALSE) {
+  if (TPSP==FALSE) {
+    mkdir(cleandir)
     write_csv(ccodes %>% as.data.frame(), paste0(cleandir, "ccodes.csv"))
     write_csv(gc, paste0(cleandir, "gc.csv"))
     write_csv(go, paste0(cleandir, "go.csv"))
     write_csv(gdp, paste0(cleandir, "gdp.csv"))
   } else {
-    write_csv(ccodes %>% as.data.frame(), paste0(cleandir, "ccodesTPSP.csv"))
-    write_csv(gc, paste0(cleandir, "gcTPSP.csv"))
-    write_csv(go, paste0(cleandir, "goTPSP.csv"))
-    write_csv(gdp, paste0(cleandir, "gdpTPSP.csv"))
+    mkdir(cleandirTPSP)
+    write_csv(ccodes %>% as.data.frame(), paste0(cleandirTPSP, "ccodes.csv"))
+    write_csv(gc, paste0(cleandirTPSP, "gc.csv"))
+    write_csv(go, paste0(cleandirTPSP, "go.csv"))
+    write_csv(gdp, paste0(cleandirTPSP, "gdp.csv"))
   }
 } else {
-  write_csv(ccodes %>% as.data.frame(), paste0(cleandir, "ccodesEUD.csv"))
-  write_csv(gc, paste0(cleandir, "gcEUD.csv"))
-  write_csv(go, paste0(cleandir, "goEUD.csv"))
-  write_csv(gdp, paste0(cleandir, "gdpEUD.csv"))
+  mkdir(cleandirEU)
+  write_csv(ccodes %>% as.data.frame(), paste0(cleandirEU, "ccodes.csv"))
+  write_csv(gc, paste0(cleandirEU, "gc.csv"))
+  write_csv(go, paste0(cleandirEU, "go.csv"))
+  write_csv(gdp, paste0(cleandirEU, "gdp.csv"))
 }

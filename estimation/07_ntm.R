@@ -6,27 +6,23 @@
 
 ### SETUP ###
 
-rm(list=ls())
-libs <- c('tidyverse')
-sapply(libs, require, character.only = TRUE)
-
-sourceFiles <- list.files("source/")
-for (i in sourceFiles) {
-  source(paste0("source/", i))
-}
-
 source("params.R")
 
-EUntmY <- 2012
+libs <- c('tidyverse')
+ipak(libs)
 
-write_csv(EUntmY %>% as.data.frame(), "clean/EUntmY.csv")
+# year to use for EU NTMs
+EUntmY <- 2012
+mkdir(otherdir)
+
+write_csv(EUntmY %>% as.data.frame(), paste0(otherdir, "EUntmY.csv"))
 
 ### DATA ###
 
-flowshs6 <- read_csv("clean/flowshs6.csv")
+flowshs6 <- read_csv(paste0(cleandir, "flowshs6.csv"))
 colnames(flowshs6)[colnames(flowshs6) == "v"] <- "val"
 
-ccodes <- read_csv("clean/ccodes.csv") %>% pull(.)
+ccodes <- read_csv(paste0(cleandir, "ccodes.csv")) %>% pull(.)
 
 flowshs6Y <- flowshs6 %>% filter(year==Y)
 
@@ -39,10 +35,10 @@ flowshs6join <- flowshs6Y %>% select(one_of(c("i_iso3", "j_iso3", "hs6", "year",
 
 rm(flowshs6)
 
-fcodes <- read_csv("data/flows/codes.csv") %>% select(i, iso3)
+fcodes <- read_csv(paste0(datadir, "flows/codes.csv")) %>% select(i, iso3)
 
 # non tariff measures
-ntm <- read_csv("data/ntm/ntm.csv") 
+ntm <- read_csv(paste0(datadir, "ntm/ntm.csv"))
 # test <- ntm %>% select(Dataset_id, ntmcode, reporter, partner, ntm_1_digit, hs6, StartDate, EndDate)
 # test %>% unique()
 colnames(ntm)[colnames(ntm) %in% c("reporter", "partner")] <- c("j_iso3", "i_iso3")
@@ -131,4 +127,4 @@ ntmCoverage$year <- Y
 
 ### EXPORT ###
 
-write_csv(ntmCoverage, "clean/ntmY.csv")
+write_csv(ntmCoverage, paste0(cleandir, "ntmY.csv"))

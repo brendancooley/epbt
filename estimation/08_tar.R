@@ -4,39 +4,33 @@
 
 ### SETUP ###
 
-rm(list=ls())
-libs <- c('tidyverse', 'latex2exp', 'readstata13', "patchwork", "countrycode")
-sapply(libs, require, character.only = TRUE)
-
-sourceFiles <- list.files("source/")
-for (i in sourceFiles) {
-  source(paste0("source/", i))
-}
-
 source("params.R")
 
+libs <- c('tidyverse', 'latex2exp', 'readstata13', "patchwork", "countrycode")
+ipak(libs)
+
 # Y <- 2004
-write_csv(Y %>% as.data.frame(), "clean/tarYval.csv")
+write_csv(Y %>% as.data.frame(), paste0(otherdir, "tarYval.csv"))
 
 ### DATA ###
 
-ccodes <- read_csv("clean/ccodes.csv") %>% pull(.)
+ccodes <- read_csv(paste0(cleandir, "ccodes.csv")) %>% pull(.)
 
-fcodes <- read_csv("data/flows/codes.csv") %>% select(i, iso3)
-flowshs2 <- read_csv("clean/flowshs2all.csv")
+fcodes <- read_csv(paste0(datadir, "flows/codes.csv")) %>% select(i, iso3)
+flowshs2 <- read_csv(paste0(cleandir, "flowshs2all.csv"))
 
 # flows with EU aggregated
-flowshs2EU <- read_csv("clean/flowshs2.csv")
+flowshs2EU <- read_csv(paste0(cleandir, "flowshs2.csv"))
 
 # macmap
-tar2001 <- read_delim("data/tar/2001.txt", "\t")
+tar2001 <- read_delim(paste0(datadir, "tar/2001.txt"), "\t")
 tar2001$year <- 2001
 
-tar2004 <- read_delim("data/tar/2004.txt", "\t")
+tar2004 <- read_delim(paste0(datadir, "tar/2004.txt"), "\t")
 tar2004$year <- 2004
 colnames(tar2004)[colnames(tar2004)=="Partner"] <- "partner"
 
-tar2007 <- read_delim("data/tar/2007.txt", "\t")
+tar2007 <- read_delim(paste0(datadir, "tar/2007.txt"), "\t")
 tar2007$year <- 2007
 
 tarL <- list(tar2001, tar2004, tar2007)
@@ -68,7 +62,7 @@ tarAgg <- tar %>% group_by(i_iso3, j_iso3, year) %>%
             val=sum(val))
 
 # unctad (WB, 2011)
-tar2011 <- read_csv("data/tar/2011.csv")
+tar2011 <- read_csv(paste0(datadir, "tar/2011.csv"))
 
 tar2011$j_iso3 <- countrycode(tar2011$`Reporter Code`, "iso3n", "iso3c")
 tar2011$j_iso3 <- ifelse(tar2011$`Reporter Code` == 918, "EU", tar2011$j_iso3)
@@ -119,6 +113,6 @@ tarAggY$year <- Y
 # tarAggY %>% filter(is.na(wtar))
 # # Note: no data on Vietnam
 
-write_csv(tarAggY, "clean/tarY.csv")
+write_csv(tarAggY, paste0(cleandir, "tarY.csv"))
 
 ### PLOTS ##

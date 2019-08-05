@@ -2,7 +2,7 @@
 # 
 # source("params.R")
 # 
-# correlates <- read_csv("results/correlates.csv")
+# correlates <- read_csv("03_results/correlates.csv")
 
 ceiling <- 1.5
 correlatesF <- correlates %>% filter(wtar < ceiling)

@@ -1,31 +1,29 @@
-### TODOs ###
+### Get customizable arguments from command line ###
 
-# calculate tradable shares and plot versus gdppc
-
-# P is a "sigma"-norm and norms are homogenous functions, 
-# so increasing prices by a factor of lambda leads the price index to increase by a factor of lambda
+args <- commandArgs(trailingOnly=TRUE)
+if (is.null(args) | identical(args, character(0))) {
+  EUD <- FALSE
+  TPSP <- FALSE
+} else { 
+  EUD <- ifelse(args[1] == "True", TRUE, FALSE)
+  TPSP <- ifelse(args[2] == "True", TRUE, FALSE)
+}
 
 ### SETUP ###
 
-# rm(list=ls())
-libs <- c('tidyverse', 'R.utils', 'countrycode', 'ggrepel', 'stringr', "readxl")
-sapply(libs, require, character.only = TRUE)
-
-sourceFiles <- list.files("source/")
-for (i in sourceFiles) {
-  source(paste0("source/", i))
-}
-
 source("params.R")
 
+libs <- c('tidyverse', 'R.utils', 'countrycode', 'ggrepel', 'stringr', "readxl")
+ipak(libs)
+
 if (EUD==FALSE) {
-  if (tpspC==FALSE) {
-    ccodes <- read_csv("clean/ccodes.csv") %>% pull(.)
+  if (TPSP==FALSE) {
+    ccodes <- read_csv(paste0(cleandir, "ccodes.csv")) %>% pull(.)
   } else {
-    ccodes <- read_csv("clean/ccodesTPSP.csv") %>% pull(.)
+    ccodes <- read_csv(paste0(cleandirTPSP, "ccodes.csv")) %>% pull(.)
   }
 } else {
-  ccodes <- read_csv("clean/ccodesEUD.csv") %>% pull(.)
+  ccodes <- read_csv(paste0(cleandirEU, "ccodes.csv")) %>% pull(.)
 }
 
 ### DATA ###
@@ -220,14 +218,15 @@ icpBHTAgg$expShareT <- icpBHTAgg$expReal / icpBHTAgg$gdpUSDT
 
 # export
 if(EUD==FALSE) {
-  if (tpspC==FALSE) {
-    write_csv(icpBHTAgg, "clean/icpBHTAgg.csv")
+  if (TPSP==FALSE) {
+    write_csv(icpBHTAgg, paste0(cleandir, "icpBHTAgg.csv"))
   } else {
-    write_csv(icpBHTAgg, "clean/icpBHTAggTPSP.csv")
+    write_csv(icpBHTAgg, paste0(cleandirTPSP, "icpBHTAgg.csv"))
   }
 } else {
-  write_csv(icpBHTAgg, "clean/icpBHTAggEUD.csv")
+  write_csv(icpBHTAgg, paste0(cleandirEU, "icpBHTAgg.csv"))
 }
+icpBHTAgg %>% print(n=100)
 
 icpP <- icpBHTAgg %>% group_by(ccode) %>%
   summarise(priceIndex=priceIndex(alphaHat, pppReal, sigma),
@@ -262,27 +261,27 @@ P <- icpP
 
 # price indices
 if(EUD==FALSE) {
-  if (tpspC==FALSE) {
-    write_csv(P, "clean/priceIndex.csv")
+  if (TPSP==FALSE) {
+    write_csv(P, paste0(cleandir, "priceIndex.csv"))
   } else {
-    write_csv(P, "clean/priceIndexTPSP.csv")
+    write_csv(P, paste0(cleandirTPSP, "priceIndex.csv"))
   }
 } else {
-  write_csv(P, "clean/priceIndexEUD.csv")
+  write_csv(P, paste0(cleandirEU, "priceIndex.csv"))
 }
 
 # population
 pop <- P %>% select(year, iso3, pop)
 
 if(EUD==FALSE) {
-  if (tpspC==FALSE) {
-    write_csv(pop, "clean/pop.csv")
+  if (TPSP==FALSE) {
+    write_csv(pop, paste0(cleandir, "pop.csv"))
   } else {
-    write_csv(P, "clean/popTPSP.csv")
+    write_csv(pop, paste0(cleandirTPSP, "pop.csv"))
   }
 } else {
-  write_csv(pop, "clean/popEUD.csv")
+  write_csv(pop, paste0(cleandirEU, "pop.csv"))
 }
-
+P
 # P %>% filter(iso3=="IRL")
 # P %>% filter(iso3 %in% EU27) %>% print(n=27)

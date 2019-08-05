@@ -2,39 +2,41 @@
 
 # - filter extreme trade cost observations?
 
-### SETUP ###
+### Get customizable arguments from command line ###
 
-rm(list=ls())
-libs <- c('tidyverse', 'R.utils', 'countrycode', "readxl", "gdata", "stringr")
-sapply(libs, require, character.only = TRUE)
-
-sourceFiles <- list.files("source/")
-for (i in sourceFiles) {
-  source(paste0("source/", i))
+args <- commandArgs(trailingOnly=TRUE)
+if (is.null(args) | identical(args, character(0))) {
+  EUD <- FALSE
+  TPSP <- FALSE
+} else { 
+  EUD <- ifelse(args[1] == "True", TRUE, FALSE)
+  TPSP <- ifelse(args[2] == "True", TRUE, FALSE)
 }
+
+### SETUP ###
 
 source("params.R")
 
-startY <- 1995
-endY <- 2011
+libs <- c('tidyverse', 'R.utils', 'countrycode', "readxl", "gdata", "stringr")
+ipak(libs)
 
 if (EUD==FALSE) {
-  if (tpspC==FALSE) {
-    ccodes <- read_csv("clean/ccodes.csv") %>% pull(.)
+  if (TPSP==FALSE) {
+    ccodes <- read_csv(paste0(cleandir, "ccodes.csv")) %>% pull(.)
   }
   else {
-    ccodes <- read_csv("clean/ccodesTPSP.csv") %>% pull(.)
+    ccodes <- read_csv(paste0(cleandirTPSP, "ccodes.csv")) %>% pull(.)
   }
 } else {
-  ccodes <- read_csv("clean/ccodesEUD.csv") %>% pull(.)
+  ccodes <- read_csv(paste0(cleandirEU, "ccodes.csv")) %>% pull(.)
 }
 
 # modes directory
-mdir <- paste0("data/modes/")
+mdir <- paste0(datadir, "modes/")
 
 ### DATA ###
 
-flowshs2 <- read_csv("clean/flowshs2all.csv")
+flowshs2 <- read_csv(paste0(cleandir, "flowshs2all.csv"))
 
 ### OBSERVED CIF/FOB RATIOS ###
 
@@ -43,7 +45,7 @@ flowshs2 <- read_csv("clean/flowshs2all.csv")
 uscodespath <- paste0(mdir, "us/", "codes.csv")
 uscodes <- read_csv(uscodespath) %>% select(code, iso2)
 
-fcodes <- read_csv("data/flows/codes.csv") %>% select(iso3, iso2)
+fcodes <- read_csv(paste0(datadir, "flows/codes.csv")) %>% select(iso3, iso2)
 fcodes <- fcodes %>% add_row(iso2="TW", iso3="TWN")  # Add Taiwan
 
 usL <- list()
@@ -55,7 +57,7 @@ for (i in seq(startY, endY)) {
   uspath <- paste0(mdir, "us/", year, ".csv")
   # specify col types as double to kill integer parsing failures
   usmodes <- read_csv(uspath, col_types = cols(scommodity=col_character(), ves_wgt_yr=col_double(), ves_val_yr=col_double(), gen_qy2_yr=col_double(), con_qy2_yr=col_double(), cnt_val_yr=col_double(), cal_dut_yr=col_double(), cards_yr=col_double()))
-  print("scommodity" %in% colnames(usmodes))
+  # print("scommodity" %in% colnames(usmodes))
   usL[[tick]] <- usmodes %>% select(one_of(cols))
   tick <- tick + 1
 }
@@ -194,7 +196,7 @@ ausCosts <- ausCosts %>% select(year, i_iso3, j_iso3, adv)
 
 ### New Zealand
 
-nzbase <- "data/nz/"
+nzbase <- paste0(datadir, "nz/")
 
 nzL <- list()
 tick <- 1
@@ -245,7 +247,7 @@ nzCosts <- nzCosts %>% select(year, i_iso3, j_iso3, adv)
 
 ### Chile
 
-chlbase <- "data/chl/"
+chlbase <- paste0(datadir, "chl/")
 
 chlL <- list()
 tick <- 1
@@ -297,13 +299,13 @@ freight$j_iso3 <- ifelse(freight$j_iso3 %in% ccodes, freight$j_iso3, "ROW")
 freight <- freight %>% filter(!(i_iso3=="ROW" & j_iso3=="ROW")) # filter ROW internal trade
 
 if (EUD==FALSE) {
-  if (tpspC==FALSE) {
-    write_csv(freight, "clean/freight.csv")
+  if (TPSP==FALSE) {
+    write_csv(freight, paste0(cleandir, "freight.csv"))
   } else {
-    write_csv(freight, "clean/freightTPSP.csv")
+    write_csv(freight, paste0(cleandirTPSP, "freight.csv"))
   }
 } else {
-  write_csv(freight, "clean/freightEUD.csv")
+  write_csv(freight, paste0(cleandirEU, "freight.csv"))
 }
 
 ### TRANSPORT MODES ###
@@ -671,7 +673,7 @@ flowshs2 <- flowshs2 %>% filter(!(i_iso3 == "EU" & j_iso3 == "EU"))
 # flowshs2$i_iso3 %>% unique() %>% sort()
 
 # # append maritime transport costs
-mtc <- read_csv("data/mtc/mtc.csv")
+mtc <- read_csv(paste0(datadir, "mtc/mtc.csv"))
 mtcadva <- mtc %>% filter(MEAS == "TR_ADVA")  # get only ad valorem data
 mtccif <- mtc %>% filter(MEAS == "TR_COST")
 mtcadva <- mtcadva %>% select(IMP, EXP, COMH0, Year, Value)
@@ -741,13 +743,13 @@ flowsAgg <- flowshs2 %>% group_by(year, i_iso3, j_iso3) %>%
 flowsAgg$year <- flowsAgg$year %>% as.integer()
 
 if(EUD==FALSE) {
-  if (tpspC==FALSE) {
-    write_csv(flowsAgg, "clean/flowsAgg.csv")
+  if (TPSP==FALSE) {
+    write_csv(flowsAgg, paste0(cleandir, "flowsAgg.csv"))
   } else {
-    write_csv(flowsAgg, "clean/flowsAggTPSP.csv")
+    write_csv(flowsAgg, paste0(cleandirTPSP, "flowsAgg.csv"))
   }
 } else{
-  write_csv(flowsAgg, "clean/flowsAggEUD.csv")
+  write_csv(flowsAgg, paste0(cleandirEU, "flowsAgg.csv"))
 }
 
 # summarize EU and ROW share and cost data
@@ -791,13 +793,13 @@ flowshs2export$year <- flowshs2export$year %>% as.integer()  # weird things happ
 # flowshs2export %>% filter(i_iso3==j_iso3)
 
 if(EUD==FALSE) {
-  if (tpspC==FALSE) {
-    write_csv(flowshs2export, "clean/flowshs2.csv")
+  if (TPSP==FALSE) {
+    write_csv(flowshs2export, paste0(cleandir, "flowshs2.csv"))
   } else {
-    write_csv(flowshs2export, "clean/flowshs2TPSP.csv")
+    write_csv(flowshs2export, paste0(cleandirTPSP, "flowshs2.csv"))
   }
 } else{
-  write_csv(flowshs2export, "clean/flowshs2EUD.csv")
+  write_csv(flowshs2export, paste0(cleandirEU, "flowshs2.csv"))
 }
 
 # flowshs2export %>% filter(j_iso3=="IRL")

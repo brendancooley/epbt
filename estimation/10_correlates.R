@@ -7,24 +7,18 @@
 
 ### SETUP ###
 
-rm(list=ls())
-libs <- c('tidyverse')
-sapply(libs, require, character.only = TRUE)
-
-sourceFiles <- list.files("source/")
-for (i in sourceFiles) {
-  source(paste0("source/", i))
-}
-
 source("params.R")
+
+libs <- c('tidyverse')
+ipak(libs)
 
 ### DATA ###
 
-ptaY <- read_csv("clean/ptaY.csv") %>% select(-year)
-ntmY <- read_csv("clean/ntmY.csv") %>% select(-year)
-tarY <- read_csv("clean/tarY.csv") %>% select(-year, -val)
+ptaY <- read_csv(paste0(cleandir, "ptaY.csv")) %>% select(-year)
+ntmY <- read_csv(paste0(cleandir, "ntmY.csv")) %>% select(-year)
+tarY <- read_csv(paste0(cleandir, "tarY.csv")) %>% select(-year, -val)
 
-tauY <- read_csv("results/tauY.csv") %>% select(-year) %>% filter(!is.na(tau))
+tauY <- read_csv(paste0(resultsdir, "tauY.csv")) %>% select(-year) %>% filter(!is.na(tau))
 
 C <- left_join(tauY, ptaY)
 C$pta <- ifelse(is.na(C$pta), 0, 1)
@@ -50,11 +44,11 @@ coef(model)[3] %>% as.numeric() %>% round(2) * 100
 
 ### COST COMPARISONS ###
 
-delta <- read_csv("clean/delta.csv") %>% filter(year==Y) %>% select(i_iso3, j_iso3, avc)
+delta <- read_csv(paste0(cleandir, "delta.csv")) %>% filter(year==Y) %>% select(i_iso3, j_iso3, avc)
 
 C <- left_join(C, delta)
 
-write_csv(C, "results/correlates.csv")
+write_csv(C, paste0(resultsdir, "correlates.csv"))
 
 # heterogeneity between and across governments
 # ggplot(C, aes(x=tau)) +

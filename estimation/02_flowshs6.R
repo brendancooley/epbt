@@ -1,6 +1,5 @@
 ### TO-DOs ###
 
-# Add Chile adv costs?
 # Does BACI contain country groupings? Might be inferring too much openness for ROW
 # aggregate Hong Kong and China?
 
@@ -8,31 +7,24 @@
 
 ### SETUP ###
 
-rm(list=ls())
+source("params.R")
+
 libs <- c('tidyverse', 'R.utils', 'countrycode')
-sapply(libs, require, character.only = TRUE)
-
-sourceFiles <- list.files("source/")
-for (i in sourceFiles) {
-  source(paste0("source/", i))
-}
-
-startY <- 1995
-endY <- 2011
+ipak(libs)
 
 # modes directory
-mdir <- paste0("data/modes/")
+mdir <- paste0(datadir, "modes/")
 
 ### AGGREGATE FLOW DATA ###
 
 flowsL <- list()
 
-fcodes <- read_csv("data/flows/codes.csv") %>% select(i, iso3)
+fcodes <- read_csv(paste0(datadir, "flows/codes.csv")) %>% select(i, iso3)
 
 tick <- 1
 for (i in seq(startY, endY)) {
   year <- i
-  flowspath <- paste0("data/flows/", year, ".csv")
+  flowspath <- paste0(datadir, "flows/", year, ".csv")
   flows <- read_csv(flowspath)
   flowsL[[tick]] <- flows
   tick <- tick + 1
@@ -51,7 +43,7 @@ colnames(flows)[colnames(flows) == 'iso3'] <- "i_iso3"
 flows <- left_join(flows, fcodes, by=c("j"="i"))
 colnames(flows)[colnames(flows) == 'iso3'] <- "j_iso3"
 
-write_csv(flows, "clean/flowshs6.csv")
+write_csv(flows, paste0(cleandir, "flowshs6.csv"))
 
 flowshs2 <- flows %>% group_by(year, hs2, i_iso3, j_iso3) %>% 
   summarise(val=sum(v)) %>%
@@ -63,9 +55,9 @@ rm(flows)
 ### GEOGRAPHIC DATA ###
 
 # append distances
-seadist <- read_csv('data/dists/CERDI-seadistance.csv')
-cepiidist <- read_csv('data/dists/dist_cepii.csv')
-cepiigeo <- read_csv('data/dists/geo_cepii.csv')
+seadist <- read_csv(paste0(datadir, 'dists/CERDI-seadistance.csv'))
+cepiidist <- read_csv(paste0(datadir, 'dists/dist_cepii.csv'))
+cepiigeo <- read_csv(paste0(datadir, 'dists/geo_cepii.csv'))
 
 # drop duplicate entries
 cepiigeo <- cepiigeo[!duplicated(cepiigeo$iso3), ]
@@ -97,8 +89,7 @@ cepiigeo <- bind_rows(cepiigeo, yug_geo)
 yug_geo$iso3 <- "MNE"
 cepiigeo <- bind_rows(cepiigeo, yug_geo)
 
-# Note: seadist can sometimes be shorter than adist because adist is population-weighted while
-# seadist is coast-coast
+# Note: seadist can sometimes be shorter than adist because adist is population-weighted while seadist is coast-coast
 
 # append to flows
 seadist <- seadist %>% select(i_iso3, j_iso3, seadistance)
@@ -124,4 +115,4 @@ flowshs2 <- left_join(flowshs2, cepiigeo, by=c("j_iso3"="iso3"))
 
 # flowshs2 <- left_join(flowshs2, flowsdist)
 
-write_csv(flowshs2, "clean/flowshs2all.csv")
+write_csv(flowshs2, paste0(cleandir, "flowshs2all.csv"))

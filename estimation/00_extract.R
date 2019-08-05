@@ -33,22 +33,14 @@
 
 ### SETUP ###
 
-rm(list=ls())
+# source helpers and get parameters
+source("params.R")
+
 libs <- c('tidyverse', 'OECD', 'readstata13', 'R.utils', 'openxlsx', 'googleway', 'revgeo', 'wbstats')
-sapply(libs, require, character.only = TRUE)
-
-sourceFiles <- list.files("source/")
-for (i in sourceFiles) {
-  source(paste0("source/", i))
-}
-
-# set years for analysis
-startyear <- 1995
-endyear <- 2011
-datadir <- "data/"
-mkdir(datadir)
+ipak(libs)
 
 ### setup directory system and get codebooks ###
+mkdir(datadir)
 
 # output dirs
 wiotdir <- paste0(datadir, "wiot/")
@@ -65,9 +57,6 @@ for (i in ccodesOECD) {
   mkdir(idir)
 }
 
-# figs dir
-figsdir <- "figs/"
-mkdir(figsdir)
 
 # flows dirs
 bacidir <- paste0(datadir, 'flows/')
@@ -124,7 +113,7 @@ jpncodespath <- paste0(jpndir, "codes.csv")
 checkwritecsv(jpncodes, jpncodespath)
 
 # get WIOT
-wtempdir <- "data/"
+wtempdir <- datadir
 wioturl <- "http://www.wiod.org/protected3/data13/update_sep12/wiot/wiot_stata_sep12.zip"
 temp <- tempfile()
 download.file(wioturl, temp)
@@ -161,7 +150,7 @@ chlFOB <- read_csv('https://www.dropbox.com/s/rfsfks12pc3o010/chileFOB.csv?dl=1'
 chlCIF <- read_csv('https://www.dropbox.com/s/x5fj6vubg7zmqrh/chileCIF.csv?dl=1')
 
 # get annual data
-for (i in seq(startyear, endyear, 1)) {
+for (i in seq(startY, endY, 1)) {
   
   y <- i
   print(y)
@@ -327,7 +316,7 @@ for (i in seq(startyear, endyear, 1)) {
   }
   
   ### New Zealand
-  nzdir <- "data/nz/"
+  nzdir <- paste0(datadir, "nz/")
   mkdir(nzdir)
   nzypath <- paste0(nzdir, y, ".csv")
   
@@ -341,7 +330,7 @@ for (i in seq(startyear, endyear, 1)) {
   }
   
   ### Chile
-  chldir <- "data/chl/"
+  chldir <- paste0(datadir, "chl/")
   mkdir(chldir)
   chlypath <- paste0(chldir, y, ".csv")
   
@@ -580,7 +569,7 @@ download.file(ocodesurl, paste0(pdir, "other_codes.txt"))
 ### POPULATION ###
 
 # pop <- wb(country='countries_only', indicator="SP.POP.TOTL", 
-#            startdate=startyear, enddate=endyear, return_wide = TRUE, POSIXct = TRUE) %>% as_tibble()
+#            startdate=startY, enddate=endY, return_wide = TRUE, POSIXct = TRUE) %>% as_tibble()
 # pop <- pop %>% select(iso3c, date, SP.POP.TOTL)
 # colnames(pop) <- c("iso3", "year", "pop")
 # write_csv(pop, paste0(datadir, "pop.csv"))

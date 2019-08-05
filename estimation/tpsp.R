@@ -1,38 +1,45 @@
 library(tidyverse)
+library(countrycode)
+library(cshapes)
+library(reshape2)
 
 source("params.R")
 
-write_csv(mu %>% as.data.frame(), "tpsp_data/mu.csv", col_names = FALSE)
+TPSP <- TRUE
+
+mkdir(expdirTPSP)
+
+write_csv(mu %>% as.data.frame(), paste0(expdirTPSP, "mu.csv"), col_names = FALSE)
 
 ### IMPORT ###
 
-if (tpspC==FALSE) {
+if (TPSP==FALSE) {
   
-  P <- read_csv("clean/priceIndex.csv")
-  tau <- read_csv("results/tauYTR.csv") %>% select(-tauAlt)
-  shares <- read_csv("clean/sharesTR.csv")  # in cif value
-  delta <- read_csv("clean/delta.csv") %>% filter(year==Y)
+  P <- read_csv(paste0(cleandir, "priceIndex.csv"))
+  tau <- read_csv(paste0(resultsdir, "tauYTR.csv")) %>% select(-tauAlt)
+  shares <- read_csv(paste0(cleandir, "sharesTR.csv"))  # in cif value
+  delta <- read_csv(paste0(cleandir, "delta.csv")) %>% filter(year==Y)
   
-  gc <- read_csv("clean/gc.csv") %>% filter(year==Y)
+  gc <- read_csv(paste0(cleandir, "gc.csv")) %>% filter(year==Y)
   # go <- read_csv("clean/go.csv") %>% filter(year==Y)
-  gdp <- read_csv("clean/gdp.csv") %>% filter(year==Y) %>% select(-deficit, -gdp)
-  deficits <- read_csv("clean/dTR.csv")
+  gdp <- read_csv(paste0(cleandir, "gdp.csv")) %>% filter(year==Y) %>% select(-deficit, -gdp)
+  deficits <- read_csv(paste0(cleandir, "dTR.csv"))
   
-  ccodes <- read_csv("clean/ccodes.csv")
+  ccodes <- read_csv(paste0(cleandir, "ccodes.csv"))
   
 } else {
   
-  P <- read_csv("clean/priceIndexTPSP.csv")
-  tau <- read_csv("results/tauYTRTPSP.csv") %>% select(-tauAlt)
-  shares <- read_csv("clean/sharesTRTPSP.csv")  # in cif value
-  delta <- read_csv("clean/deltaTPSP.csv") %>% filter(year==Y)
+  P <- read_csv(paste0(cleandirTPSP, "priceIndexTPSP.csv"))
+  tau <- read_csv(paste0(resultsdirTPSP, "tauYTRTPSP.csv")) %>% select(-tauAlt)
+  shares <- read_csv(paste0(cleandirTPSP, "sharesTRTPSP.csv"))  # in cif value
+  delta <- read_csv(paste0(cleandirTPSP, "deltaTPSP.csv")) %>% filter(year==Y)
   
-  gc <- read_csv("clean/gcTPSP.csv") %>% filter(year==Y)
+  gc <- read_csv(paste0(cleandirTPSP,"gcTPSP.csv")) %>% filter(year==Y)
   # go <- read_csv("clean/go.csv") %>% filter(year==Y)
-  gdp <- read_csv("clean/gdpTPSP.csv") %>% filter(year==Y) %>% select(-deficit, -gdp)
-  deficits <- read_csv("clean/dTRTPSP.csv")
+  gdp <- read_csv(paste0(cleandirTPSP, "gdpTPSP.csv")) %>% filter(year==Y) %>% select(-deficit, -gdp)
+  deficits <- read_csv(paste0(cleandirTPSP, "dTRTPSP.csv"))
   
-  ccodes <- read_csv("clean/ccodesTPSP.csv")
+  ccodes <- read_csv(paste0(cleandirTPSP, "ccodesTPSP.csv"))
   
 }
 
@@ -56,7 +63,7 @@ shares <- shares %>% select(-Ljj)
 shares <- bind_rows(shares, sharesH) %>% arrange(j_iso3, i_iso3) %>% select(-i_gcT)
 
 shares$Lji_pc <- shares$Lji * shares$tau
-shares %>% group_by(j_iso3) %>% summarise(test=sum(Lji*tau))
+# shares %>% group_by(j_iso3) %>% dplyr::summarise(test=sum(Lji*tau))
 shares$Xji_cif <- shares$Lji * shares$j_gcT
 
 # calculate revenues
@@ -64,12 +71,12 @@ shares$r_ji <- shares$Xji_cif * (shares$tau - 1) * mu
 shares$Xji_cifmu <- shares$Xji_cif * shares$tau - shares$r_ji  # valuation pre customs (includes (1-mu)-share of revenues returned to producers)
 
 r <- shares %>% group_by(j_iso3) %>%
-  summarise(r=sum(r_ji))
+  dplyr::summarise(r=sum(r_ji))
 colnames(r) <- c("j_iso3", "r")
 
 rvec <- r %>% arrange(j_iso3) %>% select(r)
 
-write_csv(rvec, "tpsp_data/r.csv", col_names=FALSE)
+write_csv(rvec, paste0(expdirTPSP, "r.csv"), col_names=FALSE)
 
 # put ones in tau data frame
 tauii <- cbind(ccodes, ccodes, rep(1, length(ccodes))) %>% as.data.frame()
@@ -96,14 +103,14 @@ gdp$gdp <- gdp$exp - gdp$deficit - gdp$r # recalculate deficit, revenue-implied 
 # country codes
 ccodes <- shares$j_iso3 %>% unique() %>% sort() %>% as.data.frame()
 
-write_csv(ccodes, "tpsp_data/ccodes.csv", col_names=FALSE)
+write_csv(ccodes, paste0(expdirTPSP, "ccodes.csv"), col_names=FALSE)
 
 # tradable shares (nu)
 nu <- P %>% select(j_iso3, Tshare) %>% arrange(j_iso3)
 colnames(nu) <- c("j_iso3", "nu")
 nu <- nu %>% select(nu)
 
-write_csv(nu, "tpsp_data/nu.csv", col_names=FALSE)
+write_csv(nu, paste0(expdirTPSP, "nu.csv"), col_names=FALSE)
 
 # trade matrix
 
@@ -111,13 +118,13 @@ write_csv(nu, "tpsp_data/nu.csv", col_names=FALSE)
 shares <- shares %>% arrange(j_iso3, i_iso3)
 
 xexp <- shares %>% group_by(i_iso3) %>%
-  summarise(xexp=sum(Xji_cifmu))
+  dplyr::summarise(xexp=sum(Xji_cifmu))
 colnames(xexp) <- c("iso3", "xexp")  # total sales (inclusive of intermediates)
 
 XMcif <- shares %>% 
   select(i_iso3, j_iso3, Xji_cif) %>% 
   group_by(i_iso3) %>%
-  mutate(id = row_number()) %>%
+  dplyr::mutate(id = row_number()) %>%
   spread(i_iso3, Xji_cif) %>%
   select(-id, -j_iso3) %>%
   as.matrix()
@@ -125,13 +132,13 @@ XMcif <- shares %>%
 XMcifmu <- shares %>% 
   select(i_iso3, j_iso3, Xji_cifmu) %>% 
   group_by(i_iso3) %>%
-  mutate(id = row_number()) %>%
+  dplyr::mutate(id = row_number()) %>%
   spread(i_iso3, Xji_cifmu) %>%
   select(-id, -j_iso3) %>%
   as.matrix()
 
-write_csv(XMcif %>% as.data.frame(), "tpsp_data/Xcif.csv", col_names=FALSE)
-write_csv(XMcifmu %>% as.data.frame(), "tpsp_data/Xcifmu.csv", col_names=FALSE)
+write_csv(XMcif %>% as.data.frame(), paste0(expdirTPSP, "Xcif.csv"), col_names=FALSE)
+write_csv(XMcifmu %>% as.data.frame(), paste0(expdirTPSP, "Xcifmu.csv"), col_names=FALSE)
 
 # national accounts
 y <- gdp %>% filter(year==Y) %>% arrange(iso3) %>% select(gdp)
@@ -139,10 +146,10 @@ d <- gdp %>% filter(year==Y) %>% arrange(iso3) %>% select(deficit)
 
 rowSums(XMcifmu) - colSums(XMcifmu)
 rowSums(XMcif) - colSums(XMcif)
-d %>% print(n=50)
+# d %>% print(n=50)
 
-write_csv(d, "tpsp_data/d.csv", col_names=FALSE)
-write_csv(y, "tpsp_data/y.csv", col_names=FALSE)
+write_csv(d, paste0(expdirTPSP, "d.csv"), col_names=FALSE)
+write_csv(y, paste0(expdirTPSP, "y.csv"), col_names=FALSE)
 
 # trade policies
 tau <- tau %>% arrange(j_iso3, i_iso3) %>% select(-year)
@@ -150,12 +157,12 @@ tau <- tau %>% arrange(j_iso3, i_iso3) %>% select(-year)
 tauM <- tau %>% 
   select(i_iso3, j_iso3, tau) %>% 
   group_by(i_iso3) %>%
-  mutate(id = row_number()) %>%
+  dplyr::mutate(id = row_number()) %>%
   spread(i_iso3, tau) %>%
   select(-id, -j_iso3) %>%
   as.matrix()
 
-write_csv(tauM %>% as.data.frame(), "tpsp_data/tau.csv", col_names=FALSE)
+write_csv(tauM %>% as.data.frame(), paste0(expdirTPSP, "tau.csv"), col_names=FALSE)
 
 # share of intermediates in production (beta)
 gdp <- left_join(gdp, xexp)
@@ -177,13 +184,53 @@ gdp %>% print(n=50)
 Eq <- gdp %>% arrange(iso3) %>% select(Eq)
 Ex <- gdp %>% arrange(iso3) %>% select(Ex)
 
-write_csv(Eq, "tpsp_data/Eq.csv", col_names=FALSE)
-write_csv(Ex, "tpsp_data/Ex.csv", col_names=FALSE)
+write_csv(Eq, paste0(expdirTPSP, "Eq.csv"), col_names=FALSE)
+write_csv(Ex, paste0(expdirTPSP, "Ex.csv"), col_names=FALSE)
 
 # beta
 beta <- gdp$beta %>% mean()
 # beta <- gdp$beta
-write_csv(beta %>% as.data.frame(), "tpsp_data/beta.csv", col_names=FALSE)
+write_csv(beta %>% as.data.frame(), paste0(expdirTPSP, "beta.csv"), col_names=FALSE)
 
 # theta
-write_csv(theta %>% as.data.frame(), "tpsp_data/theta.csv", col_names=FALSE)
+write_csv(theta %>% as.data.frame(), paste0(expdirTPSP, "theta.csv"), col_names=FALSE)
+
+### minimum distances ###
+ccodes <- ccodes %>% pull(.)
+
+dmat <- distmatrix(as.Date(paste0(Y, "-1-1")), type="mindist")
+ddf <- dmat %>% melt() %>% as_tibble()
+
+# recode
+colnames(ddf) <- c("cow1", "cow2", "minDist")
+ddf$iso1 <- countrycode(ddf$cow1, "cown", "iso3c")
+ddf$iso2 <- countrycode(ddf$cow2, "cown", "iso3c")
+
+ddf$iso1 <- mapEU(ddf$iso1, Y)
+ddf$iso2 <- mapEU(ddf$iso2, Y)
+
+ddf$iso1 <- ifelse(ddf$iso1 %in% ccodes, ddf$iso1, "ROW")
+ddf$iso2 <- ifelse(ddf$iso2 %in% ccodes, ddf$iso2, "ROW")
+
+ddf <- ddf %>% select(iso1, iso2, minDist)
+ddfOut <- ddf %>% dplyr::group_by(iso1, iso2) %>% dplyr::summarise(minDist=min(minDist)) %>% ungroup()
+
+dmatOut <- ddfOut %>% spread(iso2, minDist) %>% select(-iso1) %>% as.matrix()
+write_csv(dmatOut %>% as.data.frame(), paste0(expdirTPSP, "mDists.csv"), col_names=FALSE)
+
+### military spending ###
+library(WDI)
+
+milex <- WDI(indicator="MS.MIL.XPND.CD", start=Y, end=Y) %>% as_tibble()
+milex$iso3 <- countrycode(milex$iso2c, "iso2c", "iso3c")
+milex <- milex %>% filter(!is.na(iso3))
+milex$milex <- milex$MS.MIL.XPND.CD
+milex$milex <- ifelse(is.na(milex$milex), 0, milex$milex)
+
+milex$iso3 <- mapEU(milex$iso3, milex$year)
+milex$iso3 <- ifelse(milex$iso3 %in% ccodes, milex$iso3, "ROW")
+
+milexOut <- milex %>% group_by(iso3) %>%
+  dplyr::summarise(milex=sum(milex)) %>% arrange(iso3) %>% pull(milex)
+
+write_csv(milexOut %>% as.data.frame(), paste0(expdirTPSP, "milex.csv"), col_names=FALSE)

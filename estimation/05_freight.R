@@ -8,36 +8,45 @@
 
 # function to recompile flows matrix with subsample of countries...remap ROW
 
+### Get customizable arguments from command line ###
+
+args <- commandArgs(trailingOnly=TRUE)
+print(args)
+if (is.null(args) | identical(args, character(0))) {
+  EUD <- FALSE
+  TPSP <- FALSE
+} else {
+  EUD <- ifelse(args[1] == "True", TRUE, FALSE)
+  TPSP <- ifelse(args[2] == "True", TRUE, FALSE)
+}
+
+print(EUD)
+print(TPSP)
+
 ### SETUP ###
 
-# rm(list=ls())
-libs <- c('tidyverse', 'earth', "nnet", "olpsR", "glmnet", "plotly", "splines", 'ggsci', 'ggthemes', 'ggrepel', "reader")
-sapply(libs, require, character.only = TRUE)
+source('params.R')
 
-sourcePath <- find.file("source", dir="", dirs="estimation")
-sourceFiles <- list.files(sourcePath)
-for (i in sourceFiles) {
-  source(paste0(sourcePath, "/", i))
-}
+libs <- c('tidyverse', 'earth', "nnet", "olpsR", "glmnet", "plotly", "splines", 'ggsci', 'ggthemes', 'ggrepel', "reader")
+ipak(libs) 
 
 # variable search for calling locally or from Rmd
 wd <- getwd()
 if ("sections" %in% strsplit(wd, "/")[[1]]) {
-  if(EUD==FALSE) {
-    flowsPath <- find.file('flowshs2.csv', dir="../estimation", dirs="../estimation/clean")
+  if (EUD==FALSE) {
+    flowsPath <- find.file('flowshs2.csv', dir="../estimation", dirs=paste0("../estimation/", cleandir))
   } else {
-    flowsPath <- find.file('flowshs2EUD.csv', dir="../estimation", dirs="../estimation/clean")
+    flowsPath <- find.file('flowshs2.csv', dir="../estimation", dirs=paste0("../estimation/", cleandirEU))
   }
-} else{
-  source("params.R")
-  if(EUD==FALSE) {
-    if (tpspC==FALSE) {
-      flowsPath <- find.file('flowshs2.csv', dir="clean", dirs="estimation/clean")
+} else {
+  if (EUD==FALSE) {
+    if (TPSP==FALSE) {
+      flowsPath <- find.file('flowshs2.csv', dir=cleandir, dirs=paste0("../estimation/", cleandir))
     } else {
-      flowsPath <- find.file('flowshs2TPSP.csv', dir="clean", dirs="estimation/clean")
+      flowsPath <- find.file('flowshs2.csv', dir=cleandirTPSP, dirs=paste0("../estimation/", cleandirTPSP))
     }
   } else{
-    flowsPath <- find.file('flowshs2EUD.csv', dir="clean", dirs="estimation/clean")
+    flowsPath <- find.file('flowshs2.csv', dir=cleandirEU, dirs=paste0("../estimation/", cleandirEU))
   }
 }
 
@@ -66,7 +75,7 @@ flows$avcair <- ifelse(flows$avcair > thres, NA, flows$avcair)
 
 ### island indicator
 isl <- data.frame(ccode=unique(flows$i_iso3), island=0)
-isl$island <- ifelse(isl$ccode %in% c("AUS", "CYP", "GBR", "IRL", "JPN", "IDN", "PHL"), 1, 0)
+isl$island <- ifelse(isl$ccode %in% island, 1, 0)
 
 flows <- left_join(flows, isl, by=c("i_iso3"="ccode"))
 colnames(flows)[colnames(flows)=="island"] <- "i_island"
@@ -205,14 +214,14 @@ if (runPreds == TRUE) {
   delta$cif <- delta$fob + delta$freight
   delta$avc <- delta$cif / delta$fob
   
-  if(EUD==FALSE) {
-    if (tpspC==FALSE) {
-      write_csv(delta, "clean/delta.csv")
+  if (EUD==FALSE) {
+    if (TPSP==FALSE) {
+      write_csv(delta, paste0(cleandir, "delta.csv"))
     } else {
-      write_csv(delta, "clean/deltaTPSP.csv")
+      write_csv(delta, paste0(cleandirTPSP, "delta.csv"))
     }
   } else {
-    write_csv(delta, "clean/deltaEUD.csv")
+    write_csv(delta, paste0(cleandirEU, "delta.csv"))
   }
   
   print("done")

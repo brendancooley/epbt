@@ -1,9 +1,14 @@
 # library(tidyverse)
 # library(skmeans)
 # 
-# tauHMY <- read_csv("results/tauHMY.csv")
-# tauHMYEUD <- read_csv("results/tauYEUD.csv")
+# tauHMY <- read_csv("03_results/tauHMY.csv")
+# tauHMYEUD <- read_csv("03_results/EUD/tauY.csv")
+# 
 # source("params.R")
+# 
+# tauHMYEUD %>% filter(j_iso3=="AUT") %>% print(n=50)
+# tauHMYEUD %>% filter(i_iso3=="BNL") %>% print(n=50)
+# tauHMYEUD %>% filter(j_iso3=="IRL") %>% print(n=50)
 # 
 # EUHM <- T
 

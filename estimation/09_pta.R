@@ -2,22 +2,16 @@
 
 ### SETUP ###
 
-rm(list=ls())
-libs <- c('tidyverse', "countrycode")
-sapply(libs, require, character.only = TRUE)
-
-sourceFiles <- list.files("source/")
-for (i in sourceFiles) {
-  source(paste0("source/", i))
-}
-
 source("params.R")
+
+libs <- c('tidyverse', "countrycode")
+ipak(libs)
 
 ### DATA ###
 
-ccodes <- read_csv("clean/ccodes.csv") %>% pull(.)
+ccodes <- read_csv(paste0(cleandir, "ccodes.csv")) %>% pull(.)
 
-pta <- read_csv("data/pta/pta.csv", col_types=list(number=col_character())) %>% select(iso1, iso2, entryforceyear) %>% filter(!is.na(entryforceyear))
+pta <- read_csv(paste0(datadir, "pta/pta.csv"), col_types=list(number=col_character())) %>% select(iso1, iso2, entryforceyear) %>% filter(!is.na(entryforceyear))
 colnames(pta) <- c("i_iso3n", "j_iso3n", "sYear")
 
 pta$i_iso3 <- countrycode(pta$i_iso3n, "iso3n", "iso3c")
@@ -46,4 +40,4 @@ ptaCY$pta <- 1
 ptaY <- ptaCY %>% filter(year==Y)
 ptaY <- ptaY %>% unique()
 
-write_csv(ptaY, "clean/ptaY.csv")
+write_csv(ptaY, paste0(cleandir, "ptaY.csv"))
