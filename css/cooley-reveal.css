@@ -13,7 +13,7 @@
 @import url(https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic);*/
 section.has-dark-background, section.has-dark-background h1, section.has-dark-background h2, section.has-dark-background h3, section.has-dark-background h4, section.has-dark-background h5, section.has-dark-background h6 {
   color: #fff; }
-  
+
 @font-face{
     font-family: 'Libre Franklin';
     src: url('fonts/LibreFranklin-Regular.ttf');
@@ -25,7 +25,7 @@ section.has-dark-background, section.has-dark-background h1, section.has-dark-ba
 @font-face{
     font-family: 'Libre Franklin Bold';
     src: url('fonts/LibreFranklin-Bold.ttf');
-  }  
+  }
 @font-face{
     font-family: 'AlegreyaSC';
     src: url('fonts/AlegreyaSC-Regular.ttf');
@@ -49,6 +49,14 @@ section.has-dark-background, section.has-dark-background h1, section.has-dark-ba
 @font-face{
     font-family: 'Roboto Bold';
     src: url('fonts/RobotoCondensed-Bold.ttf');
+  }
+@font-face{
+    font-family: 'Roboto Italic';
+    src: url('fonts/RobotoCondensed-LightItalic.ttf');
+  }
+@font-face{
+    font-family: 'Open Sans';
+    src: url('fonts/OpenSans-Light.ttf');
   }
 
 /*********************************************
@@ -135,6 +143,7 @@ body {
 .reveal .cover-bottom h3 {
   font-size: .75em;
   text-align: left;
+  line-height: 1em;
   font-family: "Roboto";
   color: #FFF;
 }
@@ -172,7 +181,7 @@ body {
 
 .reveal h1 {
   text-shadow: none; }
-  
+
 .reveal .center {
   text-align: center !important;
   margin: auto;
@@ -190,6 +199,7 @@ body {
      }
 
 .reveal .subtitle {
+        font-size: 1em;
         text-align: left;
         font-family: "Roboto";
         color: #FFF;
@@ -200,7 +210,7 @@ body {
         font-family: "Roboto";
         color: #FFF;
      }
-     
+
 /*********************************************
  * OTHER
  *********************************************/
@@ -211,7 +221,7 @@ body {
   border: 0;
   border-top: 1px solid #000;
   margin: 0 0;
-  padding: 0; 
+  padding: 0;
 }
 
 .reveal p {
@@ -222,13 +232,13 @@ body {
 .reveal img,
 .reveal video,
 .reveal iframe {
-  
+
   max-width: 95%;
   max-height: 95%; }
 
 .reveal strong,
 .reveal b {
-  font-weight: bold; 
+  font-weight: bold;
   color: #BD6121;
   }
 
@@ -275,7 +285,7 @@ body {
   width: 100%;
   font-style: italic;
   border-left: 4px solid #000;
-  padding-left: 10px; 
+  padding-left: 10px;
   background: rgba(255, 255, 255, 0.05);
   box-shadow: 0px 0px 2px rgba(0, 0, 0, 0);
 }
@@ -409,10 +419,10 @@ body {
  * PROGRESS BAR
  *********************************************/
  .reveal .slide-number {
-  font-family: "Roboto";
+  font-family: "Open Sans";
   background: rgba(0, 0, 0, 0);
   font-size: 14pt;
-  color: #000; 
+  color: #000;
 }
 
 .reveal .progress {

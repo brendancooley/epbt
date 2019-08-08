@@ -1,3 +1,8 @@
+
+if (!exists("TPSP")) {
+  TPSP <- FALSE
+}
+
 library(tidyverse)
 
 ### SOURCE HELPERS ###
@@ -16,7 +21,10 @@ if ("sections" %in% strsplit(wd, "/")[[1]]) {
     for (i in sourceFiles) {
       source(paste0("source/", i))
     }
-    ccodesAll <- read_csv(paste0(cleandir, "ccodes.csv")) %>% pull(.)  # all
+    ccodesPath <- paste0("02_clean/", "ccodes.csv")
+    if (file.exists(ccodesPath)) {
+      ccodesAll <- read_csv(ccodesPath) %>% pull(.)  # all
+    }
   } else {
     sourceFiles <- list.files("estimation/source/")
     for (i in sourceFiles) {
@@ -53,7 +61,12 @@ Y <- 2011
 
 # NOTE: small countries get unrealistic trade shares with theta \approx 4 and tauRev = FALSE
 # Standard results...theta=6(?)
-theta <- 6
+
+if (TPSP == FALSE) {
+  theta <- 6
+} else {
+  theta <- 4
+}
 thetaAlt <- 2 * theta
 
 sigma <- theta + 1
@@ -90,7 +103,8 @@ mu <- 1  # share of potential revenues captured by government
 # mini economy for tpsp
 # tpspC <- TRUE
 # ccodesTPSP <- c("CHN", "EU", "JPN", "BRA", "USA")  # subset
-ccodesTPSP <- ccodesAll
+dropTPSP <- c("VNM", "IND", "ISR", "NZL", "PER", "CHL")
+ccodesTPSP <- setdiff(ccodesAll, dropTPSP)
 
 # island indicator
 island <- c("AUS", "CYP", "GBR", "IRL", "JPN", "IDN", "PHL")

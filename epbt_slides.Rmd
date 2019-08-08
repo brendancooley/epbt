@@ -13,8 +13,8 @@ backgroundTitle: "figs/title/containerDark.jpg"
 
 output:
   revealjs::revealjs_presentation:
-    template: "/Users/bcooley/Dropbox (Princeton)/8_Templates/slides/cooley-reveal.html"
-    css: "/Users/bcooley/Dropbox (Princeton)/8_Templates/slides/cooley-reveal.css"
+    template: "css/cooley-reveal.html"
+    css: "css/cooley-reveal.css"
     backgroundTransition: none
     transition: none
     self_contained: false
@@ -25,7 +25,7 @@ output:
       progress: false
       controls: false
     includes:
-      after_body: plugins.html
+      after_body: "css/plugins.html"
 ---
 
 ```{r libs, echo=FALSE, warning=FALSE, message=FALSE, results='hide'}

@@ -15,7 +15,7 @@ tar = "08_tar.R"
 pta = "09_pta.R"
 correlates = "10_correlates.R"
 
-templatePath = "Users/bcooley/Dropbox\ \(Princeton\)/8_Templates/"
+templatePath = "~/Dropbox\ \(Princeton\)/8_Templates/"
 github = "~/GitHub/epbt"
 website_docs = "~/Dropbox\ \(Princeton\)/5_CV/website/static/docs"
 Rscripts = "estimation/*.R"
@@ -110,6 +110,16 @@ def task_paper():
 		'verbosity': 2,
 	}
 
+def task_prep_slides():
+	"""
+
+	"""
+	yield {
+		'name': "moving slide files",
+		'actions': ["mkdir -p css",
+					"cp -a " + templatePath + "slides/ " + "css/"]
+	}
+
 def task_slides():
 	"""
 
@@ -138,8 +148,6 @@ def task_post():
 					"cp -a index_files/ "+ github + "/index_files/",
 					"mkdir -p " + github + "/figure/,"
 					"cp -a figure/ " + github + "/figure/",
-					"cp -a cooley-reveal.html " + github,
-					"cp -a plugins.html " + github,
 					"mkdir -p " + github + "/css/",
 					"cp -a css/ " + github + "/css/",
 					"cp -a epbt_slides.Rmd index.html " + github,

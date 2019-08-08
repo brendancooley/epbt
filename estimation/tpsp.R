@@ -10,6 +10,7 @@ TPSP <- TRUE
 mkdir(expdirTPSP)
 
 write_csv(mu %>% as.data.frame(), paste0(expdirTPSP, "mu.csv"), col_names = FALSE)
+write_csv(Y %>% as.data.frame(), paste0(expdirTPSP, "year.csv"), col_names = FALSE)
 
 ### IMPORT ###
 
