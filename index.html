@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Brendan Cooley" />
+  <meta name="dcterms.date" content="2019-05-08" />
+  <title>Estimating Policy Barriers to Trade</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="index_files/reveal.js-3.3.0.1/css/reveal.css"/>
+
+
+
+<link rel="stylesheet" href="index_files/reveal.js-3.3.0.1/css/theme/simple.css" id="theme">
+
+
+
+  <!-- some tweaks to reveal css -->
+  <style type="text/css">
+    .reveal h1 { font-size: 2.0em; }
+    .reveal h2 { font-size: 1.5em;  }
+    .reveal h3 { font-size: 1.25em;	}
+    .reveal h4 { font-size: 1em;	}
+
+    .reveal .slides>section,
+    .reveal .slides>section>section {
+      padding: 0px 0px;
+    }
+
+    .reveal table {
+      border-width: 0px;
+      border-spacing: 2px;
+      border-style: dotted;
+      border-color: gray;
+      border-collapse: collapse;
+      font-size: 0.7em;
+    }
+
+    .reveal table th {
+      border-width: 0px;
+      padding-left: 10px;
+      padding-right: 25px;
+      font-weight: bold;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+    .reveal table td {
+      border-width: 0px;
+      padding-left: 10px;
+      padding-right: 25px;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+
+  </style>
+
+    <style type="text/css">code{white-space: pre;}</style>
+
+    <link rel="stylesheet" href="css/cooley-reveal.css"/>
+
+<!-- Printing and PDF exports -->
+<script id="paper-css" type="application/dynamic-css">
+
+/* Default Print Stylesheet Template
+   by Rob Glazebrook of CSSnewbie.com
+   Last Updated: June 4, 2008
+
+   Feel free (nay, compelled) to edit, append, and
+   manipulate this file as you see fit. */
+
+
+@media print {
+
+	/* SECTION 1: Set default width, margin, float, and
+	   background. This prevents elements from extending
+	   beyond the edge of the printed page, and prevents
+	   unnecessary background images from printing */
+	html {
+		background: #fff;
+		width: auto;
+		height: auto;
+		overflow: visible;
+	}
+	body {
+		background: #fff;
+		font-size: 20pt;
+		width: auto;
+		height: auto;
+		border: 0;
+		margin: 0 5%;
+		padding: 0;
+		overflow: visible;
+		float: none !important;
+	}
+
+	/* SECTION 2: Remove any elements not needed in print.
+	   This would include navigation, ads, sidebars, etc. */
+	.nestedarrow,
+	.controls,
+	.fork-reveal,
+	.share-reveal,
+	.state-background,
+	.reveal .progress,
+	.reveal .backgrounds {
+		display: none !important;
+	}
+
+	/* SECTION 3: Set body font face, size, and color.
+	   Consider using a serif font for readability. */
+	body, p, td, li, div {
+		font-size: 20pt!important;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		color: #000;
+	}
+
+	/* SECTION 4: Set heading font face, sizes, and color.
+	   Differentiate your headings from your body text.
+	   Perhaps use a large sans-serif for distinction. */
+	h1,h2,h3,h4,h5,h6 {
+		color: #000!important;
+		height: auto;
+		line-height: normal;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		text-shadow: 0 0 0 #000 !important;
+		text-align: left;
+		letter-spacing: normal;
+	}
+	/* Need to reduce the size of the fonts for printing */
+	h1 { font-size: 28pt !important;  }
+	h2 { font-size: 24pt !important; }
+	h3 { font-size: 22pt !important; }
+	h4 { font-size: 22pt !important; font-variant: small-caps; }
+	h5 { font-size: 21pt !important; }
+	h6 { font-size: 20pt !important; font-style: italic; }
+
+	/* SECTION 5: Make hyperlinks more usable.
+	   Ensure links are underlined, and consider appending
+	   the URL to the end of the link for usability. */
+	a:link,
+	a:visited {
+		color: #000 !important;
+		font-weight: bold;
+		text-decoration: underline;
+	}
+	/*
+	.reveal a:link:after,
+	.reveal a:visited:after {
+		content: " (" attr(href) ") ";
+		color: #222 !important;
+		font-size: 90%;
+	}
+	*/
+
+
+	/* SECTION 6: more reveal.js specific additions by @skypanther */
+	ul, ol, div, p {
+		visibility: visible;
+		position: static;
+		width: auto;
+		height: auto;
+		display: block;
+		overflow: visible;
+		margin: 0;
+		text-align: left !important;
+	}
+	.reveal pre,
+	.reveal table {
+		margin-left: 0;
+		margin-right: 0;
+	}
+	.reveal pre code {
+		padding: 20px;
+		border: 1px solid #ddd;
+	}
+	.reveal blockquote {
+		margin: 20px 0;
+	}
+	.reveal .slides {
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 0 !important;
+		zoom: 1 !important;
+
+		overflow: visible !important;
+		display: block !important;
+
+		text-align: left !important;
+		-webkit-perspective: none;
+		   -moz-perspective: none;
+		    -ms-perspective: none;
+		        perspective: none;
+
+		-webkit-perspective-origin: 50% 50%;
+		   -moz-perspective-origin: 50% 50%;
+		    -ms-perspective-origin: 50% 50%;
+		        perspective-origin: 50% 50%;
+	}
+	.reveal .slides section {
+		visibility: visible !important;
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+		display: block !important;
+		overflow: visible !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 60px 20px !important;
+		z-index: auto !important;
+
+		opacity: 1 !important;
+
+		page-break-after: always !important;
+
+		-webkit-transform-style: flat !important;
+		   -moz-transform-style: flat !important;
+		    -ms-transform-style: flat !important;
+		        transform-style: flat !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+
+		-webkit-transition: none !important;
+		   -moz-transition: none !important;
+		    -ms-transition: none !important;
+		        transition: none !important;
+	}
+	.reveal .slides section.stack {
+		padding: 0 !important;
+	}
+	.reveal section:last-of-type {
+		page-break-after: avoid !important;
+	}
+	.reveal section .fragment {
+		opacity: 1 !important;
+		visibility: visible !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+	}
+	.reveal section img {
+		display: block;
+		margin: 15px 0px;
+		background: rgba(255,255,255,1);
+		border: 1px solid #666;
+		box-shadow: none;
+	}
+
+	.reveal section small {
+		font-size: 0.8em;
+	}
+
+}  
+</script>
+
+
+<script id="pdf-css" type="application/dynamic-css">
+    
+/**
+ * This stylesheet is used to print reveal.js
+ * presentations to PDF.
+ *
+ * https://github.com/hakimel/reveal.js#pdf-export
+ */
+
+* {
+	-webkit-print-color-adjust: exact;
+}
+
+body {
+	margin: 0 auto !important;
+	border: 0;
+	padding: 0;
+	float: none !important;
+	overflow: visible;
+}
+
+html {
+	width: 100%;
+	height: 100%;
+	overflow: visible;
+}
+
+/* Remove any elements not needed in print. */
+.nestedarrow,
+.reveal .controls,
+.reveal .progress,
+.reveal .playback,
+.reveal.overview,
+.fork-reveal,
+.share-reveal,
+.state-background {
+	display: none !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	text-shadow: 0 0 0 #000 !important;
+}
+
+.reveal pre code {
+	overflow: hidden !important;
+	font-family: Courier, 'Courier New', monospace !important;
+}
+
+ul, ol, div, p {
+	visibility: visible;
+	position: static;
+	width: auto;
+	height: auto;
+	display: block;
+	overflow: visible;
+	margin: auto;
+}
+.reveal {
+	width: auto !important;
+	height: auto !important;
+	overflow: hidden !important;
+}
+.reveal .slides {
+	position: static;
+	width: 100%;
+	height: auto;
+
+	left: auto;
+	top: auto;
+	margin: 0 !important;
+	padding: 0 !important;
+
+	overflow: visible;
+	display: block;
+
+	-webkit-perspective: none;
+	   -moz-perspective: none;
+	    -ms-perspective: none;
+	        perspective: none;
+
+	-webkit-perspective-origin: 50% 50%; /* there isn't a none/auto value but 50-50 is the default */
+	   -moz-perspective-origin: 50% 50%;
+	    -ms-perspective-origin: 50% 50%;
+	        perspective-origin: 50% 50%;
+}
+
+.reveal .slides section {
+	page-break-after: always !important;
+
+	visibility: visible !important;
+	position: relative !important;
+	display: block !important;
+	position: relative !important;
+
+	margin: 0 !important;
+	padding: 0 !important;
+	box-sizing: border-box !important;
+	min-height: 1px;
+
+	opacity: 1 !important;
+
+	-webkit-transform-style: flat !important;
+	   -moz-transform-style: flat !important;
+	    -ms-transform-style: flat !important;
+	        transform-style: flat !important;
+
+	-webkit-transform: none !important;
+	   -moz-transform: none !important;
+	    -ms-transform: none !important;
+	        transform: none !important;
+}
+
+.reveal section.stack {
+	margin: 0 !important;
+	padding: 0 !important;
+	page-break-after: avoid !important;
+	height: auto !important;
+	min-height: auto !important;
+}
+
+.reveal img {
+	box-shadow: none;
+}
+
+.reveal .roll {
+	overflow: visible;
+	line-height: 1em;
+}
+
+/* Slide backgrounds are placed inside of their slide when exporting to PDF */
+.reveal section .slide-background {
+	display: block !important;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: -1;
+}
+
+/* All elements should be above the slide-background */
+.reveal section>* {
+	position: relative;
+	z-index: 1;
+}
+
+/* Display slide speaker notes when 'showNotes' is enabled */
+.reveal .speaker-notes-pdf {
+	display: block;
+	width: 100%;
+	max-height: none;
+	left: auto;
+	top: auto;
+	z-index: 100;
+}
+
+/* Display slide numbers when 'slideNumber' is enabled */
+.reveal .slide-number-pdf {
+	display: block;
+	position: absolute;
+	font-size: 14px;
+}
+
+</script>
+
+
+<script>
+var style = document.createElement( 'style' );
+style.type = 'text/css';
+var style_script_id = window.location.search.match( /print-pdf/gi ) ? 'pdf-css' : 'paper-css';
+var style_script = document.getElementById(style_script_id).text;
+style.innerHTML = style_script;
+document.getElementsByTagName('head')[0].appendChild(style);
+</script>
+
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section data-background="figs/title/containerDark.jpg">
+	<div class="cover-top">
+	  	<h1 class="title">Estimating Policy Barriers to Trade</h1>
+						<h3 class="date">8 May 2019</h3>
+			</div>
+	<div class="cover-bottom">
+				<h3>Brendan Cooley</h3>
+						<h3>Ph.D. Candidate</h3>
+						<h3>Princeton University</h3>
+						<h3>bcooley (at) princeton.edu</h3>
+			</div>
+</section>
+
+<section id="free-and-fair" class="slide level2">
+<h2>Free and Fair?</h2>
+<blockquote>
+<p>“We believe that trade must be fair and reciprocal. The United States will not be taken advantage of any longer.” <br/> <span class="math inline">\(\qquad\)</span> – Donald Trump, Feb. 2019</p>
+</blockquote>
+<div class="fragment">
+<blockquote>
+<p>“I’m going to have a trade prosecutor…to make sure every trade deal we’re already in is absolutely followed to the letter so nobody takes advantage of us.” <br/> <span class="math inline">\(\qquad\)</span> – Hillary Clinton, Oct. 2016</p>
+</blockquote>
+</div>
+<div class="fragment">
+<blockquote>
+<p>“Internationally, we are seeing a tendency toward protectionism and navel-gazing…What we need is trade that’s both fair and free.” <br/> <span class="math inline">\(\qquad\)</span> – Shinzo Abe, Oct. 2016</p>
+</blockquote>
+</div>
+<div class="fragment">
+<blockquote>
+<p>“An open world is only worth it if the competition that takes place there is fair.” <br/> <span class="math inline">\(\qquad\)</span> – Emmanuel Macron, Sep. 2017</p>
+</blockquote>
+</div>
+<div class="fragment">
+<ul>
+<li><strong>Free:</strong> Foreign firms enjoy same market access conditions as domestic competitors </li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li><strong>Fair:</strong> Barriers that do exist affect all trade partners symmetrically</li>
+</ul>
+</div>
+</section>
+<section id="the-tariff-system-gattwto" class="slide level2">
+<h2>The Tariff System (GATT/WTO)</h2>
+<ul>
+<li><strong>Free?</strong> Applied tariff rates are low, ~5% on average <span class="citation" data-cites="Baldwin2016">(Baldwin 2016)</span></li>
+<li><strong>Fair?</strong> WTO members (vast majority of world economy) commit to principle of non-discrimination (Most Favored Nation)</li>
+</ul>
+<p><img src="index_files/figure-revealjs/tcostsF-1.png" width="2400" /></p>
+</section>
+<section id="the-tariff-system-gattwto-1" class="slide level2">
+<h2>The Tariff System (GATT/WTO)</h2>
+<ul>
+<li><strong>Free?</strong> Applied tariff rates are low, ~5% on average <span class="citation" data-cites="Baldwin2016">(Baldwin 2016)</span></li>
+<li><strong>Fair?</strong> WTO members (vast majority of world economy) commit to principle of non-discrimination (Most Favored Nation)</li>
+</ul>
+<p><img src="index_files/figure-revealjs/tcostsFT-1.png" width="2400" /></p>
+</section>
+<section id="varieties-of-barriers" class="slide level2">
+<h2>Varieties of Barriers</h2>
+<p><strong>Direct</strong></p>
+<ul>
+<li>Tariffs</li>
+<li>Non-Tariff Measures (NTMs)
+<ul>
+<li>Price controls, quotas, health and safety regulations, technical barriers</li>
+<li><span class="citation" data-cites="Mansfield1995b">Mansfield and Busch (1995)</span>, <span class="citation" data-cites="Lee1997">Lee and Swagel (1997)</span>, <span class="citation" data-cites="Gawande1999">Gawande and Hansen (1999)</span>, <span class="citation" data-cites="Kono2006">Kono (2006)</span>, <span class="citation" data-cites="Rickard2012">Rickard (2012)</span>, <span class="citation" data-cites="Maggi2018">Maggi, Mrázová, and Neary (2018)</span></li>
+</ul></li>
+</ul>
+<div class="fragment">
+<p><strong>Indirect</strong> (Behind-the-Border)</p>
+<ul>
+<li>Government procurement
+<ul>
+<li><span class="citation" data-cites="Evenett2004">Evenett and Hoekman (2004)</span>, <span class="citation" data-cites="Kono2014">Kono and Rickard (2014)</span></li>
+</ul></li>
+<li>Subsidies</li>
+<li>Excise taxes</li>
+<li>Regulations</li>
+</ul>
+</div>
+<div class="fragment">
+<p><strong>Effective Discrimination:</strong> Target trade-disorting instruments to disproportionately affect disfavored trading partners.</p>
+<ul>
+<li>E.g. high agricultural duties by developed countries disproportionately harm developing countries</li>
+</ul>
+</div>
+</section>
+<section id="measurement-matters" class="slide level2">
+<h2>Measurement Matters</h2>
+<p><img src="index_files/figure-revealjs/triIncome1-1.png" width="2400" /></p>
+</section>
+<section id="measurement-matters-1" class="slide level2">
+<h2>Measurement Matters</h2>
+<p><img src="index_files/figure-revealjs/triIncome2-1.png" width="2400" /></p>
+</section>
+<section id="approach" class="slide level2">
+<h2>Approach</h2>
+<p><strong>Trade Costs:</strong> Policy distortions and transportation costs to access market <span class="math inline">\(i\)</span> in excess of those faced by firms in country <span class="math inline">\(i\)</span></p>
+<div class="fragment">
+<p><strong>Overview</strong></p>
+<ol type="1">
+<li>Build model of international economy subject to trade costs <span class="citation" data-cites="Eaton2002">(Eaton and Kortum 2002)</span></li>
+</ol>
+</div>
+<div class="fragment">
+<ol start="2" type="1">
+<li>Derive structural relationship linking trade costs to price levels, trade flows, market shares of home producers
+<ul>
+<li><span class="citation" data-cites="Anderson2003">Anderson and Van Wincoop (2003)</span>, <span class="citation" data-cites="Waugh2010">Waugh (2010)</span>, <span class="citation" data-cites="Simonovska2014">Simonovska and Waugh (2014)</span>, <span class="citation" data-cites="Sposi2015">Sposi (2015)</span>, <span class="citation" data-cites="Waugh2016">Waugh and Ravikumar (2016)</span></li>
+</ul></li>
+</ol>
+</div>
+<div class="fragment">
+<ol start="3" type="1">
+<li>Decompose trade costs into economic (transportation costs) and political (policy barriers) components</li>
+</ol>
+</div>
+<div class="fragment">
+<ol start="4" type="1">
+<li>Model transportation costs, combine with data on variables in (2) to separately estimate magnitude of policy barriers</li>
+</ol>
+</div>
+<div class="fragment">
+<p><span class="math inline">\(\tau_{ij} - 1 \geq 0\)</span> – ad valorem tariff equivalent of policy barriers gov <span class="math inline">\(i\)</span> imposes on gov <span class="math inline">\(j\)</span></p>
+</div>
+</section>
+<section id="identification" class="slide level2">
+<h2>Identification</h2>
+<p><img src="index_files/figure-revealjs/shares1-1.png" width="2400" /></p>
+</section>
+<section id="identification-1" class="slide level2">
+<h2>Identification</h2>
+<p><img src="index_files/figure-revealjs/shares2-1.png" width="2400" /></p>
+</section>
+<section id="moverview" class="slide level2">
+<h2>Model Overview</h2>
+<ul>
+<li><span class="math inline">\(N\)</span> countries <span class="math inline">\(i \in \left\{ 1, ..., N \right\}\)</span> with representative consumers
+<ul>
+<li>Value C-D mixture of tradable goods and nontradable services</li>
+<li>Earn wage <span class="math inline">\(w_i\)</span> for every unit of labor endowment <span class="math inline">\(L_i\)</span> supplied </li>
+</ul></li>
+<li>Competitive economy, stochastic technology
+<ul>
+<li>Production requires labor and bundle of intermediate inputs</li>
+</ul></li>
+</ul>
+<div class="fragment">
+<p><strong>Structural Relationship</strong></p>
+<p><span class="math display">\[\begin{equation} \label{eq:Waugh}
+d_{ij} = \left( \frac{\lambda_{ij}}{\lambda_{jj}} \right)^{-\frac{1}{\theta}} \frac{P_i}{P_j}
+\end{equation}\]</span></p>
+<ul>
+<li><span class="math inline">\(d_{ij}\)</span> - trade costs</li>
+<li><span class="math inline">\(\lambda_{ij}\)</span> - share of <span class="math inline">\(j\)</span>’s producers in <span class="math inline">\(i\)</span>’s market for tradables</li>
+<li><span class="math inline">\(\lambda_{jj}\)</span> - share of <span class="math inline">\(j\)</span>’s producers in home market for tradables</li>
+<li><span class="math inline">\(P_i\)</span> - price level of tradables</li>
+<li><span class="math inline">\(\theta\)</span> - trade elasticity</li>
+</ul>
+<p><a href="#/model" style="float: right;">Model</a></p>
+</div>
+</section>
+<section id="decomposing-trade-costs" class="slide level2">
+<h2>Decomposing Trade Costs</h2>
+<hr style="height:2em; visibility:hidden;" />
+<div id="left">
+<p><img data-src="figs/tcosts.png" /></p>
+</div>
+<div id="right">
+
+<hr style="height:3em; visibility:hidden;" />
+<p><span class="math display">\[
+p_{ji}(\omega) = d_{ji} p_{ii}(\omega)
+\]</span></p>
+<p><span class="math display">\[
+d_{ij} = \rho_j \delta_{ij} \tau_{ij}
+\]</span></p>
+<div class="fragment">
+<ul>
+<li><span class="math inline">\(\tau_{ij} = 1 \implies\)</span> no policy distortion</li>
+<li><span class="math inline">\(\tau_{jj} = \delta_{jj} = 1\)</span></li>
+</ul>
+</div>
+<div class="fragment">
+<p><span class="math display">\[
+p_i^\star(\omega) = \min_{j \in \left\{ 1,...,N \right\}} \left\{ p_{ij} \right\}
+\]</span></p>
+</div>
+</div>
+</section>
+<section id="estimation" class="slide level2">
+<h2>Estimation</h2>
+<hr style="height:2em; visibility:hidden;" />
+<p><strong>Estimating Equation</strong></p>
+<p><span class="math display">\[
+\tau_{ij} = \left( \frac{\lambda_{ij}^{\text{cif}}}{\lambda_{jj}} \right)^{-\frac{1}{\theta}} \frac{\hat{P}_i}{\hat{P}_j} \frac{1}{\delta_{ij}(\boldsymbol{Z}_{ij})}
+\]</span></p>
+<p><a href="#/differences" style="float: right;">Math</a></p>
+<div class="fragment">
+<p><strong>Data</strong></p>
+<ul>
+<li>Trade shares: national accounts, COMTRADE <a href="#/shares" style="float: right;">Shares</a></li>
+<li>Prices: World Bank International Comparison Program <a href="#/prices" style="float: right;">Prices</a></li>
+<li>Freight Costs: <a href="#/freight" style="float: right;">Freight Model</a>
+<ul>
+<li>US Census Bureau, Australian Bureau of Statistics, OECD Maritime Transport Costs</li>
+<li>Estimate out of sample</li>
+<li>Geography (distances, island, contiguity) <span class="math inline">\((\boldsymbol{Z}_{ij})\)</span></li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section id="results-magnitudes" class="slide level2">
+<h2>Results (Magnitudes)</h2>
+<p><img src="index_files/figure-revealjs/tCostsPlot1-1.png" width="2400" /></p>
+</section>
+<section id="results-magnitudes-1" class="slide level2">
+<h2>Results (Magnitudes)</h2>
+<p><img src="index_files/figure-revealjs/tCostsPlot2-1.png" width="2400" /></p>
+</section>
+<section id="results-magnitudes-2" class="slide level2">
+<h2>Results (Magnitudes)</h2>
+<p><img src="index_files/figure-revealjs/tCostsPlot3-1.png" width="2400" /></p>
+</section>
+<section id="variance" class="slide level2">
+<h2>Results (Economic Blocs)</h2>
+<p><img src="index_files/figure-revealjs/hm-1.png" width="2400" /></p>
+<p><a href="#/euPlacebo" style="float: right;">EU Placebo</a></p>
+</section>
+<section id="correlates-of-policy-barriers" class="slide level2">
+<h2>Correlates of Policy Barriers</h2>
+<table style="text-align:center">
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+DV: Structural Policy Barrier
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Tariffs
+</td>
+<td>
+0.815
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.738)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+PTAs
+</td>
+<td>
+-0.376<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.082)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Core NTM
+</td>
+<td>
+0.222
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.211)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Health/Safety NTM
+</td>
+<td>
+0.234
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.196)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Other NTM
+</td>
+<td>
+-0.203
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.265)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Importer Fixed Effects
+</td>
+<td>
+Yes
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Exporter Fixed Effects
+</td>
+<td>
+Yes
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>N</em>
+</td>
+<td>
+361
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.892
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Notes:</em>
+</td>
+<td style="text-align:right">
+<sup>***</sup>Significant at the 1 percent level.
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td style="text-align:right">
+<sup>**</sup>Significant at the 5 percent level.
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td style="text-align:right">
+<sup>*</sup>Significant at the 10 percent level.
+</td>
+</tr>
+</table>
+</section>
+<section id="conclusion" class="slide level2">
+<h2>Conclusion</h2>
+<p><strong>State Capacity and Protectionism</strong></p>
+<ul>
+<li>Tariffs as “second-best” solution to revenue-raising problem facing low-capacity governments
+<ul>
+<li><span class="citation" data-cites="Acemoglu2005b">Acemoglu (2005)</span>, <span class="citation" data-cites="Rodrik2008">Rodrik (2008)</span>, and <span class="citation" data-cites="Queralt2015">Queralt (2015)</span></li>
+</ul></li>
+<li>Developing (more autocratic) world not necessarily more “welfare-concious” than developed counterparts
+<ul>
+<li><span class="citation" data-cites="Milner2005">Milner and Kubota (2005)</span>, <span class="citation" data-cites="Gawande2009">Gawande, Krishna, and Olarreaga (2009)</span>; <span class="citation" data-cites="Gawande2015">Gawande, Krishna, and Olarreaga (2015)</span></li>
+</ul></li>
+</ul>
+<p><strong>Development and Trade Discrimination</strong></p>
+<ul>
+<li>Growth causally linked to market access conditions abroad <span class="citation" data-cites="Romalis2007">(Romalis 2007)</span></li>
+<li>Lack of market access by developing countries may hinder development prospects
+<ul>
+<li><span class="citation" data-cites="Redding2004">Redding and Venables (2004)</span>, <span class="citation" data-cites="Romalis2007">Romalis (2007)</span>, <span class="citation" data-cites="Waugh2010">Waugh (2010)</span></li>
+</ul></li>
+</ul>
+<p><a href="#/tri" style="float: right;">TRI, MAI</a></p>
+</section>
+<section id="thank-you" class="slide level2 aligncenter">
+<h2>Thank You</h2>
+<p><a href="http://brendancooley.com">brendancooley.com</a></p>
+<p><a href="bcooley@princeton.edu" class="uri">bcooley@princeton.edu</a></p>
+</section>
+<section id="model" class="slide level2">
+<h2>Model (Consumption)</h2>
+<p><strong>Consumer’s Problem</strong></p>
+<p><span class="math display">\[\begin{equation*} \label{eq:consumer}
+\begin{split}
+\max &amp; \quad U_i = Q_i^{\nu_i} S_i^{1 - \nu_i} \\
+\text{subject to} &amp; \quad P_i Q_i + P_i^s S_i \leq w_i L_i
+\end{split}
+\end{equation*}\]</span></p>
+<p><strong>CES Preferences over Tradable Varieties</strong></p>
+<p><span class="math display">\[
+Q_i = \left( \int_{[0,1]} \alpha_{h(\omega)}^{\frac{1}{\sigma}} q_i(\omega)^{\frac{\sigma - 1}{\sigma}} d \omega \right)^{\frac{\sigma}{\sigma - 1}}
+\]</span></p>
+<p><strong>Tradable Price Index</strong></p>
+<p><span class="math display">\[
+P_i = \left( \int_{[0,1]} \alpha_{h(\omega)} p_i(\omega)^{1 - \sigma} d \omega \right)^{\frac{1}{1 - \sigma}}
+\]</span></p>
+<p><strong>Expenditure on Tradables</strong></p>
+<p><span class="math display">\[
+E_i^q = \nu_i I_i + D_i = P_i Q_i^\star
+\]</span></p>
+<p><a href="#/moverview" style="float: right;">Back</a></p>
+</section>
+<section id="model-production" class="slide level2">
+<h2>Model (Production)</h2>
+<p><strong>Costs</strong></p>
+<p><span class="math display">\[\begin{equation} \label{eq:c}
+c_i = w_i^{1 - \beta} P_i^{\beta}
+\end{equation}\]</span></p>
+<ul>
+<li><span class="math inline">\(w_i\)</span> - cost of labor</li>
+<li><span class="math inline">\(P_i\)</span> - cost of composite intermediate good
+<ul>
+<li>equivalent to composite consumption good</li>
+</ul></li>
+</ul>
+<p><span class="math display">\[
+E_i^x = \beta X_i
+\]</span></p>
+<p><strong>Local Prices</strong></p>
+<p><span class="math display">\[
+p_{ii}(\omega) = \frac{c_i}{z_i(\omega)}
+\]</span></p>
+<p><strong>Technology (Frechet)</strong></p>
+<p><span class="math display">\[
+F_i(z) = \text{Pr} \left\{ z_i(\omega) \leq z \right\} = \exp \left\{ - T_i z^{-\theta} \right\}
+\]</span></p>
+<p><a href="#/moverview" style="float: right;">Back</a></p>
+</section>
+<section id="model-equilibrium" class="slide level2">
+<h2>Model (Equilibrium)</h2>
+<p><strong>Total Expenditure on Tradables</strong></p>
+<p><span class="math display">\[
+X_i = \underbrace{E_i^q + E_i^x}_{E_i} - D_i
+\]</span></p>
+<p><strong>Trade Shares</strong></p>
+<p><span class="math display">\[
+\Omega_{ij}^\star = \left\{ \omega \in [0,1] \left. \right\vert p_{ij}(\omega) \leq \min_{k \neq j} \left\{ p_{ik} \right\} \right\}
+\]</span></p>
+<p><span class="math display">\[
+\lambda_{ij}(\boldsymbol{w}) = \frac{1}{E_i} \int_{\Omega_{ij}^\star} p_{ij}(\omega) q_i \left( p_{ij} (\omega) \right) d \omega
+\]</span></p>
+<p><strong>Market Clearing</strong></p>
+<p><span class="math display">\[
+X_i = \sum_{j=1}^N \lambda_{ji}(\boldsymbol{w}) E_j
+\]</span></p>
+<p><a href="#/moverview" style="float: right;">Back</a></p>
+</section>
+<section id="differences" class="slide level2">
+<h2>Isolating Policy Barriers (I)</h2>
+<p><strong>Trade Shares (w/ Frechet)</strong></p>
+<p><span class="math display">\[\begin{align*}
+\lambda_{ij}(\boldsymbol{w}) &amp;= \frac{ T_j \left( d_{ij} w_j^{1 - \beta} P_j^{\beta} \right)^{- \theta} }{\sum_j T_j \left( d_{ij} w_j^{1 - \beta} P_j^{\beta} \right)^{- \theta}} \\
+&amp;= \frac{ T_j \left( \underbrace{\rho_j \delta_{ij} \tau_{ij}}_{d_{ij}} w_j^{1 - \beta} P_j^{\beta} \right)^{- \theta} }{ \frac{1}{\gamma} P_i^{-\theta}}
+\end{align*}\]</span></p>
+</section>
+<section id="isolating-policy-barriers-ii" class="slide level2">
+<h2>Isolating Policy Barriers (II)</h2>
+<p><strong>In Differences</strong></p>
+<p><span class="math display">\[
+\frac{\lambda_{ij}}{\lambda_{jj}} = \left( \underbrace{\delta_{ij} \tau_{ij} \frac{P_j}{P_i}}_{\text{observables}}\right)^{- \theta}
+\]</span></p>
+<p><span class="math display">\[
+\tau_{ij} = \left( \frac{\lambda_{ij}}{\lambda_{jj}} \right)^{-\frac{1}{\theta}} \frac{P_i}{P_j} \underbrace{\frac{1}{\delta_{ij}}}_{\substack{\text{freight cost} \\ \text{correction}}}
+\]</span></p>
+<p><a href="#/estimation" style="float: right;">Back</a></p>
+</section>
+<section id="shares" class="slide level2">
+<h2>Trade Shares</h2>
+<p><strong>Behind the Border Barriers</strong></p>
+<p><span class="math display">\[
+\lambda_{ij} = \tau_{ij} \lambda_{ij}^{\text{cif}}
+\]</span></p>
+<p><strong>Home Expenditure</strong></p>
+<p><span class="math display">\[
+\lambda_{jj}(\boldsymbol{\tau}_j) = \left( 1 - \sum_{i \neq j} \tau_{ji} \lambda_{ji}^{\text{cif}} \right)
+\]</span></p>
+<p><strong>Modified Estimating Equation</strong></p>
+<p><span class="math display">\[
+\tau_{ij} = \left( \frac{\lambda_{ij}^{\text{cif}}}{\lambda_{jj}(\boldsymbol{\tau}_j)} \right)^{-\frac{1}{\theta + 1}} \left( \frac{P_i}{P_j} \right)^{\frac{\theta}{\theta+1}} \left( \frac{1}{\delta_{ij}(\boldsymbol{Z}_{ij})} \right)^{\frac{\theta}{\theta+1}}
+\]</span></p>
+<p><a href="#/estimation" style="float: right;">Back</a></p>
+</section>
+<section id="prices" class="slide level2">
+<h2>Prices (Model)</h2>
+<ul>
+<li>Set<span class="math inline">\(\mathcal{K}\)</span> of tradable good categories indexed <span class="math inline">\(k \in \left\{ 0, ..., K - 1 \right\}\)</span></li>
+</ul>
+<p><span class="math display">\[
+h : \Omega \rightarrow \mathcal{K}
+\]</span></p>
+<p><span class="math display">\[
+\Omega_k = \left\{ \omega : h(\omega) = k \right\}
+\]</span></p>
+<p><strong>Demand</strong></p>
+<p><span class="math display">\[
+x_i(\omega) = p_i(\omega) q_i(\omega) = \alpha_{h(\omega)} p_i(\omega)^{1-\sigma} E_i^q P_i^{\sigma - 1}
+\]</span></p>
+<p><strong>Normalization</strong></p>
+<p><span class="math display">\[
+\frac{\lambda_{ik}}{\lambda_{i0}} = \alpha_k \left( \frac{p_{ik}}{p_{i0}} \right)^{1 - \sigma}
+\]</span></p>
+<p><strong>Estimation</strong></p>
+<p><span class="math display">\[
+\ln \Delta \lambda_{ik} = \ln \alpha_k + (1 - \sigma) \ln \Delta p_{ik} + \ln \epsilon_{ik}
+\]</span></p>
+<p><a href="#/estimation" style="float: right;">Back</a></p>
+</section>
+<section id="prices-data" class="slide level2">
+<h2>Prices (Data)</h2>
+<p><img src="index_files/figure-revealjs/prices-1.png" width="2400" /></p>
+<p><a href="#/estimation" style="float: right;">Back</a></p>
+</section>
+<section id="freight" class="slide level2">
+<h2>Freight Costs (Model)</h2>
+<ul>
+<li>Products <span class="math inline">\(m \in \left\{ 1, ..., M \right\}\)</span></li>
+<li>Transportation modes <span class="math inline">\(k \in \left\{ 1, ..., K \right\}\)</span></li>
+<li><span class="math inline">\(\zeta_{ij}^{m k}\)</span> share of product <span class="math inline">\(m\)</span> transported by mode <span class="math inline">\(k\)</span></li>
+</ul>
+<p><strong>Mode and Cost Functions</strong></p>
+<p><span class="math display">\[
+g: \left\{ \boldsymbol{Z}_{ij}, d^m \right\} \rightarrow \delta_{ij}^{m k}
+\]</span> <span class="math display">\[
+h: \left\{ \boldsymbol{Z}_{ij}, d^m \right\} \rightarrow \zeta_{ij}^{m k}
+\]</span></p>
+<p><strong>Aggregate Freight Costs</strong></p>
+<p><span class="math display">\[
+\hat{\delta}_{ij} \left( \boldsymbol{Z}_{ij}, \boldsymbol{d}_{ij} \right) = \frac{1}{X_{ij}} \sum_{m = 1}^M x_{ij}^m \sum_{k=1}^K g \left( \boldsymbol{Z}_{ij}, d^m \right) h \left( \boldsymbol{Z}_{ij}, d^m \right)
+\]</span></p>
+<p><a href="#/estimation" style="float: right;">Back</a></p>
+</section>
+<section id="freight-costs-cross-validation" class="slide level2">
+<h2>Freight Costs (Cross Validation)</h2>
+<p><img src="index_files/figure-revealjs/freightCV-1.png" width="2400" /></p>
+<p><a href="#/estimation" style="float: right;">Back</a></p>
+</section>
+<section id="euPlacebo" class="slide level2">
+<h2>EU Placebo</h2>
+<p><img src="index_files/figure-revealjs/hmEUPlot-1.png" width="2400" /></p>
+<p><a href="#/variance" style="float: right;">Back</a></p>
+</section>
+<section id="tri" class="slide level2">
+<h2>Trade Restrictiveness and Market Access (I)</h2>
+<p><strong>Trade Restrictiveness Index</strong></p>
+<p><span class="math display">\[
+\text{TRI}_i = \frac{1}{\sum_{j \neq i} E_j} \sum_{j \neq i} \tau_{ij} E_j
+\]</span></p>
+<p><strong>Market Access Index</strong></p>
+<p><span class="math display">\[
+\text{MAI}_j = \frac{1}{\sum_{i \neq j} E_i} \sum_{i \neq j} \tau_{ij} E_i
+\]</span></p>
+<p><a href="#/conclusion" style="float: right;">Back</a></p>
+</section>
+<section id="trade-restrictiveness-and-market-access-ii" class="slide level2">
+<h2>Trade Restrictiveness and Market Access (II)</h2>
+<p><img src="index_files/figure-revealjs/trimai-1.png" width="2400" /></p>
+<p><a href="#/conclusion" style="float: right;">Back</a></p>
+</section>
+<section id="market-access-barriers" class="slide level2">
+<h2>Market Access Barriers</h2>
+<p><img src="index_files/figure-revealjs/maigdppc-1.png" width="2400" /></p>
+<p><a href="#/conclusion" style="float: right;">Back</a></p>
+<hr style="height:30em; visibility:hidden;" />
+<div id="refs" class="references">
+<div id="ref-Acemoglu2005b">
+<p>Acemoglu, Daron. 2005. “Politics and economics in weak and strong states.” <em>Journal of Monetary Economics</em> 52 (7): 1199–1226.</p>
+</div>
+<div id="ref-Anderson2003">
+<p>Anderson, James E, and Eric Van Wincoop. 2003. “Gravity with Gravitas: A Solution to the Border Puzzle.” <em>The American Economic Review</em> 93 (1): 170–92.</p>
+</div>
+<div id="ref-Baldwin2016">
+<p>Baldwin, Richard. 2016. “The World Trade Organization and the Future of Multilateralism.” <em>Journal of Economic Perspectives</em> 30: 95–116.</p>
+</div>
+<div id="ref-Eaton2002">
+<p>Eaton, Jonathan, and Samuel Kortum. 2002. “Technology, geography, and trade.” <em>Econometrica</em> 70 (5): 1741–79.</p>
+</div>
+<div id="ref-Evenett2004">
+<p>Evenett, Simon J., and Bernard Hoekman. 2004. <em>Government Procurement: Market Access, Transparency, and Multilateral Trade Rules</em>. Policy Research Working Papers. The World Bank.</p>
+</div>
+<div id="ref-Gawande1999">
+<p>Gawande, Kishore, and Wendy L. Hansen. 1999. “Retaliation, Bargaining, and the Pursuit of &quot;Free and Fair&quot; Trade.” <em>International Organization</em> 53 (1): 117–59.</p>
+</div>
+<div id="ref-Gawande2009">
+<p>Gawande, Kishore, Pravin Krishna, and Marcelo Olarreaga. 2009. “What governments maximize and why: the view from trade.” <em>International Organization</em> 63 (03): 491–532.</p>
+</div>
+<div id="ref-Gawande2015">
+<p>———. 2015. “A Political-Economic Account of Global Tariffs.” <em>Economics &amp; Politics</em> 27 (2): 204–33.</p>
+</div>
+<div id="ref-Kono2006">
+<p>Kono, Daniel Yuichi. 2006. “Optimal obfuscation: Democracy and trade policy transparency.” <em>American Political Science Review</em> 100 (03): 369–84.</p>
+</div>
+<div id="ref-Kono2014">
+<p>Kono, Daniel Yuichi, and Stephanie J Rickard. 2014. “Buying National: Democracy, Public Procurement, and International Trade.” <em>International Interactions</em> 40 (5): 657–82.</p>
+</div>
+<div id="ref-Lee1997">
+<p>Lee, Jong-Wha, and Phillip Swagel. 1997. “Trade Barriers and Trade Flows Across Countries and Industries.” <em>The Review of Economics and Statistics</em> 79 (3): 372–82.</p>
+</div>
+<div id="ref-Maggi2018">
+<p>Maggi, Giovanni, Monika Mrázová, and J Peter Neary. 2018. “Choked by Red Tape? The Political Economy of Wasteful Trade Barriers.”</p>
+</div>
+<div id="ref-Mansfield1995b">
+<p>Mansfield, Edward D., and Marc L. Busch. 1995. “The Political Economy of Nontariff Barriers: A Cross-National Analysis.” <em>International Organization</em> 49 (4): 723–49.</p>
+</div>
+<div id="ref-Milner2005">
+<p>Milner, Helen V, and Keiko Kubota. 2005. “Why the move to free trade? Democracy and trade policy in the developing countries.” <em>International Organization</em> 59 (01): 107–43.</p>
+</div>
+<div id="ref-Queralt2015">
+<p>Queralt, Didac. 2015. “From Mercantilism to Free Trade: A History of Fiscal Capacity Building.” <em>Quarterly Journal of Political Science</em> 10: 221–73.</p>
+</div>
+<div id="ref-Redding2004">
+<p>Redding, Stephen, and Anthony J Venables. 2004. “Economic geography and international inequality.” <em>Journal of International Economics</em> 62: 53–82.</p>
+</div>
+<div id="ref-Rickard2012">
+<p>Rickard, Stephanie J. 2012. “A Non-Tariff Protectionist Bias in Majoritarian Politics: Government Subsidies and Electoral Institutions.” <em>International Studies Quarterly</em> 56: 777–85.</p>
+</div>
+<div id="ref-Rodrik2008">
+<p>Rodrik, Dani. 2008. “Second-Best Institutions.” <em>American Economic Review: Papers &amp; Proceedings</em> 98 (2): 100–104.</p>
+</div>
+<div id="ref-Romalis2007">
+<p>Romalis, John. 2007. “Market Access, Openness and Growth.” Cambridge, MA: National Bureau of Economic Research.</p>
+</div>
+<div id="ref-Simonovska2014">
+<p>Simonovska, Ina, and Michael E Waugh. 2014. “The Elasticity of Trade: Estimates and Evidence.” <em>Journal of International Economics</em> 92 (1): 34–50.</p>
+</div>
+<div id="ref-Sposi2015">
+<p>Sposi, Michael. 2015. “Trade barriers and the relative price of tradables.” <em>Journal of International Economics</em> 96 (2): 398–411.</p>
+</div>
+<div id="ref-Waugh2010">
+<p>Waugh, Michael E. 2010. “International Trade and Income Differences.” <em>American Economic Review</em> 100: 2093–2124.</p>
+</div>
+<div id="ref-Waugh2016">
+<p>Waugh, Michael E, and B Ravikumar. 2016. “Measuring Openness to Trade.” <em>Journal of Economic Dynamics and Control</em> 72: 29–41.</p>
+</div>
+</div>
+</section>
+    </div>
+  </div>
+
+  <script src="index_files/reveal.js-3.3.0.1/lib/js/head.min.js"></script>
+  <script src="index_files/reveal.js-3.3.0.1/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Display controls in the bottom right corner
+        controls: false,
+        // Display a presentation progress bar
+        progress: false,
+        // Display the page number of the current slide
+        slideNumber: true,
+        // Push each slide change to the browser history
+        history: true,
+        // Vertical centering of slides
+        center: false,
+        // Transition style
+        transition: 'none', // none/fade/slide/convex/concave/zoom
+        // Transition style for full page slide backgrounds
+        backgroundTransition: 'default', // none/fade/slide/convex/concave/zoom
+
+
+
+        // Optional reveal.js plugins
+        dependencies: [
+        ]
+      });
+    </script>
+  <!-- dynamically load mathjax for compatibility with self-contained -->
+  <script>
+    (function () {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+  </script>
+
+<script>
+  (function() {
+    if (window.jQuery) {
+      Reveal.addEventListener( 'slidechanged', function(event) {  
+        window.jQuery(event.previousSlide).trigger('hidden');
+        window.jQuery(event.currentSlide).trigger('shown');
+      });
+    }
+  })();
+</script>
+
+<!-- mathjax change font-->
+<script type="text/x-mathjax-config"> 
+     MathJax.Hub.Config({ 
+         "HTML-CSS" : { 
+             availableFonts : ["STIX-Web","Asana-Math","TeX", "Neo-Euler",], 
+             preferredFont : "TeX", 
+             webFont : "TeX", 
+             imageFont : null 
+         } 
+     }); 
+</script> 
+
+<script>
+	Reveal.configure({
+	  keyboard: {
+	    40: 'next', // allow up and down to move slides left and right
+	    38: 'prev'
+	  }
+	});
+</script>
+
+<script>
+ Reveal.initialize({
+    // Optional reveal.js plugins
+    dependencies: [
+        { src: 'index_files/reveal.js-3.3.0.1/plugin/zoom-js/zoom.js', async: true },
+        { src: 'index_files/reveal.js-3.3.0.1/plugin/markdown/marked.js', async: true },
+        { src: 'index_files/reveal.js-3.3.0.1/plugin/notes/notes.js', async: true }
+    ]
+});
+</script>
+
+  </body>
+</html>
