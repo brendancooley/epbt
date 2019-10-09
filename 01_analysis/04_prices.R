@@ -28,13 +28,13 @@ if (EUD==FALSE) {
 
 ### DATA ###
 
-icpPrc <- read_excel("dataProprietary/ICP2011.xlsx", sheet="PPPs (BH)", skip=6)
-icpExp <- read_excel("dataProprietary/ICP2011.xlsx", sheet="EXP (BH)", skip=6)
-icpExc <- read_excel("dataProprietary/ICP2011.xlsx", sheet="Exchange Rate", skip=5)
-icpExpAgg <- read_excel("dataProprietary/ICP2011.xlsx", sheet="EXP (AGG)", skip=6)
-icpPop <- read_excel("dataProprietary/ICP2011.xlsx", sheet="Population", skip=5)
+icpPrc <- read_excel(paste0(proprietaryDataPath, "ICP2011.xlsx"), sheet="PPPs (BH)", skip=6)
+icpExp <- read_excel(paste0(proprietaryDataPath, "ICP2011.xlsx"), sheet="EXP (BH)", skip=6)
+icpExc <- read_excel(paste0(proprietaryDataPath, "ICP2011.xlsx"), sheet="Exchange Rate", skip=5)
+icpExpAgg <- read_excel(paste0(proprietaryDataPath, "ICP2011.xlsx"), sheet="EXP (AGG)", skip=6)
+icpPop <- read_excel(paste0(proprietaryDataPath, "ICP2011.xlsx"), sheet="Population", skip=5)
 
-trdbls <- read_excel("dataProprietary/bh.xlsx")
+trdbls <- read_excel(paste0(proprietaryDataPath, "bh.xlsx"))
 
 ### CLEAN ###
 

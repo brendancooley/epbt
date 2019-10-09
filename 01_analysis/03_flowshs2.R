@@ -104,11 +104,11 @@ usCosts <- usCosts %>% select(year, i_iso3, j_iso3, adv)
 
 ### Australia
 
-aus <- read_xlsx("dataProprietary/abs.xlsx", sheet="Table 1 ", skip=6)
+aus <- read_xlsx(paste0(proprietaryDataPath, "abs.xlsx"), sheet="Table 1 ", skip=6)
 colnames(aus) <- c("year", "hsCode", "hsLabel", "exporter", "mode", "cif", "fob")
 
 # mapping to ISO codes
-saccC <- read.xls("dataProprietary/sacc.xls", sheet="Table 6", skip=5) %>% as_tibble() %>% select(Country.Description, Alpha.3)
+saccC <- read.xls(paste0(proprietaryDataPath, "sacc.xls"), sheet="Table 6", skip=5) %>% as_tibble() %>% select(Country.Description, Alpha.3)
 colnames(saccC) <- c("exporter", "iso3")
 saccC$exporter <- as.character(saccC$exporter)
 saccC$exporter <- str_trim(saccC$exporter, "right") 

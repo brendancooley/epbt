@@ -21,6 +21,8 @@ expdirTPSP <- paste0(basedir, "tpsp_data/")
 cleandirEU <- paste0(cleandir, "EUD/")
 resultsdirEU <- paste0(resultsdir, "EUD/")
 
+proprietaryDataPath <- "~/Dropbox (Princeton)/1_Papers/epbt/estimation/dataProprietary/"
+
 ### SOURCE HELPERS ###
 
 ccodesAll <- c()

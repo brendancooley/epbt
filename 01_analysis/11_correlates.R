@@ -20,7 +20,7 @@ tarY <- read_csv(paste0(cleandir, "tarY.csv")) %>% select(-year, -val)
 
 tauY <- read_csv(paste0(resultsdir, "tauY.csv")) %>% select(-year) %>% filter(!is.na(tau))
 
-tauYEUD <- read_csv(paste0(resultsdirEU, "tauY.csv")) %>% select(-year)
+trimaiYEUD <- read_csv(paste0(resultsdirEU, "trimaiY.csv")) %>% select(-year)
 polityYEUD <- read_csv(paste0(cleandirEU, "polity.csv"))
 gdpYEUD <- read_csv(paste0(cleandirEU, "gdp.csv"))
 
@@ -48,9 +48,9 @@ summary(model)
 
 ### MODEL (POLITICAL-ECONOMIC DETERMINANTS) ###
 
-D <- left_join(tauYEUD, gdpYEUD) %>% left_join(polityYEUD)
+D <- left_join(trimaiYEUD, gdpYEUD) %>% left_join(polityYEUD)
 
-modelD <- lm(tau ~ gdp + polity2, data=D)
+modelD <- lm(tri ~ gdp + polity2, data=D)
 summary(modelD)
 
 ### COST COMPARISONS ###
