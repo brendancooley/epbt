@@ -1,0 +1,171 @@
+```{r, echo=FALSE, warning=FALSE, message=FALSE, results='hide'}
+
+source("../estimation/params.R")
+
+```
+
+
+In `r Y`, tradable goods were, on average, twice as expensive in Japan than in Malaysia.^[See The World Bank, [International Comparison Program (ICP)](http://www.worldbank.org/en/programs/icp#1)]  If trade were frictionless, Malaysian merchants could exploit this price difference by shipping goods to Japan, making more than twice what they would be selling their goods in their home market. Factually, however, Malaysian exporters made up less than one percent of the market for tradables in Japan in `r Y`. The model explicated below allows me to infer that these prospective exporters must have faced high costs to sell in the Japanese market and to quantify the exact magnitude of these costs. If freight costs are known, then the component of these costs attributable to policy distortions can be recovered separately.
+
+@Eaton2002 and @Waugh2010 show that these forces are related in a simple equation. Let $d_{ij} \geq 1$ denote the iceberg cost of shipping goods from $j$ to $i$,^[By the iceberg assumption, for every $d_{ij}$ units shipped from $j$ to $i$, 1 unit arrives. $d_{ij} - 1$ is the ad valorem value of the aggregate tax firms in $j$ face to export to $i$.] $\lambda_{ij}$ denote $j$'s market share in $i$, and $P_i$ denote the aggregate price of tradables in $i$. Then,
+\begin{equation} \label{eq:Waugh}
+d_{ij} = \left( \frac{\lambda_{ij}}{\lambda_{jj}} \right)^{-\frac{1}{\theta}} \frac{P_i}{P_j}
+\end{equation}
+where $\theta > 1$ is the trade elasticity.^[Here, $\lambda_{jj}$ is the share of $j$'s market for tradables that is captured by producers within $j$.] This equation has intuitive comparative statics. If aggregate prices are equal in both markets ($P_i=P_j$), then $j$'s relative market penetration informs directly about trade barriers. As $\lambda_{ij}$ goes up, the implied barrier $d_{ij}$ goes down. When $j$'s share in $i$'s market is equivalent to its share in its own market ($\lambda_{ij}=\lambda_{jj})$, we infer that $j$ faces no barriers to export to $i$ ($d_{ij}=1$).^[This is a natural result of the assumption of consumer homogeneity.] Now, assume that aggregate prices in $i$ and $j$ differ. Specifically, let $P_i > P_j$. In the absence of trade costs, this would generate an arbitrage opportunity for producers in $j$ -- they can profit by shipping goods to $i$ and taking advantage of higher prices. If trade were frictionless, then we must have $(\lambda_{ij} > \lambda_{jj})$. The extent to which this relationship holds in the data informs about the magnitude of barriers to trade.
+
+This relationship between cross national tradable prices, trade flows, and trade costs follows from the competitive framework of @Eaton2002, adapted to the study of trade costs by @Waugh2010. In the model presented below, I modify their underlying framework in order to minimize the conceptual distance between the theory and the data. However, the result is not unique to competitive international economies. Quantitative trade models with market imperfections generate related "gravity" equations that imply the same relationship between prices, trade, and trade costs [@Melitz2003; @Chaney2008; @Costinot2015]. 
+
+## Environment
+
+There are $N$ countries in the international economy, indexed $i \in \left\{ 1, ..., N \right\}$. Within each country resides a representative consumer, with labor endowment $L_i$. The setup follows closely @Eaton2002, so I omit some derivations of the quantities presented here and direct readers to their paper. To match the data on consumer expenditure on tradable goods, I consider a variant their model which consumers value both tradable goods and nontradable services. Then, gross consumption of tradables in the economy is simply gross consumption (including final and intermediate goods) minus consumer expenditure on services. This is the denominator I use in calculating trade shares when calibrating the model.
+
+### Consumption
+
+Each consumer values aggregate tradable goods $Q_i$ and aggregate nontradable services $S_i$, which are combined in a Cobb-Douglas utility function
+\begin{equation} \label{eq:CD}
+U_i = Q_i^{\nu_i} S_i^{1 - \nu_i}
+\end{equation}
+A country-specific parameter $\nu_i \in [0,1]$ governs the consumer's relative preference for goods over services. Wages are denoted $w_i$, which implies country gross domestic products are given by
+$$
+I_i = w_i L_i
+$$
+Cobb-Douglas preferences imply consumers will spend a fraction $\nu_i$ of their income on tradable goods.^[In calibrating the model, I choose $\nu_i$ to match the factual expenditure shares on tradables in each country, as reported by the ICP.] Equilibrium consumer expenditure on tradables is then
+$$
+E_i^q = \nu_i I_i + D_i
+$$
+where $D_i$ is the value of exogenously given trade deficits.
+
+There is a continuum of tradable varieties, indexed by $\omega \in [0, 1]$. There is a set $\mathcal{K}$ of tradable good categories indexed $k \in \left\{ 0, ..., K - 1 \right\}$. Let
+$$
+h : \Omega \rightarrow \mathcal{K}
+$$
+be a function that associates varieties with good categories. The set of goods in category $k$ is $\Omega_k$ where
+$$
+\Omega_k = \left\{ \omega : h(\omega) = k \right\}
+$$
+The mass of each tradable good category is $1 / K$. Consumers' preference for goods in category $k$ is given by $\alpha_k \geq 0$ and is constant across countries.
+
+Consumer utility over these varieties exhibits constant elasticity of substitution (CES)
+\begin{equation} \label{eq:CES}
+Q_i = \left( \int_{[0,1]} \alpha_{h(\omega)}^{\frac{1}{\sigma}} q_i(\omega)^{\frac{\sigma - 1}{\sigma}} d \omega \right)^{\frac{\sigma}{\sigma - 1}}
+\end{equation}
+with $\sigma > 0$. With expenditure on tradables fixed by the Cobb Douglas upper level preference structure, consumers simply maximize $Q_i$ subject to their tradable budget constraint, $\int_{[0,1]} p_i(\omega) q_i(\omega) d \omega \leq E_i^q$, where $p_i(\omega)$ is the (endogenous) price of variety $\omega$ in country $i$. The aggregate price of tradables in country $i$ is as in @Dixit1977
+\begin{equation} \label{eq:P}
+P_i = \left( \int_{[0,1]} \alpha_{h(\omega)} p_i(\omega)^{1 - \sigma} d \omega \right)^{\frac{1}{1 - \sigma}}
+\end{equation}
+
+### Production
+
+Every country can produce every tradable variety $\omega$. Each country has an underlying mean productivity level $T_i$, but $\omega$-specific productivites $z_i(\omega)$ are modeled as the realization of a random variable drawn from a Frechet distribution. Production requires both labor and a composite intermediate good that is exactly analagous to an aggregate consumption good $Q_i$. The cost of producing a unit of variety $\omega$ is
+\begin{equation} \label{eq:c}
+c_i(\omega) = \frac{1}{z_i(\omega)} w_i^{1 - \beta} P_i^{\beta}
+\end{equation}
+where the global parameter $\beta \in [0, 1]$ governs the share of intermediates required in production.^[Services are produced at cost $c_i^s = \frac{w_i}{A_i}$, where $A_i$ is a country-specific services productivity.] Let $X_i$ denote the value of tradable production in country $i$. A constant share, $\beta$, of this value will be spent on intermediates
+$$
+E_i^x = \beta X_i
+$$
+
+Countries require $1/z_i(\omega)$ labor-intermediate bundles to produce one unit of variety $\omega$. Markets are competitive, so prices are equal to marginal costs. The local price ($p_{ii}(\omega)$) of variety $\omega$ is therefore
+\begin{equation} \label{eq:pii}
+p_{ii}(\omega) = c_i(\omega)
+\end{equation}
+
+$\omega$-specific productivities are stochastic. Let $F_i(z)$ denote the probability that country $i$'s productivity is less than or equal to $z$, formally
+$$
+F_i(z) = \text{Pr} \left\{ z_i(\omega) \leq z \right\}
+$$
+When $F_i(z)$ is distributed Frechet, then
+\begin{equation} \label{eq:Frechet}
+F_i(z) = \exp \left\{ - T_i z^{-\theta} \right\}
+\end{equation} 
+The country-wide technology level $T_i$ shifts country $i$'s productivity distribution -- higher values of $T_i$ imply higher productivity values on average. $\theta > 1$ is a global parameter that governs the variance of the productivity draws.^[In equilibrium, it serves as the elasticity of trade flows to trade costs. As producers become more heterogeneous, trade becomes more sensitive to changes in costs.] 
+
+Exporters pay iceberg costs ($d_{ji} \geq 1$) to ship goods abroad. The price in country $j$ of varieties produced in $i$ is therefore
+$$
+p_{ji}(\omega) = d_{ji} p_{ii}(\omega)
+$$
+These costs are affected by transportation infrastructure at home and abroad, international freight costs, and policy distortions. Below, I present a framework for disentangling these costs and isolating the magnitude of distortions attributable to policy.
+
+Domestic consumers and producers alike search around the world for the cheapest source of each variety $\omega$. The equilibrium price of variety $\omega$ in country $i$ must satisfy
+$$
+p_i^\star(\omega) = \min_{j \in \left\{ 1,...,N \right\}} \left\{ p_{ij} \right\}
+$$
+
+## Equilibrium
+
+For national accounts to balance, gross output and gross consumption, inclusive of trade deficits $D_i$, must be equal.
+\begin{equation} \label{eq:accounts}
+I_i + \beta X_i + D_i = E_i^q + E_i^x + (1 - \nu_i) I_i
+\end{equation}
+Total income is given by the sum of domestic payments for services and labor payments from the global sales of tradables, $X_i$
+$$
+I_i = w_i L_i = (1 - \beta) X_i + (1 - \nu_i) I_i
+$$
+Substituting into Equation \ref{eq:accounts} requires
+\begin{equation} \label{eq:tIncome}
+X_i = E_i^q + E_i^x - D_i
+\end{equation}
+or that trade less deficits is balanced.
+
+Total expenditure on tradables is the sum of expenditures from consumers and producers^[Note that expenditure on tradables can be written $$E_i = I_i + \beta X_i + D_i - (1 - \nu_i) I_i $$ or gross consumption less consumer expenditure on services. This is the empirical quantity for $E_i$ I use when calibrating the model.]
+$$
+E_i = E_i^q + E_i^x
+$$
+Let $\lambda_{ij}(\bm{w})$ denote the share of expenditure on tradables country $i$ spends on goods from $j$ and
+$$
+\Omega_{ij}^\star = \left\{ \omega \in [0,1] \left. \right\vert p_{ij}(\omega) \leq \min_{k \neq j} \left\{ p_{ik} \right\} \right\}
+$$
+Then
+\begin{equation} \label{eq:lambda}
+\lambda_{ij}(\bm{w}) = \frac{1}{E_i} \int_{\Omega_{ij}^\star} p_{ij}(\omega) q_i \left( p_{ij} (\omega) \right) d \omega
+\end{equation}
+where $q_i \left( p_{ij} (\omega) \right)$ is equilibrium consumption of variety $\omega$ from both producers (intermediates) and consumers (final goods).
+
+This quantity depends on wages everywhere, stored in the vector $\bm{w} = \left\{ w_1, ..., w_N \right\}$. Note that given exogenous labor endowments $(L_i)$, trade costs $(d_{ij})$, technologies $(T_i)$, and parameters $\left\{ \sigma, \theta, \nu_i, \beta \right\}$, endogenous wages completely determine the pattern of trade. Gross income in country $i$ from the sale of tradables can be written
+\begin{equation} \label{eq:marketClearing}
+X_i = \sum_{j=1}^N \lambda_{ji}(\bm{w}) E_j
+\end{equation}
+
+**Definition:** An *international equilibrium* is a vector of wages $\bm{w}$ such that Equations \ref{eq:tIncome}, \ref{eq:lambda}, and \ref{eq:marketClearing} hold for all $i \in \left\{1, ..., N \right\}$.
+
+@Alvarez2007 provide an argument for the existence and uniqueness of such an equilibrium. In the unique equilibrium, trade shares satisfy
+\begin{equation} \label{eq:Gravity}
+\lambda_{ij}(\bm{w}) = \frac{ T_j \left( d_{ij} w_j^{1 - \beta} P_j^{\beta} \right)^{- \theta} }{\Phi_i}
+\end{equation}
+where
+$$
+\Phi_i =  \sum_j T_j \left( d_{ij} w_j^{1 - \beta} P_j^{\beta} \right)^{- \theta}
+$$
+The equilibrium price index in country $i$ is
+\begin{equation} \label{eq:eqP}
+P_i = \gamma \Phi_i^{ - \frac{1}{\theta} }
+\end{equation}
+where $\gamma$ is a function of exogenous parameters.^[Specifically, $$\gamma = \Gamma \left( \frac{\theta + 1 - \sigma}{\theta} \right)^{ \frac{1}{1 - \sigma} }$$ and $\Gamma$ is the gamma function.]
+
+The numerator of Equation \ref{eq:Gravity} is a measure of the overall competitiveness of country $j$. Naturally, increasing average productivity increases $j$'s market penetration everywhere. Decreasing wages in $j$ has the same effect. Decreasing trade costs between $i$ and $j$ $(d_{ij})$ also increases $\lambda_{ij}$. The denominator is a "multilateral resistance" [@Anderson2003] term that captures the overall level of competitiveness in country $i$. All else equal, it is easier to penetrate the market in country $i$ if others struggle to penetrate it, due to inferior technology, high wages, and/or high bilateral trade costs.
+
+## Isolating Policy Barriers
+
+To get from the factory gates of a firm located in an exporting country and the market located overseas, goods incur a bevy of costs, both economic and political in nature. Our goal is to recover the proportion of these costs attributable to *policy* barriers to trade. I assume that trade costs are multiplicatively decomposable into exporter-specific costs,^[This includes both costs associated with transportation within the exporting country and any taxes and regulatory costs that are common to all traders in the country (@Limao2001).] international freight costs, and policy barriers to trade. Note that I do not model heterogeneity in costs common to all traders within *importing* countries. This framework yields
+\begin{equation} \label{eq:tcosts}
+d_{ij} = \rho_j \delta_{ij}(\bm{Z}_{ij}) \tau_{ij}
+\end{equation}
+where $\rho_j$ denotes exporter-specific costs, $\delta_{ij}$ denotes international freight costs, and $\tau_{ij}$ denotes policy barriers. $\delta_{ij}$ is a function, which takes a vector of bilateral geographic covariates $\bm{Z}_{ij}$ and outputs bilateral freight costs.^[I discuss how I model these costs in more detail in the appendix.] I normalize $\delta_{ii} = \tau_{ii} = 1$. 
+
+![Trade cost decomposition. \label{fig:tcosts}](figs/tcosts.png){ width=75% }
+
+Figure \ref{fig:tcosts} traces the path goods must travel from a factory in country $j$ to a market in country $i$. Goods first travel from the factory in $j$ to $j$'s border. Upon reaching the border (airport, port, or border crossing), goods must travel by land, sea, or air to the border of their destination country. Along the way, they incur freight costs $\delta_{ij}$. The market in $i$ is protected by a policy barrier $\tau_{ij}$ that can vary across importers. Once goods cross this border, they arrive at the market and are consumed at a price inclusive of the factory gate price $p_{jj}(\omega)$ and these transportation and policy costs. Substituting Equation \ref{eq:tcosts} into the gravity equation \ref{eq:Gravity} gives
+$$
+\lambda_{ij} = \frac{ T_j \left( \rho_j \delta_{ij}(\bm{Z}_{ij}) \tau_{ij} w_j^{1 - \beta} P_j^{\beta} \right)^{- \theta} }{\Phi_i}
+$$
+
+The problem with taking this equation straight to the data is that it contains unobserved technologies and wages. This would also require taking a stance on several structural parameters. Comparing $j$'s import penetration in $i$ to its share of the home market $\lambda_{jj}$ solves this problem, however. To see this, note
+$$
+\frac{\lambda_{ij}}{\lambda_{jj}} = \left( \delta_{ij}(\bm{Z}_{ij}) \tau_{ij} \right)^{- \theta} \frac{\Phi_j}{\Phi_i}
+$$
+Rearranging and substituting from Equation \ref{eq:eqP} gives the familiar relationship in Equation \ref{eq:Waugh} discussed above, modified to separate trade barriers from freight costs.^[Note that given prices, freight costs, and $\lambda_{jj}$, trade flows are a "sufficient statistic" for the magnitude of policy barriers to trade. In the face of opaque policy instruments, this provides a rationale for simply demanding bilateral trade deficit reductions in trade negotiations, a tactic utilized by the Trump administration in negotiations with China. Wei, Lingling. ["U.S. and China Make Scant Progress in Trade Talks."](https://www.wsj.com/articles/u-s-wants-200-billion-cut-in-china-trade-imbalance-by-end-of-2020-1525419253) *The Wall Street Journal*. 4 May, 2018.]
+\begin{equation} \label{eq:tau}
+\tau_{ij} = \left( \frac{\lambda_{ij}}{\lambda_{jj}} \right)^{-\frac{1}{\theta}} \frac{P_i}{P_j} \frac{1}{\delta_{ij}(\bm{Z}_{ij})}
+\end{equation}
+
+If the trade elasticity is known, data on trade shares, relative prices, and freight costs are sufficient to calculate policy barriers to trade, $\tau_{ij}$. In the next section, I discuss how these data are constructed to match the model presented here. 

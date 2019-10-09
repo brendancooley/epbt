@@ -1,0 +1,22 @@
+```{r expenditures, echo=FALSE, warning=FALSE, message=FALSE, results='asis'}
+
+# analytic categories
+# icpCodes <- read_csv("../estimation/data/prices/icpCodes.csv") %>% filter(aggregate==0) %>% select(Series, tradable)
+
+# icpCodes$tchar <- ifelse(icpCodes$tradable == 1, "\\checkmark", "") 
+# icpCodes <- icpCodes %>% select(Series, tchar)
+# icpCodes$Series <- icpCodes$Series %>% strsplit(" ") %>% lapply(function(x) x[2:length(x)]) %>% lapply(paste, collapse=" ") %>% unlist()
+# colnames(icpCodes) <- c("Expenditure Category", "Tradable?")
+
+# source("../figs/icpCodes.R")
+
+# basic headings
+icpCodes <- read_excel("../estimation/dataProprietary/bh.xlsx") %>% select(Code, Name, `Tradeable (BC)`)
+colnames(icpCodes) <- c("Code", "Basic Heading", "Tradable?")
+icpCodes$`Tradable?` <- ifelse(icpCodes$`Tradable?` == 1, "\\checkmark", "") 
+icpCodes <- icpCodes %>% select(Code, `Basic Heading`, `Tradable?`)
+
+kable(icpCodes, "latex", escape = F, longtable = T, booktabs = T) %>%
+kable_styling(latex_options = c("repeat_header"), position = "center", font_size = 9)
+
+```

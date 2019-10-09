@@ -1,0 +1,112 @@
+```{r, echo=FALSE, warning=FALSE, message=FALSE, results='hide'}
+
+source("../estimation/params.R")
+
+EUntmY <- read_csv(paste0("../estimation/", otherdir, "EUntmY.csv")) %>% pull(.)
+tarYval <- read_csv(paste0("../estimation/", otherdir, "tarYval.csv")) %>% pull(.)
+
+tau <- read_csv(paste0("../estimation/", resultsdir, "tauY.csv"))
+tar <- read_csv(paste0("../estimation/", cleandir, "tarY.csv"))
+correlates <- read_csv(paste0("../estimation/", resultsdir, "correlates.csv"))
+trimaiY <- read_csv(paste0("../estimation/", resultsdir, "trimaiY.csv"))
+tauHMY <- read_csv(paste0("../estimation/", resultsdir, "tauHMY.csv"))
+
+tauHMYEUD <- read_csv(paste0("../estimation/", resultsdirEU, "tauY.csv"))
+TRIEU <- read_csv(paste0("../estimation/", resultsdirEU, "trimaiY.csv"))
+
+```
+
+The results of this exercise reveal substantial unobserved policy barriers to trade. In `r Y`, across all in-sample markets, exporters faced an average $\tau$ of `r round(mean(tau$tau, na.rm=T), 2)`, equivalent to a `r round(mean(tau$tau, na.rm=T), 2) * 100 - 100` percent import tariff.^[Of course, this result is sensitive to my stance on the trade elasticity. Doubling the trade elasticity to `r thetaAlt` cuts the average $\tau$ to `r round(mean(tau$tauAlt, na.rm=T), 2)`] The magnitude of these barriers dwarfs that of applied aggregate tariffs, which average only `r round(mean(tar$wtar, na.rm=T), 2 ) * 100` percent within my sample. This result is consistent with @Anderson2003, @Bradford2003, @deSousa2012, and @Waugh2016 which also uncover large implied trade costs using indirect measurement methods. Figure \ref{fig:tcosts} shows the distribution of implied policy barriers (panel A), relative to tariffs and predicted freight costs.
+
+```{r tcosts, echo=FALSE, warning=FALSE, message=FALSE, fig.cap = "Distribution of freight costs, tariff barriers, and structural policy barriers to trade ($\\tau_{ij}$). Dashed lines show mean of each distribution. \\label{fig:tcosts}", fig.height=5, dpi=300, fig.pos="t"}
+
+source("../figs/tcosts.R")
+
+tCostsPlot
+
+```
+
+The model and data jointly suggest that international trade remains far from free, even taking into account unavoidable freight costs. Returning to Equation \ref{eq:tau}, this result suggests that the observed international price gaps and trade flows are inconsistent with a trade barrier-less world, given predicted freight costs. The model suggests that if implied policy barriers were removed, some combination of increases in trade flows and the reduction of price gaps would occur.
+
+International trade is also far from fair. A fair international trading system might allow for trade restrictions, but require that these restrictions affect all trading partners equally. In fact, policy barriers to trade are quite discriminatory. In `r Y`, the mean within-country standard deviation of $\tau_{ij}$ is `r round(mean(tau %>% group_by(j_iso3) %>% summarise(sd=sd(tau)) %>% pull(), na.rm=T), 2)`, representing a significant preferential margin for preferred trade partners. For example, in `r Y`, U.S. trade with Canada ($\tau_{ij} =$ `r tau %>% filter(j_iso3=="USA", i_iso3=="CAN") %>% pull(tau) %>% round(2)`), Japan (`r tau %>% filter(j_iso3=="USA", i_iso3=="JPN") %>% pull(tau) %>% round(2)`), and the European Union (`r tau %>% filter(j_iso3=="USA", i_iso3=="EU") %>% pull(tau) %>% round(2)`) was relatively unhindered. Conversely, U.S. trade with Peru (`r tau %>% filter(j_iso3=="USA", i_iso3=="PER") %>% pull(tau) %>% round(2)`) and Vietnam (`r tau %>% filter(j_iso3=="USA", i_iso3=="VNM") %>% pull(tau) %>% round(2)`) was highly restricted.
+
+```{r hm, echo=FALSE, warning=FALSE, message=FALSE, fig.cap = paste("Distribution of policy barriers to trade. Each cell reports the magnitude of the policy barrier each importing country (y-axis) imposes on every exporting country (x-axis). Countries are partitioned into", Kmeans, "groups through K-means clustering. Black rectangles enclose each cluster. \\label{fig:hm}"), fig.height=6, dpi=300, fig.pos="t"}
+
+trimaiText <- "In the margins are the magnitudes of each country's Trade Restrictivenss Index (TRI) and Market Access Index (MAI), defined in Equations \\ref{eq:tri} and \\ref{eq:mai}, respectively. \\label{fig:hm}"
+EUHM <- F
+
+source("../figs/hm.R")
+
+hm
+
+```
+
+Figure \ref{fig:hm} shows the distribution of directed policy barriers to trade in the data. The latent trade discrimination implemented by the United States is not unique -- openness varies significantly at the importer-exporter level. Clustering countries by the similarity of their trade policy vectors uncovers regional biases in trade policy. I sort countries into economic blocs through a K-means procedure with `r Kmeans` groups. Pacific countries (East and Southeast Asia and Australasia) are grouped together, as are North and South American countries. The European Union is grouped with Russia and Turkey. Because freight costs are not included in these measures, these economic blocs are not the result of mere geographic proximity.
+
+These barriers can be aggregated into two numbers -- a Trade Restrictiveness Index (TRI) and a Market Access Index (MAI) -- that summarize each country's import restrictiveness and international market access conditions, respectively. The TRI is simply a weighted average of the policy barriers an importing country imposes on all other countries, where the weights are the gross tradable expenditures of these other countries.^[I use gross consumption, rather than observed flows, as weights for consistency with the theoretical framework. Trade flows are endogenous to each country's trade policy decisions. In a friction-less world, exporters would capture a constant share of every market's gross expenditure on tradables.]
+\begin{equation} \label{eq:tri}
+\text{TRI}_i = \frac{1}{\sum_{j \neq i} E_j} \sum_{j \neq i} \tau_{ij} E_j
+\end{equation}
+Similarly, the market access index is an expenditure weighted average of the barriers that all importing countries impose on the exports of a given country.
+\begin{equation} \label{eq:mai}
+\text{MAI}_j = \frac{1}{\sum_{i \neq j} E_i} \sum_{i \neq j} \tau_{ij} E_i
+\end{equation}
+Higher values of the TRI correspond to higher aggregate trade restrictiveness. Conversely, higher values of the MAI correspond to lower aggregate market access (a high tax on a country's exports).
+
+```{r trimai, echo=FALSE, warning=FALSE, message=FALSE, fig.cap = "Trade restrictiveness and market access conditions by country \\label{fig:trimai}", fig.height=6, dpi=300, fig.pos="t"}
+
+source("../figs/trimai.R")
+
+trimaiPlot
+
+```
+
+Figure \ref{fig:trimai} plots the TRIs and MAIs jointly. A negative correlation between these indices emerges naturally from the structure of the model. High domestic prices imply arbitrage opportunities, raising the TRI. They also imply high opportunity costs for domestic exporting firms that forgo these high prices. To rationalize these flows, the model infers that these firms must face relatively friendly market access conditions abroad, raising the MAI.
+
+## Correlates of Unobserved Policy Barriers to Trade
+
+Figure \ref{fig:tcosts} shows that tariffs cannot account for the magnitude of trade protection implied by the model. What, then, is the source of these policy distortions? As discussed in the introduction, governments have a dizzying slate of policy instruments at their disposal which can have direct or indirect effects on trade. Existing studies of trade protection generally leverage these observable proxies of the broader, unobservable, aggregate policy barrier that is the target of this study [@Kee2009].
+
+Such observable proxies include tariffs, but also NTMs and preferential trade agreements (PTAs). NTMs are simply regulations that affect what kinds of products can and cannot be imported. Some NTMs, such as quotas, are rather blunt in their impact, while others, such as health and safety regulations, are more subtle. PTAs usually lower tariff rates beyond WTO commitments within a bloc of signatory countries. Increasingly, these agreements also work to harmonize regulatory environments and reduce "behind-the-border" barriers to trade [@Baccini2019]. If in fact NTMs impede trade and PTAs facilitate trade, they should be correlated with the aggregate policy barriers to trade captured here.
+
+To evaluate this proposition, I gather data on applied tariff rates, NTMs, and PTAs, and run a simple regression to evaluate the correlation between these observable indicators of trade restrictiveness and my metric.
+
+I measure aggregate tariff protection with a trade-weighted average of applied tariff rates, taken from UN Conference on Trade and Development's (UNCTAD) [TRAINS database](https://databank.worldbank.org/data/reports.aspx?source=UNCTAD-~-Trade-Analysis-Information-System-%28TRAINS%29#).^[This allows the measure to vary at the trade partner level, as exporters with different product portfolios are differentially exposed to tariff lines.] UNCTAD also tracks the incidence of NTMs in governments official trade regulations. As is standard in the literature on NTMs,^[See, for example, @Anderson2004.] I employ NTM coverage ratios as a measure of aggregate NTM protection. A coverage ratio is simply the proportion of Harmonized System (HS) 6-digit tariff lines that are subject to an NTM. I group NTMs into three categories, price/quota (core), health/safety, and other, and calculate coverage ratios for each category.^[Due to data availability constraints, data for the European Union is taken from `r EUntmY`, while the rest of the NTM data is taken from `r Y`. NTM data for South Korea is unavailable, so it is dropped from the analysis.] Finally, I construct a binary indicator that takes the value of one if two countries are members of a bilateral or multilateral PTA, and zero if not, employing the [DESTA](https://www.designoftradeagreements.org/downloads/) database [@Dur2014]. I include importer and exporter fixed effects in order to make comparisons relative to mean levels of protection and market access.
+
+```{r correlates, echo=FALSE, warning=FALSE, message=FALSE, results="asis", fig.pos="t"}
+
+source("../figs/correlates.R")
+
+stargazer(correlatesModel, header=FALSE, type='latex', omit=c("i_iso3", "j_iso3", "Constant"), omit.stat=c("adj.rsq", "f", "ser"), add.lines = list(c("Importer Fixed Effects", "\\checkmark"), c("Exporter Fixed Effects", "\\checkmark")), dep.var.labels = c("Structural Policy Barrier"), covariate.labels = c("Tariffs", "PTAs", "Core NTM", "Health/Safety NTM", "Other NTM"), title = paste0("Correlates of Structural Policy Barriers, ", Y, "\\label{tab:correlates}"))
+
+```
+
+The results are shown in Table \ref{tab:correlates}. Estimated policy barriers are positively correlated with observed tariffs. Independently of tariff rate reductions, policy barriers are negatively correlated with the existence of a PTA. This is consistent with PTAs as a tool of "deep liberalization" that reduce trade costs in excess of those imposed by tariffs. In particular, the existence of a PTA is associated with a tariff-equivalent decrease in $\tau_{ij}$ of `r coef(correlatesModel)[3] %>% as.numeric() %>% round(2) * -100` percentage points. Policy barriers show no significant association with any category of NTMs. However, coverage ratios are an extremely coarse measure of the magnitude of NTMs, and the TRAINS data are of imperfect quality [@Kono2008].
+
+## A Placebo Test: Intra-European Union Barriers
+
+In the preceding analysis, the European Union (EU) member states were treated as a single economic entity. Within the EU, goods face few policy barriers to trade. The EU customs union eliminates direct barriers to trade assessed at the border, and regulatory harmonization efforts seek to minimize indirect barriers. For this reason, intra-EU policy barriers to trade should be substantially lower than external barriers. Because the EU documents internal trade and the ICP collects price data for each EU member state, I can test this hypothesis in the data. To do so, I first employ my freight cost model to predict shipping costs within EU member states. European Union policy barriers to trade can then be disaggregated by member state.^[There were 27 members of the European Union in 2011, and Turkey participated in the economic bloc through a customs union. Due to inconsistencies between its trade and national accounts data, I drop Malta from the analysis.]
+
+```{r hmEUD, echo=FALSE, warning=FALSE, message=FALSE, fig.cap = "Intra and extra-European Union policy barriers to trade. Each cell reports the magnitude of the policy barrier each EU importing country (y-axis) imposes on every exporting country (x-axis). Barriers toward EU countries are on the left hand side of the solid line. Barriers toward non-EU countries are on the right hand side of the solid line. BNL is an aggregate of Belgium, Luxembourg, and the Netherlands (Benelux). ELL is an aggregate of the Baltic countries: Estonia, Latvia, and Lithuania. \\label{fig:hmEUD}", fig.height=5, dpi=300, fig.pos="t"}
+
+source("../figs/hmEUD.R")
+
+hmEUPlot
+
+```
+
+Figure \ref{fig:hmEUD} depicts the results of this exercise.^[In the Appendix, I reproduce Figure \ref{fig:hm} with the European Union disaggregated and re-implement K-means clustering. All EU countries are grouped together with $K=$`r KmeansEUD`] EU policy barriers toward other EU member states are on average `r round(mean(TRIEU$tauFrac), 2) * 100` percent the size of barriers with non-EU states.^[This comparison was made by taking weighted means of tariff-equivalent policy barriers where the weights are the expenditures on tradable goods of the exporting countries.] Barriers are far from nonexistent, however. On average, EU countries implement an tariff-equivalent barrier of `r (round(mean(TRIEU$tauEU), 2) - 1) * 100` percent on other EU member states, compared to `r (round(mean(TRIEU$tauEUOut), 2) - 1) * 100` percent on non-EU states.^[These are unweighted averages of EU member states' TRIs, calculated with respect to EU and non-EU members respectively.] From the perspective of the model, there remained substantial policy-related trade frictions within the EU in `r Y`. This finding is consistent with the existence of "border effects" within the EU [@Comerford2015]. Of course, these inferences might be driven by features of the model itself. I discuss these limitations in more detail in the paper's conclusion.
+
+## Discussion
+
+In the introduction, I noted that richer countries tend to have higher policy barriers to trade, contrary to their relatively liberal tariff regimes. From this fact, some conclude that political institutions in developed countries are more "welfare-concious" than those in their developing counterparts [@Gawande2009; @Gawande2015]. These results are consistent with an alternative approach, emphasizing state capacity, articulated in @Acemoglu2005b, @Rodrik2008, and @Queralt2015. Here, tariffs emerge as a "second-best" solution to a revenue-raising problem facing low-capacity governments, which struggle to raise revenue through other channels. As capacity grows, governments employ alternative instruments to raise revenues. As shown here, these governments do not necessarily become less protectionist in the process. In fact, they may become more closed to international trade.
+
+```{r maiGdppc, echo=FALSE, warning=FALSE, message=FALSE, fig.cap = "Market access conditions and per capita national income \\label{fig:maiGdppc}", fig.height=5, dpi=300, fig.pos="t"}
+
+source("../figs/maigdppc.R")
+
+maigdppcPlot
+
+```
+
+Due to the restrictiveness and discrimination inherent in developed countries' trade policies, poor countries also struggle to access international markets, shown in Figure \ref{fig:maiGdppc}. Several studies examining trade costs as a whole replicate this finding, and suggest that this explains some of the variation in cross-national income per capita [@Redding2004; @Romalis2007; @Waugh2010]. These results suggest that even complete tariff liberalization on the part of developed countries would still leave developing countries confronting substantial market access barriers.

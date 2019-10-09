@@ -1,0 +1,1 @@
+correlatesModel <- lm(tau ~ wtar + pta + core + health_safety + other + j_iso3 + i_iso3, data=correlates)

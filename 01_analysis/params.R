@@ -1,0 +1,117 @@
+
+if (!exists("TPSP")) {
+  TPSP <- FALSE
+}
+
+library(tidyverse)
+
+### DIRECTORIES ###
+
+basedir <- "~/Dropbox (Princeton)/1_Papers/epbt/01_data/"
+
+datadir <- paste0(basedir, "01_raw/")
+cleandir <- paste0(basedir, "02_clean/")
+resultsdir <- paste0(basedir, "03_results/")
+otherdir <- paste0(basedir, "04_other/")
+
+cleandirTPSP <- paste0(basedir, "tpsp_clean/")
+resultsdirTPSP <- paste0(basedir, "tpsp_results/")
+expdirTPSP <- paste0(basedir, "tpsp_data/")
+
+cleandirEU <- paste0(cleandir, "EUD/")
+resultsdirEU <- paste0(resultsdir, "EUD/")
+
+### SOURCE HELPERS ###
+
+ccodesAll <- c()
+
+analysisDir <- "01_analysis"
+
+wd <- getwd()
+
+if ("sections" %in% strsplit(wd, "/")[[1]]) {
+  sourceDir <- paste0("../", analysisDir, "/source/")
+  sourceFiles <- list.files(sourceDir)
+  for (i in sourceFiles) {
+    source(paste0(sourceDir, i))
+  }
+} else {
+  if (analysisDir %in% strsplit(wd, "/")[[1]]) {
+    sourceFiles <- list.files("source/")
+    for (i in sourceFiles) {
+      source(paste0("source/", i))
+    }
+    ccodesPath <- paste0(cleandir, "ccodes.csv")
+    if (file.exists(ccodesPath)) {
+      ccodesAll <- read_csv(ccodesPath) %>% pull(.)  # all
+    }
+  } else {
+    sourceDir <- paste0(analysisDir, "/source/")
+    sourceFiles <- list.files(sourceDir)
+    for (i in sourceFiles) {
+      source(paste0(sourceDir, i))
+    }
+  }
+}
+
+# helperPath <- "~/Dropbox (Princeton)/14_Software/R/"
+# helperFiles <- list.files(helperPath)
+# for (i in helperFiles) {
+#   source(paste0(helperPath, i))
+# }
+
+### PARAMETERS ###
+
+startY <- 1995
+endY <- 2011
+Y <- 2011
+
+# NOTE: small countries get unrealistic trade shares with theta \approx 4 and tauRev = FALSE
+# Standard results...theta=6(?)
+
+if (TPSP == FALSE) {
+  theta <- 6
+} else {
+  theta <- 4
+}
+thetaAlt <- 2 * theta
+
+sigma <- theta + 1
+sigmaAlt <- 2 * sigma - 2
+
+### OTHER OPTIONS ###
+
+bcOrange <- "#BD6121"
+
+# countries to drop
+ccodesDrop <- c("ARG")
+
+# EUD <- FALSE # disaggregate EU?
+
+BNL <- TRUE # aggregate Belgium, Netherlands, Luxembourg (as in Dekle et al)
+BNLccodes <- c("BEL", "LUX", "NLD")
+
+MYSG <- TRUE # aggregate Singapore, Malaysia 
+MYSGccodes <- c("MYS", "SGP")
+
+ELL <- TRUE # aggregate Baltic countries (Estonia, Latvia, Lithuania)
+ELLccodes <- c("EST", "LVA", "LTU")
+
+# figure options (heatmap)
+TRIMAI <- F  # include TRI and MAI?
+cluster <- T  # cluster countries?
+Kmeans <- 3  # number of clusters
+KmeansEUD <- 4  # number of clusters with EU disaggregated
+
+# revenues
+tauRev <- FALSE
+mu <- 1  # share of potential revenues captured by government
+
+# mini economy for tpsp
+# tpspC <- TRUE
+# ccodesTPSP <- c("CHN", "EU", "JPN", "BRA", "USA")  # subset
+dropTPSP <- c("VNM", "IND", "ISR", "NZL", "PER", "CHL", "ZAF", "PHL", "COL", "THA")
+ccodesTPSP <- setdiff(ccodesAll, dropTPSP)
+
+# island indicator
+island <- c("AUS", "CYP", "GBR", "IRL", "JPN", "IDN", "PHL")

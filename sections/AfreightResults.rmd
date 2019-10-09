@@ -1,0 +1,47 @@
+```{r, echo=FALSE, warning=FALSE, message=FALSE, results='hide'}
+
+# get freight cost model results
+source("../estimation/05_freight.R")
+
+```
+
+### Maritime Freight Costs
+
+```{r seaModel, echo=FALSE, warning=FALSE, message=FALSE, results="asis", cache=TRUE}
+
+stargazer(seaModelOutput, header=FALSE, type='latex', omit=c("hs2", "Constant", "year"), omit.stat=c("adj.rsq", "f", "ser"), add.lines = list(c("Product fixed effects?", "\\checkmark"), c("Cubic time spline?", "\\checkmark")), dep.var.labels = c("Freight Cost"), covariate.labels = c("CERDI seadist (log, std)", "Contiguity"), title = "Maritime Cost Model")
+
+```
+
+\FloatBarrier
+
+### Land Freight Costs
+
+```{r landModel, echo=FALSE, warning=FALSE, message=FALSE, results="asis", cache=TRUE}
+
+stargazer(landModelOutput, header=FALSE, type='latex', omit=c("hs2", "Constant", "year"), omit.stat=c("adj.rsq", "f", "ser"), add.lines = list(c("Product fixed effects?", "\\checkmark"), c("Cubic time spline?", "\\checkmark")), dep.var.labels = c("Freight Cost"), covariate.labels = c("CEPII distw (log, std)", "Contiguity"), title = "Land Cost Model")
+
+```
+
+\FloatBarrier
+
+### Air Freight Costs
+
+```{r airModel, echo=FALSE, warning=FALSE, message=FALSE, results="asis", cache=TRUE}
+
+stargazer(airModelOutput, header=FALSE, type='latex', omit=c("hs2", "Constant", "year"), omit.stat=c("adj.rsq", "f", "ser"), add.lines = list(c("Product fixed effects?", "\\checkmark"), c("Cubic time spline?", "\\checkmark")), dep.var.labels = c("Freight Cost"), covariate.labels = c("CEPII distw (log, std)", "Contiguity"), title = "Air Cost Model")
+
+```
+
+\FloatBarrier
+
+
+### Transportation Mode Shares
+
+```{r modesModel, echo=FALSE, warning=FALSE, message=FALSE, results="asis", cache=TRUE}
+
+stargazer(modesModelOutput, header=FALSE, type='latex', omit=c("hs2", "Constant", "year"), add.lines = list(c("Product fixed effects?", "\\checkmark", "\\checkmark", "\\checkmark"), c("Cubic time spline?", "\\checkmark", "\\checkmark", "\\checkmark")), dep.var.labels = c("Air Share", "Sea Share", "Land Share", "Other Share"), covariate.labels = c("Air Distance (log, std)", "Sea Distance (log, std)", "Contiguity", "Importer Island?", "Exporter Island?"), title = "Mode Share Model")
+
+```
+
+\FloatBarrier

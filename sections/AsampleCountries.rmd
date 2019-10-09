@@ -1,0 +1,15 @@
+```{r ccodes, echo=FALSE, warning=FALSE, message=FALSE, results='asis'}
+
+ccodes <- read_csv(paste0("../estimation/", cleandir, "ccodes.csv")) %>% pull(.)
+
+ccodesTable <- as.data.frame(ccodes)
+ccodesTable$cnames <- countrycode(ccodesTable$ccodes, "iso3c", "country.name")
+ccodesTable$cnames <- ifelse(ccodesTable$ccodes == "EU", "European Union", ccodesTable$cnames)
+
+colnames(ccodesTable) <- c("iso3", "Country Name")
+
+ccodesTable <- ccodesTable %>% arrange(iso3)
+
+kable(ccodesTable, "latex", booktabs = T) %>% kable_styling(position = "center")
+
+```

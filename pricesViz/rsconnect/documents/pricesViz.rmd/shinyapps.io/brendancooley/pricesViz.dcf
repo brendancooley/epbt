@@ -1,0 +1,12 @@
+name: pricesViz
+title: pricesViz
+username:
+account: brendancooley
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 806272
+bundleId: 1958036
+url: https://brendancooley.shinyapps.io/pricesViz/
+when: 1553258956.66763
+asMultiple: FALSE
+asStatic: FALSE
