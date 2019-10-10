@@ -1,12 +1,12 @@
 ```{r, echo=FALSE, warning=FALSE, message=FALSE, results='hide'}
 
-source("../estimation/params.R")
+source(paste0("../", analysisDir, "params.R"))
 
-N <- read_csv(paste0("../estimation/", cleandir, "ccodes.csv")) %>% pull(.) %>% length()
-P <- read_csv(paste0("../estimation/", cleandir, "priceIndex.csv")) %>% filter(year==Y)
-freight <- read_csv(paste0("../estimation/", cleandir, "freight.csv"))
-gdp <- read_csv(paste0("../estimation/", cleandir, "gdp.csv"))
-delta <- read_csv(paste0("../estimation/", cleandir, "delta.csv")) %>% filter(year==Y)
+N <- read_csv(paste0(cleandir, "ccodes.csv")) %>% pull(.) %>% length()
+P <- read_csv(paste0(cleandir, "priceIndex.csv")) %>% filter(year==Y)
+freight <- read_csv(paste0(cleandir, "freight.csv"))
+gdp <- read_csv(paste0(cleandir, "gdp.csv"))
+delta <- read_csv(paste0(cleandir, "delta.csv")) %>% filter(year==Y)
 
 gdpSample <- gdp %>% filter(iso3 != "ROW", year==Y) %>% pull(gdp) %>% sum()
 gdpWorld <- gdp %>% filter(year==Y) %>% pull(gdp) %>% sum()

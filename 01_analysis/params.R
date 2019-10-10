@@ -7,6 +7,8 @@ library(tidyverse)
 
 ### DIRECTORIES ###
 
+analysisDir <- "01_analysis/"
+
 basedir <- "~/Dropbox (Princeton)/1_Papers/epbt/01_data/"
 
 datadir <- paste0(basedir, "01_raw/")
@@ -27,12 +29,10 @@ proprietaryDataPath <- "~/Dropbox (Princeton)/1_Papers/epbt/estimation/dataPropr
 
 ccodesAll <- c()
 
-analysisDir <- "01_analysis"
-
 wd <- getwd()
 
 if ("sections" %in% strsplit(wd, "/")[[1]]) {
-  sourceDir <- paste0("../", analysisDir, "/source/")
+  sourceDir <- paste0("../", analysisDir, "source/")
   sourceFiles <- list.files(sourceDir)
   for (i in sourceFiles) {
     source(paste0(sourceDir, i))
@@ -48,7 +48,7 @@ if ("sections" %in% strsplit(wd, "/")[[1]]) {
       ccodesAll <- read_csv(ccodesPath) %>% pull(.)  # all
     }
   } else {
-    sourceDir <- paste0(analysisDir, "/source/")
+    sourceDir <- paste0(analysisDir, "source/")
     sourceFiles <- list.files(sourceDir)
     for (i in sourceFiles) {
       source(paste0(sourceDir, i))

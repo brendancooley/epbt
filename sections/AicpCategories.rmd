@@ -11,7 +11,7 @@
 # source("../figs/icpCodes.R")
 
 # basic headings
-icpCodes <- read_excel("../estimation/dataProprietary/bh.xlsx") %>% select(Code, Name, `Tradeable (BC)`)
+icpCodes <- read_excel(paste0(proprietaryDataPath, "bh.xlsx")) %>% select(Code, Name, `Tradeable (BC)`)
 colnames(icpCodes) <- c("Code", "Basic Heading", "Tradable?")
 icpCodes$`Tradable?` <- ifelse(icpCodes$`Tradable?` == 1, "\\checkmark", "") 
 icpCodes <- icpCodes %>% select(Code, `Basic Heading`, `Tradable?`)

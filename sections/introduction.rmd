@@ -1,13 +1,13 @@
 ```{r, echo=FALSE, warning=FALSE, message=FALSE, results='hide'}
 
-source("../estimation/params.R")
+source(paste0("../", analysisDir, "params.R"))
 
-tarYval <- read_csv(paste0("../estimation/", otherdir, "tarYval.csv")) %>% pull(.)
+tarYval <- read_csv(paste0(otherdir, "tarYval.csv")) %>% pull(.)
 
-trimaiY <- read_csv(paste0("../estimation/", resultsdir, "triMaiY.csv"))
-gdp <- read_csv(paste0("../estimation/", cleandir, "gdp.csv"))
-pop <- read_csv(paste0("../estimation/", cleandir, "/pop.csv"))
-tar <- read_csv(paste0("../estimation/", cleandir, "tarY.csv"))
+trimaiY <- read_csv(paste0(resultsdir, "triMaiY.csv"))
+gdp <- read_csv(paste0(cleandir, "gdp.csv"))
+pop <- read_csv(paste0(cleandir, "/pop.csv"))
+tar <- read_csv(paste0(cleandir, "tarY.csv"))
 
 ```
 
@@ -47,6 +47,6 @@ The fields of comparative and international political economy rely heavily on im
 
 The broad policy barriers recovered here are also the objects that governments seek to influence in international negotiations, particularly in today's era in which tariffs rates are historically low.^[For example, Trans Pacific Partnership (TPP) negotiations focused overwhelmingly on non-tariff liberalization efforts. Fergusson, Ian F. and Brock R. Williams. ["The Trans-Pacific Partnership (TPP): Key Provisions and Issues for Congress."](https://fas.org/sgp/crs/row/R44489.pdf) 14 June, 2016. Congressional Research Service.] Governments desire foreign market access for the firms whose interests they represent [@Gawande2009; @Ossa2011; @Ossa2012]. Acquiring foreign market access requires dismantling policy barriers to trade, direct and indirect. This places governments in a complex multilateral bargaining game that has attracted the attention of many studies.^[See, for example, @Hirschman1945; @Pollins1989b; @Gowa1993; @Milner1997; @Aghion2007; @Head2010; @Antras2011; @Dube2011; @Berger2013; @Ossa2014.] Evaluating and assessing the outcomes of this game requires measurement of its outcomes -- governments' trade policy choices.
 
-Finally, many argue that international institutions, the WTO and its predecessor General Agreements on Tariffs and Trade (GATT) in particular, structure this bargaining game in important ways [@Bagwell1999; @Maggi1999; @Steinberg2002; @Davis2006; @Carnegie2014; @Bagwell2018]. GATT signatories committed in principle to convert protective policy measures into tariff-equivalents and subsequently negotiated primarily over tariff barriers [@Bagwell2004]. Theories of international trade institutions generally take this commitment seriously, assuming commitments to reduce tariffs cannot be subsequently "undone" through the implementation of non-tariff or behind-the-border barriers to trade. Statements about the efficacy of the principles of reciprocity and nondiscrimination in achieving efficient outcomes rest on this premise.
+Finally, many argue that international institutions, the WTO and its predecessor General Agreements on Tariffs and Trade (GATT) in particular, structure this bargaining game in important ways [@Bagwell1999; @Maggi1999; @Steinberg2002; @Davis2006; @Carnegie2014; @Bagwell2018b]. GATT signatories committed in principle to convert protective policy measures into tariff-equivalents and subsequently negotiated primarily over tariff barriers [@Bagwell2004]. Theories of international trade institutions generally take this commitment seriously, assuming commitments to reduce tariffs cannot be subsequently "undone" through the implementation of non-tariff or behind-the-border barriers to trade. Statements about the efficacy of the principles of reciprocity and nondiscrimination in achieving efficient outcomes rest on this premise.
 
 I proceed in three steps. The next section specifies a model of international trade and demonstrates how it relates observables to the magnitude of trade policy distortions. I then discuss the data that I use to calibrate the model. Finally, I present the results of this exercise and discuss their implications for the question posed at the beginning of this paper -- is international trade free and fair?

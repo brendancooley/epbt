@@ -6,7 +6,7 @@ abstract: To what extent is international trade free and fair? Because policy ba
 thanks: Ph.D. candidate, Department of Politics, Princeton University. Princeton's Research Program in Political Economy provided financial support for this research. The World Bank's International Comparison Program kindly shared data. Thanks to Haosen Ge, Gene Grossman, Gleason Judd, John Londregan, Marco Martini, Helen Milner, Sayumi Miyano, Steve Monroe, Sondre Solstad, Kris Ramsay, Steve Redding, Alexandra Zeitz, Grace Zeng for comments on earlier drafts of this paper, as well audiences at the Princeton Political Economy Graduate Colloquium and the Midwest Political Science Association's 2019 Annual Meeting.
 # jelcodes: JEL codes go here
 
-bibliography: /Users/bcooley/Dropbox (Princeton)/References/library.bib
+bibliography: /Users/brendancooley/Dropbox (Princeton)/References/library.bib
 biblio-style: apsr
 
 papersize: letter
@@ -22,7 +22,9 @@ output:
 
 ```{r libs, echo=FALSE, warning=FALSE, message=FALSE, results='hide'}
 
-source('estimation/params.R')
+analysisDir <- "01_analysis/"
+
+source(paste0(analysisDir, 'params.R'))
 libs <- c('tidyverse', "stargazer", "countrycode", "knitr", "ggrepel", "patchwork", "ggthemes", "latex2exp", "readxl", "kableExtra", "skmeans", "ggridges")
 ipak(libs)
 

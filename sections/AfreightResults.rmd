@@ -1,13 +1,13 @@
 ```{r, echo=FALSE, warning=FALSE, message=FALSE, results='hide'}
 
 # get freight cost model results
-source("../estimation/05_freight.R")
+source(paste0("../", analysisDir, "05_freight.R"))
 
 ```
 
 ### Maritime Freight Costs
 
-```{r seaModel, echo=FALSE, warning=FALSE, message=FALSE, results="asis", cache=TRUE}
+```{r seaModel, echo=FALSE, warning=FALSE, message=FALSE, results="asis", cache=FALSE}
 
 stargazer(seaModelOutput, header=FALSE, type='latex', omit=c("hs2", "Constant", "year"), omit.stat=c("adj.rsq", "f", "ser"), add.lines = list(c("Product fixed effects?", "\\checkmark"), c("Cubic time spline?", "\\checkmark")), dep.var.labels = c("Freight Cost"), covariate.labels = c("CERDI seadist (log, std)", "Contiguity"), title = "Maritime Cost Model")
 
@@ -17,7 +17,7 @@ stargazer(seaModelOutput, header=FALSE, type='latex', omit=c("hs2", "Constant", 
 
 ### Land Freight Costs
 
-```{r landModel, echo=FALSE, warning=FALSE, message=FALSE, results="asis", cache=TRUE}
+```{r landModel, echo=FALSE, warning=FALSE, message=FALSE, results="asis", cache=FALSE}
 
 stargazer(landModelOutput, header=FALSE, type='latex', omit=c("hs2", "Constant", "year"), omit.stat=c("adj.rsq", "f", "ser"), add.lines = list(c("Product fixed effects?", "\\checkmark"), c("Cubic time spline?", "\\checkmark")), dep.var.labels = c("Freight Cost"), covariate.labels = c("CEPII distw (log, std)", "Contiguity"), title = "Land Cost Model")
 
@@ -27,7 +27,7 @@ stargazer(landModelOutput, header=FALSE, type='latex', omit=c("hs2", "Constant",
 
 ### Air Freight Costs
 
-```{r airModel, echo=FALSE, warning=FALSE, message=FALSE, results="asis", cache=TRUE}
+```{r airModel, echo=FALSE, warning=FALSE, message=FALSE, results="asis", cache=FALSE}
 
 stargazer(airModelOutput, header=FALSE, type='latex', omit=c("hs2", "Constant", "year"), omit.stat=c("adj.rsq", "f", "ser"), add.lines = list(c("Product fixed effects?", "\\checkmark"), c("Cubic time spline?", "\\checkmark")), dep.var.labels = c("Freight Cost"), covariate.labels = c("CEPII distw (log, std)", "Contiguity"), title = "Air Cost Model")
 

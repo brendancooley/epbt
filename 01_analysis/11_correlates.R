@@ -7,9 +7,18 @@
 
 ### SETUP ###
 
+args <- commandArgs(trailingOnly=TRUE)
+if (is.null(args) | identical(args, character(0))) {
+  EUD <- TRUE
+  TPSP <- FALSE
+} else {
+  EUD <- ifelse(args[1] == "True", TRUE, FALSE)
+  TPSP <- ifelse(args[2] == "True", TRUE, FALSE)
+}
+
 source("params.R")
 
-libs <- c('tidyverse')
+libs <- c('tidyverse', 'ggrepel')
 ipak(libs)
 
 ### DATA ###
@@ -19,10 +28,6 @@ ntmY <- read_csv(paste0(cleandir, "ntmY.csv")) %>% select(-year)
 tarY <- read_csv(paste0(cleandir, "tarY.csv")) %>% select(-year, -val)
 
 tauY <- read_csv(paste0(resultsdir, "tauY.csv")) %>% select(-year) %>% filter(!is.na(tau))
-
-trimaiYEUD <- read_csv(paste0(resultsdirEU, "trimaiY.csv")) %>% select(-year)
-polityYEUD <- read_csv(paste0(cleandirEU, "polity.csv"))
-gdpYEUD <- read_csv(paste0(cleandirEU, "gdp.csv"))
 
 ### MODEL (VALIDATION) ###
 
@@ -48,10 +53,24 @@ summary(model)
 
 ### MODEL (POLITICAL-ECONOMIC DETERMINANTS) ###
 
-D <- left_join(trimaiYEUD, gdpYEUD) %>% left_join(polityYEUD)
+if (EUD == TRUE) {
+  
+  trimaiYEUD <- read_csv(paste0(resultsdirEU, "trimaiYall.csv")) %>% select(-year)
+  colnames(trimaiYEUD)[colnames(trimaiYEUD)=="j_iso3"] <- "iso3"
+  polityYEUD <- read_csv(paste0(cleandirEU, "polity.csv"))
+  gdpYEUD <- read_csv(paste0(cleandirEU, "gdp.csv")) %>% filter(year==Y)
+  
+  D <- left_join(trimaiYEUD, gdpYEUD) %>% left_join(polityYEUD)
+  
+  modelD <- lm(tau ~ gdp + polity2, data=D)
+  # summary(modelD)
+}
 
-modelD <- lm(tri ~ gdp + polity2, data=D)
-summary(modelD)
+# 
+# ggplot(data=D, aes(x=polity2, y=tau, label=iso3)) +
+#   geom_point() +
+#   geom_text_repel() +
+#   theme_classic()
 
 ### COST COMPARISONS ###
 
