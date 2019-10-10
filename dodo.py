@@ -64,7 +64,8 @@ def task_cleanclean():
 					'cd ' + estdir + '; Rscript ' + flowshs2 + ' %(EUD)s False',
 					'cd ' + estdir + '; Rscript ' + ntm,
 					'cd ' + estdir + '; Rscript ' + tar,
-					'cd ' + estdir + '; Rscript ' + pta],
+					'cd ' + estdir + '; Rscript ' + pta,
+					'cd ' + estdir + '; Rscript ' + polity],
 		'verbosity': 2,
 	}
 
