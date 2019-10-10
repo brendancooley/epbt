@@ -8,10 +8,11 @@
 
 # function to recompile flows matrix with subsample of countries...remap ROW
 
+# drop find.file...redo file paths to Dropbox
+
 ### Get customizable arguments from command line ###
 
 args <- commandArgs(trailingOnly=TRUE)
-print(args)
 if (is.null(args) | identical(args, character(0))) {
   EUD <- FALSE
   TPSP <- FALSE
@@ -20,47 +21,44 @@ if (is.null(args) | identical(args, character(0))) {
   TPSP <- ifelse(args[2] == "True", TRUE, FALSE)
 }
 
-print(EUD)
-print(TPSP)
-
 ### SETUP ###
 
-source('params.R')
+wd <- getwd()
+if ("sections" %in% strsplit(wd, "/")[[1]]) {
+  runPreds <- FALSE
+} else {
+  source('params.R')
+  runPreds <- TRUE
+}
+
 
 libs <- c('tidyverse', 'earth', "nnet", "olpsR", "glmnet", "plotly", "splines", 'ggsci', 'ggthemes', 'ggrepel', "reader")
 ipak(libs) 
 
 # variable search for calling locally or from Rmd
-wd <- getwd()
-if ("sections" %in% strsplit(wd, "/")[[1]]) {
-  if (EUD==FALSE) {
-    flowsPath <- find.file('flowshs2.csv', dir="../estimation", dirs=paste0("../estimation/", cleandir))
+# wd <- getwd()
+# if ("sections" %in% strsplit(wd, "/")[[1]]) {
+#   if (EUD==FALSE) {
+#     flowsPath <- find.file('flowshs2.csv', dir=cleandir, dirs=paste0("../estimation/", cleandir))
+#   } else {
+#     flowsPath <- find.file('flowshs2.csv', dir=cleandirEU, dirs=paste0("../estimation/", cleandirEU))
+#   }
+# } else {
+if (EUD==FALSE) {
+  if (TPSP==FALSE) {
+    flowsPath <- paste0(cleandir, "flowshs2.csv")
   } else {
-    flowsPath <- find.file('flowshs2.csv', dir="../estimation", dirs=paste0("../estimation/", cleandirEU))
+    flowsPath <- paste0(cleandirTPSP, "flowshs2.csv")
   }
-} else {
-  if (EUD==FALSE) {
-    if (TPSP==FALSE) {
-      flowsPath <- find.file('flowshs2.csv', dir=cleandir, dirs=paste0("../estimation/", cleandir))
-    } else {
-      flowsPath <- find.file('flowshs2.csv', dir=cleandirTPSP, dirs=paste0("../estimation/", cleandirTPSP))
-    }
-  } else{
-    flowsPath <- find.file('flowshs2.csv', dir=cleandirEU, dirs=paste0("../estimation/", cleandirEU))
-  }
+} else{
+  flowsPath <- paste0(cleandirEU, "flowshs2.csv")
 }
+# }
 
 
 flows <- read_csv(flowsPath)
 # summary(flows)
 # flows %>% filter(!is.na(avcair) & avcair < 0)
-
-# only run predictions if outside of Rmd
-if ("estimation" %in% strsplit(flowsPath, "/")[[1]]) {
-  runPreds <- FALSE
-} else {
-  runPreds <- TRUE
-}
 
 # filter extreme observations
 thres <- 2.5

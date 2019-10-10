@@ -20,7 +20,7 @@ pta = "09_pta.R"
 polity = "10_polity.R"
 correlates = "11_correlates.R"
 
-templatePath = "~/Dropbox\ \(Princeton\)/8_Templates/"
+templatesPath = "~/Dropbox\ \(Princeton\)/8_Templates/"
 softwarePath = "~/Dropbox\ \(Princeton\)/14_Software/"
 github = "~/GitHub/epbt"
 website_docs = "~/Dropbox\ \(Princeton\)/5_CV/website/static/docs"
@@ -30,7 +30,9 @@ tpspPath = "~/Dropbox\ \(Princeton\)/1_Papers/tpsp/working/analysis/"
 def task_source():
 	yield {
 		'name': "initializing environment...",
-		'actions':["cp -a " + softwarePath + "R/ " + estdir + "source/"]
+		'actions':["mkdir -p templates/",
+				   "cp " + templatesPath + "cooley-paper-template.latex" + " templates/",
+				   "cp -a " + softwarePath + "R/ " + estdir + "source/"]
 	}
 
 def task_extract():
@@ -117,10 +119,19 @@ def task_paper():
 	yield {
 		'name': "draft paper",
 		'actions': ["R --slave -e \"set.seed(100); knitr::knit('epbt.rmd')\"",
-					"pandoc --template=/" + templatePath + "/cooley-paper-template.latex \
+					"pandoc --template=templates/cooley-paper-template.latex \
 					--filter pandoc-citeproc \
 					-o epbt.pdf epbt.md"],
 		'verbosity': 2,
+	}
+
+def task_post_to_web():
+	"""
+
+	"""
+	yield {
+		'name': "posting...",
+		'actions': ["cp -a epbt.pdf " + website_docs]
 	}
 
 def task_prep_slides():
@@ -130,7 +141,7 @@ def task_prep_slides():
 	yield {
 		'name': "moving slide files",
 		'actions': ["mkdir -p css",
-					"cp -a " + templatePath + "slides/ " + "css/"]
+					"cp -a " + templatesPath + "slides/ " + "css/"]
 	}
 
 def task_slides():
@@ -142,34 +153,3 @@ def task_slides():
 		'actions': ["R --slave -e \"rmarkdown::render('epbt_slides.Rmd', output_file='index.html')\""],
 		'verbosity': 2,
 	}
-
-def task_post():
-	"""
-	"""
-
-	yield {
-		'name': 'post materials to Github/website',
-		'actions': ["mkdir -p " + github + "/estimation/",
-					"cp -a epbt.Rmd epbt.md epbt.pdf " + github,
-					"mkdir -p " + github + "/figs",
-					"cp -a figs " + github,
-					"mkdir -p " + github + "/estimation/figs/",
-					"mkdir -p " + github + "/figure/",
-					"cp -a figure/ " + github + "/figure/",
-					"cp -a dodo.py " + github,
-					"mkdir -p "+ github + "/index_files/",
-					"cp -a index_files/ "+ github + "/index_files/",
-					"mkdir -p " + github + "/figure/",
-					"cp -a figure/ " + github + "/figure/",
-					"mkdir -p " + github + "/css/",
-					"cp -a css/ " + github + "/css/",
-					"cp -a epbt_slides.Rmd index.html " + github,
-					"cp -a epbt.pdf " + website_docs],
-		'verbosity': 2,
-	}
-	# move Rscripts
-	for rscript in glob.glob(Rscripts):
-		yield {
-			'name': rscript,
-			'actions':["cp -a " + rscript + " " + github + "/estimation/"],
-		}

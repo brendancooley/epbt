@@ -1,18 +1,18 @@
 ```{r, echo=FALSE, warning=FALSE, message=FALSE, results='hide'}
 
-source("../estimation/params.R")
+source(paste0("../", analysisDir, "params.R"))
 
-EUntmY <- read_csv(paste0("../estimation/", otherdir, "EUntmY.csv")) %>% pull(.)
-tarYval <- read_csv(paste0("../estimation/", otherdir, "tarYval.csv")) %>% pull(.)
+EUntmY <- read_csv(paste0(otherdir, "EUntmY.csv")) %>% pull(.)
+tarYval <- read_csv(paste0(otherdir, "tarYval.csv")) %>% pull(.)
 
-tau <- read_csv(paste0("../estimation/", resultsdir, "tauY.csv"))
-tar <- read_csv(paste0("../estimation/", cleandir, "tarY.csv"))
-correlates <- read_csv(paste0("../estimation/", resultsdir, "correlates.csv"))
-trimaiY <- read_csv(paste0("../estimation/", resultsdir, "trimaiY.csv"))
-tauHMY <- read_csv(paste0("../estimation/", resultsdir, "tauHMY.csv"))
+tau <- read_csv(paste0(resultsdir, "tauY.csv"))
+tar <- read_csv(paste0(cleandir, "tarY.csv"))
+correlates <- read_csv(paste0(resultsdir, "correlates.csv"))
+trimaiY <- read_csv(paste0(resultsdir, "trimaiY.csv"))
+tauHMY <- read_csv(paste0(resultsdir, "tauHMY.csv"))
 
-tauHMYEUD <- read_csv(paste0("../estimation/", resultsdirEU, "tauY.csv"))
-TRIEU <- read_csv(paste0("../estimation/", resultsdirEU, "trimaiY.csv"))
+tauHMYEUD <- read_csv(paste0(resultsdirEU, "tauY.csv"))
+TRIEU <- read_csv(paste0(resultsdirEU, "trimaiY.csv"))
 
 ```
 

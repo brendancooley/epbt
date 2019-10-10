@@ -2,7 +2,7 @@
 
 args <- commandArgs(trailingOnly=TRUE)
 if (is.null(args) | identical(args, character(0))) {
-  EUD <- FALSE
+  EUD <- TRUE
   TPSP <- FALSE
 } else {
   EUD <- ifelse(args[1] == "True", TRUE, FALSE)
@@ -265,6 +265,14 @@ if (EUD==TRUE) {
     )
   MAIEU$j_iso3 <- "MAI"
   
+  TRIEUall <- X %>% filter(i_iso3 != j_iso3) %>% group_by(j_iso3, year) %>%
+    summarise(tau=weighted.mean(tau, i_gcT, na.rm=T))
+  TRIEU <- left_join(TRIEU, TRIEUall)
+    
+  MAIEUall <- X %>% filter(i_iso3 != j_iso3) %>% group_by(i_iso3, year) %>%
+    summarise(tau=weighted.mean(tau, j_gcT, na.rm=T))
+  MAIEU <- left_join(MAIEU, MAIEUall)
+  
 }
 
 ### PLOTS ###
@@ -294,5 +302,6 @@ if (EUD==FALSE) {
 } else {
   trimai <- TRIEU %>% ungroup()
   write_csv(trimai, paste0(resultsdirEU, "trimaiY.csv"))
+  write_csv(TRIEUall, paste0(resultsdirEU, "trimaiYall.csv"))
 }
 

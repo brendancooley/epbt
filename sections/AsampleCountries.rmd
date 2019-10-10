@@ -1,6 +1,6 @@
 ```{r ccodes, echo=FALSE, warning=FALSE, message=FALSE, results='asis'}
 
-ccodes <- read_csv(paste0("../estimation/", cleandir, "ccodes.csv")) %>% pull(.)
+ccodes <- read_csv(paste0(cleandir, "ccodes.csv")) %>% pull(.)
 
 ccodesTable <- as.data.frame(ccodes)
 ccodesTable$cnames <- countrycode(ccodesTable$ccodes, "iso3c", "country.name")
