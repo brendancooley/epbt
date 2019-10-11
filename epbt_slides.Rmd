@@ -73,10 +73,6 @@ freight <- read_csv(paste0(cleandir, "freight.csv"))
 
 ```
 
-# Test
-
-- some text here
-
 ## Free and Fair?
 
 > "We believe that trade must be fair and reciprocal. The United States will not be taken advantage of any longer." <br/> $\qquad$ -- Donald Trump, Feb. 2019
