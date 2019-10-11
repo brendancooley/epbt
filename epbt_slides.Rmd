@@ -6,7 +6,7 @@ position: Ph.D. Candidate
 institution: Princeton University
 email: "bcooley (at) princeton.edu"
 
-bibliography: /Users/bcooley/Dropbox (Princeton)/References/library.bib
+bibliography: /Users/brendancooley/Dropbox (Princeton)/References/library.bib
 biblio-style: apsr
 
 backgroundTitle: "figs/title/containerDark.jpg"
@@ -44,32 +44,32 @@ output:
 
 
 
-source("estimation/params.R")
+source("01_analysis/params.R")
 
 libs <- c('tidyverse', "ggrepel", "patchwork", "knitr", "ggthemes", "stargazer", "skmeans", "ggridges")
 ipak(libs)
 
-tarYval <- read_csv(paste0("estimation/", otherdir, "tarYval.csv")) %>% pull(.)
+tarYval <- read_csv(paste0(otherdir, "tarYval.csv")) %>% pull(.)
 
-trimaiY <- read_csv(paste0("estimation/", resultsdir, "triMaiY.csv"))
-gdp <- read_csv(paste0("estimation/", cleandir, "gdp.csv"))
-pop <- read_csv(paste0("estimation/", cleandir, "pop.csv"))
-tar <- read_csv(paste0("estimation/", cleandir, "tarY.csv"))
+trimaiY <- read_csv(paste0(resultsdir, "triMaiY.csv"))
+gdp <- read_csv(paste0(cleandir, "gdp.csv"))
+pop <- read_csv(paste0(cleandir, "pop.csv"))
+tar <- read_csv(paste0(cleandir, "tarY.csv"))
 
-correlates <- read_csv(paste0("estimation/", resultsdir, "/correlates.csv"))
+correlates <- read_csv(paste0(resultsdir, "/correlates.csv"))
 
-delta <- read_csv(paste0("estimation/", cleandir, "delta.csv")) %>% filter(year==Y)
-tau <- read_csv(paste0("estimation/", resultsdir, "tauY.csv"))
-tar <- read_csv(paste0("estimation/", cleandir, "tarY.csv"))
+delta <- read_csv(paste0(cleandir, "delta.csv")) %>% filter(year==Y)
+tau <- read_csv(paste0(resultsdir, "tauY.csv"))
+tar <- read_csv(paste0(cleandir, "tarY.csv"))
 
-shares <- read_csv(paste0("estimation/", cleandir, "shares.csv"))
+shares <- read_csv(paste0(cleandir, "shares.csv"))
 
-tauHMY <- read_csv(paste0("estimation/", resultsdir, "tauHMY.csv"))
-tauHMYEUD <- read_csv(paste0("estimation/", resultsdirEU, "tauY.csv"))
+tauHMY <- read_csv(paste0(resultsdir, "tauHMY.csv"))
+tauHMYEUD <- read_csv(paste0(resultsdirEU, "tauY.csv"))
 
-P <- read_csv(paste0("estimation/", cleandir, "priceIndex.csv"))
+P <- read_csv(paste0(cleandir, "priceIndex.csv"))
 
-freight <- read_csv(paste0("estimation/", cleandir, "freight.csv"))
+freight <- read_csv(paste0(cleandir, "freight.csv"))
 
 ```
 
