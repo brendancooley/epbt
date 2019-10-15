@@ -9,11 +9,12 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
-  <link rel="stylesheet" href="index_files/reveal.js-3.3.0.1/css/reveal.css"/>
+  <link rel="stylesheet" href="index_files/reveal.js-3.8.0/css/reveal.css"/>
 
 
 
-<link rel="stylesheet" href="index_files/reveal.js-3.3.0.1/css/theme/simple.css" id="theme">
+<!-- <link rel="stylesheet" href="index_files/reveal.js-3.8.0/css/theme/simple.css" id="theme">
+ -->
 
 
 
@@ -61,6 +62,9 @@
     <style type="text/css">code{white-space: pre;}</style>
 
     <link rel="stylesheet" href="css/cooley-reveal.css"/>
+
+<!-- add verticator css-->
+<link rel="stylesheet" href="css/verticator.css">
 
 <!-- Printing and PDF exports -->
 <script id="paper-css" type="application/dynamic-css">
@@ -471,6 +475,7 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <body>
 
   <div class="reveal">
+  	<ul class="verticator"></ul>
     <div class="slides">
 
 <section data-background="figs/title/containerDark.jpg">
@@ -486,7 +491,9 @@ document.getElementsByTagName('head')[0].appendChild(style);
 			</div>
 </section>
 
-<section id="free-and-fair" class="slide level2">
+<section><section id="vertical-test" class="title-slide slide level1"><h1>Vertical Test</h1><ul>
+<li>some content</li>
+</ul></section><section id="free-and-fair" class="slide level2">
 <h2>Free and Fair?</h2>
 <blockquote>
 <p>“We believe that trade must be fair and reciprocal. The United States will not be taken advantage of any longer.” <br/> <span class="math inline">\(\qquad\)</span> – Donald Trump, Feb. 2019</p>
@@ -516,24 +523,21 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <li><strong>Fair:</strong> Barriers that do exist affect all trade partners symmetrically</li>
 </ul>
 </div>
-</section>
-<section id="the-tariff-system-gattwto" class="slide level2">
+</section><section id="the-tariff-system-gattwto" class="slide level2">
 <h2>The Tariff System (GATT/WTO)</h2>
 <ul>
 <li><strong>Free?</strong> Applied tariff rates are low, ~5% on average <span class="citation" data-cites="Baldwin2016">(Baldwin 2016)</span></li>
 <li><strong>Fair?</strong> WTO members (vast majority of world economy) commit to principle of non-discrimination (Most Favored Nation)</li>
 </ul>
 <p><img src="index_files/figure-revealjs/tcostsF-1.png" width="2400" /></p>
-</section>
-<section id="the-tariff-system-gattwto-1" class="slide level2">
+</section><section id="the-tariff-system-gattwto-1" class="slide level2">
 <h2>The Tariff System (GATT/WTO)</h2>
 <ul>
 <li><strong>Free?</strong> Applied tariff rates are low, ~5% on average <span class="citation" data-cites="Baldwin2016">(Baldwin 2016)</span></li>
 <li><strong>Fair?</strong> WTO members (vast majority of world economy) commit to principle of non-discrimination (Most Favored Nation)</li>
 </ul>
 <p><img src="index_files/figure-revealjs/tcostsFT-1.png" width="2400" /></p>
-</section>
-<section id="varieties-of-barriers" class="slide level2">
+</section><section id="varieties-of-barriers" class="slide level2">
 <h2>Varieties of Barriers</h2>
 <p><strong>Direct</strong></p>
 <ul>
@@ -562,16 +566,13 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <li>E.g. high agricultural duties by developed countries disproportionately harm developing countries</li>
 </ul>
 </div>
-</section>
-<section id="measurement-matters" class="slide level2">
+</section><section id="measurement-matters" class="slide level2">
 <h2>Measurement Matters</h2>
 <p><img src="index_files/figure-revealjs/triIncome1-1.png" width="2400" /></p>
-</section>
-<section id="measurement-matters-1" class="slide level2">
+</section><section id="measurement-matters-1" class="slide level2">
 <h2>Measurement Matters</h2>
 <p><img src="index_files/figure-revealjs/triIncome2-1.png" width="2400" /></p>
-</section>
-<section id="approach" class="slide level2">
+</section><section id="approach" class="slide level2">
 <h2>Approach</h2>
 <p><strong>Trade Costs:</strong> Policy distortions and transportation costs to access market <span class="math inline">\(i\)</span> in excess of those faced by firms in country <span class="math inline">\(i\)</span></p>
 <div class="fragment">
@@ -601,16 +602,13 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <div class="fragment">
 <p><span class="math inline">\(\tau_{ij} - 1 \geq 0\)</span> – ad valorem tariff equivalent of policy barriers gov <span class="math inline">\(i\)</span> imposes on gov <span class="math inline">\(j\)</span></p>
 </div>
-</section>
-<section id="identification" class="slide level2">
+</section><section id="identification" class="slide level2">
 <h2>Identification</h2>
 <p><img src="index_files/figure-revealjs/shares1-1.png" width="2400" /></p>
-</section>
-<section id="identification-1" class="slide level2">
+</section><section id="identification-1" class="slide level2">
 <h2>Identification</h2>
 <p><img src="index_files/figure-revealjs/shares2-1.png" width="2400" /></p>
-</section>
-<section id="moverview" class="slide level2">
+</section><section id="moverview" class="slide level2">
 <h2>Model Overview</h2>
 <ul>
 <li><span class="math inline">\(N\)</span> countries <span class="math inline">\(i \in \left\{ 1, ..., N \right\}\)</span> with representative consumers
@@ -637,8 +635,7 @@ d_{ij} = \left( \frac{\lambda_{ij}}{\lambda_{jj}} \right)^{-\frac{1}{\theta}} \f
 </ul>
 <p><a href="#/model" style="float: right;">Model</a></p>
 </div>
-</section>
-<section id="decomposing-trade-costs" class="slide level2">
+</section><section id="decomposing-trade-costs" class="slide level2">
 <h2>Decomposing Trade Costs</h2>
 <hr style="height:2em; visibility:hidden;" />
 <div id="left">
@@ -665,8 +662,7 @@ p_i^\star(\omega) = \min_{j \in \left\{ 1,...,N \right\}} \left\{ p_{ij} \right\
 \]</span></p>
 </div>
 </div>
-</section>
-<section id="estimation" class="slide level2">
+</section><section id="estimation" class="slide level2">
 <h2>Estimation</h2>
 <hr style="height:2em; visibility:hidden;" />
 <p><strong>Estimating Equation</strong></p>
@@ -687,25 +683,20 @@ p_i^\star(\omega) = \min_{j \in \left\{ 1,...,N \right\}} \left\{ p_{ij} \right\
 </ul></li>
 </ul>
 </div>
-</section>
-<section id="results-magnitudes" class="slide level2">
+</section><section id="results-magnitudes" class="slide level2">
 <h2>Results (Magnitudes)</h2>
 <p><img src="index_files/figure-revealjs/tCostsPlot1-1.png" width="2400" /></p>
-</section>
-<section id="results-magnitudes-1" class="slide level2">
+</section><section id="results-magnitudes-1" class="slide level2">
 <h2>Results (Magnitudes)</h2>
 <p><img src="index_files/figure-revealjs/tCostsPlot2-1.png" width="2400" /></p>
-</section>
-<section id="results-magnitudes-2" class="slide level2">
+</section><section id="results-magnitudes-2" class="slide level2">
 <h2>Results (Magnitudes)</h2>
 <p><img src="index_files/figure-revealjs/tCostsPlot3-1.png" width="2400" /></p>
-</section>
-<section id="variance" class="slide level2">
+</section><section id="variance" class="slide level2">
 <h2>Results (Economic Blocs)</h2>
 <p><img src="index_files/figure-revealjs/hm-1.png" width="2400" /></p>
 <p><a href="#/euPlacebo" style="float: right;">EU Placebo</a></p>
-</section>
-<section id="correlates-of-policy-barriers" class="slide level2">
+</section><section id="correlates-of-policy-barriers" class="slide level2">
 <h2>Correlates of Policy Barriers</h2>
 <table style="text-align:center">
 <tr>
@@ -887,8 +878,7 @@ R<sup>2</sup>
 </td>
 </tr>
 </table>
-</section>
-<section id="conclusion" class="slide level2">
+</section><section id="conclusion" class="slide level2">
 <h2>Conclusion</h2>
 <p><strong>State Capacity and Protectionism</strong></p>
 <ul>
@@ -910,13 +900,11 @@ R<sup>2</sup>
 </ul></li>
 </ul>
 <p><a href="#/tri" style="float: right;">TRI, MAI</a></p>
-</section>
-<section id="thank-you" class="slide level2 aligncenter">
+</section><section id="thank-you" class="slide level2 aligncenter">
 <h2>Thank You</h2>
 <p><a href="http://brendancooley.com">brendancooley.com</a></p>
 <p><a href="bcooley@princeton.edu">bcooley@princeton.edu</a></p>
-</section>
-<section id="model" class="slide level2">
+</section><section id="model" class="slide level2">
 <h2>Model (Consumption)</h2>
 <p><strong>Consumer’s Problem</strong></p>
 <p><span class="math display">\[\begin{equation*} \label{eq:consumer}
@@ -938,8 +926,7 @@ P_i = \left( \int_{[0,1]} \alpha_{h(\omega)} p_i(\omega)^{1 - \sigma} d \omega \
 E_i^q = \nu_i I_i + D_i = P_i Q_i^\star
 \]</span></p>
 <p><a href="#/moverview" style="float: right;">Back</a></p>
-</section>
-<section id="model-production" class="slide level2">
+</section><section id="model-production" class="slide level2">
 <h2>Model (Production)</h2>
 <p><strong>Costs</strong></p>
 <p><span class="math display">\[\begin{equation} \label{eq:c}
@@ -964,8 +951,7 @@ p_{ii}(\omega) = \frac{c_i}{z_i(\omega)}
 F_i(z) = \text{Pr} \left\{ z_i(\omega) \leq z \right\} = \exp \left\{ - T_i z^{-\theta} \right\}
 \]</span></p>
 <p><a href="#/moverview" style="float: right;">Back</a></p>
-</section>
-<section id="model-equilibrium" class="slide level2">
+</section><section id="model-equilibrium" class="slide level2">
 <h2>Model (Equilibrium)</h2>
 <p><strong>Total Expenditure on Tradables</strong></p>
 <p><span class="math display">\[
@@ -983,16 +969,14 @@ X_i = \underbrace{E_i^q + E_i^x}_{E_i} - D_i
 X_i = \sum_{j=1}^N \lambda_{ji}(\boldsymbol{w}) E_j
 \]</span></p>
 <p><a href="#/moverview" style="float: right;">Back</a></p>
-</section>
-<section id="differences" class="slide level2">
+</section><section id="differences" class="slide level2">
 <h2>Isolating Policy Barriers (I)</h2>
 <p><strong>Trade Shares (w/ Frechet)</strong></p>
 <p><span class="math display">\[\begin{align*}
 \lambda_{ij}(\boldsymbol{w}) &amp;= \frac{ T_j \left( d_{ij} w_j^{1 - \beta} P_j^{\beta} \right)^{- \theta} }{\sum_j T_j \left( d_{ij} w_j^{1 - \beta} P_j^{\beta} \right)^{- \theta}} \\
 &amp;= \frac{ T_j \left( \underbrace{\rho_j \delta_{ij} \tau_{ij}}_{d_{ij}} w_j^{1 - \beta} P_j^{\beta} \right)^{- \theta} }{ \frac{1}{\gamma} P_i^{-\theta}}
 \end{align*}\]</span></p>
-</section>
-<section id="isolating-policy-barriers-ii" class="slide level2">
+</section><section id="isolating-policy-barriers-ii" class="slide level2">
 <h2>Isolating Policy Barriers (II)</h2>
 <p><strong>In Differences</strong></p>
 <p><span class="math display">\[
@@ -1002,8 +986,7 @@ X_i = \sum_{j=1}^N \lambda_{ji}(\boldsymbol{w}) E_j
 \tau_{ij} = \left( \frac{\lambda_{ij}}{\lambda_{jj}} \right)^{-\frac{1}{\theta}} \frac{P_i}{P_j} \underbrace{\frac{1}{\delta_{ij}}}_{\substack{\text{freight cost} \\ \text{correction}}}
 \]</span></p>
 <p><a href="#/estimation" style="float: right;">Back</a></p>
-</section>
-<section id="shares" class="slide level2">
+</section><section id="shares" class="slide level2">
 <h2>Trade Shares</h2>
 <p><strong>Behind the Border Barriers</strong></p>
 <p><span class="math display">\[
@@ -1018,8 +1001,7 @@ X_i = \sum_{j=1}^N \lambda_{ji}(\boldsymbol{w}) E_j
 \tau_{ij} = \left( \frac{\lambda_{ij}^{\text{cif}}}{\lambda_{jj}(\boldsymbol{\tau}_j)} \right)^{-\frac{1}{\theta + 1}} \left( \frac{P_i}{P_j} \right)^{\frac{\theta}{\theta+1}} \left( \frac{1}{\delta_{ij}(\boldsymbol{Z}_{ij})} \right)^{\frac{\theta}{\theta+1}}
 \]</span></p>
 <p><a href="#/estimation" style="float: right;">Back</a></p>
-</section>
-<section id="prices" class="slide level2">
+</section><section id="prices" class="slide level2">
 <h2>Prices (Model)</h2>
 <ul>
 <li>Set<span class="math inline">\(\mathcal{K}\)</span> of tradable good categories indexed <span class="math inline">\(k \in \left\{ 0, ..., K - 1 \right\}\)</span></li>
@@ -1043,13 +1025,11 @@ x_i(\omega) = p_i(\omega) q_i(\omega) = \alpha_{h(\omega)} p_i(\omega)^{1-\sigma
 \ln \Delta \lambda_{ik} = \ln \alpha_k + (1 - \sigma) \ln \Delta p_{ik} + \ln \epsilon_{ik}
 \]</span></p>
 <p><a href="#/estimation" style="float: right;">Back</a></p>
-</section>
-<section id="prices-data" class="slide level2">
+</section><section id="prices-data" class="slide level2">
 <h2>Prices (Data)</h2>
 <p><img src="index_files/figure-revealjs/prices-1.png" width="2400" /></p>
 <p><a href="#/estimation" style="float: right;">Back</a></p>
-</section>
-<section id="freight" class="slide level2">
+</section><section id="freight" class="slide level2">
 <h2>Freight Costs (Model)</h2>
 <ul>
 <li>Products <span class="math inline">\(m \in \left\{ 1, ..., M \right\}\)</span></li>
@@ -1067,18 +1047,15 @@ h: \left\{ \boldsymbol{Z}_{ij}, d^m \right\} \rightarrow \zeta_{ij}^{m k}
 \hat{\delta}_{ij} \left( \boldsymbol{Z}_{ij}, \boldsymbol{d}_{ij} \right) = \frac{1}{X_{ij}} \sum_{m = 1}^M x_{ij}^m \sum_{k=1}^K g \left( \boldsymbol{Z}_{ij}, d^m \right) h \left( \boldsymbol{Z}_{ij}, d^m \right)
 \]</span></p>
 <p><a href="#/estimation" style="float: right;">Back</a></p>
-</section>
-<section id="freight-costs-cross-validation" class="slide level2">
+</section><section id="freight-costs-cross-validation" class="slide level2">
 <h2>Freight Costs (Cross Validation)</h2>
 <p><img src="index_files/figure-revealjs/freightCV-1.png" width="2400" /></p>
 <p><a href="#/estimation" style="float: right;">Back</a></p>
-</section>
-<section id="euPlacebo" class="slide level2">
+</section><section id="euPlacebo" class="slide level2">
 <h2>EU Placebo</h2>
 <p><img src="index_files/figure-revealjs/hmEUPlot-1.png" width="2400" /></p>
 <p><a href="#/variance" style="float: right;">Back</a></p>
-</section>
-<section id="tri" class="slide level2">
+</section><section id="tri" class="slide level2">
 <h2>Trade Restrictiveness and Market Access (I)</h2>
 <p><strong>Trade Restrictiveness Index</strong></p>
 <p><span class="math display">\[
@@ -1089,13 +1066,11 @@ h: \left\{ \boldsymbol{Z}_{ij}, d^m \right\} \rightarrow \zeta_{ij}^{m k}
 \text{MAI}_j = \frac{1}{\sum_{i \neq j} E_i} \sum_{i \neq j} \tau_{ij} E_i
 \]</span></p>
 <p><a href="#/conclusion" style="float: right;">Back</a></p>
-</section>
-<section id="trade-restrictiveness-and-market-access-ii" class="slide level2">
+</section><section id="trade-restrictiveness-and-market-access-ii" class="slide level2">
 <h2>Trade Restrictiveness and Market Access (II)</h2>
 <p><img src="index_files/figure-revealjs/trimai-1.png" width="2400" /></p>
 <p><a href="#/conclusion" style="float: right;">Back</a></p>
-</section>
-<section id="market-access-barriers" class="slide level2">
+</section><section id="market-access-barriers" class="slide level2">
 <h2>Market Access Barriers</h2>
 <p><img src="index_files/figure-revealjs/maigdppc-1.png" width="2400" /></p>
 <p><a href="#/conclusion" style="float: right;">Back</a></p>
@@ -1171,12 +1146,12 @@ h: \left\{ \boldsymbol{Z}_{ij}, d^m \right\} \rightarrow \zeta_{ij}^{m k}
 <p>Waugh, Michael E, and B Ravikumar. 2016. “Measuring Openness to Trade.” <em>Journal of Economic Dynamics and Control</em> 72: 29–41.</p>
 </div>
 </div>
-</section>
+</section></section>
     </div>
   </div>
 
-  <script src="index_files/reveal.js-3.3.0.1/lib/js/head.min.js"></script>
-  <script src="index_files/reveal.js-3.3.0.1/js/reveal.js"></script>
+  <script src="index_files/reveal.js-3.8.0/lib/js/head.min.js"></script>
+  <script src="index_files/reveal.js-3.8.0/js/reveal.js"></script>
 
   <script>
 
@@ -1184,11 +1159,11 @@ h: \left\{ \boldsymbol{Z}_{ij}, d^m \right\} \rightarrow \zeta_{ij}^{m k}
       // https://github.com/hakimel/reveal.js#configuration
       Reveal.initialize({
         // Display controls in the bottom right corner
-        controls: false,
+        controls: true,
         // Display a presentation progress bar
         progress: false,
         // Display the page number of the current slide
-        slideNumber: true,
+        slideNumber: false,
         // Push each slide change to the browser history
         history: true,
         // Vertical centering of slides
@@ -1199,9 +1174,15 @@ h: \left\{ \boldsymbol{Z}_{ij}, d^m \right\} \rightarrow \zeta_{ij}^{m k}
         backgroundTransition: 'default', // none/fade/slide/convex/concave/zoom
 
 
+		
+		// verticator options
+		verticator: {
+
+		},
 
         // Optional reveal.js plugins
         dependencies: [
+																        { src: 'index_files/reveal.js-3.8.0/plugin/verticator/verticator.js'}
         ]
       });
     </script>
@@ -1243,25 +1224,15 @@ h: \left\{ \boldsymbol{Z}_{ij}, d^m \right\} \rightarrow \zeta_{ij}^{m k}
   MathJax.Hub.Config({ TeX: { extensions: ["color.js"] }});
 </script>
 
-<script>
+<!-- <script>
 	Reveal.configure({
 	  keyboard: {
 	    40: 'next', // allow up and down to move slides left and right
 	    38: 'prev'
 	  }
 	});
-</script>
+</script> -->
 
-<script>
- Reveal.initialize({
-    // Optional reveal.js plugins
-    dependencies: [
-        { src: 'index_files/reveal.js-3.3.0.1/plugin/zoom-js/zoom.js', async: true },
-        { src: 'index_files/reveal.js-3.3.0.1/plugin/markdown/marked.js', async: true },
-        { src: 'index_files/reveal.js-3.3.0.1/plugin/notes/notes.js', async: true }
-    ]
-});
-</script>
 
   </body>
 </html>

@@ -62,6 +62,8 @@ section.has-dark-background, section.has-dark-background h1, section.has-dark-ba
 :root {
   --font_body: "AlegreyaSans";
   --font_head: "AlegreyaSC";
+  --font_head_bold: "AlegreyaSC Bold";
+  --color_front: #fff;
   --color_head: #0C1A38;
   --color_accent: #bd8e28;
   --color_accent_hover: #8b681d;
@@ -76,7 +78,7 @@ body {
 
 .reveal {
   font-family: var(--font_body), sans-serif;
-  font-size: 28px;
+  font-size: 24px;
   font-weight: normal;
   color: #000; }
 
@@ -127,7 +129,9 @@ body {
 }
 
 
-.reveal .centercontent ol {
+.reveal .centercontent ol,
+.reveal .centercontent ul,
+.reveal .centercontent p {
   position: fixed;
   top: 50%;
   -ms-transform: translateY(-50%);
@@ -158,33 +162,40 @@ body {
 #right {
   left:31.25%;
   top: 75px;
-  float: right;
-  text-align: right;
+  float: left;
+  text-align: left;
   z-index:-10;
   width:50%;
 }
 
 .reveal .cover-top {
-  border-left: 4px solid var(--color_head);
+  border-left: 4px solid var(--color_front);
   padding-left: 10px;
 }
+
 .reveal .cover-top h1 {
   font-size: 1.5em;
   text-align: left;
   font-family: var(--font_head);
-  color: var(--color_head);
+  color: var(--color_front);
+}
+.reveal .cover-top h2 {
+  font-size: 1em;
+  text-align: left;
+  font-family: var(--font_head);
+  color: var(--color_front);
 }
 .reveal .cover-top h3 {
   font-size: .75em;
   text-align: left;
   font-family: var(--font_head);
-  color: var(--color_head);
+  color: var(--color_front);
 }
 
 .reveal .cover-bottom {
   position: fixed;
-  bottom: 10%;
-  border-left: 4px solid var(--color_head);
+  bottom: 60%;
+  border-left: 4px solid var(--color_front);
   padding-left: 10px;
 }
 .reveal .cover-bottom h3 {
@@ -192,7 +203,7 @@ body {
   text-align: left;
   line-height: 1em;
   font-family: var(--font_head);
-  color: var(--color_head);
+  color: var(--color_front);
 }
 
 /*********************************************
@@ -286,7 +297,7 @@ body {
 .reveal strong,
 .reveal b {
   font-weight: bold;
-  color: var(--color_head);
+  color: var(--color_accent);
   }
 
 .reveal em {
@@ -460,7 +471,7 @@ body {
  * NAVIGATION CONTROLS
  *********************************************/
 .reveal .controls {
-  color: #0C1A38; }
+  color: var(--color_accent); }
 
 /*********************************************
  * PROGRESS BAR
