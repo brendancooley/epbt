@@ -826,13 +826,17 @@ $endif$
              preferredFont : "TeX",
              webFont : "TeX",
              imageFont : null
-         }
+         },
+         TeX: {  }
      });
 </script>
 
 <!-- mathjax colors-->
 <script type="text/x-mathjax-config">
-  MathJax.Hub.Config({ TeX: { extensions: ["color.js"] }});
+  MathJax.Hub.Config({ TeX: { 
+  						extensions: ["color.js"],
+  						equationNumbers: { autoNumber: "AMS" } 
+  					}});
 </script>
 
 <!-- <script>

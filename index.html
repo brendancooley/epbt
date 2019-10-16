@@ -491,13 +491,11 @@ document.getElementsByTagName('head')[0].appendChild(style);
 			</div>
 </section>
 
-<section><section id="vertical-test" class="title-slide slide level1"><h1>Vertical Test</h1><ul>
-<li>some content</li>
-</ul></section><section id="free-and-fair" class="slide level2">
-<h2>Free and Fair?</h2>
+<section><section id="free-and-fair" class="title-slide slide level1"><h1>Free and Fair?</h1><div class="fragment">
 <blockquote>
 <p>“We believe that trade must be fair and reciprocal. The United States will not be taken advantage of any longer.” <br/> <span class="math inline">\(\qquad\)</span> – Donald Trump, Feb. 2019</p>
 </blockquote>
+</div>
 <div class="fragment">
 <blockquote>
 <p>“I’m going to have a trade prosecutor…to make sure every trade deal we’re already in is absolutely followed to the letter so nobody takes advantage of us.” <br/> <span class="math inline">\(\qquad\)</span> – Hillary Clinton, Oct. 2016</p>
@@ -522,21 +520,20 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <ul>
 <li><strong>Fair:</strong> Barriers that do exist affect all trade partners symmetrically</li>
 </ul>
-</div>
-</section><section id="the-tariff-system-gattwto" class="slide level2">
+</div></section><section id="the-tariff-system-gattwto" class="slide level2">
 <h2>The Tariff System (GATT/WTO)</h2>
 <ul>
 <li><strong>Free?</strong> Applied tariff rates are low, ~5% on average <span class="citation" data-cites="Baldwin2016">(Baldwin 2016)</span></li>
 <li><strong>Fair?</strong> WTO members (vast majority of world economy) commit to principle of non-discrimination (Most Favored Nation)</li>
 </ul>
-<p><img src="index_files/figure-revealjs/tcostsF-1.png" width="2400" /></p>
+<p><img data-src="index_files/figure-revealjs/tcostsF-1.png" /><!-- --></p>
 </section><section id="the-tariff-system-gattwto-1" class="slide level2">
 <h2>The Tariff System (GATT/WTO)</h2>
 <ul>
 <li><strong>Free?</strong> Applied tariff rates are low, ~5% on average <span class="citation" data-cites="Baldwin2016">(Baldwin 2016)</span></li>
 <li><strong>Fair?</strong> WTO members (vast majority of world economy) commit to principle of non-discrimination (Most Favored Nation)</li>
 </ul>
-<p><img src="index_files/figure-revealjs/tcostsFT-1.png" width="2400" /></p>
+<p><img data-src="index_files/figure-revealjs/tcostsFT-1.png" /><!-- --></p>
 </section><section id="varieties-of-barriers" class="slide level2">
 <h2>Varieties of Barriers</h2>
 <p><strong>Direct</strong></p>
@@ -566,12 +563,6 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <li>E.g. high agricultural duties by developed countries disproportionately harm developing countries</li>
 </ul>
 </div>
-</section><section id="measurement-matters" class="slide level2">
-<h2>Measurement Matters</h2>
-<p><img src="index_files/figure-revealjs/triIncome1-1.png" width="2400" /></p>
-</section><section id="measurement-matters-1" class="slide level2">
-<h2>Measurement Matters</h2>
-<p><img src="index_files/figure-revealjs/triIncome2-1.png" width="2400" /></p>
 </section><section id="approach" class="slide level2">
 <h2>Approach</h2>
 <p><strong>Trade Costs:</strong> Policy distortions and transportation costs to access market <span class="math inline">\(i\)</span> in excess of those faced by firms in country <span class="math inline">\(i\)</span></p>
@@ -583,7 +574,7 @@ document.getElementsByTagName('head')[0].appendChild(style);
 </div>
 <div class="fragment">
 <ol start="2" type="1">
-<li>Derive structural relationship linking trade costs to price levels, trade flows, market shares of home producers
+<li>Derive structural relationship linking trade costs to price levels, trade flows, market shares of home producers (observables)
 <ul>
 <li><span class="citation" data-cites="Anderson2003">Anderson and Van Wincoop (2003)</span>, <span class="citation" data-cites="Waugh2010">Waugh (2010)</span>, <span class="citation" data-cites="Simonovska2014">Simonovska and Waugh (2014)</span>, <span class="citation" data-cites="Sposi2015">Sposi (2015)</span>, <span class="citation" data-cites="Waugh2016">Waugh and Ravikumar (2016)</span></li>
 </ul></li>
@@ -602,41 +593,118 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <div class="fragment">
 <p><span class="math inline">\(\tau_{ij} - 1 \geq 0\)</span> – ad valorem tariff equivalent of policy barriers gov <span class="math inline">\(i\)</span> imposes on gov <span class="math inline">\(j\)</span></p>
 </div>
-</section><section id="identification" class="slide level2">
-<h2>Identification</h2>
-<p><img src="index_files/figure-revealjs/shares1-1.png" width="2400" /></p>
-</section><section id="identification-1" class="slide level2">
-<h2>Identification</h2>
-<p><img src="index_files/figure-revealjs/shares2-1.png" width="2400" /></p>
-</section><section id="moverview" class="slide level2">
-<h2>Model Overview</h2>
+</section><section id="estimand" class="slide level2">
+<h2>Estimand</h2>
+<hr style="height:7em; visibility:hidden;" />
+<p><span class="math display">\[
+\bm{\tau}_{N \times N} = \begin{pmatrix}
+1 &amp; \cdots &amp; \tau_{1n} \\
+\vdots &amp; \ddots &amp; \vdots \\
+\tau_{n1} &amp; \cdots &amp; 1
+\end{pmatrix}
+\]</span></p>
+</section><section id="measurement-matters" class="slide level2">
+<h2>Measurement Matters</h2>
+<p><img data-src="index_files/figure-revealjs/triIncome1-1.png" /><!-- --></p>
+</section><section id="measurement-matters-1" class="slide level2">
+<h2>Measurement Matters</h2>
+<p><img data-src="index_files/figure-revealjs/triIncome2-1.png" /><!-- --></p>
+</section></section>
+<section><section id="model-overview" class="title-slide slide level1"><h1>Model (Overview)</h1><ul>
+<li><span class="math inline">\(\bm{d}_{N \times N} = \bm{\delta} \circ \bm{\tau}\)</span> - trade costs (economic and political)</li>
+<li><span class="math inline">\(\bm{\theta}\)</span> - structural parameters</li>
+<li><span class="math inline">\(\bm{L}_{N \times 1}\)</span> - labor endowments</li>
+</ul>
+<p><span class="math display">\[
+\left\{ \bm{d}, \bm{L}, \bm{\theta} \right\} \rightarrow \left\{ \bm{X}_{N \times N}(\bm{w}), \bm{P}_{N \times 1}(\bm{w}) \right\}
+\]</span></p>
 <ul>
-<li><span class="math inline">\(N\)</span> countries <span class="math inline">\(i \in \left\{ 1, ..., N \right\}\)</span> with representative consumers
+<li><span class="math inline">\(\bm{w}_{N \times 1}\)</span> - wages</li>
+<li><span class="math inline">\(\bm{X}_{N \times N}(\bm{w})\)</span> - trade flows</li>
+<li><span class="math inline">\(\bm{P}_{N \times 1}(\bm{w})\)</span> - price levels</li>
+</ul>
+<div class="fragment">
+
+<hr style="height:2em; visibility:hidden;" />
 <ul>
-<li>Value C-D mixture of tradable goods and nontradable services</li>
-<li>Earn wage <span class="math inline">\(w_i\)</span> for every unit of labor endowment <span class="math inline">\(L_i\)</span> supplied </li>
+<li>Based on <span class="citation" data-cites="Eaton2002">Eaton and Kortum (2002)</span> (Ricardian model, technological differences as basis for trade, competitive economy)
+<ul>
+<li>Equilibrium predictions isomorphic to models with market imperfections <span class="citation" data-cites="Melitz2003 Chaney2008">(e.g. Melitz 2003; Chaney 2008)</span>, see <span class="citation" data-cites="Head2014">Head and Mayer (2014)</span> and <span class="citation" data-cites="Costinot2015">Costinot and Rodríguez-Clare (2015)</span></li>
 </ul></li>
-<li>Competitive economy, stochastic technology
+</ul>
+</div></section><section id="consumption-i" class="slide level2">
+<h2>Consumption (I)</h2>
+<p><strong>Consumer’s Problem</strong></p>
+<p><span class="math display">\[\begin{equation*} \label{eq:consumer}
+\begin{split}
+\max &amp; \quad U_i = Q_i^{\nu_i} S_i^{1 - \nu_i} \\
+\text{subject to} &amp; \quad P_i Q_i + P_i^s S_i \leq w_i L_i
+\end{split}
+\end{equation*}\]</span></p>
 <ul>
-<li>Production requires labor and bundle of intermediate inputs</li>
+<li><span class="math inline">\(Q_i\)</span> - aggregate of tradable goods</li>
+<li><span class="math inline">\(S_i\)</span> - homogenous services</li>
+</ul>
+<div class="fragment">
+<p><strong>Tradable Goods</strong></p>
+<ul>
+<li>Continuum of tradable goods indexed <span class="math inline">\(\omega \in \Omega = [0, 1]\)</span></li>
+<li>Set <span class="math inline">\(\mathcal{K}\)</span> of good categories <span class="math display">\[
+h : \Omega \rightarrow \mathcal{K}
+\]</span></li>
+<li><span class="math inline">\(\alpha_k\)</span> relative preference for goods in category <span class="math inline">\(k\)</span></li>
+</ul>
+<p><span class="math display">\[
+Q_i = \left( \int_{[0,1]} \alpha_{h(\omega)}^{\frac{1}{\sigma}} q_i(\omega)^{\frac{\sigma - 1}{\sigma}} d \omega \right)^{\frac{\sigma}{\sigma - 1}}
+\]</span></p>
+</div>
+</section><section id="consumption-ii" class="slide level2">
+<h2>Consumption (II)</h2>
+<hr style="height:4em; visibility:hidden;" />
+<p><strong>Tradable Price Index</strong></p>
+<p><span class="math display">\[
+P_i = \left( \int_{[0,1]} \alpha_{h(\omega)} p_i(\omega)^{1 - \sigma} d \omega \right)^{\frac{1}{1 - \sigma}}
+\]</span></p>
+<p><strong>Expenditure on Tradables</strong></p>
+<p><span class="math display">\[
+E_i^q = \nu_i I_i + D_i = P_i Q_i^\star
+\]</span></p>
+</section><section id="production" class="slide level2">
+<h2>Model (Production)</h2>
+<ul>
+<li>Competitive international economy, every country can produce each variety <span class="math inline">\(\omega\)</span></li>
+</ul>
+<p><strong>Costs</strong></p>
+<p><span class="math display">\[
+c_i = w_i^{1 - \beta} P_i^{\beta}
+\]</span></p>
+<ul>
+<li><span class="math inline">\(w_i\)</span> - cost of labor</li>
+<li><span class="math inline">\(P_i\)</span> - cost of composite intermediate good
+<ul>
+<li>equivalent to composite consumption good</li>
 </ul></li>
 </ul>
 <div class="fragment">
-<p><strong>Structural Relationship</strong></p>
-<p><span class="math display">\[\begin{equation} \label{eq:Waugh}
-d_{ij} = \left( \frac{\lambda_{ij}}{\lambda_{jj}} \right)^{-\frac{1}{\theta}} \frac{P_i}{P_j}
-\end{equation}\]</span></p>
+<p><strong>Local Prices</strong></p>
 <ul>
-<li><span class="math inline">\(d_{ij}\)</span> - trade costs</li>
-<li><span class="math inline">\(\lambda_{ij}\)</span> - share of <span class="math inline">\(j\)</span>’s producers in <span class="math inline">\(i\)</span>’s market for tradables</li>
-<li><span class="math inline">\(\lambda_{jj}\)</span> - share of <span class="math inline">\(j\)</span>’s producers in home market for tradables</li>
-<li><span class="math inline">\(P_i\)</span> - price level of tradables</li>
-<li><span class="math inline">\(\theta\)</span> - trade elasticity</li>
+<li>Technology shocks <span class="math inline">\(z_i(\omega)\)</span> shift local prices</li>
 </ul>
-<p><a href="#/model" style="float: right;">Model</a></p>
+<p><span class="math display">\[
+p_{ii}(\omega) = \frac{c_i}{z_i(\omega)}
+\]</span></p>
 </div>
-</section><section id="decomposing-trade-costs" class="slide level2">
-<h2>Decomposing Trade Costs</h2>
+<div class="fragment">
+<p><strong>Technology (Fréchet)</strong> (<a href="#/frechet">Fréchet Distribution</a>)</p>
+<p><span class="math display">\[
+F_i(z) = \text{Pr} \left\{ z_i(\omega) \leq z \right\} = \exp \left\{ - T_i z^{-\theta} \right\}
+\]</span></p>
+<ul>
+<li><span class="math inline">\(T_i\)</span> - “fundamental” productivity</li>
+</ul>
+</div>
+</section><section id="prices-and-trade-costs" class="slide level2">
+<h2>Prices and Trade Costs</h2>
 <hr style="height:2em; visibility:hidden;" />
 <div id="left">
 <p><img data-src="figs/tcosts.png" /></p>
@@ -661,44 +729,337 @@ d_{ij} = \rho_j \delta_{ij} \tau_{ij}
 p_i^\star(\omega) = \min_{j \in \left\{ 1,...,N \right\}} \left\{ p_{ij} \right\}
 \]</span></p>
 </div>
-</div>
-</section><section id="estimation" class="slide level2">
-<h2>Estimation</h2>
-<hr style="height:2em; visibility:hidden;" />
-<p><strong>Estimating Equation</strong></p>
-<p><span class="math display">\[
-\tau_{ij} = \left( \frac{\lambda_{ij}^{\text{cif}}}{\lambda_{jj}} \right)^{-\frac{1}{\theta}} \frac{\hat{P}_i}{\hat{P}_j} \frac{1}{\delta_{ij}(\boldsymbol{Z}_{ij})}
-\]</span></p>
-<p><a href="#/differences" style="float: right;">Math</a></p>
 <div class="fragment">
-<p><strong>Data</strong></p>
+<p><span class="math display">\[
+\Omega_{ij}^\star = \left\{ \omega \in [0,1] \text{ } \bigg| \text{ } p_{ij}(\omega) \leq \min_{k \neq j} \left\{ p_{ik} \right\} \right\}
+\]</span></p>
+</div>
+</div>
+</section><section id="equilibrium" class="slide level2">
+<h2>Equilibrium</h2>
+<p><strong>Prices</strong></p>
+<p><span class="math display">\[
+P_i(\bm{w}) = \left( \int_{\omega \in [0,1]} \alpha_{h(\omega)} p_i^\star(\omega)^{1 - \sigma} d \omega \right)^{\frac{1}{1 - \sigma}}
+\]</span></p>
+<div class="fragment">
+<p><strong>Trade Flows</strong></p>
+<p><span class="math display">\[
+X_{ij}(\bm{w}) = \int_{\color{bcOrange} \omega \in \Omega_{ij}^\star \color{black}} p_{ij}(\omega) \tilde{q}_i \left( p_{ij} (\omega) \right) d \omega
+\]</span></p>
 <ul>
-<li>Trade shares: national accounts, COMTRADE <a href="#/shares" style="float: right;">Shares</a></li>
-<li>Prices: World Bank International Comparison Program <a href="#/prices" style="float: right;">Prices</a></li>
-<li>Freight Costs: <a href="#/freight" style="float: right;">Freight Model</a>
-<ul>
-<li>US Census Bureau, Australian Bureau of Statistics, OECD Maritime Transport Costs</li>
-<li>Estimate out of sample</li>
-<li>Geography (distances, island, contiguity) <span class="math inline">\((\boldsymbol{Z}_{ij})\)</span></li>
-</ul></li>
+<li><span class="math inline">\(\tilde{q}_i \left( p_{ij} (\omega) \right)\)</span> - consumer and producer demand for good <span class="math inline">\(\omega\)</span></li>
 </ul>
 </div>
-</section><section id="results-magnitudes" class="slide level2">
-<h2>Results (Magnitudes)</h2>
-<p><img src="index_files/figure-revealjs/tCostsPlot1-1.png" width="2400" /></p>
-</section><section id="results-magnitudes-1" class="slide level2">
-<h2>Results (Magnitudes)</h2>
-<p><img src="index_files/figure-revealjs/tCostsPlot2-1.png" width="2400" /></p>
-</section><section id="results-magnitudes-2" class="slide level2">
-<h2>Results (Magnitudes)</h2>
-<p><img src="index_files/figure-revealjs/tCostsPlot3-1.png" width="2400" /></p>
-</section><section id="variance" class="slide level2">
-<h2>Results (Economic Blocs)</h2>
-<p><img src="index_files/figure-revealjs/hm-1.png" width="2400" /></p>
-<p><a href="#/euPlacebo" style="float: right;">EU Placebo</a></p>
-</section><section id="correlates-of-policy-barriers" class="slide level2">
-<h2>Correlates of Policy Barriers</h2>
-<table style="text-align:center">
+<div class="fragment">
+<p><strong>Market Clearing</strong></p>
+<p><span class="math display">\[\begin{equation}
+\underbrace{\sum_{j} X_{ji}(\bm{w})}_{\text{tradable sales}} + D_i = \underbrace{\sum_j X_{ij}(\bm{w})}_{\text{tradable expenditure}}
+\label{eq:marketClearing}
+\end{equation}\]</span></p>
+</div>
+<div class="fragment">
+<p><strong>Definition:</strong> An <em>international equilibrium</em> is a vector of wages <span class="math inline">\(\bm{w}\)</span> such that (<span class="math inline">\(\ref{eq:marketClearing}\)</span>) holds for each country.</p>
+<ul>
+<li><span class="citation" data-cites="Alvarez2007">Alvarez and Lucas (2007)</span>: existence and uniqueness</li>
+</ul>
+</div>
+</section></section>
+<section><section id="estimation" class="title-slide slide level1"><h1>Estimation</h1><ul>
+<li><span class="math inline">\(\lambda_{ij} = \frac{X_{ij}}{E_i}\)</span> - share of <span class="math inline">\(i\)</span>’s tradable expenditure spent on goods from <span class="math inline">\(j\)</span></li>
+</ul>
+<p><strong>Gravity Equation</strong></p>
+<div class="fragment">
+<p><span class="math display">\[
+\lambda_{ij} = \frac{ T_j \left( d_{ij} w_j^{1 - \beta} P_j^{\beta} \right)^{- \theta} }{\gamma^{-1} P_i^{-\theta}}
+\]</span></p>
+<ul>
+<li><span class="math inline">\(d_{ij} = \rho_j \delta_{ij} \tau_{ij}\)</span></li>
+</ul>
+</div>
+<div class="fragment">
+<p><strong>Origin Differences</strong></p>
+<p><span class="math display">\[
+\frac{\lambda_{ij}}{\lambda_{jj}} = \left( \delta_{ij} \tau_{ij} \frac{P_j}{P_i} \right)^{-\theta}
+\]</span></p>
+</div>
+<div class="fragment">
+<p><strong>Inversion</strong></p>
+<p><span class="math display">\[
+\tau_{ij} = \left( \frac{\lambda_{ij}}{\lambda_{jj}} \right)^{-\frac{1}{\theta}} \frac{P_i}{P_j} \frac{1}{\delta_{ij}}
+\]</span></p>
+</div></section><section id="estimating-equation" class="slide level2">
+<h2>Estimating Equation</h2>
+<p><span class="math display">\[
+\tau_{ij} = \left( \frac{\lambda_{ij}}{\lambda_{jj}} \right)^{-\frac{1}{\theta}} \frac{P_i}{P_j} \frac{1}{\delta_{ij}}
+\]</span></p>
+</section><section id="estimating-equation-1" class="slide level2">
+<h2>Estimating Equation</h2>
+<p><span class="math display">\[
+\tau_{ij} = \left( \color{bcOrange} \frac{\lambda_{ij}}{\lambda_{jj}} \color{black} \right)^{-\frac{1}{\theta}} \frac{P_i}{P_j} \frac{1}{\delta_{ij}}
+\]</span></p>
+<ul>
+<li><span class="math inline">\(\color{bcOrange} \frac{\lambda_{ij}}{\lambda_{jj}}\)</span> - relative expenditure shares
+<ul>
+<li>Data: trade flows and national accounts</li>
+</ul></li>
+</ul>
+</section><section id="estimating-equation-2" class="slide level2">
+<h2>Estimating Equation</h2>
+<p><span class="math display">\[
+\tau_{ij} = \left( \frac{\lambda_{ij}}{\lambda_{jj}} \right)^{-\frac{1}{\theta}} \color{bcOrange} \frac{P_i}{P_j} \color{black} \frac{1}{\delta_{ij}}
+\]</span></p>
+<ul>
+<li><span class="math inline">\(\frac{\lambda_{ij}}{\lambda_{jj}}\)</span> - relative expenditure shares
+<ul>
+<li>Data: trade flows and national accounts</li>
+</ul></li>
+<li><span class="math inline">\(\color{bcOrange} \frac{P_i}{P_j}\)</span> - relative price levels
+<ul>
+<li>Data: International Comparison Program (World Bank), good prices and exchange rates</li>
+<li>Estimate preference weights, <span class="math inline">\(\bm{\alpha}\)</span></li>
+</ul></li>
+</ul>
+</section><section id="estimating-equation-3" class="slide level2">
+<h2>Estimating Equation</h2>
+<p><span class="math display">\[
+\tau_{ij} = \left( \frac{\lambda_{ij}}{\lambda_{jj}} \right)^{-\frac{1}{\theta}} \frac{P_i}{P_j} \color{bcOrange}  \frac{1}{\delta_{ij}}
+\]</span></p>
+<ul>
+<li><span class="math inline">\(\frac{\lambda_{ij}}{\lambda_{jj}}\)</span> - relative expenditure shares
+<ul>
+<li>Data: trade flows and national accounts</li>
+</ul></li>
+<li><span class="math inline">\(\frac{P_i}{P_j}\)</span> - relative price levels
+<ul>
+<li>Data: International Comparison Program (World Bank), good prices and exchange rates</li>
+<li>Estimate preference weights, <span class="math inline">\(\bm{\alpha}\)</span></li>
+</ul></li>
+<li><span class="math inline">\(\color{bcOrange} \delta_{ij}(\bm{Z}_{ij})\)</span>
+<ul>
+<li><span class="math inline">\(\bm{Z}_{ij}\)</span> dyadic geographic covariates</li>
+<li>Data (I): freight costs for shipments to United States, Australia, sample of maritime trade (OECD)</li>
+<li>Data (II): transportation mode shares for United States, Australia, Japan, European Union, and Brazil</li>
+<li>Estimate function <span class="math inline">\(\delta_{ij}(\bm{Z}_{ij})\)</span> to predict freight costs out of sample</li>
+</ul></li>
+</ul>
+</section></section>
+<section><section id="data-and-measurement" class="title-slide slide level1"><h1>Data and Measurement</h1><div class="fragment">
+<p><span class="math display">\[
+\hat{\tau}_{ij} = \left( \frac{\hat{\lambda}_{ij}}{\hat{\lambda}_{jj}} \right)^{-\frac{1}{\theta}} \frac{\hat{P}_i}{\hat{P}_j} \frac{1}{\delta_{ij}(\bm{Z}_{ij})}
+\]</span></p>
+<ul>
+<li><span class="math inline">\(\frac{\hat{\lambda}_{ij}}{\hat{\lambda}_{jj}}\)</span> - relative expenditure shares
+<ul>
+<li>Data: trade flows and national accounts</li>
+</ul></li>
+<li><span class="math inline">\(\frac{\hat{P}_i}{\hat{P}_j}\)</span> - relative price levels
+<ul>
+<li>Data: International Comparison Program (World Bank), good prices and exchange rates</li>
+<li>Estimate preference weights, <span class="math inline">\(\bm{\alpha}\)</span></li>
+</ul></li>
+<li><span class="math inline">\(\delta_{ij}(\bm{Z}_{ij})\)</span>
+<ul>
+<li><span class="math inline">\(\bm{Z}_{ij}\)</span> dyadic geographic covariates</li>
+<li>Data (I): freight costs for shipments to United States, Australia, sample of maritime trade (OECD)</li>
+<li>Data (II): transportation mode shares for United States, Australia, Japan, European Union, and Brazil</li>
+<li>Estimate function <span class="math inline">\(\delta_{ij}(\bm{Z}_{ij})\)</span> to predict freight costs out of sample</li>
+</ul></li>
+<li>Year: 2011</li>
+</ul>
+</div>
+<div class="fragment">
+<p><strong>Structural Paramters</strong></p>
+<p><span class="math display">\[
+\bm{\theta} = \left\{ \sigma, \theta, \bm{\nu} \right\}
+\]</span></p>
+</div></section><section id="expenditure-shares-frachatlambda_ijhatlambda_jj" class="slide level2">
+<h2>Expenditure Shares <span class="math inline">\(\frac{\hat{\lambda}_{ij}}{\hat{\lambda}_{jj}}\)</span></h2>
+<ul>
+<li>Free on board (f.o.b.): value of goods pre-shipment</li>
+<li>Cost, insurance, and freight (c.i.f.): value of goods at port of entry</li>
+</ul>
+<p><span class="math display">\[
+\lambda_{ij} = \tau_{ij} \lambda_{ij}^{\text{cif}} = \tau_{ij} \delta_{ij} \lambda_{ij}^{\text{fob}}
+\]</span></p>
+<p><span class="math display">\[
+\lambda_{jj}(\bm{\tau}) = \left( 1 - \sum_{k \neq j} \tau_{jk} \lambda_{jk}^{\text{cif}} \right)
+\]</span></p>
+</section><section id="expenditure-shares-frachatlambda_ijhatlambda_jj-1" class="slide level2">
+<h2>Expenditure Shares <span class="math inline">\(\frac{\hat{\lambda}_{ij}}{\hat{\lambda}_{jj}}\)</span></h2>
+<ul>
+<li>Free on board (f.o.b.): value of goods pre-shipment</li>
+<li>Cost, insurance, and freight (c.i.f.): value of goods at port of entry</li>
+</ul>
+<p><span class="math display">\[
+\lambda_{ij} = \tau_{ij} \lambda_{ij}^{\text{cif}} = \tau_{ij} \delta_{ij} \lambda_{ij}^{\text{fob}}
+\]</span></p>
+<p><span class="math display">\[
+\lambda_{jj}(\bm{\tau}) = \left( 1 - \sum_{k \neq j} \tau_{jk} \lambda_{jk}^{\text{cif}} \right)
+\]</span></p>
+<p><span class="math display">\[
+\color{bcOrange} \lambda_{jk}^{\text{cif}} \color{black} = \frac{X_{jk}^{\text{cif}}}{E_j}
+\]</span></p>
+<ul>
+<li><span class="math inline">\(X_{jk}^{\text{cif}} = \delta_{ij}(\bm{Z}_{ij}) X_{ij}^{\text{fob}}\)</span></li>
+<li><span class="math inline">\(X_{ij}^{\text{fob}}\)</span> - COMTRADE</li>
+<li><span class="math inline">\(E_j = \text{GC}_j - (1 - \nu_j) \text{GDP}_j\)</span> - national accounts (OECD and WIOD)</li>
+<li><span class="math inline">\(\nu_j\)</span> - share of income spent on tradables (ICP)</li>
+</ul>
+</section><section id="modified-estimating-equation" class="slide level2">
+<h2>Modified Estimating Equation</h2>
+<hr style="height:8em; visibility:hidden;" />
+<p><span class="math display">\[
+\tau_{ij} = \left( \frac{\lambda_{ij}^{\text{cif}}}{ \color{bcOrange} \lambda_{jj}(\bm{\tau}_j) \color{black} } \right)^{-\frac{1}{\theta + 1}} \left( \frac{\hat{P}_i}{\hat{P}_j} \right)^{\frac{\theta}{\theta+1}} \left( \frac{1}{\delta_{ij}(\bm{Z}_{ij})} \right)^{\frac{\theta}{\theta+1}}
+\]</span></p>
+</section><section id="preliminary-evidence-of-significant-barriers" class="slide level2">
+<h2>Preliminary Evidence of Significant Barriers</h2>
+<p><img data-src="index_files/figure-revealjs/shares1-1.png" /><!-- --></p>
+</section><section id="preliminary-evidence-of-significant-barriers-1" class="slide level2">
+<h2>Preliminary Evidence of Significant Barriers</h2>
+<p><img data-src="index_files/figure-revealjs/shares2-1.png" /><!-- --></p>
+</section><section id="price-levels-frachatp_ihatp_j" class="slide level2">
+<h2>Price Levels <span class="math inline">\(\frac{\hat{P}_i}{\hat{P}_j}\)</span></h2>
+<p><strong>Empirical Price Index</strong></p>
+<p><span class="math display">\[
+\hat{P}_i(\bm{w}) = \left( \int_{\omega \in [0,1]} \color{bcOrange} \hat{\alpha}_{h(\omega)} \color{black} p_i^\star(\omega)^{1 - \sigma} d \omega \right)^{\frac{1}{1 - \sigma}}
+\]</span></p>
+<p><strong>Good Categories</strong></p>
+<p><span class="math display">\[
+h : \Omega \rightarrow \mathcal{K}
+\]</span></p>
+<div class="fragment">
+<p><strong>Assumption:</strong> <span class="math inline">\(p_i(\omega) = p_i(\omega^\prime) = p_{ik}\)</span> for all <span class="math inline">\(\omega, \omega^\prime \in \Omega_k\)</span></p>
+<ul>
+<li><span class="math inline">\(p_{ik}\)</span> - price in country <span class="math inline">\(i\)</span> of good ICP basic heading <span class="math inline">\(k\)</span> (e.g. Rice)</li>
+</ul>
+</div>
+</section><section id="price-levels-frachatp_ihatp_j-1" class="slide level2">
+<h2>Price Levels <span class="math inline">\(\frac{\hat{P}_i}{\hat{P}_j}\)</span></h2>
+<p><strong>Demand</strong></p>
+<p><span class="math display">\[
+x_{ik} = \int_{\omega \in \Omega_k} \alpha_k p_{ik}^{1 - \sigma} E_i^q P_i^{\sigma - 1} d \omega
+\]</span></p>
+<div class="fragment">
+<p><strong>Normalization</strong></p>
+<ul>
+<li><span class="math inline">\(\alpha_{0} = 1\)</span></li>
+</ul>
+<p><span class="math display">\[
+\frac{\lambda_{ik}}{\lambda_{i0}} = \alpha_k \left( \frac{p_{ik}}{p_{i0}} \right)^{1 - \sigma}
+\]</span></p>
+<ul>
+<li><span class="math inline">\(\frac{\lambda_{ik}}{\lambda_{i0}}\)</span> - basic heading expenditures (ICP)</li>
+</ul>
+</div>
+<div class="fragment">
+<p><strong>Estimation</strong></p>
+<p><span class="math display">\[
+\ln \Delta \lambda_{ik} = \ln \alpha_k + (1 - \sigma) \ln \Delta p_{ik} + \ln \epsilon_{ik}
+\]</span></p>
+</div>
+</section><section id="price-levels-estimates" class="slide level2">
+<h2>Price Levels (Estimates)</h2>
+<p><img data-src="index_files/figure-revealjs/prices-1.png" /><!-- --></p>
+</section><section id="freight-costs-delta_ijbmz_ij" class="slide level2">
+<h2>Freight Costs <span class="math inline">\(\delta_{ij}(\bm{Z}_{ij})\)</span></h2>
+<ul>
+<li>Products <span class="math inline">\(m \in \left\{ 1, ..., M \right\}\)</span></li>
+<li>Transportation modes <span class="math inline">\(o \in \left\{ 1, ..., O \right\}\)</span></li>
+<li><span class="math inline">\(\zeta_{ij}^{m o}\)</span> share of product <span class="math inline">\(m\)</span> transported by mode <span class="math inline">\(o\)</span>
+<ul>
+<li>United States, Australia, Japan, European Union, and Brazil</li>
+</ul></li>
+<li><span class="math inline">\(\delta_{ij}^{m o}\)</span>
+<ul>
+<li>United States, Australia, sample of maritime shipments (OECD)</li>
+</ul></li>
+</ul>
+<div class="fragment">
+<p><strong>Mode and Cost Functions</strong></p>
+<p><span class="math display">\[
+g: \left\{ \boldsymbol{Z}_{ij}, d^m \right\} \rightarrow \delta_{ij}^{m o}
+\]</span> <span class="math display">\[
+h: \left\{ \boldsymbol{Z}_{ij}, d^m \right\} \rightarrow \zeta_{ij}^{m o}
+\]</span></p>
+</div>
+<div class="fragment">
+<p><strong>Aggregate Freight Costs</strong></p>
+<p><span class="math display">\[
+\hat{\delta}_{ij} \left( \boldsymbol{Z}_{ij}, \boldsymbol{d}_{ij} \right) = \frac{1}{X_{ij}} \sum_{m = 1}^M x_{ij}^m \sum_{o=1}^O g \left( \boldsymbol{Z}_{ij}, d^m \right) h \left( \boldsymbol{Z}_{ij}, d^m \right)
+\]</span></p>
+</div>
+</section><section id="freight-costs-cross-validation" class="slide level2">
+<h2>Freight Costs (Cross Validation)</h2>
+<figure>
+<img data-src="index_files/figure-revealjs/freightCV-1.png" alt="" /><figcaption>Out of sample (black): New Zealand and Chile</figcaption>
+</figure>
+</section><section id="parameter-calibration" class="slide level2">
+<h2>Parameter Calibration</h2>
+<p><span class="math display">\[
+\bm{\theta} = \left\{ \sigma, \theta, \bm{\nu} \right\}
+\]</span></p>
+<ul>
+<li>Trade elasticity: <span class="math inline">\(\sigma - 1 = \theta =\)</span> 6
+<ul>
+<li><span class="citation" data-cites="Simonovska2014">Simonovska and Waugh (2014)</span>, <span class="citation" data-cites="Head2014">Head and Mayer (2014)</span></li>
+</ul></li>
+</ul>
+<div class="fragment">
+<ul>
+<li><span class="math inline">\(\bm{\nu}\)</span> - tradable expenditure share (ICP)</li>
+</ul>
+</div>
+</section></section>
+<section><section id="results" class="title-slide slide level1"><h1>Results</h1><hr style="height:3em; visibility:hidden;" />
+<p><span class="math display">\[
+\bm{\tau}_{N \times N} = \begin{pmatrix}
+1 &amp; \cdots &amp; \tau_{1n} \\
+\vdots &amp; \ddots &amp; \vdots \\
+\tau_{n1} &amp; \cdots &amp; 1
+\end{pmatrix}
+\]</span></p>
+<hr style="height:2em; visibility:hidden;" />
+<p><span class="math display">\[
+\tau_{ij} = \left( \frac{\lambda_{ij}^{\text{cif}}}{ \lambda_{jj}(\bm{\tau}_j) } \right)^{-\frac{1}{\theta + 1}} \left( \frac{\hat{P}_i}{\hat{P}_j} \right)^{\frac{\theta}{\theta+1}} \left( \frac{1}{\delta_{ij}(\bm{Z}_{ij})} \right)^{\frac{\theta}{\theta+1}}
+\]</span></p></section><section id="results-1" class="slide level2">
+<h2>Results</h2>
+<p><img data-src="index_files/figure-revealjs/hm1-1.png" /><!-- --></p>
+</section><section id="results-2" class="slide level2">
+<h2>Results</h2>
+<p><img data-src="index_files/figure-revealjs/hmUSA-1.png" /><!-- --></p>
+<div class="fragment">
+<ul>
+<li>U.S. favored partners: Canada (33% ad valorem), Japan (37%), EU (38%)</li>
+<li>U.S. disfavored partners: Peru (246%) and Vietnam (370%)</li>
+</ul>
+</div>
+</section><section id="results-free" class="slide level2">
+<h2>Results (Free?)</h2>
+<p><img data-src="index_files/figure-revealjs/tCostsPlot1-1.png" /><!-- --></p>
+</section><section id="results-free-1" class="slide level2">
+<h2>Results (Free?)</h2>
+<p><img data-src="index_files/figure-revealjs/tCostsPlot2-1.png" /><!-- --></p>
+</section><section id="results-free-2" class="slide level2">
+<h2>Results (Free?)</h2>
+<p><img data-src="index_files/figure-revealjs/tCostsPlot3-1.png" /><!-- --></p>
+</section><section id="trade-restrictiveness-and-market-access" class="slide level2">
+<h2>Trade Restrictiveness and Market Access</h2>
+<p><strong>Trade Restrictiveness Index</strong></p>
+<p><span class="math display">\[
+\text{TRI}_i = \frac{1}{\sum_{j \neq i} E_j} \sum_{j \neq i} \tau_{ij} E_j
+\]</span></p>
+<p><strong>Market Access Index</strong></p>
+<p><span class="math display">\[
+\text{MAI}_j = \frac{1}{\sum_{i \neq j} E_i} \sum_{i \neq j} \tau_{ij} E_i
+\]</span></p>
+</section><section id="results-fair" class="slide level2">
+<h2>Results (Fair?)</h2>
+<p><img data-src="index_files/figure-revealjs/triincome-1.png" /><!-- --></p>
+</section><section id="results-fair-1" class="slide level2">
+<h2>Results (Fair?)</h2>
+<p><img data-src="index_files/figure-revealjs/maigdppc-1.png" /><!-- --></p>
+</section></section>
+<section><section id="robustness-correlates" class="title-slide slide level1"><h1>Robustness (Correlates)</h1><table style="text-align:center">
 <tr>
 <td colspan="2" style="border-bottom: 1px solid black">
 </td>
@@ -877,10 +1238,17 @@ R<sup>2</sup>
 <sup>*</sup>Significant at the 10 percent level.
 </td>
 </tr>
-</table>
-</section><section id="conclusion" class="slide level2">
-<h2>Conclusion</h2>
-<p><strong>State Capacity and Protectionism</strong></p>
+</table></section><section id="robustness-intra-european-barriers" class="slide level2">
+<h2>Robustness (Intra-European Barriers)</h2>
+<p><img data-src="index_files/figure-revealjs/hmEUPlot-1.png" /><!-- --></p>
+</section></section>
+<section><section id="implications-economic-blocs" class="title-slide slide level1"><h1>Implications (Economic Blocs)</h1><p><img data-src="index_files/figure-revealjs/hm2-1.png" /><!-- --><img data-src="index_files/figure-revealjs/hm2-2.png" /><!-- --></p></section><section id="implications-economic-blocs-1" class="slide level2">
+<h2>Implications (Economic Blocs)</h2>
+<p><img data-src="index_files/figure-revealjs/hm2C-1.png" /><!-- --><img data-src="index_files/figure-revealjs/hm2C-2.png" /><!-- --></p>
+</section><section id="implications-democracy-and-trade-policy" class="slide level2">
+<h2>Implications (Democracy and Trade Policy)</h2>
+</section></section>
+<section id="conclusions" class="title-slide slide level1"><h1>Conclusions</h1><p><strong>State Capacity and Protectionism</strong></p>
 <ul>
 <li>Tariffs as “second-best” solution to revenue-raising problem facing low-capacity governments
 <ul>
@@ -898,192 +1266,33 @@ R<sup>2</sup>
 <ul>
 <li><span class="citation" data-cites="Redding2004">Redding and Venables (2004)</span>, <span class="citation" data-cites="Romalis2007">Romalis (2007)</span>, <span class="citation" data-cites="Waugh2010">Waugh (2010)</span></li>
 </ul></li>
-</ul>
-<p><a href="#/tri" style="float: right;">TRI, MAI</a></p>
-</section><section id="thank-you" class="slide level2 aligncenter">
-<h2>Thank You</h2>
-<p><a href="http://brendancooley.com">brendancooley.com</a></p>
-<p><a href="bcooley@princeton.edu">bcooley@princeton.edu</a></p>
-</section><section id="model" class="slide level2">
-<h2>Model (Consumption)</h2>
-<p><strong>Consumer’s Problem</strong></p>
-<p><span class="math display">\[\begin{equation*} \label{eq:consumer}
-\begin{split}
-\max &amp; \quad U_i = Q_i^{\nu_i} S_i^{1 - \nu_i} \\
-\text{subject to} &amp; \quad P_i Q_i + P_i^s S_i \leq w_i L_i
-\end{split}
-\end{equation*}\]</span></p>
-<p><strong>CES Preferences over Tradable Varieties</strong></p>
-<p><span class="math display">\[
-Q_i = \left( \int_{[0,1]} \alpha_{h(\omega)}^{\frac{1}{\sigma}} q_i(\omega)^{\frac{\sigma - 1}{\sigma}} d \omega \right)^{\frac{\sigma}{\sigma - 1}}
-\]</span></p>
-<p><strong>Tradable Price Index</strong></p>
-<p><span class="math display">\[
-P_i = \left( \int_{[0,1]} \alpha_{h(\omega)} p_i(\omega)^{1 - \sigma} d \omega \right)^{\frac{1}{1 - \sigma}}
-\]</span></p>
-<p><strong>Expenditure on Tradables</strong></p>
-<p><span class="math display">\[
-E_i^q = \nu_i I_i + D_i = P_i Q_i^\star
-\]</span></p>
-<p><a href="#/moverview" style="float: right;">Back</a></p>
-</section><section id="model-production" class="slide level2">
-<h2>Model (Production)</h2>
-<p><strong>Costs</strong></p>
-<p><span class="math display">\[\begin{equation} \label{eq:c}
-c_i = w_i^{1 - \beta} P_i^{\beta}
-\end{equation}\]</span></p>
-<ul>
-<li><span class="math inline">\(w_i\)</span> - cost of labor</li>
-<li><span class="math inline">\(P_i\)</span> - cost of composite intermediate good
-<ul>
-<li>equivalent to composite consumption good</li>
-</ul></li>
-</ul>
-<p><span class="math display">\[
-E_i^x = \beta X_i
-\]</span></p>
-<p><strong>Local Prices</strong></p>
-<p><span class="math display">\[
-p_{ii}(\omega) = \frac{c_i}{z_i(\omega)}
-\]</span></p>
-<p><strong>Technology (Frechet)</strong></p>
-<p><span class="math display">\[
-F_i(z) = \text{Pr} \left\{ z_i(\omega) \leq z \right\} = \exp \left\{ - T_i z^{-\theta} \right\}
-\]</span></p>
-<p><a href="#/moverview" style="float: right;">Back</a></p>
-</section><section id="model-equilibrium" class="slide level2">
-<h2>Model (Equilibrium)</h2>
-<p><strong>Total Expenditure on Tradables</strong></p>
-<p><span class="math display">\[
-X_i = \underbrace{E_i^q + E_i^x}_{E_i} - D_i
-\]</span></p>
-<p><strong>Trade Shares</strong></p>
-<p><span class="math display">\[
-\Omega_{ij}^\star = \left\{ \omega \in [0,1] \left. \right\vert p_{ij}(\omega) \leq \min_{k \neq j} \left\{ p_{ik} \right\} \right\}
-\]</span></p>
-<p><span class="math display">\[
-\lambda_{ij}(\boldsymbol{w}) = \frac{1}{E_i} \int_{\Omega_{ij}^\star} p_{ij}(\omega) q_i \left( p_{ij} (\omega) \right) d \omega
-\]</span></p>
-<p><strong>Market Clearing</strong></p>
-<p><span class="math display">\[
-X_i = \sum_{j=1}^N \lambda_{ji}(\boldsymbol{w}) E_j
-\]</span></p>
-<p><a href="#/moverview" style="float: right;">Back</a></p>
-</section><section id="differences" class="slide level2">
-<h2>Isolating Policy Barriers (I)</h2>
-<p><strong>Trade Shares (w/ Frechet)</strong></p>
-<p><span class="math display">\[\begin{align*}
-\lambda_{ij}(\boldsymbol{w}) &amp;= \frac{ T_j \left( d_{ij} w_j^{1 - \beta} P_j^{\beta} \right)^{- \theta} }{\sum_j T_j \left( d_{ij} w_j^{1 - \beta} P_j^{\beta} \right)^{- \theta}} \\
-&amp;= \frac{ T_j \left( \underbrace{\rho_j \delta_{ij} \tau_{ij}}_{d_{ij}} w_j^{1 - \beta} P_j^{\beta} \right)^{- \theta} }{ \frac{1}{\gamma} P_i^{-\theta}}
-\end{align*}\]</span></p>
-</section><section id="isolating-policy-barriers-ii" class="slide level2">
-<h2>Isolating Policy Barriers (II)</h2>
-<p><strong>In Differences</strong></p>
-<p><span class="math display">\[
-\frac{\lambda_{ij}}{\lambda_{jj}} = \left( \underbrace{\delta_{ij} \tau_{ij} \frac{P_j}{P_i}}_{\text{observables}}\right)^{- \theta}
-\]</span></p>
-<p><span class="math display">\[
-\tau_{ij} = \left( \frac{\lambda_{ij}}{\lambda_{jj}} \right)^{-\frac{1}{\theta}} \frac{P_i}{P_j} \underbrace{\frac{1}{\delta_{ij}}}_{\substack{\text{freight cost} \\ \text{correction}}}
-\]</span></p>
-<p><a href="#/estimation" style="float: right;">Back</a></p>
-</section><section id="shares" class="slide level2">
-<h2>Trade Shares</h2>
-<p><strong>Behind the Border Barriers</strong></p>
-<p><span class="math display">\[
-\lambda_{ij} = \tau_{ij} \lambda_{ij}^{\text{cif}}
-\]</span></p>
-<p><strong>Home Expenditure</strong></p>
-<p><span class="math display">\[
-\lambda_{jj}(\boldsymbol{\tau}_j) = \left( 1 - \sum_{i \neq j} \tau_{ji} \lambda_{ji}^{\text{cif}} \right)
-\]</span></p>
-<p><strong>Modified Estimating Equation</strong></p>
-<p><span class="math display">\[
-\tau_{ij} = \left( \frac{\lambda_{ij}^{\text{cif}}}{\lambda_{jj}(\boldsymbol{\tau}_j)} \right)^{-\frac{1}{\theta + 1}} \left( \frac{P_i}{P_j} \right)^{\frac{\theta}{\theta+1}} \left( \frac{1}{\delta_{ij}(\boldsymbol{Z}_{ij})} \right)^{\frac{\theta}{\theta+1}}
-\]</span></p>
-<p><a href="#/estimation" style="float: right;">Back</a></p>
-</section><section id="prices" class="slide level2">
-<h2>Prices (Model)</h2>
-<ul>
-<li>Set<span class="math inline">\(\mathcal{K}\)</span> of tradable good categories indexed <span class="math inline">\(k \in \left\{ 0, ..., K - 1 \right\}\)</span></li>
-</ul>
-<p><span class="math display">\[
-h : \Omega \rightarrow \mathcal{K}
-\]</span></p>
-<p><span class="math display">\[
-\Omega_k = \left\{ \omega : h(\omega) = k \right\}
-\]</span></p>
-<p><strong>Demand</strong></p>
-<p><span class="math display">\[
-x_i(\omega) = p_i(\omega) q_i(\omega) = \alpha_{h(\omega)} p_i(\omega)^{1-\sigma} E_i^q P_i^{\sigma - 1}
-\]</span></p>
-<p><strong>Normalization</strong></p>
-<p><span class="math display">\[
-\frac{\lambda_{ik}}{\lambda_{i0}} = \alpha_k \left( \frac{p_{ik}}{p_{i0}} \right)^{1 - \sigma}
-\]</span></p>
-<p><strong>Estimation</strong></p>
-<p><span class="math display">\[
-\ln \Delta \lambda_{ik} = \ln \alpha_k + (1 - \sigma) \ln \Delta p_{ik} + \ln \epsilon_{ik}
-\]</span></p>
-<p><a href="#/estimation" style="float: right;">Back</a></p>
-</section><section id="prices-data" class="slide level2">
-<h2>Prices (Data)</h2>
-<p><img src="index_files/figure-revealjs/prices-1.png" width="2400" /></p>
-<p><a href="#/estimation" style="float: right;">Back</a></p>
-</section><section id="freight" class="slide level2">
-<h2>Freight Costs (Model)</h2>
-<ul>
-<li>Products <span class="math inline">\(m \in \left\{ 1, ..., M \right\}\)</span></li>
-<li>Transportation modes <span class="math inline">\(k \in \left\{ 1, ..., K \right\}\)</span></li>
-<li><span class="math inline">\(\zeta_{ij}^{m k}\)</span> share of product <span class="math inline">\(m\)</span> transported by mode <span class="math inline">\(k\)</span></li>
-</ul>
-<p><strong>Mode and Cost Functions</strong></p>
-<p><span class="math display">\[
-g: \left\{ \boldsymbol{Z}_{ij}, d^m \right\} \rightarrow \delta_{ij}^{m k}
-\]</span> <span class="math display">\[
-h: \left\{ \boldsymbol{Z}_{ij}, d^m \right\} \rightarrow \zeta_{ij}^{m k}
-\]</span></p>
-<p><strong>Aggregate Freight Costs</strong></p>
-<p><span class="math display">\[
-\hat{\delta}_{ij} \left( \boldsymbol{Z}_{ij}, \boldsymbol{d}_{ij} \right) = \frac{1}{X_{ij}} \sum_{m = 1}^M x_{ij}^m \sum_{k=1}^K g \left( \boldsymbol{Z}_{ij}, d^m \right) h \left( \boldsymbol{Z}_{ij}, d^m \right)
-\]</span></p>
-<p><a href="#/estimation" style="float: right;">Back</a></p>
-</section><section id="freight-costs-cross-validation" class="slide level2">
-<h2>Freight Costs (Cross Validation)</h2>
-<p><img src="index_files/figure-revealjs/freightCV-1.png" width="2400" /></p>
-<p><a href="#/estimation" style="float: right;">Back</a></p>
-</section><section id="euPlacebo" class="slide level2">
-<h2>EU Placebo</h2>
-<p><img src="index_files/figure-revealjs/hmEUPlot-1.png" width="2400" /></p>
-<p><a href="#/variance" style="float: right;">Back</a></p>
-</section><section id="tri" class="slide level2">
-<h2>Trade Restrictiveness and Market Access (I)</h2>
-<p><strong>Trade Restrictiveness Index</strong></p>
-<p><span class="math display">\[
-\text{TRI}_i = \frac{1}{\sum_{j \neq i} E_j} \sum_{j \neq i} \tau_{ij} E_j
-\]</span></p>
-<p><strong>Market Access Index</strong></p>
-<p><span class="math display">\[
-\text{MAI}_j = \frac{1}{\sum_{i \neq j} E_i} \sum_{i \neq j} \tau_{ij} E_i
-\]</span></p>
-<p><a href="#/conclusion" style="float: right;">Back</a></p>
-</section><section id="trade-restrictiveness-and-market-access-ii" class="slide level2">
-<h2>Trade Restrictiveness and Market Access (II)</h2>
-<p><img src="index_files/figure-revealjs/trimai-1.png" width="2400" /></p>
-<p><a href="#/conclusion" style="float: right;">Back</a></p>
-</section><section id="market-access-barriers" class="slide level2">
-<h2>Market Access Barriers</h2>
-<p><img src="index_files/figure-revealjs/maigdppc-1.png" width="2400" /></p>
-<p><a href="#/conclusion" style="float: right;">Back</a></p>
+</ul></section>
+<section id="thank-you" class="title-slide slide level1 aligncenter"><h1>Thank You</h1><p><a href="http://brendancooley.com">brendancooley.com</a></p>
+<p><a href="bcooley@princeton.edu">bcooley@princeton.edu</a></p></section>
+<section id="table-of-contents" class="title-slide slide level1"><h1>Table of Contents</h1></section>
+<section id="frechet" class="title-slide slide level1"><h1>Fréchet Distribution</h1><figure>
+<img data-src="figs/Frechet.png" style="width:75.0%" alt="" /><figcaption>Fréchet distribution. <a href="https://en.wikipedia.org/wiki/Fr%C3%A9chet_distribution#/media/File:Frechet_pdf.svg">Source</a></figcaption>
+</figure>
+<p><a href="#/production" style="float: right;">Back</a></p>
 <hr style="height:30em; visibility:hidden;" />
 <div id="refs" class="references" role="doc-bibliography">
 <div id="ref-Acemoglu2005b">
 <p>Acemoglu, Daron. 2005. “Politics and economics in weak and strong states.” <em>Journal of Monetary Economics</em> 52 (7): 1199–1226.</p>
+</div>
+<div id="ref-Alvarez2007">
+<p>Alvarez, Fernando, and Robert E Lucas. 2007. “General equilibrium analysis of the Eaton–Kortum model of international trade.” <em>Journal of Monetary Economics</em> 54: 1726–68.</p>
 </div>
 <div id="ref-Anderson2003">
 <p>Anderson, James E, and Eric Van Wincoop. 2003. “Gravity with Gravitas: A Solution to the Border Puzzle.” <em>The American Economic Review</em> 93 (1): 170–92.</p>
 </div>
 <div id="ref-Baldwin2016">
 <p>Baldwin, Richard. 2016. “The World Trade Organization and the Future of Multilateralism.” <em>Journal of Economic Perspectives</em> 30: 95–116.</p>
+</div>
+<div id="ref-Chaney2008">
+<p>Chaney, Thomas. 2008. “Distorted Gravity: The Intensive and Extensive Margins of International Trade.” <em>American Economic Review</em> 98 (4): 1707–21.</p>
+</div>
+<div id="ref-Costinot2015">
+<p>Costinot, Arnaud, and Andrés Rodríguez-Clare. 2015. “Trade Theory with Numbers: Quantifying the Consequences of Globalization.” <em>Handbook of International Economics</em> 4: 197–261.</p>
 </div>
 <div id="ref-Eaton2002">
 <p>Eaton, Jonathan, and Samuel Kortum. 2002. “Technology, geography, and trade.” <em>Econometrica</em> 70 (5): 1741–79.</p>
@@ -1100,6 +1309,9 @@ h: \left\{ \boldsymbol{Z}_{ij}, d^m \right\} \rightarrow \zeta_{ij}^{m k}
 <div id="ref-Gawande2015">
 <p>———. 2015. “A Political-Economic Account of Global Tariffs.” <em>Economics &amp; Politics</em> 27 (2): 204–33.</p>
 </div>
+<div id="ref-Head2014">
+<p>Head, Keith, and Thierry Mayer. 2014. “Gravity Equations: Workhorse, Toolkit and Cookbook.” In <em>Handbook of International Economics</em>, edited by Elhanan Helpman, G. Gopinath, and K. Rogoff, 4th ed., 131–96.</p>
+</div>
 <div id="ref-Kono2006">
 <p>Kono, Daniel Yuichi. 2006. “Optimal obfuscation: Democracy and trade policy transparency.” <em>American Political Science Review</em> 100 (03): 369–84.</p>
 </div>
@@ -1114,6 +1326,9 @@ h: \left\{ \boldsymbol{Z}_{ij}, d^m \right\} \rightarrow \zeta_{ij}^{m k}
 </div>
 <div id="ref-Mansfield1995b">
 <p>Mansfield, Edward D., and Marc L. Busch. 1995. “The Political Economy of Nontariff Barriers: A Cross-National Analysis.” <em>International Organization</em> 49 (4): 723–49.</p>
+</div>
+<div id="ref-Melitz2003">
+<p>Melitz, Marc J. 2003. “The impact of trade on intra-industry reallocations and aggregate industry productivity.” <em>Econometrica</em> 71 (6): 1695–1725.</p>
 </div>
 <div id="ref-Milner2005">
 <p>Milner, Helen V, and Keiko Kubota. 2005. “Why the move to free trade? Democracy and trade policy in the developing countries.” <em>International Organization</em> 59 (01): 107–43.</p>
@@ -1145,8 +1360,7 @@ h: \left\{ \boldsymbol{Z}_{ij}, d^m \right\} \rightarrow \zeta_{ij}^{m k}
 <div id="ref-Waugh2016">
 <p>Waugh, Michael E, and B Ravikumar. 2016. “Measuring Openness to Trade.” <em>Journal of Economic Dynamics and Control</em> 72: 29–41.</p>
 </div>
-</div>
-</section></section>
+</div></section>
     </div>
   </div>
 
@@ -1215,13 +1429,17 @@ h: \left\{ \boldsymbol{Z}_{ij}, d^m \right\} \rightarrow \zeta_{ij}^{m k}
              preferredFont : "TeX",
              webFont : "TeX",
              imageFont : null
-         }
+         },
+         TeX: {  }
      });
 </script>
 
 <!-- mathjax colors-->
 <script type="text/x-mathjax-config">
-  MathJax.Hub.Config({ TeX: { extensions: ["color.js"] }});
+  MathJax.Hub.Config({ TeX: { 
+  						extensions: ["color.js"],
+  						equationNumbers: { autoNumber: "AMS" } 
+  					}});
 </script>
 
 <!-- <script>
