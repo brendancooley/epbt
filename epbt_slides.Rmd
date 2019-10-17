@@ -6,7 +6,7 @@ position: Ph.D. Candidate
 institution: Princeton University
 email: "bcooley (at) princeton.edu"
 
-bibliography: /Users/bcooley/Dropbox (Princeton)/References/library.bib
+bibliography: /Users/brendancooley/Dropbox (Princeton)/References/library.bib
 biblio-style: apsr
 
 backgroundTitle: "figs/title/containerDark.jpg"
@@ -72,7 +72,7 @@ freight <- read_csv(paste0(cleandir, "freight.csv"))
 
 ```
 
-# Free and Fair?
+# Free and Fair? {id="introduction"}
 
 <div class="fragment">
 
@@ -194,7 +194,7 @@ $$
 \end{pmatrix}
 $$
 
-## Measurement Matters
+## Measurement Matters {id="triIncome"}
 
 ```{r triIncome1, echo=FALSE, warning=FALSE, message=FALSE, fig.height=5.5, dpi=300}
 
@@ -212,7 +212,7 @@ tarIncome + triIncome
 
 ```
 
-# Model (Overview)
+# Model (Overview) {id="model"}
 
 - $\bm{d}_{N \times N} = \bm{\delta} \circ \bm{\tau}$ - trade costs (economic and political)
 - $\bm{\theta}$ - structural parameters
@@ -284,7 +284,7 @@ $$
 
 - Competitive international economy, every country can produce each variety $\omega$
 
-**Costs**
+**"Fundamental" Cost**
 
 $$
 c_i = w_i^{1 - \beta} P_i^{\beta}
@@ -296,7 +296,7 @@ $$
 
 . . .
 
-**Local Prices**
+**Product-Specific Costs, Local Prices**
 
 - Technology shocks $z_i(\omega)$ shift local prices
 
@@ -315,7 +315,7 @@ $$
 - $T_i$ - "fundamental" productivity
 
 
-## Prices and Trade Costs
+## Prices and Trade Costs {id="tcostMap"}
 
 <hr style="height:2em; visibility:hidden;" />
 
@@ -389,7 +389,7 @@ $$
 
 - @Alvarez2007: existence and uniqueness
 
-# Estimation
+# Estimation {id="estimation"}
 
 - $\lambda_{ij} = \frac{X_{ij}}{E_i}$ - share of $i$'s tradable expenditure spent on goods from $j$
 
@@ -398,10 +398,10 @@ $$
 <div class="fragment">
 
 $$
-\lambda_{ij} = \frac{ T_j \left( d_{ij} w_j^{1 - \beta} P_j^{\beta} \right)^{- \theta} }{\gamma^{-1} P_i^{-\theta}}
+\lambda_{ij} = \frac{ T_j \left( \color{bcOrange} d_{ij} \color{black} w_j^{1 - \beta} P_j^{\beta} \right)^{- \theta} }{\gamma^{-1} P_i^{-\theta}}
 $$
 
-- $d_{ij} = \rho_j \delta_{ij} \tau_{ij}$
+- $\color{bcOrange} d_{ij} \color{black} = \rho_j \delta_{ij} \tau_{ij}$
 
 </div>
 <div class="fragment">
@@ -467,7 +467,7 @@ $$
   + Data (II): transportation mode shares for United States, Australia, Japan, European Union, and Brazil
   + Estimate function $\delta_{ij}(\bm{Z}_{ij})$ to predict freight costs out of sample
 
-# Data and Measurement
+# Data and Measurement {id="measurement"}
 
 <div class="fragment">
 
@@ -541,7 +541,7 @@ $$
 \tau_{ij} = \left( \frac{\lambda_{ij}^{\text{cif}}}{ \color{bcOrange} \lambda_{jj}(\bm{\tau}_j) \color{black} } \right)^{-\frac{1}{\theta + 1}} \left( \frac{\hat{P}_i}{\hat{P}_j} \right)^{\frac{\theta}{\theta+1}} \left( \frac{1}{\delta_{ij}(\bm{Z}_{ij})} \right)^{\frac{\theta}{\theta+1}}
 $$
 
-## Preliminary Evidence of Significant Barriers
+## Preliminary Evidence of Significant Barriers {id="shares"}
 
 ```{r shares1, echo=FALSE, warning=FALSE, message=FALSE, fig.height=5.5, dpi=300}
 
@@ -607,7 +607,7 @@ $$
 \ln \Delta \lambda_{ik} = \ln \alpha_k + (1 - \sigma) \ln \Delta p_{ik} + \ln \epsilon_{ik}
 $$
 
-## Price Levels (Estimates)
+## Price Levels (Estimates) {id="priceLevels"}
 
 ```{r prices, echo=FALSE, warning=FALSE, message=FALSE, fig.height=5, dpi=300}
 
@@ -645,7 +645,7 @@ $$
 \hat{\delta}_{ij} \left( \boldsymbol{Z}_{ij}, \boldsymbol{d}_{ij} \right) = \frac{1}{X_{ij}} \sum_{m = 1}^M x_{ij}^m \sum_{o=1}^O g \left( \boldsymbol{Z}_{ij}, d^m \right) h \left( \boldsymbol{Z}_{ij}, d^m \right)
 $$
 
-## Freight Costs (Cross Validation)
+## Freight Costs (Cross Validation) {id="freightCosts"}
 
 ```{r freightCV, echo=FALSE, warning=FALSE, message=FALSE, fig.height=5, fig.cap="Out of sample (black): New Zealand and Chile", dpi=300}
 
@@ -668,7 +668,7 @@ $$
 
 - $\bm{\nu}$ - tradable expenditure share (ICP)
 
-# Results
+# Results {id="results"}
 
 <hr style="height:3em; visibility:hidden;" />
 
@@ -737,7 +737,7 @@ tCostsFTPbase + theme(aspect.ratio=1)
 
 ```
 
-## Results (Free?)
+## Results (Free?) {id="magnitudes"}
 
 ```{r tCostsPlot3, echo=FALSE, warning=FALSE, message=FALSE, fig.height=5.5, dpi=300}
 
@@ -759,7 +759,7 @@ $$
 \text{MAI}_j = \frac{1}{\sum_{i \neq j} E_i} \sum_{i \neq j} \tau_{ij} E_i
 $$
 
-## Results (Fair?)
+## Results (Fair?) {id="TRI"}
 
 ```{r triincome, echo=FALSE, warning=FALSE, message=FALSE, fig.height=5, dpi=300}
 
@@ -769,7 +769,7 @@ triIncome + theme(aspect.ratio=1)
 
 ```
 
-## Results (Fair?)
+## Results (Fair?) {id="MAI"}
 
 ```{r maigdppc, echo=FALSE, warning=FALSE, message=FALSE, fig.height=5, dpi=300}
 
@@ -779,18 +779,19 @@ maigdppcPlot + theme(aspect.ratio=1)
 
 ```
 
-# Robustness (Correlates)
+# Robustness (Correlates) {id="robustness"}
 
 ```{r correlates, echo=FALSE, warning=FALSE, message=FALSE, results="asis"}
 
-source("figs/correlates.R")
+EUD <- FALSE
+source("01_analysis/11_correlates.R")
 
-stargazer(correlatesModel, header=FALSE, type='html', style = "qje", omit=c("i_iso3", "j_iso3", "Constant"), omit.stat=c("adj.rsq", "f", "ser"), add.lines = list(c("Importer Fixed Effects", "Yes"), c("Exporter Fixed Effects", "Yes")), dep.var.labels = c("DV: Structural Policy Barrier"), covariate.labels = c("Tariffs", "PTAs", "Core NTM", "Health/Safety NTM", "Other NTM"))
+stargazer(model, header=FALSE, type='html', style = "qje", omit=c("i_iso3", "j_iso3", "Constant"), omit.stat=c("adj.rsq", "f", "ser"), add.lines = list(c("Importer Fixed Effects", "Yes"), c("Exporter Fixed Effects", "Yes")), dep.var.labels = c("DV: Structural Policy Barrier"), covariate.labels = c("Tariffs", "PTAs", "Core NTM", "Health/Safety NTM", "Other NTM"))
 
 
 ```
 
-## Robustness (Intra-European Barriers)
+## Robustness (Intra-European Barriers) {id="euPlacebo"}
 
 ```{r hmEUPlot, echo=FALSE, warning=FALSE, message=FALSE, fig.height=5, dpi=300}
 
@@ -800,7 +801,7 @@ hmEUPlot
 
 ```
 
-# Implications (Economic Blocs)
+# Implications (Economic Blocs) {id="implications"}
 
 ```{r hm2, echo=FALSE, warning=FALSE, message=FALSE, fig.height=5, dpi=300}
 
@@ -814,11 +815,10 @@ highlight <- NULL
 source("figs/hm.R")
 
 hm + theme(axis.text.x=element_text(size=7), axis.text.y=element_text(size=7))
-hm
 
 ```
 
-## Implications (Economic Blocs)
+## Implications (Economic Blocs) {id="blocs"}
 
 ```{r hm2C, echo=FALSE, warning=FALSE, message=FALSE, fig.height=5, dpi=300}
 
@@ -831,27 +831,53 @@ set.seed(755)
 source("figs/hm.R")
 
 hm + theme(axis.text.x=element_text(size=7), axis.text.y=element_text(size=7))
-hm
 
 ```
 
 ## Implications (Democracy and Trade Policy)
 
+- Democracy *positively* associated with trade restrictiveness
 
-# Conclusions
+<hr style="height:3em; visibility:hidden;" />
 
-**State Capacity and Protectionism**
+```{r polity, echo=FALSE, warning=FALSE, message=FALSE, results="asis"}
+
+EUD <- TRUE
+source("01_analysis/11_correlates.R")
+
+stargazer(modelD, header=FALSE, type='html', style = "qje", omit=c("Constant"), omit.stat=c("adj.rsq", "f", "ser"), dep.var.labels = c("DV: TRI"), covariate.labels = c("gdp (std)", "polity2 (std)"))
+
+
+```
+
+# Conclusion {id="conclusion"}
+
+<div class="fragment">
+
+**Nondiscrimination in the Trade Regime**
+
+- Almost all countries in sample are WTO members, but substantial effective discrimination persists
+  + Contra @Bagwell1999, @Maggi1999, @Bown2004
+- PTAs negatively associated with barriers
+  + Importance of behind-the-border barriers, regulatory harmonization, "deep integration" [@Baccini2019]
+
+</div>
+<div class="fragment">
+
+<hr style="height:1em; visibility:hidden;" />
+
+- Democracies less liberal than autocracies
+  + Contra @Milner2005, @Eichengreen2008, @Gawande2009, @Gawande2015, @Barari2018 (tariffs)
+
+</div>
+<div class="fragment">
+
+<hr style="height:1em; visibility:hidden;" />
 
 - Tariffs as "second-best" solution to revenue-raising problem facing low-capacity governments
   + @Acemoglu2005b, @Rodrik2008, and @Queralt2015
-- Developing (more autocratic) world not necessarily more "welfare-concious" than developed counterparts
-  + @Milner2005, @Gawande2009; @Gawande2015
 
-**Development and Trade Discrimination**
-
-- Growth causally linked to market access conditions abroad [@Romalis2007]
-- Lack of market access by developing countries may hinder development prospects
-  + @Redding2004, @Romalis2007, @Waugh2010
+</div>
 
 # Thank You {.aligncenter}
 
@@ -861,8 +887,38 @@ hm
 
 # Table of Contents
 
+<div id="left">
 
+**Sections**
 
+1. <a href="#/intro">Introduction</a>
+2. <a href="#/model">Model</a>
+3. <a href="#/estimation">Estimation</a>
+4. <a href="#/measurement">Data and Measurement</a>
+5. <a href="#/results">Results</a>
+6. <a href="#/robustness">Robustness</a>
+7. <a href="#/implications">Implications</a>
+8. <a href="#/conclusion">Conclusion</a>
+
+</div>
+
+<div id="right">
+
+**Quick Links**
+
+1. <a href="#/triIncome">Tariffs, TRI, and GDP</a>
+2. <a href="#/tcostMap">Prices and Trade Costs</a>
+3. <a href="#/shares">Expenditure Shares</a>
+4. <a href="#/priceLevels">Price Levels</a>
+5. <a href="#/freightCosts">Freight Costs</a>
+6. <a href="#/magnitudes">Trade Barrier Magnitudes</a>
+7. <a href="#/TRI">TRI and GDP</a>
+8. <a href="#/MAI">MAI and GDP</a>
+9. <a href="#/euPlacebo">EU Placebo</a>
+10. <a href="#/blocs">Economic Blocs</a>
+11. <a href="#/frechet">Fréchet Distribution</a>
+
+</div>
 
 
 

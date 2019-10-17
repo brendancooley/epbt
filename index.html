@@ -491,7 +491,7 @@ document.getElementsByTagName('head')[0].appendChild(style);
 			</div>
 </section>
 
-<section><section id="free-and-fair" class="title-slide slide level1"><h1>Free and Fair?</h1><div class="fragment">
+<section><section id="introduction" class="title-slide slide level1"><h1>Free and Fair?</h1><div class="fragment">
 <blockquote>
 <p>“We believe that trade must be fair and reciprocal. The United States will not be taken advantage of any longer.” <br/> <span class="math inline">\(\qquad\)</span> – Donald Trump, Feb. 2019</p>
 </blockquote>
@@ -603,14 +603,14 @@ document.getElementsByTagName('head')[0].appendChild(style);
 \tau_{n1} &amp; \cdots &amp; 1
 \end{pmatrix}
 \]</span></p>
-</section><section id="measurement-matters" class="slide level2">
+</section><section id="triIncome" class="slide level2">
 <h2>Measurement Matters</h2>
 <p><img data-src="index_files/figure-revealjs/triIncome1-1.png" /><!-- --></p>
-</section><section id="measurement-matters-1" class="slide level2">
+</section><section id="measurement-matters" class="slide level2">
 <h2>Measurement Matters</h2>
 <p><img data-src="index_files/figure-revealjs/triIncome2-1.png" /><!-- --></p>
 </section></section>
-<section><section id="model-overview" class="title-slide slide level1"><h1>Model (Overview)</h1><ul>
+<section><section id="model" class="title-slide slide level1"><h1>Model (Overview)</h1><ul>
 <li><span class="math inline">\(\bm{d}_{N \times N} = \bm{\delta} \circ \bm{\tau}\)</span> - trade costs (economic and political)</li>
 <li><span class="math inline">\(\bm{\theta}\)</span> - structural parameters</li>
 <li><span class="math inline">\(\bm{L}_{N \times 1}\)</span> - labor endowments</li>
@@ -674,7 +674,7 @@ E_i^q = \nu_i I_i + D_i = P_i Q_i^\star
 <ul>
 <li>Competitive international economy, every country can produce each variety <span class="math inline">\(\omega\)</span></li>
 </ul>
-<p><strong>Costs</strong></p>
+<p><strong>“Fundamental” Cost</strong></p>
 <p><span class="math display">\[
 c_i = w_i^{1 - \beta} P_i^{\beta}
 \]</span></p>
@@ -686,7 +686,7 @@ c_i = w_i^{1 - \beta} P_i^{\beta}
 </ul></li>
 </ul>
 <div class="fragment">
-<p><strong>Local Prices</strong></p>
+<p><strong>Product-Specific Costs, Local Prices</strong></p>
 <ul>
 <li>Technology shocks <span class="math inline">\(z_i(\omega)\)</span> shift local prices</li>
 </ul>
@@ -703,7 +703,7 @@ F_i(z) = \text{Pr} \left\{ z_i(\omega) \leq z \right\} = \exp \left\{ - T_i z^{-
 <li><span class="math inline">\(T_i\)</span> - “fundamental” productivity</li>
 </ul>
 </div>
-</section><section id="prices-and-trade-costs" class="slide level2">
+</section><section id="tcostMap" class="slide level2">
 <h2>Prices and Trade Costs</h2>
 <hr style="height:2em; visibility:hidden;" />
 <div id="left">
@@ -770,10 +770,10 @@ X_{ij}(\bm{w}) = \int_{\color{bcOrange} \omega \in \Omega_{ij}^\star \color{blac
 <p><strong>Gravity Equation</strong></p>
 <div class="fragment">
 <p><span class="math display">\[
-\lambda_{ij} = \frac{ T_j \left( d_{ij} w_j^{1 - \beta} P_j^{\beta} \right)^{- \theta} }{\gamma^{-1} P_i^{-\theta}}
+\lambda_{ij} = \frac{ T_j \left( \color{bcOrange} d_{ij} \color{black} w_j^{1 - \beta} P_j^{\beta} \right)^{- \theta} }{\gamma^{-1} P_i^{-\theta}}
 \]</span></p>
 <ul>
-<li><span class="math inline">\(d_{ij} = \rho_j \delta_{ij} \tau_{ij}\)</span></li>
+<li><span class="math inline">\(\color{bcOrange} d_{ij} \color{black} = \rho_j \delta_{ij} \tau_{ij}\)</span></li>
 </ul>
 </div>
 <div class="fragment">
@@ -843,7 +843,7 @@ X_{ij}(\bm{w}) = \int_{\color{bcOrange} \omega \in \Omega_{ij}^\star \color{blac
 </ul></li>
 </ul>
 </section></section>
-<section><section id="data-and-measurement" class="title-slide slide level1"><h1>Data and Measurement</h1><div class="fragment">
+<section><section id="measurement" class="title-slide slide level1"><h1>Data and Measurement</h1><div class="fragment">
 <p><span class="math display">\[
 \hat{\tau}_{ij} = \left( \frac{\hat{\lambda}_{ij}}{\hat{\lambda}_{jj}} \right)^{-\frac{1}{\theta}} \frac{\hat{P}_i}{\hat{P}_j} \frac{1}{\delta_{ij}(\bm{Z}_{ij})}
 \]</span></p>
@@ -911,10 +911,10 @@ X_{ij}(\bm{w}) = \int_{\color{bcOrange} \omega \in \Omega_{ij}^\star \color{blac
 <p><span class="math display">\[
 \tau_{ij} = \left( \frac{\lambda_{ij}^{\text{cif}}}{ \color{bcOrange} \lambda_{jj}(\bm{\tau}_j) \color{black} } \right)^{-\frac{1}{\theta + 1}} \left( \frac{\hat{P}_i}{\hat{P}_j} \right)^{\frac{\theta}{\theta+1}} \left( \frac{1}{\delta_{ij}(\bm{Z}_{ij})} \right)^{\frac{\theta}{\theta+1}}
 \]</span></p>
-</section><section id="preliminary-evidence-of-significant-barriers" class="slide level2">
+</section><section id="shares" class="slide level2">
 <h2>Preliminary Evidence of Significant Barriers</h2>
 <p><img data-src="index_files/figure-revealjs/shares1-1.png" /><!-- --></p>
-</section><section id="preliminary-evidence-of-significant-barriers-1" class="slide level2">
+</section><section id="preliminary-evidence-of-significant-barriers" class="slide level2">
 <h2>Preliminary Evidence of Significant Barriers</h2>
 <p><img data-src="index_files/figure-revealjs/shares2-1.png" /><!-- --></p>
 </section><section id="price-levels-frachatp_ihatp_j" class="slide level2">
@@ -957,7 +957,7 @@ x_{ik} = \int_{\omega \in \Omega_k} \alpha_k p_{ik}^{1 - \sigma} E_i^q P_i^{\sig
 \ln \Delta \lambda_{ik} = \ln \alpha_k + (1 - \sigma) \ln \Delta p_{ik} + \ln \epsilon_{ik}
 \]</span></p>
 </div>
-</section><section id="price-levels-estimates" class="slide level2">
+</section><section id="priceLevels" class="slide level2">
 <h2>Price Levels (Estimates)</h2>
 <p><img data-src="index_files/figure-revealjs/prices-1.png" /><!-- --></p>
 </section><section id="freight-costs-delta_ijbmz_ij" class="slide level2">
@@ -988,7 +988,7 @@ h: \left\{ \boldsymbol{Z}_{ij}, d^m \right\} \rightarrow \zeta_{ij}^{m o}
 \hat{\delta}_{ij} \left( \boldsymbol{Z}_{ij}, \boldsymbol{d}_{ij} \right) = \frac{1}{X_{ij}} \sum_{m = 1}^M x_{ij}^m \sum_{o=1}^O g \left( \boldsymbol{Z}_{ij}, d^m \right) h \left( \boldsymbol{Z}_{ij}, d^m \right)
 \]</span></p>
 </div>
-</section><section id="freight-costs-cross-validation" class="slide level2">
+</section><section id="freightCosts" class="slide level2">
 <h2>Freight Costs (Cross Validation)</h2>
 <figure>
 <img data-src="index_files/figure-revealjs/freightCV-1.png" alt="" /><figcaption>Out of sample (black): New Zealand and Chile</figcaption>
@@ -1039,7 +1039,7 @@ h: \left\{ \boldsymbol{Z}_{ij}, d^m \right\} \rightarrow \zeta_{ij}^{m o}
 </section><section id="results-free-1" class="slide level2">
 <h2>Results (Free?)</h2>
 <p><img data-src="index_files/figure-revealjs/tCostsPlot2-1.png" /><!-- --></p>
-</section><section id="results-free-2" class="slide level2">
+</section><section id="magnitudes" class="slide level2">
 <h2>Results (Free?)</h2>
 <p><img data-src="index_files/figure-revealjs/tCostsPlot3-1.png" /><!-- --></p>
 </section><section id="trade-restrictiveness-and-market-access" class="slide level2">
@@ -1052,14 +1052,14 @@ h: \left\{ \boldsymbol{Z}_{ij}, d^m \right\} \rightarrow \zeta_{ij}^{m o}
 <p><span class="math display">\[
 \text{MAI}_j = \frac{1}{\sum_{i \neq j} E_i} \sum_{i \neq j} \tau_{ij} E_i
 \]</span></p>
-</section><section id="results-fair" class="slide level2">
+</section><section id="TRI" class="slide level2">
 <h2>Results (Fair?)</h2>
 <p><img data-src="index_files/figure-revealjs/triincome-1.png" /><!-- --></p>
-</section><section id="results-fair-1" class="slide level2">
+</section><section id="MAI" class="slide level2">
 <h2>Results (Fair?)</h2>
 <p><img data-src="index_files/figure-revealjs/maigdppc-1.png" /><!-- --></p>
 </section></section>
-<section><section id="robustness-correlates" class="title-slide slide level1"><h1>Robustness (Correlates)</h1><table style="text-align:center">
+<section><section id="robustness" class="title-slide slide level1"><h1>Robustness (Correlates)</h1><table style="text-align:center">
 <tr>
 <td colspan="2" style="border-bottom: 1px solid black">
 </td>
@@ -1238,38 +1238,185 @@ R<sup>2</sup>
 <sup>*</sup>Significant at the 10 percent level.
 </td>
 </tr>
-</table></section><section id="robustness-intra-european-barriers" class="slide level2">
+</table></section><section id="euPlacebo" class="slide level2">
 <h2>Robustness (Intra-European Barriers)</h2>
 <p><img data-src="index_files/figure-revealjs/hmEUPlot-1.png" /><!-- --></p>
 </section></section>
-<section><section id="implications-economic-blocs" class="title-slide slide level1"><h1>Implications (Economic Blocs)</h1><p><img data-src="index_files/figure-revealjs/hm2-1.png" /><!-- --><img data-src="index_files/figure-revealjs/hm2-2.png" /><!-- --></p></section><section id="implications-economic-blocs-1" class="slide level2">
+<section><section id="implications" class="title-slide slide level1"><h1>Implications (Economic Blocs)</h1><p><img data-src="index_files/figure-revealjs/hm2-1.png" /><!-- --></p></section><section id="blocs" class="slide level2">
 <h2>Implications (Economic Blocs)</h2>
-<p><img data-src="index_files/figure-revealjs/hm2C-1.png" /><!-- --><img data-src="index_files/figure-revealjs/hm2C-2.png" /><!-- --></p>
+<p><img data-src="index_files/figure-revealjs/hm2C-1.png" /><!-- --></p>
 </section><section id="implications-democracy-and-trade-policy" class="slide level2">
 <h2>Implications (Democracy and Trade Policy)</h2>
+<ul>
+<li>Democracy <em>positively</em> associated with trade restrictiveness</li>
+</ul>
+<hr style="height:3em; visibility:hidden;" />
+<table style="text-align:center">
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+DV: TRI
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+gdp (std)
+</td>
+<td>
+0.081
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.083)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+polity2 (std)
+</td>
+<td>
+0.183<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.082)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>N</em>
+</td>
+<td>
+39
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.126
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Notes:</em>
+</td>
+<td style="text-align:right">
+<sup>***</sup>Significant at the 1 percent level.
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td style="text-align:right">
+<sup>**</sup>Significant at the 5 percent level.
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td style="text-align:right">
+<sup>*</sup>Significant at the 10 percent level.
+</td>
+</tr>
+</table>
 </section></section>
-<section id="conclusions" class="title-slide slide level1"><h1>Conclusions</h1><p><strong>State Capacity and Protectionism</strong></p>
+<section id="conclusion" class="title-slide slide level1"><h1>Conclusion</h1><div class="fragment">
+<p><strong>Nondiscrimination in the Trade Regime</strong></p>
+<ul>
+<li>Almost all countries in sample are WTO members, but substantial effective discrimination persists
+<ul>
+<li>Contra <span class="citation" data-cites="Bagwell1999">Bagwell and Staiger (1999)</span>, <span class="citation" data-cites="Maggi1999">Maggi (1999)</span>, <span class="citation" data-cites="Bown2004">Patty and Penn (2015)</span></li>
+</ul></li>
+<li>PTAs negatively associated with barriers
+<ul>
+<li>Importance of behind-the-border barriers, regulatory harmonization, “deep integration” <span class="citation" data-cites="Baccini2019">(Baccini 2019)</span></li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment">
+
+<hr style="height:1em; visibility:hidden;" />
+<ul>
+<li>Democracies less liberal than autocracies
+<ul>
+<li>Contra <span class="citation" data-cites="Milner2005">Milner and Kubota (2005)</span>, <span class="citation" data-cites="Eichengreen2008">Eichengreen and Leblang (2008)</span>, <span class="citation" data-cites="Gawande2009">Gawande, Krishna, and Olarreaga (2009)</span>, <span class="citation" data-cites="Gawande2015">Gawande, Krishna, and Olarreaga (2015)</span>, <span class="citation" data-cites="Barari2018">Barari, Kim, and Wong (n.d.)</span> (tariffs)</li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment">
+
+<hr style="height:1em; visibility:hidden;" />
 <ul>
 <li>Tariffs as “second-best” solution to revenue-raising problem facing low-capacity governments
 <ul>
 <li><span class="citation" data-cites="Acemoglu2005b">Acemoglu (2005)</span>, <span class="citation" data-cites="Rodrik2008">Rodrik (2008)</span>, and <span class="citation" data-cites="Queralt2015">Queralt (2015)</span></li>
 </ul></li>
-<li>Developing (more autocratic) world not necessarily more “welfare-concious” than developed counterparts
-<ul>
-<li><span class="citation" data-cites="Milner2005">Milner and Kubota (2005)</span>, <span class="citation" data-cites="Gawande2009">Gawande, Krishna, and Olarreaga (2009)</span>; <span class="citation" data-cites="Gawande2015">Gawande, Krishna, and Olarreaga (2015)</span></li>
-</ul></li>
 </ul>
-<p><strong>Development and Trade Discrimination</strong></p>
-<ul>
-<li>Growth causally linked to market access conditions abroad <span class="citation" data-cites="Romalis2007">(Romalis 2007)</span></li>
-<li>Lack of market access by developing countries may hinder development prospects
-<ul>
-<li><span class="citation" data-cites="Redding2004">Redding and Venables (2004)</span>, <span class="citation" data-cites="Romalis2007">Romalis (2007)</span>, <span class="citation" data-cites="Waugh2010">Waugh (2010)</span></li>
-</ul></li>
-</ul></section>
+</div></section>
 <section id="thank-you" class="title-slide slide level1 aligncenter"><h1>Thank You</h1><p><a href="http://brendancooley.com">brendancooley.com</a></p>
 <p><a href="bcooley@princeton.edu">bcooley@princeton.edu</a></p></section>
-<section id="table-of-contents" class="title-slide slide level1"><h1>Table of Contents</h1></section>
+<section id="table-of-contents" class="title-slide slide level1"><h1>Table of Contents</h1><div id="left">
+<p><strong>Sections</strong></p>
+<ol type="1">
+<li><a href="#/intro">Introduction</a></li>
+<li><a href="#/model">Model</a></li>
+<li><a href="#/estimation">Estimation</a></li>
+<li><a href="#/measurement">Data and Measurement</a></li>
+<li><a href="#/results">Results</a></li>
+<li><a href="#/robustness">Robustness</a></li>
+<li><a href="#/implications">Implications</a></li>
+<li><a href="#/conclusion">Conclusion</a></li>
+</ol>
+</div>
+<div id="right">
+<p><strong>Quick Links</strong></p>
+<ol type="1">
+<li><a href="#/triIncome">Tariffs, TRI, and GDP</a></li>
+<li><a href="#/tcostMap">Prices and Trade Costs</a></li>
+<li><a href="#/shares">Expenditure Shares</a></li>
+<li><a href="#/priceLevels">Price Levels</a></li>
+<li><a href="#/freightCosts">Freight Costs</a></li>
+<li><a href="#/magnitudes">Trade Barrier Magnitudes</a></li>
+<li><a href="#/TRI">TRI and GDP</a></li>
+<li><a href="#/MAI">MAI and GDP</a></li>
+<li><a href="#/euPlacebo">EU Placebo</a></li>
+<li><a href="#/blocs">Economic Blocs</a></li>
+<li><a href="#/frechet">Fréchet Distribution</a></li>
+</ol>
+</div></section>
 <section id="frechet" class="title-slide slide level1"><h1>Fréchet Distribution</h1><figure>
 <img data-src="figs/Frechet.png" style="width:75.0%" alt="" /><figcaption>Fréchet distribution. <a href="https://en.wikipedia.org/wiki/Fr%C3%A9chet_distribution#/media/File:Frechet_pdf.svg">Source</a></figcaption>
 </figure>
@@ -1285,8 +1432,17 @@ R<sup>2</sup>
 <div id="ref-Anderson2003">
 <p>Anderson, James E, and Eric Van Wincoop. 2003. “Gravity with Gravitas: A Solution to the Border Puzzle.” <em>The American Economic Review</em> 93 (1): 170–92.</p>
 </div>
+<div id="ref-Baccini2019">
+<p>Baccini, Leonardo. 2019. “The Economics and Politics of Preferential Trade Agreements.” <em>Annual Review of Political Science</em> 22.</p>
+</div>
+<div id="ref-Bagwell1999">
+<p>Bagwell, Kyle, and Robert W. Staiger. 1999. “An economic theory of GATT.” <em>American Economic Review</em> 89 (1): 215–48.</p>
+</div>
 <div id="ref-Baldwin2016">
 <p>Baldwin, Richard. 2016. “The World Trade Organization and the Future of Multilateralism.” <em>Journal of Economic Perspectives</em> 30: 95–116.</p>
+</div>
+<div id="ref-Barari2018">
+<p>Barari, Soubhik, In Song Kim, and Weihuang Wong. n.d. “Trade Liberalization and Regime Type: Evidence from a New Tariff-line Dataset.” <a href="http://web.mit.edu/insong/www/pdf/poltrade.pdf">http://web.mit.edu/insong/www/pdf/poltrade.pdf</a>.</p>
 </div>
 <div id="ref-Chaney2008">
 <p>Chaney, Thomas. 2008. “Distorted Gravity: The Intensive and Extensive Margins of International Trade.” <em>American Economic Review</em> 98 (4): 1707–21.</p>
@@ -1296,6 +1452,9 @@ R<sup>2</sup>
 </div>
 <div id="ref-Eaton2002">
 <p>Eaton, Jonathan, and Samuel Kortum. 2002. “Technology, geography, and trade.” <em>Econometrica</em> 70 (5): 1741–79.</p>
+</div>
+<div id="ref-Eichengreen2008">
+<p>Eichengreen, Barry, and David Leblang. 2008. “Democracy and Globalization.” <em>Economics &amp; Politics</em> 20 (3): 289–334.</p>
 </div>
 <div id="ref-Evenett2004">
 <p>Evenett, Simon J., and Bernard Hoekman. 2004. <em>Government Procurement: Market Access, Transparency, and Multilateral Trade Rules</em>. Policy Research Working Papers. The World Bank.</p>
@@ -1321,6 +1480,9 @@ R<sup>2</sup>
 <div id="ref-Lee1997">
 <p>Lee, Jong-Wha, and Phillip Swagel. 1997. “Trade Barriers and Trade Flows Across Countries and Industries.” <em>The Review of Economics and Statistics</em> 79 (3): 372–82.</p>
 </div>
+<div id="ref-Maggi1999">
+<p>Maggi, Giovanni. 1999. “The role of multilateral institutions in international trade cooperation.” <em>American Economic Review</em>, 190–214.</p>
+</div>
 <div id="ref-Maggi2018">
 <p>Maggi, Giovanni, Monika Mrázová, and J Peter Neary. 2018. “Choked by Red Tape? The Political Economy of Wasteful Trade Barriers.”</p>
 </div>
@@ -1333,20 +1495,17 @@ R<sup>2</sup>
 <div id="ref-Milner2005">
 <p>Milner, Helen V, and Keiko Kubota. 2005. “Why the move to free trade? Democracy and trade policy in the developing countries.” <em>International Organization</em> 59 (01): 107–43.</p>
 </div>
+<div id="ref-Bown2004">
+<p>Patty, John W, and Elizabeth Maggie Penn. 2015. “Analyzing Big Data: Social Choice and Measurement.” <em>PS: Political Science &amp; Politics</em> 48 (1): 95–101. <a href="https://doi.org/10.1017/S1049096514001814">https://doi.org/10.1017/S1049096514001814</a>.</p>
+</div>
 <div id="ref-Queralt2015">
 <p>Queralt, Didac. 2015. “From Mercantilism to Free Trade: A History of Fiscal Capacity Building.” <em>Quarterly Journal of Political Science</em> 10: 221–73.</p>
-</div>
-<div id="ref-Redding2004">
-<p>Redding, Stephen, and Anthony J Venables. 2004. “Economic geography and international inequality.” <em>Journal of International Economics</em> 62: 53–82.</p>
 </div>
 <div id="ref-Rickard2012">
 <p>Rickard, Stephanie J. 2012. “A Non-Tariff Protectionist Bias in Majoritarian Politics: Government Subsidies and Electoral Institutions.” <em>International Studies Quarterly</em> 56: 777–85.</p>
 </div>
 <div id="ref-Rodrik2008">
 <p>Rodrik, Dani. 2008. “Second-Best Institutions.” <em>American Economic Review: Papers &amp; Proceedings</em> 98 (2): 100–104.</p>
-</div>
-<div id="ref-Romalis2007">
-<p>Romalis, John. 2007. “Market Access, Openness and Growth.” Cambridge, MA: National Bureau of Economic Research.</p>
 </div>
 <div id="ref-Simonovska2014">
 <p>Simonovska, Ina, and Michael E Waugh. 2014. “The Elasticity of Trade: Estimates and Evidence.” <em>Journal of International Economics</em> 92 (1): 34–50.</p>
