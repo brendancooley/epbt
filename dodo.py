@@ -24,8 +24,11 @@ templatesPath = "~/Dropbox\ \(Princeton\)/8_Templates/"
 softwarePath = "~/Dropbox\ \(Princeton\)/14_Software/"
 github = "~/GitHub/epbt"
 website_docs = "~/Dropbox\ \(Princeton\)/5_CV/website/static/docs"
-Rscripts = "estimation/*.R"
 tpspPath = "~/Dropbox\ \(Princeton\)/1_Papers/tpsp/working/analysis/"
+
+verticatorPath = "~/Dropbox\ \(Princeton\)/8_Templates/plugin/verticator"
+pluginDest = "index_files/reveal.js-3.8.0/plugin"
+revealPath = "~/Dropbox\ \(Princeton\)/8_Templates/reveal.js-3.8.0"
 
 def task_source():
 	yield {
@@ -150,6 +153,9 @@ def task_slides():
 	"""
 	yield {
 		'name': 'draft slides',
-		'actions': ["R --slave -e \"rmarkdown::render('epbt_slides.Rmd', output_file='index.html')\""],
+		'actions': ["R --slave -e \"rmarkdown::render('epbt_slides.Rmd', output_file='index.html')\"",
+            "perl -pi -w -e 's{reveal.js-3.3.0.1}{reveal.js-3.8.0}g' index.html",
+            "cp -r " + revealPath + " index_files/",
+            "cp -a " + verticatorPath + " " + pluginDest],
 		'verbosity': 2,
 	}

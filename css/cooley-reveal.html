@@ -31,9 +31,9 @@ $highlighting-css$
 </style>
 $endif$
 
-$if(theme)$
+<!-- $if(theme)$
 <link rel="stylesheet" href="$revealjs-url$/css/theme/$theme$.css" id="theme">
-$endif$
+$endif$ -->
 
 $if(theme-dark)$
 <style type="text/css">
@@ -99,6 +99,9 @@ $for(css)$
     <link rel="stylesheet" href="$css$"/>
 $endfor$
 $endif$
+
+<!-- add verticator css-->
+<link rel="stylesheet" href="css/verticator.css">
 
 <!-- Printing and PDF exports -->
 <script id="paper-css" type="application/dynamic-css">
@@ -515,6 +518,7 @@ $for(include-before)$
 $include-before$
 $endfor$
   <div class="reveal">
+  	<ul class="verticator"></ul>
     <div class="slides">
 
 $if(title)$
@@ -764,24 +768,30 @@ $endif$
           68: function() { RevealChalkboard.download() }, // downlad recorded chalkboard drawing when 'd' is pressed
         },
 $endif$
+		
+		// verticator options
+		verticator: {
+
+		},
 
         // Optional reveal.js plugins
         dependencies: [
-$if(plugin-notes)$
-          { src: '$revealjs-url$/plugin/notes/notes.js', async: true },
-$endif$
-$if(plugin-search)$
-          { src: '$revealjs-url$/plugin/search/search.js', async: true },
-$endif$
-$if(plugin-zoom)$
-          { src: '$revealjs-url$/plugin/zoom-js/zoom.js', async: true },
-$endif$
-$if(plugin-chalkboard)$
-          { src: '$revealjs-url$/plugin/chalkboard/chalkboard.js', async: true },
-$endif$
-$if(plugin-menu)$
-          { src: '$revealjs-url$/plugin/menu/menu.js', async: true },
-$endif$
+			$if(plugin-notes)$
+			          { src: '$revealjs-url$/plugin/notes/notes.js', async: true },
+			$endif$
+			$if(plugin-search)$
+			          { src: '$revealjs-url$/plugin/search/search.js', async: true },
+			$endif$
+			$if(plugin-zoom)$
+			          { src: '$revealjs-url$/plugin/zoom-js/zoom.js', async: true },
+			$endif$
+			$if(plugin-chalkboard)$
+			          { src: '$revealjs-url$/plugin/chalkboard/chalkboard.js', async: true },
+			$endif$
+			$if(plugin-menu)$
+			          { src: '$revealjs-url$/plugin/menu/menu.js', async: true },
+			$endif$
+	        { src: 'index_files/reveal.js-3.3.0.1/plugin/verticator/verticator.js'}
         ]
       });
     </script>
@@ -825,14 +835,14 @@ $endif$
   MathJax.Hub.Config({ TeX: { extensions: ["color.js"] }});
 </script>
 
-<script>
+<!-- <script>
 	Reveal.configure({
 	  keyboard: {
 	    40: 'next', // allow up and down to move slides left and right
 	    38: 'prev'
 	  }
 	});
-</script>
+</script> -->
 
 $for(include-after)$
 $include-after$
