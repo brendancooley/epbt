@@ -215,11 +215,9 @@ tarIncome + triIncome
 # Model (Overview) {id="model"}
 
 - $\bm{d}_{N \times N} = \bm{\delta} \circ \bm{\tau}$ - trade costs (economic and political)
-- $\bm{\theta}$ - structural parameters
-- $\bm{L}_{N \times 1}$ - labor endowments
 
 $$
-\left\{ \bm{d}, \bm{L}, \bm{\theta} \right\} \rightarrow \left\{ \bm{X}_{N \times N}(\bm{w}), \bm{P}_{N \times 1}(\bm{w}) \right\}
+\left\{ \bm{d}_{N \times N} \right\} \rightarrow \left\{ \bm{X}_{N \times N}(\bm{w}), \bm{P}_{N \times 1}(\bm{w}) \right\}
 $$
 
 - $\bm{w}_{N \times 1}$ - wages
@@ -228,7 +226,7 @@ $$
 
 <div class="fragment">
 
-<hr style="height:2em; visibility:hidden;" />
+<hr style="height:4em; visibility:hidden;" />
 
 - Based on @Eaton2002 (Ricardian model, technological differences as basis for trade, competitive economy)
   + Equilibrium predictions isomorphic to models with market imperfections [e.g. @Melitz2003; @Chaney2008], see @Head2014 and @Costinot2015
