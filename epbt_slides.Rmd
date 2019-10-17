@@ -389,11 +389,11 @@ $$
 
 # Estimation {id="estimation"}
 
+<div class="fragment">
+
 - $\lambda_{ij} = \frac{X_{ij}}{E_i}$ - share of $i$'s tradable expenditure spent on goods from $j$
 
 **Gravity Equation**
-
-<div class="fragment">
 
 $$
 \lambda_{ij} = \frac{ T_j \left( \color{bcOrange} d_{ij} \color{black} w_j^{1 - \beta} P_j^{\beta} \right)^{- \theta} }{\gamma^{-1} P_i^{-\theta}}
