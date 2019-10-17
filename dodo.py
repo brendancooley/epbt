@@ -24,6 +24,7 @@ templatesPath = "~/Dropbox\ \(Princeton\)/8_Templates/"
 softwarePath = "~/Dropbox\ \(Princeton\)/14_Software/"
 github = "~/GitHub/epbt"
 website_docs = "~/Dropbox\ \(Princeton\)/5_CV/website/static/docs"
+website_docs_github = "~/Github/brendancooley.github.io/docs"
 tpspPath = "~/Dropbox\ \(Princeton\)/1_Papers/tpsp/working/analysis/"
 
 verticatorPath = "~/Dropbox\ \(Princeton\)/8_Templates/plugin/verticator"
@@ -134,7 +135,8 @@ def task_post_to_web():
 	"""
 	yield {
 		'name': "posting...",
-		'actions': ["cp -a epbt.pdf " + website_docs]
+		'actions': ["cp -a epbt.pdf " + website_docs,
+					"cp -a epbt.pdf " + website_docs_github]
 	}
 
 def task_prep_slides():
