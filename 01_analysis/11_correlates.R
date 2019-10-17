@@ -16,7 +16,10 @@ if (is.null(args) | identical(args, character(0))) {
   TPSP <- ifelse(args[2] == "True", TRUE, FALSE)
 }
 
-source("params.R")
+wd <- getwd()
+if ("01_analysis" %in% strsplit(wd, "/")[[1]]) {
+  source('params.R')
+}
 
 libs <- c('tidyverse', 'ggrepel')
 ipak(libs)
@@ -48,7 +51,7 @@ C$i_iso3 <- as.factor(C$i_iso3)
 
 model <- lm(tau ~ wtar + pta + core + health_safety + other + j_iso3 + i_iso3, data=C)
 # model <- lm(tau ~ wtar + pta + core + health_safety + other, data=C)
-summary(model)
+# summary(model)
 # coef(model)[3] %>% as.numeric() %>% round(2) * 100
 
 ### MODEL (POLITICAL-ECONOMIC DETERMINANTS) ###
@@ -61,6 +64,10 @@ if (EUD == TRUE) {
   gdpYEUD <- read_csv(paste0(cleandirEU, "gdp.csv")) %>% filter(year==Y)
   
   D <- left_join(trimaiYEUD, gdpYEUD) %>% left_join(polityYEUD)
+  
+  # standardize variables
+  D$polity2 <- scale(D$polity2)
+  D$gdp <- scale(D$gdp)
   
   modelD <- lm(tau ~ gdp + polity2, data=D)
   # summary(modelD)

@@ -15,5 +15,3 @@ colnames(polity) <- c("cowc", "polity2")
 polity$iso3 <- countrycode(polity$cowc, "cowc", "iso3c")
 polity <- polity %>% filter(iso3 %in% ccodes) %>% select(-cowc)
 write_csv(polity, paste0(cleandirEU, "polity.csv"))
-
-polity %>% print(n=100)

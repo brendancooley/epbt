@@ -128,12 +128,18 @@ body {
 }
 
 
-.reveal .centercontent ol {
+.reveal .centercontent ol,
+.reveal .centercontent ul,
+.reveal .centercontent p {
   position: fixed;
   top: 50%;
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
 }
+
+.math-center-align .mjx-chtml.MJXc-display{
+    text-align: center !important;
+ }
 
 /*only currently formatted for ordered lists...need to experiment with other types
 */

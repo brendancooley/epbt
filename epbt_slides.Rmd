@@ -6,7 +6,7 @@ position: Ph.D. Candidate
 institution: Princeton University
 email: "bcooley (at) princeton.edu"
 
-bibliography: /Users/bcooley/Dropbox (Princeton)/References/library.bib
+bibliography: /Users/brendancooley/Dropbox (Princeton)/References/library.bib
 biblio-style: apsr
 
 backgroundTitle: "figs/title/containerDark.jpg"
@@ -20,10 +20,11 @@ output:
     self_contained: false
     # reveal_plugins: ["notes"]
     lib_dir: index_files
+    fig_caption: true
     reveal_options:
       slideNumber: false
       progress: false
-      controls: true 
+      controls: true
 ---
 
 ```{r libs, echo=FALSE, warning=FALSE, message=FALSE, results='hide'}
@@ -71,33 +72,38 @@ freight <- read_csv(paste0(cleandir, "freight.csv"))
 
 ```
 
-# Vertical Test
+# Free and Fair? {id="introduction"}
 
-- some content
-
-## Free and Fair?
+<div class="fragment">
 
 > "We believe that trade must be fair and reciprocal. The United States will not be taken advantage of any longer." <br/> $\qquad$ -- Donald Trump, Feb. 2019
 
-. . .
+</div>
+<div class="fragment">
 
 > "I’m going to have a trade prosecutor...to make sure every trade deal we’re already in is absolutely followed to the letter so nobody takes advantage of us." <br/> $\qquad$ -- Hillary Clinton, Oct. 2016
 
-. . .
+</div>
+<div class="fragment">
 
 > "Internationally, we are seeing a tendency toward protectionism and navel-gazing...What we need is trade that’s both fair and free." <br/> $\qquad$ -- Shinzo Abe, Oct. 2016
 
-. . .
+</div>
+<div class="fragment">
 
 > "An open world is only worth it if the competition that takes place there is fair." <br/> $\qquad$ -- Emmanuel Macron, Sep. 2017
 
-. . .
+</div>
+<div class="fragment">
 
 - **Free:** Foreign firms enjoy same market access conditions as domestic competitors \pause
 
-. . .
+</div>
+<div class="fragment">
 
 - **Fair:** Barriers that do exist affect all trade partners symmetrically
+
+</div>
 
 ## The Tariff System (GATT/WTO)
 
@@ -149,7 +155,46 @@ tCostsF + tCostsFT
 
 - E.g. high agricultural duties by developed countries disproportionately harm developing countries
 
-## Measurement Matters
+## Approach
+
+**Trade Costs:** Policy distortions and transportation costs to access market $i$ in excess of those faced by firms in country $i$
+
+. . .
+
+**Overview**
+
+1. Build model of international economy subject to trade costs [@Eaton2002]
+
+. . .
+
+2. Derive structural relationship linking trade costs to price levels, trade flows, market shares of home producers (observables)
+    + @Anderson2003, @Waugh2010, @Simonovska2014, @Sposi2015, @Waugh2016
+
+. . .
+
+3. Decompose trade costs into economic (transportation costs) and political (policy barriers) components
+
+. . .
+
+4. Model transportation costs, combine with data on variables in (2) to separately estimate magnitude of policy barriers
+
+. . .
+
+$\tau_{ij} - 1 \geq 0$ -- ad valorem tariff equivalent of policy barriers gov $i$ imposes on gov $j$
+
+## Estimand
+
+<hr style="height:7em; visibility:hidden;" />
+
+$$
+\bm{\tau}_{N \times N} = \begin{pmatrix}
+1 & \cdots & \tau_{1n} \\
+\vdots & \ddots & \vdots \\
+\tau_{n1} & \cdots & 1
+\end{pmatrix}
+$$
+
+## Measurement Matters {id="triIncome"}
 
 ```{r triIncome1, echo=FALSE, warning=FALSE, message=FALSE, fig.height=5.5, dpi=300}
 
@@ -167,76 +212,110 @@ tarIncome + triIncome
 
 ```
 
-## Approach
+# Model (Overview) {id="model"}
 
-**Trade Costs:** Policy distortions and transportation costs to access market $i$ in excess of those faced by firms in country $i$
+- $\bm{d}_{N \times N} = \bm{\delta} \circ \bm{\tau}$ - trade costs (economic and political)
+- $\bm{\theta}$ - structural parameters
+- $\bm{L}_{N \times 1}$ - labor endowments
 
-. . .
+$$
+\left\{ \bm{d}, \bm{L}, \bm{\theta} \right\} \rightarrow \left\{ \bm{X}_{N \times N}(\bm{w}), \bm{P}_{N \times 1}(\bm{w}) \right\}
+$$
 
-**Overview**
+- $\bm{w}_{N \times 1}$ - wages
+- $\bm{X}_{N \times N}(\bm{w})$ - trade flows
+- $\bm{P}_{N \times 1}(\bm{w})$ - price levels
 
-1. Build model of international economy subject to trade costs [@Eaton2002]
+<div class="fragment">
 
-. . .
+<hr style="height:2em; visibility:hidden;" />
 
-2. Derive structural relationship linking trade costs to price levels, trade flows, market shares of home producers
-    + @Anderson2003, @Waugh2010, @Simonovska2014, @Sposi2015, @Waugh2016
+- Based on @Eaton2002 (Ricardian model, technological differences as basis for trade, competitive economy)
+  + Equilibrium predictions isomorphic to models with market imperfections [e.g. @Melitz2003; @Chaney2008], see @Head2014 and @Costinot2015
 
-. . .
+</div>
 
-3. Decompose trade costs into economic (transportation costs) and political (policy barriers) components
+## Consumption (I)
 
-. . .
+**Consumer's Problem**
 
-4. Model transportation costs, combine with data on variables in (2) to separately estimate magnitude of policy barriers
+\begin{equation*} \label{eq:consumer}
+\begin{split}
+\max & \quad U_i = Q_i^{\nu_i} S_i^{1 - \nu_i} \\
+\text{subject to} & \quad P_i Q_i + P_i^s S_i \leq w_i L_i
+\end{split}
+\end{equation*}
 
-. . .
-
-$\tau_{ij} - 1 \geq 0$ -- ad valorem tariff equivalent of policy barriers gov $i$ imposes on gov $j$
-
-## Identification
-
-```{r shares1, echo=FALSE, warning=FALSE, message=FALSE, fig.height=5.5, dpi=300}
-
-source("figs/shares.R")
-
-sharesCF + plot_spacer()
-
-```
-
-## Identification
-
-```{r shares2, echo=FALSE, warning=FALSE, message=FALSE, fig.height=5.5, dpi=300}
-
-sharesCF + sharesF
-
-```
-
-## Model Overview {id="moverview"}
-
-- $N$ countries $i \in \left\{ 1, ..., N \right\}$ with representative consumers
-    + Value C-D mixture of tradable goods and nontradable services
-    + Earn wage $w_i$ for every unit of labor endowment $L_i$ supplied \pause
-- Competitive economy, stochastic technology
-    + Production requires labor and bundle of intermediate inputs
+- $Q_i$ - aggregate of tradable goods
+- $S_i$ - homogenous services
 
 . . .
 
-**Structural Relationship**
+**Tradable Goods**
 
-\begin{equation} \label{eq:Waugh}
-d_{ij} = \left( \frac{\lambda_{ij}}{\lambda_{jj}} \right)^{-\frac{1}{\theta}} \frac{P_i}{P_j}
-\end{equation}
+- Continuum of tradable goods indexed $\omega \in \Omega = [0, 1]$
+- Set $\mathcal{K}$ of good categories
+$$
+h : \Omega \rightarrow \mathcal{K}
+$$
+- $\alpha_k$ relative preference for goods in category $k$
 
-- $d_{ij}$ - trade costs
-- $\lambda_{ij}$ - share of $j$'s producers in $i$'s market for tradables
-- $\lambda_{jj}$ - share of $j$'s producers in home market for tradables
-- $P_i$ - price level of tradables
-- $\theta$ - trade elasticity
+$$
+Q_i = \left( \int_{[0,1]} \alpha_{h(\omega)}^{\frac{1}{\sigma}} q_i(\omega)^{\frac{\sigma - 1}{\sigma}} d \omega \right)^{\frac{\sigma}{\sigma - 1}}
+$$
 
-<a href="#/model" style="float: right;">Model</a>
+## Consumption (II)
 
-## Decomposing Trade Costs
+<hr style="height:4em; visibility:hidden;" />
+
+**Tradable Price Index**
+
+$$
+P_i = \left( \int_{[0,1]} \alpha_{h(\omega)} p_i(\omega)^{1 - \sigma} d \omega \right)^{\frac{1}{1 - \sigma}}
+$$
+
+**Expenditure on Tradables**
+
+$$
+E_i^q = \nu_i I_i + D_i = P_i Q_i^\star
+$$
+
+## Model (Production) {id="production"}
+
+- Competitive international economy, every country can produce each variety $\omega$
+
+**"Fundamental" Cost**
+
+$$
+c_i = w_i^{1 - \beta} P_i^{\beta}
+$$
+
+- $w_i$ - cost of labor
+- $P_i$ - cost of composite intermediate good
+  + equivalent to composite consumption good
+
+. . .
+
+**Product-Specific Costs, Local Prices**
+
+- Technology shocks $z_i(\omega)$ shift local prices
+
+$$
+p_{ii}(\omega) = \frac{c_i}{z_i(\omega)}
+$$
+
+. . .
+
+**Technology (Fréchet)** (<a href="#/frechet">Fréchet Distribution</a>)
+
+$$
+F_i(z) = \text{Pr} \left\{ z_i(\omega) \leq z \right\} = \exp \left\{ - T_i z^{-\theta} \right\}
+$$
+
+- $T_i$ - "fundamental" productivity
+
+
+## Prices and Trade Costs {id="tcostMap"}
 
 <hr style="height:2em; visibility:hidden;" />
 
@@ -269,264 +348,258 @@ $$
 p_i^\star(\omega) = \min_{j \in \left\{ 1,...,N \right\}} \left\{ p_{ij} \right\}
 $$
 
+. . .
+
+$$
+\Omega_{ij}^\star = \left\{ \omega \in [0,1] \text{ } \bigg| \text{ } p_{ij}(\omega) \leq \min_{k \neq j} \left\{ p_{ik} \right\} \right\}
+$$
+
 </div>
 
-## Estimation {id="estimation"}
+## Equilibrium
 
-<hr style="height:2em; visibility:hidden;" />
-
-**Estimating Equation**
+**Prices**
 
 $$
-\tau_{ij} = \left( \frac{\lambda_{ij}^{\text{cif}}}{\lambda_{jj}} \right)^{-\frac{1}{\theta}} \frac{\hat{P}_i}{\hat{P}_j} \frac{1}{\delta_{ij}(\boldsymbol{Z}_{ij})}
+P_i(\bm{w}) = \left( \int_{\omega \in [0,1]} \alpha_{h(\omega)} p_i^\star(\omega)^{1 - \sigma} d \omega \right)^{\frac{1}{1 - \sigma}}
 $$
-
-<a href="#/differences" style="float: right;">Math</a>
 
 . . .
 
-**Data**
-
-- Trade shares: national accounts, COMTRADE <a href="#/shares" style="float: right;">Shares</a>
-- Prices: World Bank International Comparison Program <a href="#/prices" style="float: right;">Prices</a>
-- Freight Costs: <a href="#/freight" style="float: right;">Freight Model</a>
-    + US Census Bureau, Australian Bureau of Statistics, OECD Maritime Transport Costs
-    + Estimate out of sample
-    + Geography (distances, island, contiguity) $(\boldsymbol{Z}_{ij})$
-
-## Results (Magnitudes)
-
-```{r tCostsPlot1, echo=FALSE, warning=FALSE, message=FALSE, fig.height=5.5, dpi=300}
-
-source("figs/tcosts.R")
-
-tCostsFT + theme(aspect.ratio=1)
-
-```
-
-## Results (Magnitudes)
-
-```{r tCostsPlot2, echo=FALSE, warning=FALSE, message=FALSE, fig.height=5.5, dpi=300}
-
-tCostsFTPbase + theme(aspect.ratio=1)
-
-```
-
-## Results (Magnitudes)
-
-```{r tCostsPlot3, echo=FALSE, warning=FALSE, message=FALSE, fig.height=5.5, dpi=300}
-
-tCostsFTP + theme(aspect.ratio=1)
-
-```
-
-## Results (Economic Blocs) {id="variance"}
-
-```{r hm, echo=FALSE, warning=FALSE, message=FALSE, fig.height=5, dpi=300}
-
-EUHM <- T
-
-source("figs/hm.R")
-
-if (EUHM==T) {
-  hm + theme(axis.text.x=element_text(size=7), axis.text.y=element_text(size=7))
-} else {
-  hm
-}
-
-```
-
-<a href="#/euPlacebo" style="float: right;">EU Placebo</a>
-
-## Correlates of Policy Barriers
-
-```{r correlates, echo=FALSE, warning=FALSE, message=FALSE, results="asis"}
-
-source("figs/correlates.R")
-
-stargazer(correlatesModel, header=FALSE, type='html', style = "qje", omit=c("i_iso3", "j_iso3", "Constant"), omit.stat=c("adj.rsq", "f", "ser"), add.lines = list(c("Importer Fixed Effects", "Yes"), c("Exporter Fixed Effects", "Yes")), dep.var.labels = c("DV: Structural Policy Barrier"), covariate.labels = c("Tariffs", "PTAs", "Core NTM", "Health/Safety NTM", "Other NTM"))
-
-
-```
-
-## Conclusion
-
-**State Capacity and Protectionism**
-
-- Tariffs as "second-best" solution to revenue-raising problem facing low-capacity governments
-  + @Acemoglu2005b, @Rodrik2008, and @Queralt2015
-- Developing (more autocratic) world not necessarily more "welfare-concious" than developed counterparts
-  + @Milner2005, @Gawande2009; @Gawande2015
-
-**Development and Trade Discrimination**
-
-- Growth causally linked to market access conditions abroad [@Romalis2007]
-- Lack of market access by developing countries may hinder development prospects
-  + @Redding2004, @Romalis2007, @Waugh2010
-
-<a href="#/tri" style="float: right;">TRI, MAI</a>
-
-## Thank You {.aligncenter}
-
-[brendancooley.com](http://brendancooley.com)
-
-[bcooley@princeton.edu](bcooley@princeton.edu)
-
-## Model (Consumption) {id="model"}
-
-**Consumer's Problem**
-
-\begin{equation*} \label{eq:consumer}
-\begin{split}
-\max & \quad U_i = Q_i^{\nu_i} S_i^{1 - \nu_i} \\
-\text{subject to} & \quad P_i Q_i + P_i^s S_i \leq w_i L_i
-\end{split}
-\end{equation*}
-
-**CES Preferences over Tradable Varieties**
+**Trade Flows**
 
 $$
-Q_i = \left( \int_{[0,1]} \alpha_{h(\omega)}^{\frac{1}{\sigma}} q_i(\omega)^{\frac{\sigma - 1}{\sigma}} d \omega \right)^{\frac{\sigma}{\sigma - 1}}
+X_{ij}(\bm{w}) = \int_{\color{bcOrange} \omega \in \Omega_{ij}^\star \color{black}} p_{ij}(\omega) \tilde{q}_i \left( p_{ij} (\omega) \right) d \omega
 $$
 
-**Tradable Price Index**
+- $\tilde{q}_i \left( p_{ij} (\omega) \right)$ - consumer and producer demand for good $\omega$
 
-$$
-P_i = \left( \int_{[0,1]} \alpha_{h(\omega)} p_i(\omega)^{1 - \sigma} d \omega \right)^{\frac{1}{1 - \sigma}}
-$$
-
-**Expenditure on Tradables**
-
-$$
-E_i^q = \nu_i I_i + D_i = P_i Q_i^\star
-$$
-
-<a href="#/moverview" style="float: right;">Back</a>
-
-## Model (Production)
-
-**Costs**
-
-\begin{equation} \label{eq:c}
-c_i = w_i^{1 - \beta} P_i^{\beta}
-\end{equation}
-
-- $w_i$ - cost of labor
-- $P_i$ - cost of composite intermediate good
-  + equivalent to composite consumption good
-
-$$
-E_i^x = \beta X_i
-$$
-
-**Local Prices**
-
-$$
-p_{ii}(\omega) = \frac{c_i}{z_i(\omega)}
-$$
-
-**Technology (Frechet)**
-
-$$
-F_i(z) = \text{Pr} \left\{ z_i(\omega) \leq z \right\} = \exp \left\{ - T_i z^{-\theta} \right\}
-$$
-
-<a href="#/moverview" style="float: right;">Back</a>
-
-## Model (Equilibrium)
-
-**Total Expenditure on Tradables**
-
-$$
-X_i = \underbrace{E_i^q + E_i^x}_{E_i} - D_i
-$$
-
-**Trade Shares**
-
-$$
-\Omega_{ij}^\star = \left\{ \omega \in [0,1] \left. \right\vert p_{ij}(\omega) \leq \min_{k \neq j} \left\{ p_{ik} \right\} \right\}
-$$
-
-$$
-\lambda_{ij}(\boldsymbol{w}) = \frac{1}{E_i} \int_{\Omega_{ij}^\star} p_{ij}(\omega) q_i \left( p_{ij} (\omega) \right) d \omega
-$$
+. . .
 
 **Market Clearing**
 
-$$
-X_i = \sum_{j=1}^N \lambda_{ji}(\boldsymbol{w}) E_j
-$$
+\begin{equation}
+\underbrace{\sum_{j} X_{ji}(\bm{w})}_{\text{tradable sales}} + D_i = \underbrace{\sum_j X_{ij}(\bm{w})}_{\text{tradable expenditure}}
+\label{eq:marketClearing}
+\end{equation}
 
-<a href="#/moverview" style="float: right;">Back</a>
+. . .
 
-## Isolating Policy Barriers (I) {id="differences"}
+**Definition:** An *international equilibrium* is a vector of wages $\bm{w}$ such that ($\ref{eq:marketClearing}$) holds for each country.
 
-**Trade Shares (w/ Frechet)**
+- @Alvarez2007: existence and uniqueness
 
-\begin{align*}
-\lambda_{ij}(\boldsymbol{w}) &= \frac{ T_j \left( d_{ij} w_j^{1 - \beta} P_j^{\beta} \right)^{- \theta} }{\sum_j T_j \left( d_{ij} w_j^{1 - \beta} P_j^{\beta} \right)^{- \theta}} \\
-&= \frac{ T_j \left( \underbrace{\rho_j \delta_{ij} \tau_{ij}}_{d_{ij}} w_j^{1 - \beta} P_j^{\beta} \right)^{- \theta} }{ \frac{1}{\gamma} P_i^{-\theta}}
-\end{align*}
+# Estimation {id="estimation"}
 
-## Isolating Policy Barriers (II)
+- $\lambda_{ij} = \frac{X_{ij}}{E_i}$ - share of $i$'s tradable expenditure spent on goods from $j$
 
-**In Differences**
+**Gravity Equation**
 
-$$
-\frac{\lambda_{ij}}{\lambda_{jj}} = \left( \underbrace{\delta_{ij} \tau_{ij} \frac{P_j}{P_i}}_{\text{observables}}\right)^{- \theta}
-$$
+<div class="fragment">
 
 $$
-\tau_{ij} = \left( \frac{\lambda_{ij}}{\lambda_{jj}} \right)^{-\frac{1}{\theta}} \frac{P_i}{P_j} \underbrace{\frac{1}{\delta_{ij}}}_{\substack{\text{freight cost} \\ \text{correction}}}
+\lambda_{ij} = \frac{ T_j \left( \color{bcOrange} d_{ij} \color{black} w_j^{1 - \beta} P_j^{\beta} \right)^{- \theta} }{\gamma^{-1} P_i^{-\theta}}
 $$
 
-<a href="#/estimation" style="float: right;">Back</a>
+- $\color{bcOrange} d_{ij} \color{black} = \rho_j \delta_{ij} \tau_{ij}$
 
-## Trade Shares {id="shares"}
+</div>
+<div class="fragment">
 
-**Behind the Border Barriers**
-
-$$
-\lambda_{ij} = \tau_{ij} \lambda_{ij}^{\text{cif}}
-$$
-
-**Home Expenditure**
+**Origin Differences**
 
 $$
-\lambda_{jj}(\boldsymbol{\tau}_j) = \left( 1 - \sum_{i \neq j} \tau_{ji} \lambda_{ji}^{\text{cif}} \right)
+\frac{\lambda_{ij}}{\lambda_{jj}} = \left( \delta_{ij} \tau_{ij} \frac{P_j}{P_i} \right)^{-\theta}
 $$
 
-**Modified Estimating Equation**
+</div>
+<div class="fragment">
+
+**Inversion**
 
 $$
-\tau_{ij} = \left( \frac{\lambda_{ij}^{\text{cif}}}{\lambda_{jj}(\boldsymbol{\tau}_j)} \right)^{-\frac{1}{\theta + 1}} \left( \frac{P_i}{P_j} \right)^{\frac{\theta}{\theta+1}} \left( \frac{1}{\delta_{ij}(\boldsymbol{Z}_{ij})} \right)^{\frac{\theta}{\theta+1}}
+\tau_{ij} = \left( \frac{\lambda_{ij}}{\lambda_{jj}} \right)^{-\frac{1}{\theta}} \frac{P_i}{P_j} \frac{1}{\delta_{ij}}
 $$
 
-<a href="#/estimation" style="float: right;">Back</a>
+</div>
 
-## Prices (Model) {id="prices"}
+## Estimating Equation
 
-- Set$\mathcal{K}$ of tradable good categories indexed $k \in \left\{ 0, ..., K - 1 \right\}$
+$$
+\tau_{ij} = \left( \frac{\lambda_{ij}}{\lambda_{jj}} \right)^{-\frac{1}{\theta}} \frac{P_i}{P_j} \frac{1}{\delta_{ij}}
+$$
+
+## Estimating Equation
+
+$$
+\tau_{ij} = \left( \color{bcOrange} \frac{\lambda_{ij}}{\lambda_{jj}} \color{black} \right)^{-\frac{1}{\theta}} \frac{P_i}{P_j} \frac{1}{\delta_{ij}}
+$$
+
+- $\color{bcOrange} \frac{\lambda_{ij}}{\lambda_{jj}}$ - relative expenditure shares
+  + Data: trade flows and national accounts
+
+## Estimating Equation
+
+$$
+\tau_{ij} = \left( \frac{\lambda_{ij}}{\lambda_{jj}} \right)^{-\frac{1}{\theta}} \color{bcOrange} \frac{P_i}{P_j} \color{black} \frac{1}{\delta_{ij}}
+$$
+
+- $\frac{\lambda_{ij}}{\lambda_{jj}}$ - relative expenditure shares
+  + Data: trade flows and national accounts
+- $\color{bcOrange} \frac{P_i}{P_j}$ - relative price levels
+  + Data: International Comparison Program (World Bank), good prices and exchange rates
+  + Estimate preference weights, $\bm{\alpha}$
+
+## Estimating Equation
+
+$$
+\tau_{ij} = \left( \frac{\lambda_{ij}}{\lambda_{jj}} \right)^{-\frac{1}{\theta}} \frac{P_i}{P_j} \color{bcOrange}  \frac{1}{\delta_{ij}}
+$$
+
+- $\frac{\lambda_{ij}}{\lambda_{jj}}$ - relative expenditure shares
+  + Data: trade flows and national accounts
+- $\frac{P_i}{P_j}$ - relative price levels
+  + Data: International Comparison Program (World Bank), good prices and exchange rates
+  + Estimate preference weights, $\bm{\alpha}$
+- $\color{bcOrange} \delta_{ij}(\bm{Z}_{ij})$
+  + $\bm{Z}_{ij}$ dyadic geographic covariates
+  + Data (I): freight costs for shipments to United States, Australia, sample of maritime trade (OECD)
+  + Data (II): transportation mode shares for United States, Australia, Japan, European Union, and Brazil
+  + Estimate function $\delta_{ij}(\bm{Z}_{ij})$ to predict freight costs out of sample
+
+# Data and Measurement {id="measurement"}
+
+<div class="fragment">
+
+$$
+\hat{\tau}_{ij} = \left( \frac{\hat{\lambda}_{ij}}{\hat{\lambda}_{jj}} \right)^{-\frac{1}{\theta}} \frac{\hat{P}_i}{\hat{P}_j} \frac{1}{\delta_{ij}(\bm{Z}_{ij})}
+$$
+
+- $\frac{\hat{\lambda}_{ij}}{\hat{\lambda}_{jj}}$ - relative expenditure shares
+  + Data: trade flows and national accounts
+- $\frac{\hat{P}_i}{\hat{P}_j}$ - relative price levels
+  + Data: International Comparison Program (World Bank), good prices and exchange rates
+  + Estimate preference weights, $\bm{\alpha}$
+- $\delta_{ij}(\bm{Z}_{ij})$
+  + $\bm{Z}_{ij}$ dyadic geographic covariates
+  + Data (I): freight costs for shipments to United States, Australia, sample of maritime trade (OECD)
+  + Data (II): transportation mode shares for United States, Australia, Japan, European Union, and Brazil
+  + Estimate function $\delta_{ij}(\bm{Z}_{ij})$ to predict freight costs out of sample
+- Year: 2011
+
+</div>
+<div class="fragment">
+
+**Structural Paramters**
+
+$$
+\bm{\theta} = \left\{ \sigma, \theta, \bm{\nu} \right\}
+$$
+
+</div>
+
+## Expenditure Shares $\frac{\hat{\lambda}_{ij}}{\hat{\lambda}_{jj}}$
+
+- Free on board (f.o.b.): value of goods pre-shipment
+- Cost, insurance, and freight (c.i.f.): value of goods at port of entry
+
+$$
+\lambda_{ij} = \tau_{ij} \lambda_{ij}^{\text{cif}} = \tau_{ij} \delta_{ij} \lambda_{ij}^{\text{fob}}
+$$
+
+$$
+\lambda_{jj}(\bm{\tau}) = \left( 1 - \sum_{k \neq j} \tau_{jk} \lambda_{jk}^{\text{cif}} \right)
+$$
+
+## Expenditure Shares $\frac{\hat{\lambda}_{ij}}{\hat{\lambda}_{jj}}$
+
+- Free on board (f.o.b.): value of goods pre-shipment
+- Cost, insurance, and freight (c.i.f.): value of goods at port of entry
+
+$$
+\lambda_{ij} = \tau_{ij} \lambda_{ij}^{\text{cif}} = \tau_{ij} \delta_{ij} \lambda_{ij}^{\text{fob}}
+$$
+
+$$
+\lambda_{jj}(\bm{\tau}) = \left( 1 - \sum_{k \neq j} \tau_{jk} \lambda_{jk}^{\text{cif}} \right)
+$$
+
+$$
+\color{bcOrange} \lambda_{jk}^{\text{cif}} \color{black} = \frac{X_{jk}^{\text{cif}}}{E_j}
+$$
+
+- $X_{jk}^{\text{cif}} = \delta_{ij}(\bm{Z}_{ij}) X_{ij}^{\text{fob}}$
+- $X_{ij}^{\text{fob}}$ - COMTRADE
+- $E_j = \text{GC}_j - (1 - \nu_j) \text{GDP}_j$ - national accounts (OECD and WIOD)
+- $\nu_j$ - share of income spent on tradables (ICP)
+
+## Modified Estimating Equation
+
+<hr style="height:8em; visibility:hidden;" />
+
+$$
+\tau_{ij} = \left( \frac{\lambda_{ij}^{\text{cif}}}{ \color{bcOrange} \lambda_{jj}(\bm{\tau}_j) \color{black} } \right)^{-\frac{1}{\theta + 1}} \left( \frac{\hat{P}_i}{\hat{P}_j} \right)^{\frac{\theta}{\theta+1}} \left( \frac{1}{\delta_{ij}(\bm{Z}_{ij})} \right)^{\frac{\theta}{\theta+1}}
+$$
+
+## Preliminary Evidence of Significant Barriers {id="shares"}
+
+```{r shares1, echo=FALSE, warning=FALSE, message=FALSE, fig.height=5.5, dpi=300}
+
+source("figs/shares.R")
+
+sharesCF + plot_spacer()
+
+```
+
+## Preliminary Evidence of Significant Barriers
+
+```{r shares2, echo=FALSE, warning=FALSE, message=FALSE, fig.height=5.5, dpi=300}
+
+sharesCF + sharesF
+
+```
+
+## Price Levels $\frac{\hat{P}_i}{\hat{P}_j}$
+
+**Empirical Price Index**
+
+$$
+\hat{P}_i(\bm{w}) = \left( \int_{\omega \in [0,1]} \color{bcOrange} \hat{\alpha}_{h(\omega)} \color{black} p_i^\star(\omega)^{1 - \sigma} d \omega \right)^{\frac{1}{1 - \sigma}}
+$$
+
+**Good Categories**
 
 $$
 h : \Omega \rightarrow \mathcal{K}
 $$
 
-$$
-\Omega_k = \left\{ \omega : h(\omega) = k \right\}
-$$
+. . .
+
+**Assumption:** $p_i(\omega) = p_i(\omega^\prime) = p_{ik}$ for all $\omega, \omega^\prime \in \Omega_k$
+
+- $p_{ik}$ - price in country $i$ of good ICP basic heading $k$ (e.g. Rice)
+
+## Price Levels $\frac{\hat{P}_i}{\hat{P}_j}$
 
 **Demand**
 
 $$
-x_i(\omega) = p_i(\omega) q_i(\omega) = \alpha_{h(\omega)} p_i(\omega)^{1-\sigma} E_i^q P_i^{\sigma - 1}
+x_{ik} = \int_{\omega \in \Omega_k} \alpha_k p_{ik}^{1 - \sigma} E_i^q P_i^{\sigma - 1} d \omega
 $$
 
+. . .
+
 **Normalization**
+
+- $\alpha_{0} = 1$
 
 $$
 \frac{\lambda_{ik}}{\lambda_{i0}} = \alpha_k \left( \frac{p_{ik}}{p_{i0}} \right)^{1 - \sigma}
 $$
+
+- $\frac{\lambda_{ik}}{\lambda_{i0}}$ - basic heading expenditures (ICP)
+
+. . .
 
 **Estimation**
 
@@ -534,10 +607,7 @@ $$
 \ln \Delta \lambda_{ik} = \ln \alpha_k + (1 - \sigma) \ln \Delta p_{ik} + \ln \epsilon_{ik}
 $$
 
-
-<a href="#/estimation" style="float: right;">Back</a>
-
-## Prices (Data)
+## Price Levels (Estimates) {id="priceLevels"}
 
 ```{r prices, echo=FALSE, warning=FALSE, message=FALSE, fig.height=5, dpi=300}
 
@@ -547,34 +617,37 @@ plotP + plotTshare
 
 ```
 
-<a href="#/estimation" style="float: right;">Back</a>
-
-## Freight Costs (Model) {id="freight"}
+## Freight Costs $\delta_{ij}(\bm{Z}_{ij})$
 
 - Products $m \in \left\{ 1, ..., M \right\}$
-- Transportation modes $k \in \left\{ 1, ..., K \right\}$
-- $\zeta_{ij}^{m k}$ share of product $m$ transported by mode $k$
+- Transportation modes $o \in \left\{ 1, ..., O \right\}$
+- $\zeta_{ij}^{m o}$ share of product $m$ transported by mode $o$
+  + United States, Australia, Japan, European Union, and Brazil
+- $\delta_{ij}^{m o}$
+  + United States, Australia, sample of maritime shipments (OECD)
+
+. . .
 
 **Mode and Cost Functions**
 
 $$
-g: \left\{ \boldsymbol{Z}_{ij}, d^m \right\} \rightarrow \delta_{ij}^{m k}
+g: \left\{ \boldsymbol{Z}_{ij}, d^m \right\} \rightarrow \delta_{ij}^{m o}
 $$
 $$
-h: \left\{ \boldsymbol{Z}_{ij}, d^m \right\} \rightarrow \zeta_{ij}^{m k}
+h: \left\{ \boldsymbol{Z}_{ij}, d^m \right\} \rightarrow \zeta_{ij}^{m o}
 $$
+
+. . .
 
 **Aggregate Freight Costs**
 
 $$
-\hat{\delta}_{ij} \left( \boldsymbol{Z}_{ij}, \boldsymbol{d}_{ij} \right) = \frac{1}{X_{ij}} \sum_{m = 1}^M x_{ij}^m \sum_{k=1}^K g \left( \boldsymbol{Z}_{ij}, d^m \right) h \left( \boldsymbol{Z}_{ij}, d^m \right)
+\hat{\delta}_{ij} \left( \boldsymbol{Z}_{ij}, \boldsymbol{d}_{ij} \right) = \frac{1}{X_{ij}} \sum_{m = 1}^M x_{ij}^m \sum_{o=1}^O g \left( \boldsymbol{Z}_{ij}, d^m \right) h \left( \boldsymbol{Z}_{ij}, d^m \right)
 $$
 
-<a href="#/estimation" style="float: right;">Back</a>
+## Freight Costs (Cross Validation) {id="freightCosts"}
 
-## Freight Costs (Cross Validation)
-
-```{r freightCV, echo=FALSE, warning=FALSE, message=FALSE, fig.height=5, dpi=300}
+```{r freightCV, echo=FALSE, warning=FALSE, message=FALSE, fig.height=5, fig.cap="Out of sample (black): New Zealand and Chile", dpi=300}
 
 source("figs/freight.R")
 
@@ -582,21 +655,97 @@ freightCV + theme(aspect.ratio=1)
 
 ```
 
-<a href="#/estimation" style="float: right;">Back</a>
+## Parameter Calibration
 
-## EU Placebo {id="euPlacebo"}
+$$
+\bm{\theta} = \left\{ \sigma, \theta, \bm{\nu} \right\}
+$$
 
-```{r hmEUPlot, echo=FALSE, warning=FALSE, message=FALSE, fig.height=5, dpi=300}
+- Trade elasticity: $\sigma - 1 = \theta =$ `r theta`
+  + @Simonovska2014, @Head2014
 
-source("figs/hmEUD.R")
+. . .
 
-hmEUPlot
+- $\bm{\nu}$ - tradable expenditure share (ICP)
+
+# Results {id="results"}
+
+<hr style="height:3em; visibility:hidden;" />
+
+$$
+\bm{\tau}_{N \times N} = \begin{pmatrix}
+1 & \cdots & \tau_{1n} \\
+\vdots & \ddots & \vdots \\
+\tau_{n1} & \cdots & 1
+\end{pmatrix}
+$$
+
+<hr style="height:2em; visibility:hidden;" />
+
+$$
+\tau_{ij} = \left( \frac{\lambda_{ij}^{\text{cif}}}{ \lambda_{jj}(\bm{\tau}_j) } \right)^{-\frac{1}{\theta + 1}} \left( \frac{\hat{P}_i}{\hat{P}_j} \right)^{\frac{\theta}{\theta+1}} \left( \frac{1}{\delta_{ij}(\bm{Z}_{ij})} \right)^{\frac{\theta}{\theta+1}}
+$$
+
+## Results
+
+
+```{r hm1, echo=FALSE, warning=FALSE, message=FALSE, fig.height=4.5, dpi=300}
+
+EUHM <- FALSE
+cluster <- FALSE
+highlight <- NULL
+
+source("figs/hm.R")
+hm
 
 ```
 
-<a href="#/variance" style="float: right;">Back</a>
+## Results
 
-## Trade Restrictiveness and Market Access (I) {id="tri"}
+
+```{r hmUSA, echo=FALSE, warning=FALSE, message=FALSE, fig.height=4.5, dpi=300}
+
+EUHM <- FALSE
+cluster <- FALSE
+highlight <- "USA"
+
+source("figs/hm.R")
+hm
+
+```
+
+. . .
+
+- U.S. favored partners: Canada (`r tau %>% filter(j_iso3=="USA", i_iso3=="CAN") %>% pull(tau) %>% round(2) %>% -1 %>% "*"(100)`% ad valorem), Japan (`r tau %>% filter(j_iso3=="USA", i_iso3=="JPN") %>% pull(tau) %>% round(2) %>% -1 %>% "*"(100)`%), EU (`r tau %>% filter(j_iso3=="USA", i_iso3=="EU") %>% pull(tau) %>% round(2) %>% -1 %>% "*"(100)`%)
+- U.S. disfavored partners: Peru (`r tau %>% filter(j_iso3=="USA", i_iso3=="PER") %>% pull(tau) %>% round(2) %>% -1 %>% "*"(100)`%) and Vietnam (`r tau %>% filter(j_iso3=="USA", i_iso3=="VNM") %>% pull(tau) %>% round(2) %>% - 1 %>% "*"(100)`%)
+
+## Results (Free?)
+
+```{r tCostsPlot1, echo=FALSE, warning=FALSE, message=FALSE, fig.height=5.5, dpi=300}
+
+source("figs/tcosts.R")
+
+tCostsFT + theme(aspect.ratio=1)
+
+```
+
+## Results (Free?)
+
+```{r tCostsPlot2, echo=FALSE, warning=FALSE, message=FALSE, fig.height=5.5, dpi=300}
+
+tCostsFTPbase + theme(aspect.ratio=1)
+
+```
+
+## Results (Free?) {id="magnitudes"}
+
+```{r tCostsPlot3, echo=FALSE, warning=FALSE, message=FALSE, fig.height=5.5, dpi=300}
+
+tCostsFTP + theme(aspect.ratio=1)
+
+```
+
+## Trade Restrictiveness and Market Access 
 
 **Trade Restrictiveness Index**
 
@@ -610,30 +759,178 @@ $$
 \text{MAI}_j = \frac{1}{\sum_{i \neq j} E_i} \sum_{i \neq j} \tau_{ij} E_i
 $$
 
-<a href="#/conclusion" style="float: right;">Back</a>
+## Results (Fair?) {id="TRI"}
 
-## Trade Restrictiveness and Market Access (II)
+```{r triincome, echo=FALSE, warning=FALSE, message=FALSE, fig.height=5, dpi=300}
 
-```{r trimai, echo=FALSE, warning=FALSE, message=FALSE, fig.height=5, dpi=300}
+source("figs/triIncome.R")
 
-source("figs/trimai.R")
-
-trimaiPlot
+triIncome + theme(aspect.ratio=1)
 
 ```
 
-<a href="#/conclusion" style="float: right;">Back</a>
-
-## Market Access Barriers
+## Results (Fair?) {id="MAI"}
 
 ```{r maigdppc, echo=FALSE, warning=FALSE, message=FALSE, fig.height=5, dpi=300}
 
 source("figs/maigdppc.R")
 
-maigdppcPlot
+maigdppcPlot + theme(aspect.ratio=1)
 
 ```
 
-<a href="#/conclusion" style="float: right;">Back</a>
+# Robustness (Correlates) {id="robustness"}
+
+```{r correlates, echo=FALSE, warning=FALSE, message=FALSE, results="asis"}
+
+EUD <- FALSE
+source("01_analysis/11_correlates.R")
+
+stargazer(model, header=FALSE, type='html', style = "qje", omit=c("i_iso3", "j_iso3", "Constant"), omit.stat=c("adj.rsq", "f", "ser"), add.lines = list(c("Importer Fixed Effects", "Yes"), c("Exporter Fixed Effects", "Yes")), dep.var.labels = c("DV: Structural Policy Barrier"), covariate.labels = c("Tariffs", "PTAs", "Core NTM", "Health/Safety NTM", "Other NTM"))
+
+
+```
+
+## Robustness (Intra-European Barriers) {id="euPlacebo"}
+
+```{r hmEUPlot, echo=FALSE, warning=FALSE, message=FALSE, fig.height=5, dpi=300}
+
+source("figs/hmEUD.R")
+
+hmEUPlot
+
+```
+
+# Implications (Economic Blocs) {id="implications"}
+
+```{r hm2, echo=FALSE, warning=FALSE, message=FALSE, fig.height=5, dpi=300}
+
+# RESET DATA
+tauHMY <- read_csv(paste0(resultsdir, "tauHMY.csv"))
+tauHMYEUD <- read_csv(paste0(resultsdirEU, "tauY.csv"))
+
+EUHM <- T
+highlight <- NULL
+
+source("figs/hm.R")
+
+hm + theme(axis.text.x=element_text(size=7), axis.text.y=element_text(size=7))
+
+```
+
+## Implications (Economic Blocs) {id="blocs"}
+
+```{r hm2C, echo=FALSE, warning=FALSE, message=FALSE, fig.height=5, dpi=300}
+
+EUHM <- T
+cluster <- T
+highlight <- NULL
+
+set.seed(755)
+
+source("figs/hm.R")
+
+hm + theme(axis.text.x=element_text(size=7), axis.text.y=element_text(size=7))
+
+```
+
+## Implications (Democracy and Trade Policy)
+
+- Democracy *positively* associated with trade restrictiveness
+
+<hr style="height:3em; visibility:hidden;" />
+
+```{r polity, echo=FALSE, warning=FALSE, message=FALSE, results="asis"}
+
+EUD <- TRUE
+source("01_analysis/11_correlates.R")
+
+stargazer(modelD, header=FALSE, type='html', style = "qje", omit=c("Constant"), omit.stat=c("adj.rsq", "f", "ser"), dep.var.labels = c("DV: TRI"), covariate.labels = c("gdp (std)", "polity2 (std)"))
+
+
+```
+
+# Conclusion {id="conclusion"}
+
+<div class="fragment">
+
+**Nondiscrimination in the Trade Regime**
+
+- Almost all countries in sample are WTO members, but substantial effective discrimination persists
+  + Contra @Bagwell1999, @Maggi1999, @Bown2004
+- PTAs negatively associated with barriers
+  + Importance of behind-the-border barriers, regulatory harmonization, "deep integration" [@Baccini2019]
+
+</div>
+<div class="fragment">
+
+<hr style="height:1em; visibility:hidden;" />
+
+- Democracies less liberal than autocracies
+  + Contra @Milner2005, @Eichengreen2008, @Gawande2009, @Gawande2015, @Barari2018 (tariffs)
+
+</div>
+<div class="fragment">
+
+<hr style="height:1em; visibility:hidden;" />
+
+- Tariffs as "second-best" solution to revenue-raising problem facing low-capacity governments
+  + @Acemoglu2005b, @Rodrik2008, and @Queralt2015
+
+</div>
+
+# Thank You {.aligncenter}
+
+[brendancooley.com](http://brendancooley.com)
+
+[bcooley@princeton.edu](bcooley@princeton.edu)
+
+# Table of Contents
+
+<div id="left">
+
+**Sections**
+
+1. <a href="#/intro">Introduction</a>
+2. <a href="#/model">Model</a>
+3. <a href="#/estimation">Estimation</a>
+4. <a href="#/measurement">Data and Measurement</a>
+5. <a href="#/results">Results</a>
+6. <a href="#/robustness">Robustness</a>
+7. <a href="#/implications">Implications</a>
+8. <a href="#/conclusion">Conclusion</a>
+
+</div>
+
+<div id="right">
+
+**Quick Links**
+
+1. <a href="#/triIncome">Tariffs, TRI, and GDP</a>
+2. <a href="#/tcostMap">Prices and Trade Costs</a>
+3. <a href="#/shares">Expenditure Shares</a>
+4. <a href="#/priceLevels">Price Levels</a>
+5. <a href="#/freightCosts">Freight Costs</a>
+6. <a href="#/magnitudes">Trade Barrier Magnitudes</a>
+7. <a href="#/TRI">TRI and GDP</a>
+8. <a href="#/MAI">MAI and GDP</a>
+9. <a href="#/euPlacebo">EU Placebo</a>
+10. <a href="#/blocs">Economic Blocs</a>
+11. <a href="#/frechet">Fréchet Distribution</a>
+
+</div>
+
+
+
+
+
+
+
+
+# Fréchet Distribution {id="frechet"}
+
+![Fréchet distribution. [Source](https://en.wikipedia.org/wiki/Fr%C3%A9chet_distribution#/media/File:Frechet_pdf.svg) ](figs/Frechet.png){ width=75% }
+
+<a href="#/production" style="float: right;">Back</a>
 
 <hr style="height:30em; visibility:hidden;" />
