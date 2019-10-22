@@ -6,7 +6,7 @@ abstract: To what extent is international trade free and fair? Because policy ba
 thanks: Ph.D. candidate, Department of Politics, Princeton University. Princeton's Research Program in Political Economy provided financial support for this research. The World Bank's International Comparison Program kindly shared data. Thanks to Haosen Ge, Gene Grossman, Gleason Judd, Kathy Ingram, Aurora Ling, John Londregan, Marco Martini, Helen Milner, Sayumi Miyano, Steve Monroe, Sondre Solstad, Kris Ramsay, Steve Redding, Noam Reich, Esther Robinson, Alexandra Zeitz, and Grace Zeng for comments on earlier drafts of this paper, as well audiences at the Princeton Political Economy Graduate Colloquium, the Princeton IR Graduate Seminar, and the Midwest Political Science Association's 2019 Annual Meeting.
 # jelcodes: JEL codes go here
 
-bibliography: /Users/bcooley/Dropbox (Princeton)/References/library.bib
+bibliography: /Users/brendancooley/Dropbox (Princeton)/References/library.bib
 biblio-style: apsr
 
 papersize: letter
@@ -294,11 +294,6 @@ The results of this exercise reveal substantial unobserved policy barriers to tr
 The model and data jointly suggest that international trade remains far from free, even taking into account unavoidable freight costs. Returning to Equation \ref{eq:tau}, this result suggests that the observed international price gaps and trade flows are inconsistent with a trade barrier-less world, given predicted freight costs. The model suggests that if implied policy barriers were removed, some combination of increases in trade flows and the reduction of price gaps would occur.
 
 International trade is also far from fair. A fair international trading system might allow for trade restrictions, but require that these restrictions affect all trading partners equally. In fact, policy barriers to trade are quite discriminatory. In 2011, the mean within-country standard deviation of $\tau_{ij}$ is 1.19, representing a significant preferential margin for preferred trade partners. For example, in 2011, U.S. trade with Canada ($\tau_{ij} =$ 1.33), Japan (1.37), and the European Union (1.38) was relatively unhindered. Conversely, U.S. trade with Peru (3.46) and Vietnam (4.7) was highly restricted.
-
-
-```
-## Error in eval(ei, envir): object 'highlight' not found
-```
 
 ![Distribution of policy barriers to trade. Each cell reports the magnitude of the policy barrier each importing country (y-axis) imposes on every exporting country (x-axis). Countries are partitioned into 3 groups through K-means clustering. Black rectangles enclose each cluster. \label{fig:hm}](figure/hm-1.png)
 
@@ -653,11 +648,6 @@ Akaike Inf. Crit. & 192,981.300 & 192,981.300 & 192,981.300 \\
 
 ## Economic Blocs, Disaggregated European Union
 
-
-
-```
-## Error in ccodes == highlight: comparison (1) is possible only for atomic and list types
-```
 
 ![Distribution of policy barriers to trade with individual EU countries. Each cell reports the magnitude of the policy barrier each importing country (y-axis) imposes on every exporting country (x-axis). Countries are partitioned into 3 groups through K-means clustering. Black rectangles enclose each cluster.](figure/hmEUDC-1.png)
 
