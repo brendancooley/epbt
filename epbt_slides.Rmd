@@ -1,6 +1,6 @@
 ---
 title: "Estimating Policy Barriers to Trade"
-date: "17 October 2019"
+date: "22 November 2019"
 author: Brendan Cooley
 position: Ph.D. Candidate
 institution: Princeton University
@@ -217,12 +217,11 @@ tarIncome + triIncome
 - $\bm{d}_{N \times N} = \bm{\delta} \circ \bm{\tau}$ - trade costs (economic and political)
 
 $$
-\left\{ \bm{d}_{N \times N} \right\} \rightarrow \left\{ \bm{X}_{N \times N}(\bm{w}), \bm{P}_{N \times 1}(\bm{w}) \right\}
+\bm{d}_{N \times N} \mapsto \left( \bm{X}_{N \times N}, \bm{P}_{N \times 1} \right)
 $$
 
-- $\bm{w}_{N \times 1}$ - wages
-- $\bm{X}_{N \times N}(\bm{w})$ - trade flows
-- $\bm{P}_{N \times 1}(\bm{w})$ - price levels
+- $\bm{X}_{N \times N}$ - trade flows
+- $\bm{P}_{N \times 1}$ - price levels
 
 <div class="fragment">
 
@@ -232,6 +231,28 @@ $$
   + Equilibrium predictions isomorphic to models with market imperfections [e.g. @Melitz2003; @Chaney2008], see @Head2014 and @Costinot2015
 
 </div>
+
+## Model (Overview)
+
+- $\bm{d}_{N \times N} = \bm{\delta} \circ \bm{\tau}$ - trade costs (economic and political)
+
+$$
+\bm{d}_{N \times N} \mapsto \left( \color{bcOrange}  \bm{X}_{N \times N}, \bm{P}_{N \times 1} \color{black} \right)
+$$
+
+- $\color{bcOrange} \bm{X}_{N \times N}$ - trade flows
+- $\color{bcOrange} \bm{P}_{N \times 1}$ - price levels
+
+<hr style="height:4em; visibility:hidden;" />
+
+- Based on @Eaton2002 (Ricardian model, technological differences as basis for trade, competitive economy)
+  + Equilibrium predictions isomorphic to models with market imperfections [e.g. @Melitz2003; @Chaney2008], see @Head2014 and @Costinot2015
+
+**Observables**
+
+$$
+\left( \color{bcOrange} \bm{X}_{N \times N}, \bm{P}_{N \times 1} \color{black} \right) \mapsto \bm{d}_{N \times N} 
+$$
 
 ## Consumption (I)
 
@@ -313,7 +334,7 @@ $$
 - $T_i$ - "fundamental" productivity
 
 
-## Prices and Trade Costs {id="tcostMap"}
+# Prices and Trade Costs {id="tcostMap"}
 
 <hr style="height:2em; visibility:hidden;" />
 
@@ -327,6 +348,8 @@ $$
 
 <hr style="height:3em; visibility:hidden;" />
 
+<div class="fragment">
+
 $$
 p_{ji}(\omega) = d_{ji} p_{ii}(\omega)
 $$
@@ -335,18 +358,21 @@ $$
 d_{ij} = \rho_j \delta_{ij} \tau_{ij}
 $$
 
-. . .
+</div>
+<div class="fragment">
 
 - $\tau_{ij} = 1 \implies$ no policy distortion
 - $\tau_{jj} = \delta_{jj} = 1$
 
-. . .
+</div>
+<div class="fragment">
 
 $$
 p_i^\star(\omega) = \min_{j \in \left\{ 1,...,N \right\}} \left\{ p_{ij} \right\}
 $$
 
-. . .
+</div>
+<div class="fragment">
 
 $$
 \Omega_{ij}^\star = \left\{ \omega \in [0,1] \text{ } \bigg| \text{ } p_{ij}(\omega) \leq \min_{k \neq j} \left\{ p_{ik} \right\} \right\}
@@ -387,7 +413,7 @@ $$
 
 - @Alvarez2007: existence and uniqueness
 
-# Estimation {id="estimation"}
+# Identification (I) {id="identification"}
 
 <div class="fragment">
 
@@ -404,6 +430,7 @@ $$
 </div>
 <div class="fragment">
 
+
 **Origin Differences**
 
 $$
@@ -411,7 +438,45 @@ $$
 $$
 
 </div>
-<div class="fragment">
+
+## Identification (II) 
+
+**Origin Differences**
+
+$$
+\frac{\lambda_{ij}}{\lambda_{jj}} = \left( \delta_{ij} \tau_{ij} \frac{P_j}{P_i} \right)^{-\theta}
+$$
+
+. . . 
+
+**Rationales for Divergence ($\frac{\lambda_{ij}}{\lambda_{jj}} < 1$)**
+
+## Identification (II) 
+
+**Origin Differences**
+
+$$
+\frac{\lambda_{ij}}{\lambda_{jj}} = \left( \delta_{ij} \tau_{ij} \color{bcOrange} \frac{P_j}{P_i} \color{black} \right)^{-\theta}
+$$
+
+**Rationales for Divergence ($\frac{\lambda_{ij}}{\lambda_{jj}} < 1$)**
+
+1. Price differences, $\color{bcOrange} P_j < P_i$
+
+## Identification (II) 
+
+**Origin Differences**
+
+$$
+\frac{\lambda_{ij}}{\lambda_{jj}} = \left( \color{bcOrange} \delta_{ij} \tau_{ij} \color{black} \frac{P_j}{P_i} \right)^{-\theta}
+$$
+
+**Rationales for Divergence ($\frac{\lambda_{ij}}{\lambda_{jj}} < 1$)**
+
+1. Price differences, $P_j < P_i$
+2. Trade costs $\color{bcOrange} \delta_{ij} \tau_{ij} > 1$
+
+. . . 
 
 **Inversion**
 
@@ -419,15 +484,13 @@ $$
 \tau_{ij} = \left( \frac{\lambda_{ij}}{\lambda_{jj}} \right)^{-\frac{1}{\theta}} \frac{P_i}{P_j} \frac{1}{\delta_{ij}}
 $$
 
-</div>
-
-## Estimating Equation
+# Data and Measurement {id="measurement"}
 
 $$
 \tau_{ij} = \left( \frac{\lambda_{ij}}{\lambda_{jj}} \right)^{-\frac{1}{\theta}} \frac{P_i}{P_j} \frac{1}{\delta_{ij}}
 $$
 
-## Estimating Equation
+## Data and Measurement
 
 $$
 \tau_{ij} = \left( \color{bcOrange} \frac{\lambda_{ij}}{\lambda_{jj}} \color{black} \right)^{-\frac{1}{\theta}} \frac{P_i}{P_j} \frac{1}{\delta_{ij}}
@@ -436,7 +499,7 @@ $$
 - $\color{bcOrange} \frac{\lambda_{ij}}{\lambda_{jj}}$ - relative expenditure shares
   + Data: trade flows and national accounts
 
-## Estimating Equation
+## Data and Measurement
 
 $$
 \tau_{ij} = \left( \frac{\lambda_{ij}}{\lambda_{jj}} \right)^{-\frac{1}{\theta}} \color{bcOrange} \frac{P_i}{P_j} \color{black} \frac{1}{\delta_{ij}}
@@ -448,7 +511,7 @@ $$
   + Data: International Comparison Program (World Bank), good prices and exchange rates
   + Estimate preference weights, $\bm{\alpha}$
 
-## Estimating Equation
+## Data and Measurement
 
 $$
 \tau_{ij} = \left( \frac{\lambda_{ij}}{\lambda_{jj}} \right)^{-\frac{1}{\theta}} \frac{P_i}{P_j} \color{bcOrange}  \frac{1}{\delta_{ij}}
@@ -465,17 +528,15 @@ $$
   + Data (II): transportation mode shares for United States, Australia, Japan, European Union, and Brazil
   + Estimate function $\delta_{ij}(\bm{Z}_{ij})$ to predict freight costs out of sample
 
-# Data and Measurement {id="measurement"}
-
-<div class="fragment">
+## Data and Measurement
 
 $$
-\hat{\tau}_{ij} = \left( \frac{\hat{\lambda}_{ij}}{\hat{\lambda}_{jj}} \right)^{-\frac{1}{\theta}} \frac{\hat{P}_i}{\hat{P}_j} \frac{1}{\delta_{ij}(\bm{Z}_{ij})}
+\tau_{ij} = \left( \frac{\lambda_{ij}}{\lambda_{jj}} \right)^{-\frac{1}{\theta}} \frac{P_i}{P_j} \frac{1}{\delta_{ij}(\bm{Z}_{ij})}
 $$
 
-- $\frac{\hat{\lambda}_{ij}}{\hat{\lambda}_{jj}}$ - relative expenditure shares
+- $\frac{\lambda_{ij}}{\lambda_{jj}}$ - relative expenditure shares
   + Data: trade flows and national accounts
-- $\frac{\hat{P}_i}{\hat{P}_j}$ - relative price levels
+- $\frac{P_i}{P_j}$ - relative price levels
   + Data: International Comparison Program (World Bank), good prices and exchange rates
   + Estimate preference weights, $\bm{\alpha}$
 - $\delta_{ij}(\bm{Z}_{ij})$
@@ -485,16 +546,13 @@ $$
   + Estimate function $\delta_{ij}(\bm{Z}_{ij})$ to predict freight costs out of sample
 - Year: 2011
 
-</div>
-<div class="fragment">
+. . . 
 
 **Structural Paramters**
 
 $$
 \bm{\theta} = \left\{ \sigma, \theta, \bm{\nu} \right\}
 $$
-
-</div>
 
 ## Expenditure Shares $\frac{\hat{\lambda}_{ij}}{\hat{\lambda}_{jj}}$
 
@@ -889,7 +947,7 @@ stargazer(modelD, header=FALSE, type='html', style = "qje", omit=c("Constant"), 
 
 1. <a href="#/intro">Introduction</a>
 2. <a href="#/model">Model</a>
-3. <a href="#/estimation">Estimation</a>
+3. <a href="#/identification">Identification</a>
 4. <a href="#/measurement">Data and Measurement</a>
 5. <a href="#/results">Results</a>
 6. <a href="#/robustness">Robustness</a>

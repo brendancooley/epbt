@@ -455,6 +455,7 @@ document.getElementsByTagName('head')[0].appendChild(style);
 \[
 \require{color}
 \definecolor{bcOrange}{RGB}{189,97,33}
+\definecolor{bcYellow}{RGB}{189,142,40}
 \newcommand\iddots{\mathinner{
   \kern1mu\raise1pt{.}
   \kern2mu\raise4pt{.}
@@ -614,12 +615,11 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <li><span class="math inline">\(\bm{d}_{N \times N} = \bm{\delta} \circ \bm{\tau}\)</span> - trade costs (economic and political)</li>
 </ul>
 <p><span class="math display">\[
-\left\{ \bm{d}_{N \times N} \right\} \rightarrow \left\{ \bm{X}_{N \times N}(\bm{w}), \bm{P}_{N \times 1}(\bm{w}) \right\}
+\bm{d}_{N \times N} \mapsto \left( \bm{X}_{N \times N}, \bm{P}_{N \times 1} \right)
 \]</span></p>
 <ul>
-<li><span class="math inline">\(\bm{w}_{N \times 1}\)</span> - wages</li>
-<li><span class="math inline">\(\bm{X}_{N \times N}(\bm{w})\)</span> - trade flows</li>
-<li><span class="math inline">\(\bm{P}_{N \times 1}(\bm{w})\)</span> - price levels</li>
+<li><span class="math inline">\(\bm{X}_{N \times N}\)</span> - trade flows</li>
+<li><span class="math inline">\(\bm{P}_{N \times 1}\)</span> - price levels</li>
 </ul>
 <div class="fragment">
 
@@ -630,7 +630,30 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <li>Equilibrium predictions isomorphic to models with market imperfections <span class="citation" data-cites="Melitz2003 Chaney2008">(e.g. Melitz 2003; Chaney 2008)</span>, see <span class="citation" data-cites="Head2014">Head and Mayer (2014)</span> and <span class="citation" data-cites="Costinot2015">Costinot and Rodríguez-Clare (2015)</span></li>
 </ul></li>
 </ul>
-</div></section><section id="consumption-i" class="slide level2">
+</div></section><section id="model-overview" class="slide level2">
+<h2>Model (Overview)</h2>
+<ul>
+<li><span class="math inline">\(\bm{d}_{N \times N} = \bm{\delta} \circ \bm{\tau}\)</span> - trade costs (economic and political)</li>
+</ul>
+<p><span class="math display">\[
+\bm{d}_{N \times N} \mapsto \left( \color{bcOrange}  \bm{X}_{N \times N}, \bm{P}_{N \times 1} \color{black} \right)
+\]</span></p>
+<ul>
+<li><span class="math inline">\(\color{bcOrange} \bm{X}_{N \times N}\)</span> - trade flows</li>
+<li><span class="math inline">\(\color{bcOrange} \bm{P}_{N \times 1}\)</span> - price levels</li>
+</ul>
+<hr style="height:4em; visibility:hidden;" />
+<ul>
+<li>Based on <span class="citation" data-cites="Eaton2002">Eaton and Kortum (2002)</span> (Ricardian model, technological differences as basis for trade, competitive economy)
+<ul>
+<li>Equilibrium predictions isomorphic to models with market imperfections <span class="citation" data-cites="Melitz2003 Chaney2008">(e.g. Melitz 2003; Chaney 2008)</span>, see <span class="citation" data-cites="Head2014">Head and Mayer (2014)</span> and <span class="citation" data-cites="Costinot2015">Costinot and Rodríguez-Clare (2015)</span></li>
+</ul></li>
+</ul>
+<p><strong>Observables</strong></p>
+<p><span class="math display">\[
+\left( \color{bcOrange} \bm{X}_{N \times N}, \bm{P}_{N \times 1} \color{black} \right) \mapsto \bm{d}_{N \times N} 
+\]</span></p>
+</section><section id="consumption-i" class="slide level2">
 <h2>Consumption (I)</h2>
 <p><strong>Consumer’s Problem</strong></p>
 <p><span class="math display">\[\begin{equation*} \label{eq:consumer}
@@ -701,21 +724,22 @@ F_i(z) = \text{Pr} \left\{ z_i(\omega) \leq z \right\} = \exp \left\{ - T_i z^{-
 <li><span class="math inline">\(T_i\)</span> - “fundamental” productivity</li>
 </ul>
 </div>
-</section><section id="tcostMap" class="slide level2">
-<h2>Prices and Trade Costs</h2>
-<hr style="height:2em; visibility:hidden;" />
+</section></section>
+<section><section id="tcostMap" class="title-slide slide level1"><h1>Prices and Trade Costs</h1><hr style="height:2em; visibility:hidden;" />
 <div id="left">
 <p><img data-src="figs/tcosts.png" /></p>
 </div>
 <div id="right">
 
 <hr style="height:3em; visibility:hidden;" />
+<div class="fragment">
 <p><span class="math display">\[
 p_{ji}(\omega) = d_{ji} p_{ii}(\omega)
 \]</span></p>
 <p><span class="math display">\[
 d_{ij} = \rho_j \delta_{ij} \tau_{ij}
 \]</span></p>
+</div>
 <div class="fragment">
 <ul>
 <li><span class="math inline">\(\tau_{ij} = 1 \implies\)</span> no policy distortion</li>
@@ -731,9 +755,7 @@ p_i^\star(\omega) = \min_{j \in \left\{ 1,...,N \right\}} \left\{ p_{ij} \right\
 <p><span class="math display">\[
 \Omega_{ij}^\star = \left\{ \omega \in [0,1] \text{ } \bigg| \text{ } p_{ij}(\omega) \leq \min_{k \neq j} \left\{ p_{ik} \right\} \right\}
 \]</span></p>
-</div>
-</div>
-</section><section id="equilibrium" class="slide level2">
+</div></section><section id="equilibrium" class="slide level2">
 <h2>Equilibrium</h2>
 <p><strong>Prices</strong></p>
 <p><span class="math display">\[
@@ -762,7 +784,7 @@ X_{ij}(\bm{w}) = \int_{\color{bcOrange} \omega \in \Omega_{ij}^\star \color{blac
 </ul>
 </div>
 </section></section>
-<section><section id="estimation" class="title-slide slide level1"><h1>Estimation</h1><div class="fragment">
+<section><section id="identification" class="title-slide slide level1"><h1>Identification (I)</h1><div class="fragment">
 <ul>
 <li><span class="math inline">\(\lambda_{ij} = \frac{X_{ij}}{E_i}\)</span> - share of <span class="math inline">\(i\)</span>’s tradable expenditure spent on goods from <span class="math inline">\(j\)</span></li>
 </ul>
@@ -779,19 +801,47 @@ X_{ij}(\bm{w}) = \int_{\color{bcOrange} \omega \in \Omega_{ij}^\star \color{blac
 <p><span class="math display">\[
 \frac{\lambda_{ij}}{\lambda_{jj}} = \left( \delta_{ij} \tau_{ij} \frac{P_j}{P_i} \right)^{-\theta}
 \]</span></p>
+</div></section><section id="identification-ii" class="slide level2">
+<h2>Identification (II)</h2>
+<p><strong>Origin Differences</strong></p>
+<p><span class="math display">\[
+\frac{\lambda_{ij}}{\lambda_{jj}} = \left( \delta_{ij} \tau_{ij} \frac{P_j}{P_i} \right)^{-\theta}
+\]</span></p>
+<div class="fragment">
+<p><strong>Rationales for Divergence (<span class="math inline">\(\frac{\lambda_{ij}}{\lambda_{jj}} &lt; 1\)</span>)</strong></p>
 </div>
+</section><section id="identification-ii-1" class="slide level2">
+<h2>Identification (II)</h2>
+<p><strong>Origin Differences</strong></p>
+<p><span class="math display">\[
+\frac{\lambda_{ij}}{\lambda_{jj}} = \left( \delta_{ij} \tau_{ij} \color{bcOrange} \frac{P_j}{P_i} \color{black} \right)^{-\theta}
+\]</span></p>
+<p><strong>Rationales for Divergence (<span class="math inline">\(\frac{\lambda_{ij}}{\lambda_{jj}} &lt; 1\)</span>)</strong></p>
+<ol type="1">
+<li>Price differences, <span class="math inline">\(\color{bcOrange} P_j &lt; P_i\)</span></li>
+</ol>
+</section><section id="identification-ii-2" class="slide level2">
+<h2>Identification (II)</h2>
+<p><strong>Origin Differences</strong></p>
+<p><span class="math display">\[
+\frac{\lambda_{ij}}{\lambda_{jj}} = \left( \color{bcOrange} \delta_{ij} \tau_{ij} \color{black} \frac{P_j}{P_i} \right)^{-\theta}
+\]</span></p>
+<p><strong>Rationales for Divergence (<span class="math inline">\(\frac{\lambda_{ij}}{\lambda_{jj}} &lt; 1\)</span>)</strong></p>
+<ol type="1">
+<li>Price differences, <span class="math inline">\(P_j &gt; P_i\)</span></li>
+<li>Trade costs <span class="math inline">\(\color{bcOrange} \delta_{ij} \tau_{ij} &gt; 1\)</span></li>
+</ol>
 <div class="fragment">
 <p><strong>Inversion</strong></p>
 <p><span class="math display">\[
 \tau_{ij} = \left( \frac{\lambda_{ij}}{\lambda_{jj}} \right)^{-\frac{1}{\theta}} \frac{P_i}{P_j} \frac{1}{\delta_{ij}}
 \]</span></p>
-</div></section><section id="estimating-equation" class="slide level2">
-<h2>Estimating Equation</h2>
-<p><span class="math display">\[
+</div>
+</section></section>
+<section><section id="measurement" class="title-slide slide level1"><h1>Data and Measurement</h1><p><span class="math display">\[
 \tau_{ij} = \left( \frac{\lambda_{ij}}{\lambda_{jj}} \right)^{-\frac{1}{\theta}} \frac{P_i}{P_j} \frac{1}{\delta_{ij}}
-\]</span></p>
-</section><section id="estimating-equation-1" class="slide level2">
-<h2>Estimating Equation</h2>
+\]</span></p></section><section id="data-and-measurement" class="slide level2">
+<h2>Data and Measurement</h2>
 <p><span class="math display">\[
 \tau_{ij} = \left( \color{bcOrange} \frac{\lambda_{ij}}{\lambda_{jj}} \color{black} \right)^{-\frac{1}{\theta}} \frac{P_i}{P_j} \frac{1}{\delta_{ij}}
 \]</span></p>
@@ -801,8 +851,8 @@ X_{ij}(\bm{w}) = \int_{\color{bcOrange} \omega \in \Omega_{ij}^\star \color{blac
 <li>Data: trade flows and national accounts</li>
 </ul></li>
 </ul>
-</section><section id="estimating-equation-2" class="slide level2">
-<h2>Estimating Equation</h2>
+</section><section id="data-and-measurement-1" class="slide level2">
+<h2>Data and Measurement</h2>
 <p><span class="math display">\[
 \tau_{ij} = \left( \frac{\lambda_{ij}}{\lambda_{jj}} \right)^{-\frac{1}{\theta}} \color{bcOrange} \frac{P_i}{P_j} \color{black} \frac{1}{\delta_{ij}}
 \]</span></p>
@@ -817,8 +867,8 @@ X_{ij}(\bm{w}) = \int_{\color{bcOrange} \omega \in \Omega_{ij}^\star \color{blac
 <li>Estimate preference weights, <span class="math inline">\(\bm{\alpha}\)</span></li>
 </ul></li>
 </ul>
-</section><section id="estimating-equation-3" class="slide level2">
-<h2>Estimating Equation</h2>
+</section><section id="data-and-measurement-2" class="slide level2">
+<h2>Data and Measurement</h2>
 <p><span class="math display">\[
 \tau_{ij} = \left( \frac{\lambda_{ij}}{\lambda_{jj}} \right)^{-\frac{1}{\theta}} \frac{P_i}{P_j} \color{bcOrange}  \frac{1}{\delta_{ij}}
 \]</span></p>
@@ -840,17 +890,17 @@ X_{ij}(\bm{w}) = \int_{\color{bcOrange} \omega \in \Omega_{ij}^\star \color{blac
 <li>Estimate function <span class="math inline">\(\delta_{ij}(\bm{Z}_{ij})\)</span> to predict freight costs out of sample</li>
 </ul></li>
 </ul>
-</section></section>
-<section><section id="measurement" class="title-slide slide level1"><h1>Data and Measurement</h1><div class="fragment">
+</section><section id="data-and-measurement-3" class="slide level2">
+<h2>Data and Measurement</h2>
 <p><span class="math display">\[
-\hat{\tau}_{ij} = \left( \frac{\hat{\lambda}_{ij}}{\hat{\lambda}_{jj}} \right)^{-\frac{1}{\theta}} \frac{\hat{P}_i}{\hat{P}_j} \frac{1}{\delta_{ij}(\bm{Z}_{ij})}
+\tau_{ij} = \left( \frac{\lambda_{ij}}{\lambda_{jj}} \right)^{-\frac{1}{\theta}} \frac{P_i}{P_j} \frac{1}{\delta_{ij}(\bm{Z}_{ij})}
 \]</span></p>
 <ul>
-<li><span class="math inline">\(\frac{\hat{\lambda}_{ij}}{\hat{\lambda}_{jj}}\)</span> - relative expenditure shares
+<li><span class="math inline">\(\frac{\lambda_{ij}}{\lambda_{jj}}\)</span> - relative expenditure shares
 <ul>
 <li>Data: trade flows and national accounts</li>
 </ul></li>
-<li><span class="math inline">\(\frac{\hat{P}_i}{\hat{P}_j}\)</span> - relative price levels
+<li><span class="math inline">\(\frac{P_i}{P_j}\)</span> - relative price levels
 <ul>
 <li>Data: International Comparison Program (World Bank), good prices and exchange rates</li>
 <li>Estimate preference weights, <span class="math inline">\(\bm{\alpha}\)</span></li>
@@ -864,13 +914,13 @@ X_{ij}(\bm{w}) = \int_{\color{bcOrange} \omega \in \Omega_{ij}^\star \color{blac
 </ul></li>
 <li>Year: 2011</li>
 </ul>
-</div>
 <div class="fragment">
 <p><strong>Structural Paramters</strong></p>
 <p><span class="math display">\[
 \bm{\theta} = \left\{ \sigma, \theta, \bm{\nu} \right\}
 \]</span></p>
-</div></section><section id="expenditure-shares-frachatlambda_ijhatlambda_jj" class="slide level2">
+</div>
+</section><section id="expenditure-shares-frachatlambda_ijhatlambda_jj" class="slide level2">
 <h2>Expenditure Shares <span class="math inline">\(\frac{\hat{\lambda}_{ij}}{\hat{\lambda}_{jj}}\)</span></h2>
 <ul>
 <li>Free on board (f.o.b.): value of goods pre-shipment</li>
@@ -1388,7 +1438,7 @@ R<sup>2</sup>
 <ol type="1">
 <li><a href="#/intro">Introduction</a></li>
 <li><a href="#/model">Model</a></li>
-<li><a href="#/estimation">Estimation</a></li>
+<li><a href="#/identification">Identification</a></li>
 <li><a href="#/measurement">Data and Measurement</a></li>
 <li><a href="#/results">Results</a></li>
 <li><a href="#/robustness">Robustness</a></li>
