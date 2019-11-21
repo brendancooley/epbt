@@ -225,7 +225,7 @@ $$
 
 <div class="fragment">
 
-<hr style="height:4em; visibility:hidden;" />
+<hr style="height:2em; visibility:hidden;" />
 
 - Based on @Eaton2002 (Ricardian model, technological differences as basis for trade, competitive economy)
   + Equilibrium predictions isomorphic to models with market imperfections [e.g. @Melitz2003; @Chaney2008], see @Head2014 and @Costinot2015
@@ -531,7 +531,7 @@ $$
 ## Data and Measurement
 
 $$
-\tau_{ij} = \left( \frac{\lambda_{ij}}{\lambda_{jj}} \right)^{-\frac{1}{\theta}} \frac{P_i}{P_j} \frac{1}{\delta_{ij}(\bm{Z}_{ij})}
+\tau_{ij} = \left( \frac{\lambda_{ij}}{\lambda_{jj}} \right)^{-\frac{1}{\theta}} \frac{P_i}{P_j} \frac{1}{\delta_{ij}}
 $$
 
 - $\frac{\lambda_{ij}}{\lambda_{jj}}$ - relative expenditure shares
