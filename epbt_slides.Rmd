@@ -6,7 +6,7 @@ position: Ph.D. Candidate
 institution: Princeton University
 email: "bcooley (at) princeton.edu"
 
-bibliography: /Users/bcooley/Dropbox (Princeton)/References/library.bib
+bibliography: /Users/brendancooley/Dropbox (Princeton)/References/library.bib
 biblio-style: apsr
 
 backgroundTitle: "figs/title/containerDark.jpg"
@@ -243,7 +243,7 @@ $$
 - $\color{bcOrange} \bm{X}_{N \times N}$ - trade flows
 - $\color{bcOrange} \bm{P}_{N \times 1}$ - price levels
 
-<hr style="height:4em; visibility:hidden;" />
+<hr style="height:2em; visibility:hidden;" />
 
 - Based on @Eaton2002 (Ricardian model, technological differences as basis for trade, competitive economy)
   + Equilibrium predictions isomorphic to models with market imperfections [e.g. @Melitz2003; @Chaney2008], see @Head2014 and @Costinot2015
