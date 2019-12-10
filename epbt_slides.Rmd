@@ -924,10 +924,6 @@ stargazer(modelD, header=FALSE, type='html', style = "qje", omit=c("Constant"), 
 
 - Democracies less liberal than autocracies
   + Contra @Milner2005, @Eichengreen2008, @Gawande2009, @Gawande2015, @Barari2018 (tariffs)
-
-</div>
-<div class="fragment">
-
 - Tariffs as "second-best" solution to revenue-raising problem facing low-capacity governments
   + @Acemoglu2005b, @Rodrik2008, and @Queralt2015
 
