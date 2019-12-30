@@ -25,7 +25,7 @@ softwarePath = "~/Dropbox\ \(Princeton\)/14_Software/"
 github = "~/GitHub/epbt"
 website_docs = "~/Dropbox\ \(Princeton\)/5_CV/website/static/docs"
 website_docs_github = "~/Github/brendancooley.github.io/docs"
-tpspPath = "~/Dropbox\ \(Princeton\)/1_Papers/tpsp/working/analysis/"
+tpspPath = "~/Dropbox\ \(Princeton\)/1_Papers/01_data/"
 
 verticatorPath = "~/Dropbox\ \(Princeton\)/8_Templates/plugin/verticator"
 pluginDest = "index_files/reveal.js-3.8.0/plugin"
