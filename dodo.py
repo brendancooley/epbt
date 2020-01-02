@@ -97,22 +97,35 @@ def task_results():
 	}
 
 def task_tpsp():
-	"""Export modular economies for companion paper, "Trade Policy in the Shadow of Power"
+	"""Export modular economies for companion paper, "Trade Policy in the Shadow of Power." Takes command line argument --mini and exports smaller subset of countries to
+	separate folder if True (see lists in params.R).
+	
+	To execute run  doit tpsp:tpsp --mini False --path tpsp_data/
+	or  doit tpsp:tpsp --mini TRUE --path tpsp_data_mini/
+
 
 	"""
 
 	# TODO: run tpsp.R and export stuff
 
 	yield {
-		'name': 'export tpsp economy',
-		'actions': ['cd ' + estdir + '; Rscript ' + accounts + ' False True',
-					'cd ' + estdir + '; Rscript ' + flowshs2 + ' False True',
-					'cd ' + estdir + '; Rscript ' + prices + ' False True',
-					'cd ' + estdir + '; Rscript ' + freight + ' False True',
-					'cd ' + estdir + '; Rscript ' + tau + ' False True',
+		'name': 'tpsp',
+		'params':[{'name':'mini',
+		      'long':'mini',
+		      'type':str,
+		      'default':'False'},
+		      {'name':'path',
+		      'long':'path',
+		      'type':str,
+		      'default':'tpsp_data/'}],
+		'actions': ['cd ' + estdir + '; Rscript ' + accounts + ' False True %(mini)s',
+					'cd ' + estdir + '; Rscript ' + flowshs2 + ' False True %(mini)s',
+					'cd ' + estdir + '; Rscript ' + prices + ' False True %(mini)s',
+					'cd ' + estdir + '; Rscript ' + freight + ' False True %(mini)s',
+					'cd ' + estdir + '; Rscript ' + tau + ' False True %(mini)s',
 					'cd ' + estdir + '; Rscript tpsp.R',
-					"mkdir -p " + tpspPath + "tpsp_data/",
-					"cp -a " + estdir + "tpsp_data/ " + tpspPath + "tpsp_data/"],
+					"mkdir -p " + tpspPath + "%(path)s",
+					"cp -a " + estdir + "%(path)s " + tpspPath + "%(path)s"],
 		'verbosity': 2,
 	}
 

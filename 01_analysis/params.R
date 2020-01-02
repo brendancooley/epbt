@@ -1,13 +1,15 @@
-
 if (!exists("TPSP")) {
   TPSP <- FALSE
+}
+if (!exists("mini")) {
+  mini <- FALSE
 }
 
 library(tidyverse)
 
 ### DIRECTORIES ###
 
-analysisDir <- "01_analysis/"
+analysisDir <- "01_analysis"
 
 basedir <- "~/Dropbox (Princeton)/1_Papers/epbt/01_data/"
 
@@ -16,9 +18,16 @@ cleandir <- paste0(basedir, "02_clean/")
 resultsdir <- paste0(basedir, "03_results/")
 otherdir <- paste0(basedir, "04_other/")
 
-cleandirTPSP <- paste0(basedir, "tpsp_clean/")
-resultsdirTPSP <- paste0(basedir, "tpsp_results/")
-expdirTPSP <- paste0(basedir, "tpsp_data/")
+if (mini==TRUE) {
+  cleandirTPSP <- paste0(basedir, "tpsp_clean_mini/")
+  resultsdirTPSP <- paste0(basedir, "tpsp_results_mini/")
+  expdirTPSP <- paste0(basedir, "tpsp_data_mini/")
+} else {
+  cleandirTPSP <- paste0(basedir, "tpsp_clean/")
+  resultsdirTPSP <- paste0(basedir, "tpsp_results/")
+  expdirTPSP <- paste0(basedir, "tpsp_data/")
+}
+
 
 cleandirEU <- paste0(cleandir, "EUD/")
 resultsdirEU <- paste0(resultsdir, "EUD/")
@@ -110,10 +119,12 @@ tauRev <- FALSE
 mu <- 1  # share of potential revenues captured by government
 
 # mini economy for tpsp
-# tpspC <- TRUE
-# ccodesTPSP <- c("CHN", "EU", "JPN", "BRA", "USA")  # subset
-dropTPSP <- c("VNM", "IND", "ISR", "NZL", "PER", "CHL", "ZAF", "PHL", "COL", "THA")
-ccodesTPSP <- setdiff(ccodesAll, dropTPSP)
+if (mini==TRUE) {
+  ccodesTPSP <- c("CHN", "EU", "JPN", "BRA", "USA")  # subset for mini economy
+} else {
+  dropTPSP <- c("VNM", "IND", "ISR", "NZL", "PER", "CHL", "ZAF", "PHL", "COL", "THA")
+  ccodesTPSP <- setdiff(ccodesAll, dropTPSP)
+}
 
 # island indicator
 island <- c("AUS", "CYP", "GBR", "IRL", "JPN", "IDN", "PHL")

@@ -199,11 +199,12 @@ write_csv(theta %>% as.data.frame(), paste0(expdirTPSP, "theta.csv"), col_names=
 ### minimum distances ###
 ccodes <- ccodes %>% pull(.)
 
-dmat <- distmatrix(as.Date(paste0(Y, "-1-1")), type="mindist")
+# dmat <- distmatrix(as.Date(paste0(Y, "-1-1")), type="mindist")
+dmat <- distmatrix(as.Date(paste0(Y, "-1-1")), type="centdist")
 ddf <- dmat %>% melt() %>% as_tibble()
 
 # recode
-colnames(ddf) <- c("cow1", "cow2", "minDist")
+colnames(ddf) <- c("cow1", "cow2", "centDist")
 ddf$iso1 <- countrycode(ddf$cow1, "cown", "iso3c")
 ddf$iso2 <- countrycode(ddf$cow2, "cown", "iso3c")
 
@@ -213,11 +214,11 @@ ddf$iso2 <- mapEU(ddf$iso2, Y)
 ddf$iso1 <- ifelse(ddf$iso1 %in% ccodes, ddf$iso1, "ROW")
 ddf$iso2 <- ifelse(ddf$iso2 %in% ccodes, ddf$iso2, "ROW")
 
-ddf <- ddf %>% select(iso1, iso2, minDist)
-ddfOut <- ddf %>% dplyr::group_by(iso1, iso2) %>% dplyr::summarise(minDist=min(minDist)) %>% ungroup()
+ddf <- ddf %>% select(iso1, iso2, centDist)
+ddfOut <- ddf %>% dplyr::group_by(iso1, iso2) %>% dplyr::summarise(minDist=mean(centDist, na.rm=TRUE)) %>% ungroup()
 
 dmatOut <- ddfOut %>% spread(iso2, minDist) %>% select(-iso1) %>% as.matrix()
-write_csv(dmatOut %>% as.data.frame(), paste0(expdirTPSP, "mDists.csv"), col_names=FALSE)
+write_csv(dmatOut %>% as.data.frame(), paste0(expdirTPSP, "cDists.csv"), col_names=FALSE)
 
 ### military spending ###
 library(WDI)
