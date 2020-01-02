@@ -28,7 +28,6 @@ if (mini==TRUE) {
   expdirTPSP <- paste0(basedir, "tpsp_data/")
 }
 
-
 cleandirEU <- paste0(cleandir, "EUD/")
 resultsdirEU <- paste0(resultsdir, "EUD/")
 

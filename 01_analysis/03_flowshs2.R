@@ -1,3 +1,7 @@
+print("-----")
+print("Starting 03_flowshs2.R")
+print("-----")
+
 ### TODO ###
 
 # - filter extreme trade cost observations?
@@ -14,6 +18,7 @@ if (is.null(args) | identical(args, character(0))) {
   TPSP <- ifelse(args[2] == "True", TRUE, FALSE)
   mini <- ifelse(args[3] == "True", TRUE, FALSE)
 }
+print(mini)
 
 ### SETUP ###
 

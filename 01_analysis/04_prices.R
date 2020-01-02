@@ -1,3 +1,7 @@
+print("-----")
+print("Starting 04_prices.R")
+print("-----")
+
 ### Get customizable arguments from command line ###
 
 args <- commandArgs(trailingOnly=TRUE)

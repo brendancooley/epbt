@@ -1,9 +1,18 @@
+print("-----")
+print("Starting tpsp.R")
+print("-----")
+
 library(tidyverse)
 library(countrycode)
 library(cshapes)
 library(reshape2)
 
-TPSP <- TRUE
+args <- commandArgs(trailingOnly=TRUE)
+if (is.null(args) | identical(args, character(0))) {
+  mini <- FALSE
+} else {
+  mini <- ifelse(args[1] == "True", TRUE, FALSE)
+}
 
 source("params.R")
 

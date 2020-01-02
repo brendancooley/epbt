@@ -1,3 +1,7 @@
+print("-----")
+print("Starting 05_freight.R")
+print("-----")
+
 ### TO DOs ###
 
 # problem with mode shares somewhere in cleaning...ROW as j_iso3 has mode share data

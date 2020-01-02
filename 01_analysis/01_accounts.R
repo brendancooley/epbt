@@ -1,14 +1,19 @@
+print("-----")
+print("Starting 02_flowshs6.R")
+print("-----")
+
 ### Get customizable arguments from command line ###
 
 args <- commandArgs(trailingOnly=TRUE)
 if (is.null(args) | identical(args, character(0))) {
   EUD <- FALSE
   TPSP <- FALSE
-} else { 
+  mini <- FALSE
+} else {
   EUD <- ifelse(args[1] == "True", TRUE, FALSE)
   TPSP <- ifelse(args[2] == "True", TRUE, FALSE)
+  mini <- ifelse(args[3] == "True", TRUE, FALSE)
 }
-
 
 # EUD <- FALSE
 # TPSP <- FALSE

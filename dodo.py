@@ -25,7 +25,8 @@ softwarePath = "~/Dropbox\ \(Princeton\)/14_Software/"
 github = "~/GitHub/epbt"
 website_docs = "~/Dropbox\ \(Princeton\)/5_CV/website/static/docs"
 website_docs_github = "~/Github/brendancooley.github.io/docs"
-tpspPath = "~/Dropbox\ \(Princeton\)/1_Papers/01_data/"
+tpspPath = "~/Dropbox\ \(Princeton\)/1_Papers/tpsp/01_data/"
+dataPath = "~/Dropbox (Princeton)/1_Papers/epbt/01_data/"
 
 verticatorPath = "~/Dropbox\ \(Princeton\)/8_Templates/plugin/verticator"
 pluginDest = "index_files/reveal.js-3.8.0/plugin"
@@ -101,7 +102,7 @@ def task_tpsp():
 	separate folder if True (see lists in params.R).
 	
 	To execute run  doit tpsp:tpsp --mini False --path tpsp_data/
-	or  doit tpsp:tpsp --mini TRUE --path tpsp_data_mini/
+	or  doit tpsp:tpsp --mini True --path tpsp_data_mini/
 
 
 	"""
@@ -123,9 +124,9 @@ def task_tpsp():
 					'cd ' + estdir + '; Rscript ' + prices + ' False True %(mini)s',
 					'cd ' + estdir + '; Rscript ' + freight + ' False True %(mini)s',
 					'cd ' + estdir + '; Rscript ' + tau + ' False True %(mini)s',
-					'cd ' + estdir + '; Rscript tpsp.R',
+					'cd ' + estdir + '; Rscript tpsp.R %(mini)s',
 					"mkdir -p " + tpspPath + "%(path)s",
-					"cp -a " + estdir + "%(path)s " + tpspPath + "%(path)s"],
+					"cp -a " + dataPath + "%(path)s " + tpspPath + "%(path)s"],
 		'verbosity': 2,
 	}
 

@@ -1,3 +1,7 @@
+print("-----")
+print("Starting 02_flowshs6.R")
+print("-----")
+
 ### TO-DOs ###
 
 # Does BACI contain country groupings? Might be inferring too much openness for ROW

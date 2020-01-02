@@ -1,3 +1,7 @@
+print("-----")
+print("Starting 06_tau.R")
+print("-----")
+
 ### Get customizable arguments from command line ###
 
 args <- commandArgs(trailingOnly=TRUE)
@@ -11,9 +15,6 @@ if (is.null(args) | identical(args, character(0))) {
   mini <- ifelse(args[3] == "True", TRUE, FALSE)
 }
 
-
-
-  
 ### SETUP ###
 
 source("params.R")
