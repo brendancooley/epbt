@@ -120,3 +120,7 @@ flowshs2 <- left_join(flowshs2, cepiigeo, by=c("j_iso3"="iso3"))
 # flowshs2 <- left_join(flowshs2, flowsdist)
 
 write_csv(flowshs2, paste0(cleandir, "flowshs2all.csv"))
+
+print("-----")
+print("Concluding 02_flowshs6.R")
+print("-----")

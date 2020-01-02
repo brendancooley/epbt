@@ -814,3 +814,7 @@ if(EUD==FALSE) {
 # flowshs2export %>% filter(year==2011)
 # flowshs2export$i_iso3 %>% unique()
 # flowshs2export$j_iso3 %>% unique()
+
+print("-----")
+print("Concluding 03_flowshs2.R")
+print("-----")

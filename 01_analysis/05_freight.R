@@ -252,3 +252,7 @@ if (runPreds == TRUE) {
 # ggplot(data=flows, aes(x=seadist_log, y=avcsea)) +
 #   geom_point() +
 #   geom_smooth()
+
+print("-----")
+print("Concluding 05_freight.R")
+print("-----")

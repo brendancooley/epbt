@@ -1,5 +1,5 @@
 print("-----")
-print("Starting 02_flowshs6.R")
+print("Starting 01_accounts.R")
 print("-----")
 
 ### Get customizable arguments from command line ###
@@ -224,3 +224,7 @@ if (EUD==FALSE) {
   write_csv(go, paste0(cleandirEU, "go.csv"))
   write_csv(gdp, paste0(cleandirEU, "gdp.csv"))
 }
+
+print("-----")
+print("Concluding 01_accounts.R")
+print("-----")

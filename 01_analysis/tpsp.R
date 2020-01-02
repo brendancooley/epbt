@@ -9,9 +9,11 @@ library(reshape2)
 
 args <- commandArgs(trailingOnly=TRUE)
 if (is.null(args) | identical(args, character(0))) {
+  TPSP <- FALSE
   mini <- FALSE
 } else {
-  mini <- ifelse(args[1] == "True", TRUE, FALSE)
+  TPSP <- ifelse(args[1] == "True", TRUE, FALSE)
+  mini <- ifelse(args[2] == "True", TRUE, FALSE)
 }
 
 source("params.R")
@@ -245,3 +247,7 @@ milexOut <- milex %>% group_by(iso3) %>%
   dplyr::summarise(milex=sum(milex)) %>% arrange(iso3) %>% pull(milex)
 
 write_csv(milexOut %>% as.data.frame(), paste0(expdirTPSP, "milex.csv"), col_names=FALSE)
+
+print("-----")
+print("Concluding tpsp.R")
+print("-----")

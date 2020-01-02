@@ -309,3 +309,6 @@ if (EUD==FALSE) {
   write_csv(TRIEUall, paste0(resultsdirEU, "trimaiYall.csv"))
 }
 
+print("-----")
+print("Concluding 06_tau.R")
+print("-----")

@@ -291,3 +291,7 @@ if(EUD==FALSE) {
 P
 # P %>% filter(iso3=="IRL")
 # P %>% filter(iso3 %in% EU27) %>% print(n=27)
+
+print("-----")
+print("Concluding 04_prices.R")
+print("-----")

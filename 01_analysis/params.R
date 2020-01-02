@@ -119,7 +119,7 @@ mu <- 1  # share of potential revenues captured by government
 
 # mini economy for tpsp
 if (mini==TRUE) {
-  ccodesTPSP <- c("CHN", "EU", "JPN", "BRA", "USA")  # subset for mini economy
+  ccodesTPSP <- c("CHN", "EU", "JPN", "RUS", "USA")  # subset for mini economy
 } else {
   dropTPSP <- c("VNM", "IND", "ISR", "NZL", "PER", "CHL", "ZAF", "PHL", "COL", "THA")
   ccodesTPSP <- setdiff(ccodesAll, dropTPSP)
