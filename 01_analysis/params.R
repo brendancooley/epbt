@@ -121,8 +121,11 @@ mu <- 1  # share of potential revenues captured by government
 if (mini==TRUE) {
   ccodesTPSP <- c("CHN", "EU", "JPN", "RUS", "USA")  # subset for mini economy
 } else {
-  dropTPSP <- c("VNM", "IND", "ISR", "NZL", "PER", "CHL", "ZAF", "PHL", "COL", "THA")
-  ccodesTPSP <- setdiff(ccodesAll, dropTPSP)
+  dropTPSP1 <- c("VNM", "IND", "ISR", "NZL", "PER", "CHL", "ZAF", "PHL", "COL", "THA")
+  dropTPSP2 <- c("AUS", "IDN", "KOR", "MEX", "TUR") # comment out if we want larger set of countries
+  # This leaves BRA, CAN, CHN, EU, JPN, ROW, RUS, USA
+  ccodesTPSP <- setdiff(ccodesAll, dropTPSP1)
+  ccodesTPSP <- setdiff(ccodesTPSP, dropTPSP2)
 }
 
 # island indicator
