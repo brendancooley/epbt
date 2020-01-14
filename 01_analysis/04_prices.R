@@ -170,18 +170,33 @@ icpBHTEst <- icpBHTEst %>% filter(!is.na(pppReal) & !is.na(expShareT)) # filter 
 # icpBHTEst %>% arrange(ccode) %>% print(n=100)
 # icpBHTEst %>% filter(ccode=="ROW", Name=="Rice")
 
+# calculate delta in logs
 icpBHTEst$DeltaLambda <- log(icpBHTEst$expShareT) - log(icpBHTEst$expShareTBase)
 icpBHTEst$DeltaP <- log(icpBHTEst$pppReal) - log(icpBHTEst$pppRealBase)
 
-icpBHTEst$phi <- icpBHTEst$DeltaLambda - (1 - sigma) * icpBHTEst$DeltaP
-
-icpBHTHat <- icpBHTEst  %>% group_by(Name) %>%
-  summarise(gammaHat=weighted.mean(phi, gdpUSDT))
-
-icpBHTHat$alphaHat <- exp(icpBHTHat$gammaHat) 
+if (est_sigma == TRUE) {
+  
+  sigmaModel <- lm(DeltaLambda ~ DeltaP + Name - 1, data=icpBHTEst)
+  # sigmaModel <- lm(DeltaLambda ~ DeltaP + Name - 1, data=icpBHTEst, weights=icpBHTEst$gdpUSDT)  # with gdp weights
+  sigma_t <- sigmaModel$coefficients[1] %>% as.numeric()
+  sigma <- 1 - sigma_t
+  
+  alpha_t <- sigmaModel$coefficients[-1]
+  icpBHTHat <- data.frame(icpBHTEst$Name %>% unique() %>% sort(), as.numeric(alpha_t))
+  colnames(icpBHTHat) <- c("Name", "alpha_t")
+  icpBHTHat$alpha_t <- exp(icpBHTHat$alpha_t)
+  colnames(icpBHTHat) <- c("Name", "alphaHat")
+  
+} else {
+  icpBHTEst$phi <- icpBHTEst$DeltaLambda - (1 - sigma) * icpBHTEst$DeltaP
+  icpBHTHat <- icpBHTEst  %>% group_by(Name) %>%
+    summarise(gammaHat=weighted.mean(phi, gdpUSDT))
+  icpBHTHat$alphaHat <- exp(icpBHTHat$gammaHat) 
+  icpBHTHat <- icpBHTHat %>% select(Name, alphaHat)
+}
 # products with coefficient of one are valued equally to cheese
+# will get different alphas if we don't weight observations
 
-icpBHTHat <- icpBHTHat %>% select(Name, alphaHat)
 
 ### CALCULATE PRICE INDICES ###
 
@@ -232,7 +247,7 @@ if(EUD==FALSE) {
 } else {
   write_csv(icpBHTAgg, paste0(cleandirEU, "icpBHTAgg.csv"))
 }
-icpBHTAgg %>% print(n=100)
+# icpBHTAgg %>% print(n=100)
 
 icpP <- icpBHTAgg %>% group_by(ccode) %>%
   summarise(priceIndex=priceIndex(alphaHat, pppReal, sigma),
@@ -240,6 +255,7 @@ icpP <- icpBHTAgg %>% group_by(ccode) %>%
 
 us <- icpP %>% filter(ccode=="USA") %>% pull(priceIndex)
 icpP$priceIndexBase <- icpP$priceIndex / us
+# icpP %>% print(n=50)
 
 icpP <- left_join(icpP, icpG)
 # icpG %>% print(n=50)
