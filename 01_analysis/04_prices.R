@@ -180,6 +180,17 @@ if (est_sigma == TRUE) {
   # sigmaModel <- lm(DeltaLambda ~ DeltaP + Name - 1, data=icpBHTEst, weights=icpBHTEst$gdpUSDT)  # with gdp weights
   sigma_t <- sigmaModel$coefficients[1] %>% as.numeric()
   sigma <- 1 - sigma_t
+  sigmaDF <- as.data.frame(sigma)
+  
+  if(EUD==FALSE) {
+    if (TPSP==FALSE) {
+      write_csv(sigmaDF, paste0(resultsdir, "sigma.csv"), col_names=FALSE)
+    } else {
+      write_csv(sigmaDF, paste0(resultsdirTPSP, "sigma.csv"), col_names=FALSE)
+    }
+  } else {
+    write_csv(sigmaDF, paste0(resultsdirEU, "sigma.csv"), col_names=FALSE)
+  }
   
   alpha_t <- sigmaModel$coefficients[-1]
   icpBHTHat <- data.frame(icpBHTEst$Name %>% unique() %>% sort(), as.numeric(alpha_t))

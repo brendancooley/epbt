@@ -83,6 +83,11 @@ def task_results():
 
 	NOTE: needs to be run twice to replicate paper...first with EUD False and next with EUD True
 	NOTE: prices and tau need to be run together whenever theta/sigma are updated
+
+	To run:
+	doit results:results --EUD False
+	doit results:results --EUD True
+
 	"""
 	yield {
 		'name': "results",
@@ -90,9 +95,9 @@ def task_results():
 					'long':'EUD',
 					'type':str,
 					'default':'False'}],
-		'actions': ['cd ' + estdir + '; Rscript ' + prices + ' %(EUD)s False',
-					'cd ' + estdir + '; Rscript ' + freight + ' %(EUD)s False',
-					'cd ' + estdir + '; Rscript ' + tau + ' %(EUD)s False',
+		'actions': ['cd ' + estdir + '; Rscript ' + prices + ' %(EUD)s False False',
+					'cd ' + estdir + '; Rscript ' + freight + ' %(EUD)s False False',
+					'cd ' + estdir + '; Rscript ' + tau + ' %(EUD)s False False',
 					'cd ' + estdir + '; Rscript ' + correlates],
 		'verbosity': 2,
 	}
@@ -134,13 +139,16 @@ def task_paper():
 	"""
 
 	"""
+	if os.path.isfile("references.RData") is False:
+		yield {
+			'name': "collecting references...",
+			'actions':["R --slave -e \"set.seed(100);knitr::knit('epbt.rmd')\""]
+        }
 	yield {
-		'name': "draft paper",
-		'actions': ["R --slave -e \"set.seed(100); knitr::knit('epbt.rmd')\"",
-					"pandoc --template=templates/cooley-paper-template.latex \
-					--filter pandoc-citeproc \
-					-o epbt.pdf epbt.md"],
-		'verbosity': 2,
+    	'name': "writing paper...",
+    	'actions':["R --slave -e \"set.seed(100);knitr::knit('epbt.rmd')\"",
+                   "pandoc --template=templates/cooley-paper-template.latex --filter pandoc-citeproc -o epbt.pdf epbt.md"],
+                   'verbosity': 2,
 	}
 
 def task_post_to_web():

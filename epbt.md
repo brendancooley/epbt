@@ -3,7 +3,7 @@ title: Estimating Policy Barriers to Trade
 author: Brendan Cooley
 date: 3 May 2019
 abstract: To what extent is international trade free and fair? Because policy barriers to trade are often opaque and take on many forms, it is difficult to answer this question while relying on data on observable trade barriers. Here, I propose and implement a structural approach to estimating the magnitude of policy barriers to trade, measured at the trade partner level. The method allows for the possibility that these barriers are both *asymmetric* and *discriminatory*, affecting certain trade partners disproportionately. The approach reveals substantial latent policy barriers to trade, many times larger than observed tariffs. It also implies substantial effective policy discrimination, with exporters in a subset of favored countries enjoying far superior market access conditions than their peers in unfavored countries. Combined, these results suggest that the existing world trading system remains far from a free and fair ideal.
-thanks: Ph.D. candidate, Department of Politics, Princeton University. Princeton's Research Program in Political Economy provided financial support for this research. The World Bank's International Comparison Program kindly shared data. Thanks to Haosen Ge, Gene Grossman, Gleason Judd, Kathy Ingram, Sojeong Lee, Aurora Ling, John Londregan, Marco Martini, Helen Milner, Sayumi Miyano, Steve Monroe, Tim Peterson, Sondre Solstad, Kris Ramsay, Steve Redding, Noam Reich, Esther Robinson, Alexandra Zeitz, and Grace Zeng for comments on earlier drafts of this paper, as well audiences at the Princeton Political Economy Graduate Colloquium, the Princeton IR Graduate Seminar, Princeton's Fellowship of Woodrow Wilson Scholars, the Midwest Political Science Association's 2019 Annual Meeting, and the International Studies Association's 2019 Midwest Annual Conference.
+thanks: Ph.D. candidate, Department of Politics, Princeton University. Princeton's Research Program in Political Economy provided financial support for this research. The World Bank's International Comparison Program kindly shared data. Thanks to James Bisbee, Christina Fattore, Haosen Ge, Gene Grossman, Gleason Judd, Kathy Ingram, Sojeong Lee, Aurora Ling, John Londregan, Marco Martini, Helen Milner, Sayumi Miyano, Steve Monroe, Tim Peterson, Sondre Solstad, Kris Ramsay, Steve Redding, Noam Reich, Esther Robinson, Alexandra Zeitz, and Grace Zeng for comments on earlier drafts of this paper, as well audiences at the Princeton Political Economy Graduate Colloquium, the Princeton IR Graduate Seminar, Princeton's Fellowship of Woodrow Wilson Scholars, the Midwest Political Science Association's 2019 Annual Meeting, and the International Studies Association's 2019 Midwest Annual Conference.
 # jelcodes: JEL codes go here
 
 bibliography: /Users/bcooley/Dropbox (Princeton)/References/library.bib
@@ -214,7 +214,7 @@ To get from the factory gates of a firm located in an exporting country and the 
 \begin{equation} \label{eq:tcosts}
 d_{ij} = \rho_j \delta_{ij}(\bm{Z}_{ij}) \tau_{ij}
 \end{equation}
-where $\rho_j$ denotes exporter-specific costs, $\delta_{ij}$ denotes international freight costs, and $\tau_{ij}$ denotes policy barriers. $\delta_{ij}$ is a function, which takes a vector of bilateral geographic covariates $\bm{Z}_{ij}$ and outputs bilateral freight costs.^[I discuss how I model these costs in more detail in the appendix.] I normalize $\delta_{ii} = \tau_{ii} = 1$. 
+where $\rho_j$ denotes exporter-specific costs, $\delta_{ij}$ denotes international freight costs, and $\tau_{ij}$ denotes policy barriers. $\delta_{ij}$ is a function, which takes a vector of bilateral geographic covariates $\bm{Z}_{ij}$ and outputs bilateral freight costs.^[I discuss how I model these costs in more detail in Appendix B.] I normalize $\delta_{ii} = \tau_{ii} = 1$. 
 
 ![Trade cost decomposition. \label{fig:tcostsMap}](figs/tcosts.png){ width=75% }
 
@@ -234,24 +234,25 @@ Rearranging and substituting from Equation \ref{eq:eqP} gives the familiar relat
 
 If the trade elasticity is known, data on trade shares, relative prices, and freight costs are sufficient to calculate policy barriers to trade, $\tau_{ij}$. In the next section, I discuss how these data are constructed to match the model presented here. 
 
-# Calibration
+# Calibration and Estimation
 
 
 
 
-I present results from a calibration on a set of 24 of the world's largest economies in 2011.^[The list of the economies in the sample is included in the Appendix.] These in-sample countries collectively made up 87 percent of world GDP. I treat the rest of the world as an aggregate outside economy. The calibration requires me to take a stance on two structural parameters, the Frechet parameter $\theta$ and the consumers' elasticity of substitution $\sigma$. I set $\sigma - 1 = \theta =$ 6, in line with the estimates from the structural gravity literature [@Head2014].
+I present results from a calibration on a set of 24 of the world's largest economies in 2011.^[The list of the economies in the sample is included in Appendix E.] These in-sample countries collectively made up 87 percent of world GDP. I treat the rest of the world as an aggregate outside economy. The calibration requires me to take a stance on two structural parameters, the Frechet parameter $\theta$ and the consumers' elasticity of substitution $\sigma$. I set $\theta =$ 6, in line with the estimates from the structural gravity literature [@Head2014]. I estimate $\sigma$ using cross-national variation in prices and consumer expenditure shares on categories of tradable goods. 
 
 ## Prices and Consumer Expenditures
 
 In order to calculate policy barriers to trade, I require an empirical analogue of the Equation \ref{eq:P}, the country-specific price index. This quantity summarizes the overall level of competition in the economy, summarized in the market price of tradable varieties. Data on cross-national prices comes from the World Bank's International Comparison Program, used to calculate Purchasing Power Parities (PPP).^[@Rao2013 details the underlying data and methodology. @Deaton2010 discusses challenges in working with these data.]
 
-The ICP surveys prices of hundreds of products and services across 146 countries, and chooses product lists to maximize comparability across markets. They also report the share of GDP that is allocated toward puchases of different product categories, termed "basic headings." After using the prevailing exchange rate to convert prices into U.S. dollars, various (largely atheoretical) statistical methods are used to compute internationally comparable price indices across basic headings.^[See @Redding2018 for a discussion of the conditions under which these price indices correspond to their theoretical counterparts.] I classify each basic heading as tradable or nontradable and report the results of this classification in the Appendix.^[@Simonovska2014 undertake the same exercise. My classification differs slightly from theirs.]
+The ICP surveys prices of hundreds of products and services across 146 countries, and chooses product lists to maximize comparability across markets. They also report the share of GDP that is allocated toward puchases of different product categories, termed "basic headings." After using the prevailing exchange rate to convert prices into U.S. dollars, various (largely atheoretical) statistical methods are used to compute internationally comparable price indices across basic headings.^[See @Redding2018 for a discussion of the conditions under which these price indices correspond to their theoretical counterparts.] I classify each basic heading as tradable or nontradable and report the results of this classification in Appendix F.^[@Simonovska2014 undertake the same exercise. My classification differs slightly from theirs.]
 
 I take these basic headings as the empirical analogue to good categories $k$ in the model. I assume that the local price of each variety in category $k$ is constant, $p_i(\omega) = p_i(\omega^\prime) = p_{ik}$ for all $\omega, \omega^\prime \in \Omega_k$. Then, the price index in Equation \ref{eq:P} can be written
 $$
 P_i = \left( \int_\omega \alpha_{h(\omega)} p_i(\omega)^{1 - \sigma} \right)^{\frac{1}{1 - \sigma}} = \frac{1}{K} \left( \sum_k \alpha_k p_{ik}^{1 - \sigma} \right)^{\frac{1}{1 - \sigma}}
 $$
-If the elasticity of substitution and the vector $\bm{\alpha} = \left\{ \alpha_0, ..., \alpha_{K-1} \right\}$ are known, then price indices can be calculated from the ICP's price data, $\bm{p}_i = \left\{ p_{i0}, ..., p_{i, K-1} \right\}$ and data on consumer expenditures. In the Appendix, I show how calculate an estimate for consumer tastes, $\hat{\bm{\alpha}}$ and employ this estimate to calculate empirical price indices. Because preferences do not vary by country, this amounts to minimizing the distance between observed and predicted product-level expenditures across countries.
+If the elasticity of substitution, $\sigma$, and the vector $\bm{\alpha} = \left\{ \alpha_0, ..., \alpha_{K-1} \right\}$ are known, then price indices can be calculated from the ICP's price data, $\bm{p}_i = \left\{ p_{i0}, ..., p_{i, K-1} \right\}$ and data on consumer expenditures. In Appendix A, I show these parameters relate consumer expenditure shares to prices in a simple log-linear model, which I estimate using least squares. Regressing consumer expenditure on prices produces a consistent estimate for $\sigma$ because prices do not depend on this demand-side in this competitive model. I estimate $\sigma$ to be 2.46.
+
 
 ![Price indices and tradable expenditure shares \label{fig:P}](figure/P-1.png)
 
@@ -276,7 +277,7 @@ Note that implicit domestic consumption in Equation \ref{eq:lambda_jj} depends o
 
 ## Freight Costs
 
-I combine a variety of data sources on factual freight costs and modes of transportation with bilateral geographic covariates to estimate aggregate freight costs between all countries in my sample. These predicted values serve as the $\delta_{ij}$ in Equation \ref{eq:tau}.^[Because the bilateral covariates used are symmetric between any two countries, predicted freight costs are nearly symmetric as well ($\delta_{ij} \approx \delta_{ji}$). Differences in the product-level makeup of trade are the only asymmetry introduced in my framework. @Takahashi2011 and @Behrens2011 show scale economies in shipping generally do produce asymmetries in bilateral freight costs. However, given the small ratio of freight costs to implied policy barriers, accounting for these asymmetries are unlikely to fundamentally alter my results.] As depicted in Figure \ref{fig:tcosts}, all freight costs I observe cover the cost of shipments from border-to-border. They do not include costs that are incurred during intranational transit ($\rho_i$), which are differenced out of Equation \ref{eq:tau}. I discuss these data sources and the methodology used to estimate freight costs in the Appendix. Predicted freight costs average 6 percent the value of shipments and are positively correlated with distance.
+I combine a variety of data sources on factual freight costs and modes of transportation with bilateral geographic covariates to estimate aggregate freight costs between all countries in my sample. These predicted values serve as the $\delta_{ij}$ in Equation \ref{eq:tau}.^[Because the bilateral covariates used are symmetric between any two countries, predicted freight costs are nearly symmetric as well ($\delta_{ij} \approx \delta_{ji}$). Differences in the product-level makeup of trade are the only asymmetry introduced in my framework. @Takahashi2011 and @Behrens2011 show scale economies in shipping generally do produce asymmetries in bilateral freight costs. However, given the small ratio of freight costs to implied policy barriers, accounting for these asymmetries are unlikely to fundamentally alter my results.] As depicted in Figure \ref{fig:tcosts}, all freight costs I observe cover the cost of shipments from border-to-border. They do not include costs that are incurred during intranational transit ($\rho_i$), which are differenced out of Equation \ref{eq:tau}. I discuss these data sources and the methodology used to estimate freight costs in Appendix B. Predicted freight costs average 6 percent the value of shipments and are positively correlated with distance.
 
 ![Factual versus predicted freight costs. In-sample observations are shown in grey. Out-of-sample observations are shown in black. \label{fig:freight}](figure/freight-1.png)
 
@@ -287,13 +288,13 @@ Figure \ref{fig:freight} depicts factual and predicted freight costs for the Uni
 
 
 
-The results of this exercise reveal substantial unobserved policy barriers to trade. In 2011, across all in-sample markets, exporters faced an average $\tau$ of 2.54, equivalent to a 154 percent import tariff.^[Of course, this result is sensitive to my stance on the trade elasticity. Doubling the trade elasticity to 12 cuts the average $\tau$ to 1.72] The magnitude of these barriers dwarfs that of applied aggregate tariffs, which average only 4 percent within my sample. This result is consistent with @Anderson2003, @Bradford2003, @deSousa2012, and @Waugh2016 which also uncover large implied trade costs using indirect measurement methods. Figure \ref{fig:tcosts} shows the distribution of implied policy barriers (panel A), relative to tariffs and predicted freight costs.
+The results of this exercise reveal substantial unobserved policy barriers to trade. In 2011, across all in-sample markets, exporters faced an average $\tau$ of 2.38, equivalent to a 138 percent import tariff.^[Of course, this result is sensitive to my stance on the trade elasticity. Doubling the trade elasticity to 12 cuts the average $\tau$ to 1.61] The magnitude of these barriers dwarfs that of applied aggregate tariffs, which average only 4 percent within my sample. This result is consistent with @Anderson2003, @Bradford2003, @deSousa2012, and @Waugh2016 which also uncover large implied trade costs using indirect measurement methods. Figure \ref{fig:tcosts} shows the distribution of implied policy barriers (panel A), relative to tariffs and predicted freight costs.
 
 ![Distribution of freight costs, tariff barriers, and structural policy barriers to trade ($\tau_{ij}$). Dashed lines show mean of each distribution. \label{fig:tcosts}](figure/tcosts-1.png)
 
 The model and data jointly suggest that international trade remains far from free, even taking into account unavoidable freight costs. Returning to Equation \ref{eq:tau}, this result suggests that the observed international price gaps and trade flows are inconsistent with a trade barrier-less world, given predicted freight costs. The model suggests that if implied policy barriers were removed, some combination of increases in trade flows and the reduction of price gaps would occur.
 
-International trade is also far from fair. A fair international trading system might allow for trade restrictions, but require that these restrictions affect all trading partners equally. In fact, policy barriers to trade are quite discriminatory. In 2011, the mean within-country standard deviation of $\tau_{ij}$ is 1.19, representing a significant preferential margin for preferred trade partners. For example, in 2011, U.S. trade with Canada ($\tau_{ij} =$ 1.33), Japan (1.37), and the European Union (1.38) was relatively unhindered. Conversely, U.S. trade with Peru (3.46) and Vietnam (4.7) was highly restricted.
+International trade is also far from fair. A fair international trading system might allow for trade restrictions, but require that these restrictions affect all trading partners equally. In fact, policy barriers to trade are quite discriminatory. In 2011, the mean within-country standard deviation of $\tau_{ij}$ is 0.84, representing a significant preferential margin for preferred trade partners. For example, in 2011, U.S. trade with Canada ($\tau_{ij} =$ 1.26), Japan (1.26), and the European Union (1.38) was relatively unhindered. Conversely, U.S. trade with Peru (2.94) and Vietnam (3.51) was highly restricted.
 
 ![Distribution of policy barriers to trade. Each cell reports the magnitude of the policy barrier each importing country (y-axis) imposes on every exporting country (x-axis). Countries are partitioned into 3 groups through K-means clustering. Black rectangles enclose each cluster. \label{fig:hm}](figure/hm-1.png)
 
@@ -334,33 +335,33 @@ I measure aggregate tariff protection with a trade-weighted average of applied t
 \cline{2-2} 
 \\[-1.8ex] & Structural Policy Barrier \\ 
 \hline \\[-1.8ex] 
- Tariffs & 0.815 \\ 
-  & (0.738) \\ 
+ Tariffs & 1.075$^{*}$ \\ 
+  & (0.549) \\ 
   & \\ 
- PTAs & $-$0.376$^{***}$ \\ 
-  & (0.082) \\ 
+ PTAs & $-$0.299$^{***}$ \\ 
+  & (0.061) \\ 
   & \\ 
- Core NTM & 0.222 \\ 
-  & (0.211) \\ 
+ Core NTM & 0.083 \\ 
+  & (0.157) \\ 
   & \\ 
- Health/Safety NTM & 0.234 \\ 
-  & (0.196) \\ 
+ Health/Safety NTM & 0.168 \\ 
+  & (0.146) \\ 
   & \\ 
- Other NTM & $-$0.203 \\ 
-  & (0.265) \\ 
+ Other NTM & $-$0.099 \\ 
+  & (0.197) \\ 
   & \\ 
 \hline \\[-1.8ex] 
 Importer Fixed Effects & \checkmark \\ 
 Exporter Fixed Effects & \checkmark \\ 
 Observations & 361 \\ 
-R$^{2}$ & 0.892 \\ 
+R$^{2}$ & 0.876 \\ 
 \hline 
 \hline \\[-1.8ex] 
 \textit{Note:}  & \multicolumn{1}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
 \end{tabular} 
 \end{table} 
 
-The results are shown in Table \ref{tab:correlates}. Estimated policy barriers are positively correlated with observed tariffs. Independently of tariff rate reductions, policy barriers are negatively correlated with the existence of a PTA. This is consistent with PTAs as a tool of "deep liberalization" that reduce trade costs in excess of those imposed by tariffs. In particular, the existence of a PTA is associated with a tariff-equivalent decrease in $\tau_{ij}$ of 38 percentage points. Policy barriers show no significant association with any category of NTMs. However, coverage ratios are an extremely coarse measure of the magnitude of NTMs, and the TRAINS data are of imperfect quality [@Kono2008].
+The results are shown in Table \ref{tab:correlates}. Estimated policy barriers are positively correlated with observed tariffs. Independently of tariff rate reductions, policy barriers are negatively correlated with the existence of a PTA. This is consistent with PTAs as a tool of "deep liberalization" that reduce trade costs in excess of those imposed by tariffs. In particular, the existence of a PTA is associated with a tariff-equivalent decrease in $\tau_{ij}$ of 30 percentage points. Policy barriers show no significant association with any category of NTMs. However, coverage ratios are an extremely coarse measure of the magnitude of NTMs, and the TRAINS data are of imperfect quality [@Kono2008].
 
 ## A Placebo Test: Intra-European Union Barriers
 
@@ -368,7 +369,7 @@ In the preceding analysis, the European Union (EU) member states were treated as
 
 ![Intra and extra-European Union policy barriers to trade. Each cell reports the magnitude of the policy barrier each EU importing country (y-axis) imposes on every exporting country (x-axis). Barriers toward EU countries are on the left hand side of the solid line. Barriers toward non-EU countries are on the right hand side of the solid line. BNL is an aggregate of Belgium, Luxembourg, and the Netherlands (Benelux). ELL is an aggregate of the Baltic countries: Estonia, Latvia, and Lithuania. \label{fig:hmEUD}](figure/hmEUD-1.png)
 
-Figure \ref{fig:hmEUD} depicts the results of this exercise.^[In the Appendix, I reproduce Figure \ref{fig:hm} with the European Union disaggregated and re-implement K-means clustering. All EU countries are grouped together with $K=$ 3] EU policy barriers toward other EU member states are on average 49 percent the size of barriers with non-EU states.^[This comparison was made by taking weighted means of tariff-equivalent policy barriers where the weights are the expenditures on tradable goods of the exporting countries.] Barriers are far from nonexistent, however. On average, EU countries implement an tariff-equivalent barrier of 69 percent on other EU member states, compared to 140 percent on non-EU states.^[These are unweighted averages of EU member states' TRIs, calculated with respect to EU and non-EU members respectively.] From the perspective of the model, there remained substantial policy-related trade frictions within the EU in 2011. This finding is consistent with the existence of "border effects" within the EU [@Comerford2015]. Of course, these inferences might be driven by features of the model itself. I discuss these limitations in more detail in the paper's conclusion.
+Figure \ref{fig:hmEUD} depicts the results of this exercise.^[In Appendix D, I reproduce Figure \ref{fig:hm} with the European Union disaggregated and re-implement K-means clustering. All EU countries are grouped together with $K=$ 3] EU policy barriers toward other EU member states are on average 56 percent the size of barriers with non-EU states.^[This comparison was made by taking weighted means of tariff-equivalent policy barriers where the weights are the expenditures on tradable goods of the exporting countries.] Barriers are far from nonexistent, however. On average, EU countries implement an tariff-equivalent barrier of 69 percent on other EU member states, compared to 121 percent on non-EU states.^[These are unweighted averages of EU member states' TRIs, calculated with respect to EU and non-EU members respectively.] From the perspective of the model, there remained substantial policy-related trade frictions within the EU in 2011. This finding is consistent with the existence of "border effects" within the EU [@Comerford2015]. Of course, these inferences might be driven by features of the model itself. I discuss these limitations in more detail in the paper's conclusion.
 
 ## Discussion
 
@@ -389,7 +390,9 @@ I should qualify these conclusions on three counts. First, like most studies of 
 
 # Appendix
 
-## Empirical Price Index: Estimating CES Taste Parameters
+
+
+## A: Empirical Price Index: Estimating Consumers' Price Elasticity and Taste Parameters
 
 
 Demand for variety $\omega$ is
@@ -399,7 +402,7 @@ $$
 and expenditure is
 $$
 x_i(\omega) = p_i(\omega) q_i(\omega) = \alpha_{h(\omega)} p_i(\omega)^{1-\sigma} E_i^q P_i^{\sigma - 1}
-$$
+$$.
 
 With constant prices in each basic heading, total spending on goods in category $k$ is
 \begin{align*}
@@ -407,50 +410,44 @@ x_{ik} &= \int_{\omega \in \Omega_k} \alpha_{h(\omega)} p_i(\omega)^{1-\sigma} E
 &= \int_{\omega \in \Omega_k} \alpha_k p_{ik}^{1 - \sigma} E_i^q P_i^{\sigma - 1} d \omega \\
 &= \frac{1}{K} \alpha_k p_{ik}^{1 - \sigma} E_i^q P_i^{\sigma - 1}
 \end{align*}
-The share of $i$'s tradables expenditure spent on goods in category $k$ is 
+and the share of $i$'s tradables expenditure spent on goods in category $k$ is 
 $$
 \lambda_{ik} = \frac{x_{ik}}{E_i^q} = \frac{1}{K} \alpha_k p_{ik}^{1 - \sigma} P_i^{\sigma - 1}
-$$
+$$.
 
 Normalizing $\alpha_0 = 1$ gives
 $$
 \frac{\lambda_{ik}}{\lambda_{i0}} = \alpha_k \left( \frac{p_{ik}}{p_{i0}} \right)^{1 - \sigma}
-$$
+$$.
 
-Consumers are subject to relative demand shocks $\epsilon_{ik}$ that are i.i.d. across countries and good categories. Observed relative expenditure is then
+Consumers are subject to relative demand shocks $\epsilon_{ik}$ with $\ln \epsilon_{ik} \sim \mathcal{N}(0, \sigma_{\epsilon}^2)$ that are i.i.d. across countries and good categories. Observed relative expenditure is then
 \begin{align*}
 \frac{\lambda_{ik}}{\lambda_{i0}} &= \alpha_k \epsilon_{ik} \left( \frac{p_{ik}}{p_{i0}} \right)^{1 - \sigma} \\
 \Delta \lambda_{ik} &= \alpha_k \epsilon_{ik} \left( \Delta p_{ik} \right)^{1 - \sigma}
-\end{align*}
+\end{align*}.
+
 Taking logs,
 $$
 \ln \Delta \lambda_{ik} = \ln \alpha_k + (1 - \sigma) \ln \Delta p_{ik} + \ln \epsilon_{ik}
 $$
-Rearranging
-\begin{align*}
-\ln \epsilon_{ik} &= \ln \Delta \lambda_{ik} - (1 - \sigma) \ln \Delta p_{ik} - \ln \alpha_k \\
-&= \varphi_{ik} - \gamma_k
-\end{align*}
-where
+and rearranging gives
 $$
-\varphi_{ik} = \ln \Delta \lambda_{ik} - (1 - \sigma) \ln \Delta p_{ik}
-$$
-and $\gamma_k = \ln \alpha_k$.
+\ln \epsilon_{ik} = \ln \Delta \lambda_{ik} - (1 - \sigma) \ln \Delta p_{ik} - \ln \alpha_k
+$$.
 
-Let $\ln \epsilon_{ik} \sim \mathcal{N}(0, \sigma_{\epsilon}^2)$. Then, a weighted least squares estimate for $\ln \alpha_k$ solves
+Then, a least squares estimate for $\sigma$ and $\bm{alpha}$ solves
 $$
-\hat{\gamma}_k = \argmin_{\gamma_k} \sum_i w_i \epsilon_{ik}^2 = \sum_i w_i \left( \varphi_{ik} - \gamma_k \right)^2
-$$
-with $\sum_i w_i = 1$ and is given by
-$$
-\hat{\gamma}_k = \sum_i w_i \varphi_{ik}
-$$
-I use as weights each country's total expenditure on tradeables, $E_i^q$. The theory-consistent estimate for the price index can then be calculated as
-$$
-\hat{P}_i = \left( \int_\omega \hat{\alpha}_{h(\omega)} p_i(\omega)^{1 - \sigma} \right)^{\frac{1}{1 - \sigma}} = \frac{1}{K} \left( \sum_k \hat{\alpha}_k p_{ik}^{1 - \sigma} \right)^{\frac{1}{1 - \sigma}}
-$$
+\left( \hat{\sigma}, \hat{\bm{\alpha}} \right) = \argmin_{\sigma, \bm{\alpha}} \sum_i \sum_k \left( \ln \epsilon_{ik} \right)^2
+$$.
 
-## Modeling Freight Costs and Data Sources
+Finally, a theory-consistent estimate for the price index can then be calculated as
+$$
+\hat{P}_i = \left( \int_\omega \hat{\alpha}_{h(\omega)} p_i(\omega)^{1 - \sigma} \right)^{\frac{1}{1 - \sigma}} = \frac{1}{K} \left( \sum_k \hat{\alpha}_k p_{ik}^{1 - \hat{\sigma}} \right)^{\frac{1}{1 - \hat{\sigma}}}
+$$.
+
+
+
+## B: Modeling Freight Costs and Data Sources
 
 
 In order to estimate the magnitude of policy barriers to trade, I must difference out the component of trade costs attributable to freight costs. However, freight costs are, at best, *partially* observed. I employ data from the United States Census Bureau and the Australian Bureau of Statistics on the c.i.f. and f.o.b. values of its imports.^[The Australian data are also used by @Shapiro2016 and @Adao2017.] The ratio of the c.i.f. value of goods to their f.o.b. value can then be taken as a measure of the ad valorem freight cost. I supplement these values with international data on the costs of *maritime* shipments from the OECD's [Maritime Transport Cost Dataset](https://doi.org/10.1787/data-00490-en) [@Korinek2011]. I also observe the transportation modes of imports (air, land, or sea) to the European Union, Japan, Brazil, Australia and the United States .^[Data from the United States come from the Census Bureau and are available on the website of [Peter Schott](http://faculty.som.yale.edu/peterschott/sub_international.htm). Data from the European Union are from [Eurostat](https://ec.europa.eu/eurostat). Data from Japan are from the government's statistical agency, [e-Stat](https://www.e-stat.go.jp/en/stat-search/files?page=1&toukei=00350300&bunya_l=16&tstat=000001013142&result_page=1&second=1). Data from Brazil come from the [ministry of trade and industry](http://comexstat.mdic.gov.br/en/home). Data from Australia are from the Australian Bureau of Statistics.]
@@ -503,7 +500,9 @@ I let $\mathcal{G}$ be the set of linear functions with polynomial time splines 
 
 This results in three functions $\hat{g}^m$ for each transportation mode (air, land, sea) and one function $\hat{h}$ that outputs predicted mode shares. The data used to estimate these functions is discussed in more detail below.
 
-## Freight Cost Results
+
+
+## C: Freight Cost Results
 
 
 
@@ -646,12 +645,18 @@ Akaike Inf. Crit. & 192,981.300 & 192,981.300 & 192,981.300 \\
 
 \FloatBarrier
 
-## Economic Blocs, Disaggregated European Union
+
+
+
+
+## D: Economic Blocs, Disaggregated European Union
 
 
 ![Distribution of policy barriers to trade with individual EU countries. Each cell reports the magnitude of the policy barrier each importing country (y-axis) imposes on every exporting country (x-axis). Countries are partitioned into 3 groups through K-means clustering. Black rectangles enclose each cluster.](figure/hmEUDC-1.png)
 
-## Sample Countries
+
+
+## E: Sample Countries
 
 
 \begin{table}[H]
@@ -692,7 +697,9 @@ ZAF & South Africa\\
 \end{tabular}
 \end{table}
 
-## International Comparison Program Expenditure Categories
+
+
+## F: International Comparison Program Expenditure Categories
 
 
 \begingroup\fontsize{9}{11}\selectfont
@@ -902,3 +909,5 @@ Code & Basic Heading & Tradable?\\
 \clearpage
 
 # References
+
+

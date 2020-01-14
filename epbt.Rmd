@@ -30,6 +30,16 @@ ipak(libs)
 
 highlight <- NULL
 
+ApriceIndex <- "NA"
+AfreightModel <- "NA"
+AfreightResults <- "NA"
+AeconomicBlocs <- "NA"
+AsampleCountries <- "NA"
+AexpCategories <- "NA"
+
+# load references picked up later in document
+if (file.exists('references.RData')) load('references.RData')
+
 ```
 
 \newpage
@@ -44,7 +54,7 @@ highlight <- NULL
 ```{r, child = "sections/model.rmd"}
 ```
 
-# Calibration
+# Calibration and Estimation
 
 ```{r, child = "sections/calibration.rmd"}
 ```
@@ -63,32 +73,74 @@ highlight <- NULL
 
 # Appendix
 
-## Empirical Price Index: Estimating CES Taste Parameters
+```{r, echo=FALSE, warning=FALSE, message=FALSE, results='hide'}
+
+a <- 1
+ApriceIndex <- LETTERS[a]
+
+```
+
+## `r ApriceIndex`: Empirical Price Index: Estimating Consumers' Price Elasticity and Taste Parameters
 
 ```{r, child = "sections/AcesTastes.md"}
 ```
 
-## Modeling Freight Costs and Data Sources
+```{r, echo=FALSE, warning=FALSE, message=FALSE, results='hide'}
+
+a <- a + 1
+AfreightModel <- LETTERS[a]
+
+```
+
+## `r AfreightModel`: Modeling Freight Costs and Data Sources
 
 ```{r, child = "sections/AfreightModel.md"}
 ```
 
-## Freight Cost Results
+```{r, echo=FALSE, warning=FALSE, message=FALSE, results='hide'}
+
+a <- a + 1
+AfreightResults<- LETTERS[a]
+
+```
+
+## `r AfreightResults`: Freight Cost Results
 
 ```{r, child = "sections/AfreightResults.rmd"}
 ```
 
-## Economic Blocs, Disaggregated European Union
+```{r, echo=FALSE, warning=FALSE, message=FALSE, results='hide'}
+
+a <- a + 1
+AeconomicBlocs<- LETTERS[a]
+
+```
+
+## `r AeconomicBlocs`: Economic Blocs, Disaggregated European Union
 
 ```{r, child = "sections/AhmEUDC.rmd"}
 ```
 
-## Sample Countries
+```{r, echo=FALSE, warning=FALSE, message=FALSE, results='hide'}
+
+a <- a + 1
+AsampleCountries <- LETTERS[a]
+
+```
+
+## `r AsampleCountries`: Sample Countries
 
 ```{r, child = "sections/AsampleCountries.rmd"}
 ```
 
-## International Comparison Program Expenditure Categories
+```{r, echo=FALSE, warning=FALSE, message=FALSE, results='hide'}
+
+a <- a + 1
+AexpCategories <- LETTERS[a]
+
+```
+
+## `r AexpCategories`: International Comparison Program Expenditure Categories
 
 ```{r, child = "sections/AicpCategories.rmd"}
 ```
@@ -96,3 +148,9 @@ highlight <- NULL
 \clearpage
 
 # References
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE, results='hide'}
+
+save.image('references.RData')
+
+```

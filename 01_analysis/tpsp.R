@@ -27,6 +27,8 @@ write_csv(Y %>% as.data.frame(), paste0(expdirTPSP, "year.csv"), col_names = FAL
 
 if (TPSP==FALSE) {
   
+  sigma <- read_csv(paste0(resultsdir, "sigma.csv"))
+  
   P <- read_csv(paste0(cleandir, "priceIndex.csv"))
   tau <- read_csv(paste0(resultsdir, "tauYTR.csv")) %>% select(-tauAlt)
   shares <- read_csv(paste0(cleandir, "sharesTR.csv"))  # in cif value
@@ -40,6 +42,8 @@ if (TPSP==FALSE) {
   ccodes <- read_csv(paste0(cleandir, "ccodes.csv"))
   
 } else {
+  
+  sigma <- read_csv(paste0(resultsdirTPSP, "sigma.csv"))
   
   P <- read_csv(paste0(cleandirTPSP, "priceIndex.csv"))
   tau <- read_csv(paste0(resultsdirTPSP, "tauYTR.csv")) %>% select(-tauAlt)
@@ -206,6 +210,9 @@ write_csv(beta %>% as.data.frame(), paste0(expdirTPSP, "beta.csv"), col_names=FA
 
 # theta
 write_csv(theta %>% as.data.frame(), paste0(expdirTPSP, "theta.csv"), col_names=FALSE)
+
+# sigma
+write_csv(sigma %>% as.data.frame(), paste0(expdirTPSP, "sigma.csv"), col_names=FALSE)
 
 ### minimum distances ###
 ccodes <- ccodes %>% pull(.)

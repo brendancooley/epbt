@@ -9,7 +9,7 @@ library(tidyverse)
 
 ### DIRECTORIES ###
 
-analysisDir <- "01_analysis"
+analysis_dirname <- "01_analysis"
 
 basedir <- "~/Dropbox (Princeton)/1_Papers/epbt/01_data/"
 
@@ -40,13 +40,13 @@ ccodesAll <- c()
 wd <- getwd()
 
 if ("sections" %in% strsplit(wd, "/")[[1]]) {
-  sourceDir <- paste0("../", analysisDir, "source/")
+  sourceDir <- paste0("../", analysis_dirname, "/source/")
   sourceFiles <- list.files(sourceDir)
   for (i in sourceFiles) {
     source(paste0(sourceDir, i))
   }
 } else {
-  if (analysisDir %in% strsplit(wd, "/")[[1]]) {
+  if (analysis_dirname %in% strsplit(wd, "/")[[1]]) {
     sourceFiles <- list.files("source/")
     for (i in sourceFiles) {
       source(paste0("source/", i))
@@ -56,8 +56,9 @@ if ("sections" %in% strsplit(wd, "/")[[1]]) {
       ccodesAll <- read_csv(ccodesPath) %>% pull(.)  # all
     }
   } else {
-    sourceDir <- paste0(analysisDir, "source/")
+    sourceDir <- paste0(analysis_dirname, "/source/")
     sourceFiles <- list.files(sourceDir)
+    print(sourceFiles)
     for (i in sourceFiles) {
       source(paste0(sourceDir, i))
     }
@@ -84,7 +85,7 @@ est_sigma <- TRUE
 if (TPSP == FALSE) {
   theta <- 6
 } else {
-  theta <- 4
+  theta <- 6
 }
 thetaAlt <- 2 * theta
 
