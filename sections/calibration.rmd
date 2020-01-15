@@ -10,7 +10,7 @@ freight <- read_csv(paste0(cleandir, "freight.csv"))
 gdp <- read_csv(paste0(cleandir, "gdp.csv"))
 delta <- read_csv(paste0(cleandir, "delta.csv")) %>% filter(year==Y)
 
-gdpSample <- gdp %>% filter(iso3 != "ROW", year==Y) %>% pull(gdp) %>% sum()
+gdpSample <- gdp %>% filter(iso3 != ROWname, year==Y) %>% pull(gdp) %>% sum()
 gdpWorld <- gdp %>% filter(year==Y) %>% pull(gdp) %>% sum()
 
 ```

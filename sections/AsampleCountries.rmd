@@ -5,7 +5,7 @@ ccodes <- read_csv(paste0(cleandir, "ccodes.csv")) %>% pull(.)
 ccodesTable <- as.data.frame(ccodes)
 ccodesTable$cnames <- countrycode(ccodesTable$ccodes, "iso3c", "country.name")
 ccodesTable$cnames <- ifelse(ccodesTable$ccodes == "EU", "European Union", ccodesTable$cnames)
-ccodesTable$cnames <- ifelse(ccodesTable$ccodes == "ROW", "Rest of the World", ccodesTable$cnames)
+ccodesTable$cnames <- ifelse(ccodesTable$ccodes == ROWname, "Rest of the World", ccodesTable$cnames)
 
 colnames(ccodesTable) <- c("iso3", "Country Name")
 

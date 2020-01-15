@@ -12,6 +12,7 @@
 # 
 # EUHM <- F
 # cluster <- T
+# highlight <- NULL
 
 
 ### COMMENT ABOVE FOR PAPER ###
