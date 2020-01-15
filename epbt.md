@@ -435,7 +435,7 @@ $$
 \ln \epsilon_{ik} = \ln \Delta \lambda_{ik} - (1 - \sigma) \ln \Delta p_{ik} - \ln \alpha_k
 $$.
 
-Then, a least squares estimate for $\sigma$ and $\bm{alpha}$ solves
+Then, a least squares estimate for $\sigma$ and $\bm{\alpha}$ solves
 $$
 \left( \hat{\sigma}, \hat{\bm{\alpha}} \right) = \argmin_{\sigma, \bm{\alpha}} \sum_i \sum_k \left( \ln \epsilon_{ik} \right)^2
 $$.
