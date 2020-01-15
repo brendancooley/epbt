@@ -251,7 +251,7 @@ I take these basic headings as the empirical analogue to good categories $k$ in 
 $$
 P_i = \left( \int_\omega \alpha_{h(\omega)} p_i(\omega)^{1 - \sigma} \right)^{\frac{1}{1 - \sigma}} = \frac{1}{K} \left( \sum_k \alpha_k p_{ik}^{1 - \sigma} \right)^{\frac{1}{1 - \sigma}}
 $$
-If the elasticity of substitution, $\sigma$, and the vector $\bm{\alpha} = \left\{ \alpha_0, ..., \alpha_{K-1} \right\}$ are known, then price indices can be calculated from the ICP's price data, $\bm{p}_i = \left\{ p_{i0}, ..., p_{i, K-1} \right\}$ and data on consumer expenditures. In Appendix A, I show these parameters relate consumer expenditure shares to prices in a simple log-linear model, which I estimate using least squares. Regressing consumer expenditure on prices produces a consistent estimate for $\sigma$ because prices do not depend on this demand-side in this competitive model. I estimate $\sigma$ to be 2.46.
+If the elasticity of substitution, $\sigma$, and the vector $\bm{\alpha} = \left\{ \alpha_0, ..., \alpha_{K-1} \right\}$ are known, then price indices can be calculated from the ICP's price data, $\bm{p}_i = \left\{ p_{i0}, ..., p_{i, K-1} \right\}$ and data on consumer expenditures. In Appendix A, I show these parameters relate consumer expenditure shares to prices in a simple log-linear model, which I estimate using ordinary least squares. Regressing consumer expenditure on prices produces a consistent estimate for $\sigma$ because prices do not depend on this demand-side in this competitive model. I estimate $\sigma$ to be 2.46.
 
 
 ![Price indices and tradable expenditure shares \label{fig:P}](figure/P-1.png)
