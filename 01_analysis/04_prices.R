@@ -315,7 +315,6 @@ if(EUD==FALSE) {
 } else {
   write_csv(pop, paste0(cleandirEU, "pop.csv"))
 }
-P
 # P %>% filter(iso3=="IRL")
 # P %>% filter(iso3 %in% EU27) %>% print(n=27)
 

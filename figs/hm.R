@@ -1,18 +1,18 @@
-library(tidyverse)
-library(skmeans)
-
-source("../01_analysis/params.R")
-
-tauHMY <- read_csv(paste0(resultsdir, "tauHMY.csv"))
-tauHMYEUD <- read_csv(paste0(resultsdirEU, "tauY.csv"))
-
-# tauHMYEUD %>% filter(j_iso3=="AUT") %>% print(n=50)
-# tauHMYEUD %>% filter(i_iso3=="BNL") %>% print(n=50)
-# tauHMYEUD %>% filter(j_iso3=="IRL") %>% print(n=50)
-
-EUHM <- T
-cluster <- T
-highlight <- NULL
+# library(tidyverse)
+# library(skmeans)
+# 
+# source("../01_analysis/params.R")
+# 
+# tauHMY <- read_csv(paste0(resultsdir, "tauHMY.csv"))
+# tauHMYEUD <- read_csv(paste0(resultsdirEU, "tauY.csv"))
+# 
+# # tauHMYEUD %>% filter(j_iso3=="AUT") %>% print(n=50)
+# # tauHMYEUD %>% filter(i_iso3=="BNL") %>% print(n=50)
+# # tauHMYEUD %>% filter(j_iso3=="IRL") %>% print(n=50)
+# 
+# EUHM <- T
+# cluster <- T
+# highlight <- NULL
 
 
 ### COMMENT ABOVE FOR PAPER ###
