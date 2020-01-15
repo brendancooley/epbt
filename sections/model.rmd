@@ -150,7 +150,7 @@ To get from the factory gates of a firm located in an exporting country and the 
 \begin{equation} \label{eq:tcosts}
 d_{ij} = \rho_j \delta_{ij}(\bm{Z}_{ij}) \tau_{ij}
 \end{equation}
-where $\rho_j$ denotes exporter-specific costs, $\delta_{ij}$ denotes international freight costs, and $\tau_{ij}$ denotes policy barriers. $\delta_{ij}$ is a function, which takes a vector of bilateral geographic covariates $\bm{Z}_{ij}$ and outputs bilateral freight costs.^[I discuss how I model these costs in more detail in the appendix.] I normalize $\delta_{ii} = \tau_{ii} = 1$. 
+where $\rho_j$ denotes exporter-specific costs, $\delta_{ij}$ denotes international freight costs, and $\tau_{ij}$ denotes policy barriers. $\delta_{ij}$ is a function, which takes a vector of bilateral geographic covariates $\bm{Z}_{ij}$ and outputs bilateral freight costs.^[I discuss how I model these costs in more detail in Appendix `r AfreightModel`.] I normalize $\delta_{ii} = \tau_{ii} = 1$. 
 
 ![Trade cost decomposition. \label{fig:tcostsMap}](figs/tcosts.png){ width=75% }
 

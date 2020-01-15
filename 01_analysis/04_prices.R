@@ -81,7 +81,7 @@ if (MYSG==TRUE) {
 }
 
 # aggregate ROW
-icpPop$ccode <- ifelse(icpPop$ccode %in% c(ccodes, EU27), icpPop$ccode, "ROW")
+icpPop$ccode <- ifelse(icpPop$ccode %in% c(ccodes, EU27), icpPop$ccode, ROWname)
 
 icpPop <- icpPop %>% group_by(ccode) %>%
   summarise(pop=sum(pop))
@@ -132,7 +132,7 @@ if (MYSG==TRUE) {
   icpBHA$ccode <- ifelse(icpBHA$ccode %in% MYSGccodes, "MYSG", icpBHA$ccode)
 }
 
-icpBHA$ccode <- ifelse(icpBHA$ccode %in% c(ccodes, EU27), icpBHA$ccode, "ROW")
+icpBHA$ccode <- ifelse(icpBHA$ccode %in% c(ccodes, EU27), icpBHA$ccode, ROWname)
 
 # icpBHA %>% filter(ccode=="USA") %>% print(n=200)
 icpBHA$ccode %>% unique() %>% sort()
@@ -170,18 +170,44 @@ icpBHTEst <- icpBHTEst %>% filter(!is.na(pppReal) & !is.na(expShareT)) # filter 
 # icpBHTEst %>% arrange(ccode) %>% print(n=100)
 # icpBHTEst %>% filter(ccode=="ROW", Name=="Rice")
 
+# calculate delta in logs
 icpBHTEst$DeltaLambda <- log(icpBHTEst$expShareT) - log(icpBHTEst$expShareTBase)
 icpBHTEst$DeltaP <- log(icpBHTEst$pppReal) - log(icpBHTEst$pppRealBase)
 
-icpBHTEst$phi <- icpBHTEst$DeltaLambda - (1 - sigma) * icpBHTEst$DeltaP
-
-icpBHTHat <- icpBHTEst  %>% group_by(Name) %>%
-  summarise(gammaHat=weighted.mean(phi, gdpUSDT))
-
-icpBHTHat$alphaHat <- exp(icpBHTHat$gammaHat) 
+if (est_sigma == TRUE) {
+  
+  sigmaModel <- lm(DeltaLambda ~ DeltaP + Name - 1, data=icpBHTEst)
+  # sigmaModel <- lm(DeltaLambda ~ DeltaP + Name - 1, data=icpBHTEst, weights=icpBHTEst$gdpUSDT)  # with gdp weights
+  sigma_t <- sigmaModel$coefficients[1] %>% as.numeric()
+  sigma <- 1 - sigma_t
+  sigmaDF <- as.data.frame(sigma)
+  
+  if(EUD==FALSE) {
+    if (TPSP==FALSE) {
+      write_csv(sigmaDF, paste0(resultsdir, "sigma.csv"), col_names=FALSE)
+    } else {
+      write_csv(sigmaDF, paste0(resultsdirTPSP, "sigma.csv"), col_names=FALSE)
+    }
+  } else {
+    write_csv(sigmaDF, paste0(resultsdirEU, "sigma.csv"), col_names=FALSE)
+  }
+  
+  alpha_t <- sigmaModel$coefficients[-1]
+  icpBHTHat <- data.frame(icpBHTEst$Name %>% unique() %>% sort(), as.numeric(alpha_t))
+  colnames(icpBHTHat) <- c("Name", "alpha_t")
+  icpBHTHat$alpha_t <- exp(icpBHTHat$alpha_t)
+  colnames(icpBHTHat) <- c("Name", "alphaHat")
+  
+} else {
+  icpBHTEst$phi <- icpBHTEst$DeltaLambda - (1 - sigma) * icpBHTEst$DeltaP
+  icpBHTHat <- icpBHTEst  %>% group_by(Name) %>%
+    summarise(gammaHat=weighted.mean(phi, gdpUSDT))
+  icpBHTHat$alphaHat <- exp(icpBHTHat$gammaHat) 
+  icpBHTHat <- icpBHTHat %>% select(Name, alphaHat)
+}
 # products with coefficient of one are valued equally to cheese
+# will get different alphas if we don't weight observations
 
-icpBHTHat <- icpBHTHat %>% select(Name, alphaHat)
 
 ### CALCULATE PRICE INDICES ###
 
@@ -206,7 +232,7 @@ if (MYSG==TRUE) {
   icpBHT$ccode <- ifelse(icpBHT$ccode %in% MYSGccodes, "MYSG", icpBHT$ccode)
 }
 
-icpBHT$ccode <- ifelse(icpBHT$ccode %in% c(ccodes, EU27), icpBHT$ccode, "ROW")
+icpBHT$ccode <- ifelse(icpBHT$ccode %in% c(ccodes, EU27), icpBHT$ccode, ROWname)
 
 icpBHTAgg <- icpBHT %>% group_by(ccode, Name) %>%
   summarise(expReal=sum(expReal),
@@ -232,7 +258,7 @@ if(EUD==FALSE) {
 } else {
   write_csv(icpBHTAgg, paste0(cleandirEU, "icpBHTAgg.csv"))
 }
-icpBHTAgg %>% print(n=100)
+# icpBHTAgg %>% print(n=100)
 
 icpP <- icpBHTAgg %>% group_by(ccode) %>%
   summarise(priceIndex=priceIndex(alphaHat, pppReal, sigma),
@@ -240,6 +266,7 @@ icpP <- icpBHTAgg %>% group_by(ccode) %>%
 
 us <- icpP %>% filter(ccode=="USA") %>% pull(priceIndex)
 icpP$priceIndexBase <- icpP$priceIndex / us
+# icpP %>% print(n=50)
 
 icpP <- left_join(icpP, icpG)
 # icpG %>% print(n=50)
@@ -288,7 +315,6 @@ if(EUD==FALSE) {
 } else {
   write_csv(pop, paste0(cleandirEU, "pop.csv"))
 }
-P
 # P %>% filter(iso3=="IRL")
 # P %>% filter(iso3 %in% EU27) %>% print(n=27)
 

@@ -27,6 +27,8 @@ write_csv(Y %>% as.data.frame(), paste0(expdirTPSP, "year.csv"), col_names = FAL
 
 if (TPSP==FALSE) {
   
+  sigma <- read_csv(paste0(resultsdir, "sigma.csv"))
+  
   P <- read_csv(paste0(cleandir, "priceIndex.csv"))
   tau <- read_csv(paste0(resultsdir, "tauYTR.csv")) %>% select(-tauAlt)
   shares <- read_csv(paste0(cleandir, "sharesTR.csv"))  # in cif value
@@ -40,6 +42,8 @@ if (TPSP==FALSE) {
   ccodes <- read_csv(paste0(cleandir, "ccodes.csv"))
   
 } else {
+  
+  sigma <- read_csv(paste0(resultsdirTPSP, "sigma.csv"))
   
   P <- read_csv(paste0(cleandirTPSP, "priceIndex.csv"))
   tau <- read_csv(paste0(resultsdirTPSP, "tauYTR.csv")) %>% select(-tauAlt)
@@ -116,6 +120,7 @@ gdp$gdp <- gdp$exp - gdp$deficit - gdp$r # recalculate deficit, revenue-implied 
 ccodes <- shares$j_iso3 %>% unique() %>% sort() %>% as.data.frame()
 
 write_csv(ccodes, paste0(expdirTPSP, "ccodes.csv"), col_names=FALSE)
+write_csv(ROWname, paste0(expdirTPSP, "ROWname.csv"), col_names=FALSE)
 
 # tradable shares (nu)
 nu <- P %>% select(j_iso3, Tshare) %>% arrange(j_iso3)
@@ -207,6 +212,9 @@ write_csv(beta %>% as.data.frame(), paste0(expdirTPSP, "beta.csv"), col_names=FA
 # theta
 write_csv(theta %>% as.data.frame(), paste0(expdirTPSP, "theta.csv"), col_names=FALSE)
 
+# sigma
+write_csv(sigma %>% as.data.frame(), paste0(expdirTPSP, "sigma.csv"), col_names=FALSE)
+
 ### minimum distances ###
 ccodes <- ccodes %>% pull(.)
 
@@ -222,8 +230,8 @@ ddf$iso2 <- countrycode(ddf$cow2, "cown", "iso3c")
 ddf$iso1 <- mapEU(ddf$iso1, Y)
 ddf$iso2 <- mapEU(ddf$iso2, Y)
 
-ddf$iso1 <- ifelse(ddf$iso1 %in% ccodes, ddf$iso1, "ROW")
-ddf$iso2 <- ifelse(ddf$iso2 %in% ccodes, ddf$iso2, "ROW")
+ddf$iso1 <- ifelse(ddf$iso1 %in% ccodes, ddf$iso1, ROWname)
+ddf$iso2 <- ifelse(ddf$iso2 %in% ccodes, ddf$iso2, ROWname)
 
 ddf <- ddf %>% select(iso1, iso2, centDist)
 ddfOut <- ddf %>% dplyr::group_by(iso1, iso2) %>% dplyr::summarise(minDist=mean(centDist, na.rm=TRUE)) %>% ungroup()
@@ -241,7 +249,7 @@ milex$milex <- milex$MS.MIL.XPND.CD
 milex$milex <- ifelse(is.na(milex$milex), 0, milex$milex)
 
 milex$iso3 <- mapEU(milex$iso3, milex$year)
-milex$iso3 <- ifelse(milex$iso3 %in% ccodes, milex$iso3, "ROW")
+milex$iso3 <- ifelse(milex$iso3 %in% ccodes, milex$iso3, ROWname)
 
 milexOut <- milex %>% group_by(iso3) %>%
   dplyr::summarise(milex=sum(milex)) %>% arrange(iso3) %>% pull(milex)

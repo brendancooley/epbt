@@ -2,30 +2,33 @@
 
 source(paste0("../", analysisDir, "params.R"))
 
+sigma <- read_csv(paste0(resultsdir, "sigma.csv"), col_names=FALSE) %>% pull(.)
+
 N <- read_csv(paste0(cleandir, "ccodes.csv")) %>% pull(.) %>% length()
 P <- read_csv(paste0(cleandir, "priceIndex.csv")) %>% filter(year==Y)
 freight <- read_csv(paste0(cleandir, "freight.csv"))
 gdp <- read_csv(paste0(cleandir, "gdp.csv"))
 delta <- read_csv(paste0(cleandir, "delta.csv")) %>% filter(year==Y)
 
-gdpSample <- gdp %>% filter(iso3 != "ROW", year==Y) %>% pull(gdp) %>% sum()
+gdpSample <- gdp %>% filter(iso3 != ROWname, year==Y) %>% pull(gdp) %>% sum()
 gdpWorld <- gdp %>% filter(year==Y) %>% pull(gdp) %>% sum()
 
 ```
 
-I present results from a calibration on a set of `r N` of the world's largest economies in `r Y`.^[The list of the economies in the sample is included in the Appendix.] These in-sample countries collectively made up `r round(gdpSample/gdpWorld*100, digits=0)` percent of world GDP. I treat the rest of the world as an aggregate outside economy. The calibration requires me to take a stance on two structural parameters, the Frechet parameter $\theta$ and the consumers' elasticity of substitution $\sigma$. I set $\sigma - 1 = \theta =$ `r theta`, in line with the estimates from the structural gravity literature [@Head2014].
+I present results from a calibration on a set of `r N` of the world's largest economies in `r Y`.^[The list of the economies in the sample is included in Appendix `r AsampleCountries`.] These in-sample countries collectively made up `r round(gdpSample/gdpWorld*100, digits=0)` percent of world GDP. I treat the rest of the world as an aggregate outside economy. The calibration requires me to take a stance on two structural parameters, the Frechet parameter $\theta$ and the consumers' elasticity of substitution $\sigma$. I set $\theta =$ `r theta`, in line with the estimates from the structural gravity literature [@Head2014]. I estimate $\sigma$ using cross-national variation in prices and consumer expenditure shares on categories of tradable goods. 
 
 ## Prices and Consumer Expenditures
 
 In order to calculate policy barriers to trade, I require an empirical analogue of the Equation \ref{eq:P}, the country-specific price index. This quantity summarizes the overall level of competition in the economy, summarized in the market price of tradable varieties. Data on cross-national prices comes from the World Bank's International Comparison Program, used to calculate Purchasing Power Parities (PPP).^[@Rao2013 details the underlying data and methodology. @Deaton2010 discusses challenges in working with these data.]
 
-The ICP surveys prices of hundreds of products and services across 146 countries, and chooses product lists to maximize comparability across markets. They also report the share of GDP that is allocated toward puchases of different product categories, termed "basic headings." After using the prevailing exchange rate to convert prices into U.S. dollars, various (largely atheoretical) statistical methods are used to compute internationally comparable price indices across basic headings.^[See @Redding2018 for a discussion of the conditions under which these price indices correspond to their theoretical counterparts.] I classify each basic heading as tradable or nontradable and report the results of this classification in the Appendix.^[@Simonovska2014 undertake the same exercise. My classification differs slightly from theirs.]
+The ICP surveys prices of hundreds of products and services across 146 countries, and chooses product lists to maximize comparability across markets. They also report the share of GDP that is allocated toward puchases of different product categories, termed "basic headings." After using the prevailing exchange rate to convert prices into U.S. dollars, various (largely atheoretical) statistical methods are used to compute internationally comparable price indices across basic headings.^[See @Redding2018 for a discussion of the conditions under which these price indices correspond to their theoretical counterparts.] I classify each basic heading as tradable or nontradable and report the results of this classification in Appendix `r AexpCategories`.^[@Simonovska2014 undertake the same exercise. My classification differs slightly from theirs.]
 
 I take these basic headings as the empirical analogue to good categories $k$ in the model. I assume that the local price of each variety in category $k$ is constant, $p_i(\omega) = p_i(\omega^\prime) = p_{ik}$ for all $\omega, \omega^\prime \in \Omega_k$. Then, the price index in Equation \ref{eq:P} can be written
 $$
 P_i = \left( \int_\omega \alpha_{h(\omega)} p_i(\omega)^{1 - \sigma} \right)^{\frac{1}{1 - \sigma}} = \frac{1}{K} \left( \sum_k \alpha_k p_{ik}^{1 - \sigma} \right)^{\frac{1}{1 - \sigma}}
 $$
-If the elasticity of substitution and the vector $\bm{\alpha} = \left\{ \alpha_0, ..., \alpha_{K-1} \right\}$ are known, then price indices can be calculated from the ICP's price data, $\bm{p}_i = \left\{ p_{i0}, ..., p_{i, K-1} \right\}$ and data on consumer expenditures. In the Appendix, I show how calculate an estimate for consumer tastes, $\hat{\bm{\alpha}}$ and employ this estimate to calculate empirical price indices. Because preferences do not vary by country, this amounts to minimizing the distance between observed and predicted product-level expenditures across countries.
+If the elasticity of substitution, $\sigma$, and the vector $\bm{\alpha} = \left\{ \alpha_0, ..., \alpha_{K-1} \right\}$ are known, then price indices can be calculated from the ICP's price data, $\bm{p}_i = \left\{ p_{i0}, ..., p_{i, K-1} \right\}$ and data on consumer expenditures. In Appendix `r ApriceIndex`, I show these parameters relate consumer expenditure shares to prices in a simple log-linear model, which I estimate using least squares. Regressing consumer expenditure on prices produces a consistent estimate for $\sigma$ because prices do not depend on this demand-side in this competitive model. I estimate $\sigma$ to be `r round(sigma, 2)`.
+
 
 ```{r P, echo=FALSE, warning=FALSE, message=FALSE, fig.cap = "Price indices and tradable expenditure shares \\label{fig:P}", fig.height=5, dpi=300, fig.pos="t"}
 
@@ -56,7 +59,7 @@ Note that implicit domestic consumption in Equation \ref{eq:lambda_jj} depends o
 
 ## Freight Costs
 
-I combine a variety of data sources on factual freight costs and modes of transportation with bilateral geographic covariates to estimate aggregate freight costs between all countries in my sample. These predicted values serve as the $\delta_{ij}$ in Equation \ref{eq:tau}.^[Because the bilateral covariates used are symmetric between any two countries, predicted freight costs are nearly symmetric as well ($\delta_{ij} \approx \delta_{ji}$). Differences in the product-level makeup of trade are the only asymmetry introduced in my framework. @Takahashi2011 and @Behrens2011 show scale economies in shipping generally do produce asymmetries in bilateral freight costs. However, given the small ratio of freight costs to implied policy barriers, accounting for these asymmetries are unlikely to fundamentally alter my results.] As depicted in Figure \ref{fig:tcosts}, all freight costs I observe cover the cost of shipments from border-to-border. They do not include costs that are incurred during intranational transit ($\rho_i$), which are differenced out of Equation \ref{eq:tau}. I discuss these data sources and the methodology used to estimate freight costs in the Appendix. Predicted freight costs average `r round(mean(delta$avc - 1), 2) * 100` percent the value of shipments and are positively correlated with distance.
+I combine a variety of data sources on factual freight costs and modes of transportation with bilateral geographic covariates to estimate aggregate freight costs between all countries in my sample. These predicted values serve as the $\delta_{ij}$ in Equation \ref{eq:tau}.^[Because the bilateral covariates used are symmetric between any two countries, predicted freight costs are nearly symmetric as well ($\delta_{ij} \approx \delta_{ji}$). Differences in the product-level makeup of trade are the only asymmetry introduced in my framework. @Takahashi2011 and @Behrens2011 show scale economies in shipping generally do produce asymmetries in bilateral freight costs. However, given the small ratio of freight costs to implied policy barriers, accounting for these asymmetries are unlikely to fundamentally alter my results.] As depicted in Figure \ref{fig:tcosts}, all freight costs I observe cover the cost of shipments from border-to-border. They do not include costs that are incurred during intranational transit ($\rho_i$), which are differenced out of Equation \ref{eq:tau}. I discuss these data sources and the methodology used to estimate freight costs in Appendix `r AfreightModel`. Predicted freight costs average `r round(mean(delta$avc - 1), 2) * 100` percent the value of shipments and are positively correlated with distance.
 
 ```{r freight, echo=FALSE, warning=FALSE, message=FALSE, fig.cap = "Factual versus predicted freight costs. In-sample observations are shown in grey. Out-of-sample observations are shown in black. \\label{fig:freight}", fig.height=6, dpi=300, fig.pos="t"}
 
