@@ -208,10 +208,16 @@ if (est_sigma == TRUE) {
 # products with coefficient of one are valued equally to cheese
 # will get different alphas if we don't weight observations
 
+icpBHT <- left_join(icpBHT, icpBHTHat)
+
+### BACK OUT U.S. PRICES ###
+
+# icpBHTUSA <- icpBHT %>% filter(ccode=="USA")
+# exp_USAbase <- icpBHTUSA %>% filter(Name==baseProduct) %>% pull(expReal)
+# icpBHTUSA$p_implied <- (icpBHTUSA$alphaHat^(-1) * icpBHTUSA$expReal / exp_USAbase)^(1/(1-sigma))
+# icpBHTUSA %>% arrange(desc(expReal)) %>% print(n=100)
 
 ### CALCULATE PRICE INDICES ###
-
-icpBHT <- left_join(icpBHT, icpBHTHat)
 
 # Aggregate EU, ROW
 if (EUD==FALSE) {
@@ -259,14 +265,20 @@ if(EUD==FALSE) {
   write_csv(icpBHTAgg, paste0(cleandirEU, "icpBHTAgg.csv"))
 }
 # icpBHTAgg %>% print(n=100)
+# testJPN <- icpBHTAgg %>% filter(ccode=="JPN")
+# testUSA <- icpBHTAgg %>% filter(ccode=="USA")
+# 
+# priceIndex(testJPN$alphaHat, testJPN$pppReal, sigma)
+# sum(testUSA$alphaHat * testUSA$pppReal^(1-sigma))^(1/(1-sigma))
 
 icpP <- icpBHTAgg %>% group_by(ccode) %>%
   summarise(priceIndex=priceIndex(alphaHat, pppReal, sigma),
             expT=sum(expReal, na.rm = T))
+# icpP %>% print(n=50)
 
 us <- icpP %>% filter(ccode=="USA") %>% pull(priceIndex)
 icpP$priceIndexBase <- icpP$priceIndex / us
-# icpP %>% print(n=50)
+
 
 icpP <- left_join(icpP, icpG)
 # icpG %>% print(n=50)
@@ -315,6 +327,7 @@ if(EUD==FALSE) {
 } else {
   write_csv(pop, paste0(cleandirEU, "pop.csv"))
 }
+# P %>% print(n=50)
 # P %>% filter(iso3=="IRL")
 # P %>% filter(iso3 %in% EU27) %>% print(n=27)
 
