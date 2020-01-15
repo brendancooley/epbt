@@ -129,7 +129,7 @@ def task_tpsp():
 					'cd ' + estdir + '; Rscript ' + prices + ' False True %(mini)s',
 					'cd ' + estdir + '; Rscript ' + freight + ' False True %(mini)s',
 					'cd ' + estdir + '; Rscript ' + tau + ' False True %(mini)s',
-					'cd ' + estdir + '; Rscript tpsp.R True %(mini)s',
+					'cd ' + estdir + '; Rscript tpsp.R True %(mini)s %(path)s',
 					"mkdir -p " + tpspPath + "%(path)s",
 					"cp -a " + dataPath + "%(path)s " + tpspPath + "%(path)s"],
 		'verbosity': 2,

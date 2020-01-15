@@ -21,11 +21,9 @@ otherdir <- paste0(basedir, "04_other/")
 if (mini==TRUE) {
   cleandirTPSP <- paste0(basedir, "tpsp_clean_mini/")
   resultsdirTPSP <- paste0(basedir, "tpsp_results_mini/")
-  expdirTPSP <- paste0(basedir, "tpsp_data_mini/")
 } else {
   cleandirTPSP <- paste0(basedir, "tpsp_clean/")
   resultsdirTPSP <- paste0(basedir, "tpsp_results/")
-  expdirTPSP <- paste0(basedir, "tpsp_data/")
 }
 
 cleandirEU <- paste0(cleandir, "EUD/")

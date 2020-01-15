@@ -11,13 +11,15 @@ args <- commandArgs(trailingOnly=TRUE)
 if (is.null(args) | identical(args, character(0))) {
   TPSP <- FALSE
   mini <- FALSE
+  expdirPath <- "tpsp_data/"
 } else {
   TPSP <- ifelse(args[1] == "True", TRUE, FALSE)
   mini <- ifelse(args[2] == "True", TRUE, FALSE)
+  expdirPath <- args[3]
 }
 
 source("params.R")
-
+expdirTPSP <- paste0(basedir, expdirPath)
 mkdir(expdirTPSP)
 
 write_csv(mu %>% as.data.frame(), paste0(expdirTPSP, "mu.csv"), col_names = FALSE)
@@ -120,7 +122,7 @@ gdp$gdp <- gdp$exp - gdp$deficit - gdp$r # recalculate deficit, revenue-implied 
 ccodes <- shares$j_iso3 %>% unique() %>% sort() %>% as.data.frame()
 
 write_csv(ccodes, paste0(expdirTPSP, "ccodes.csv"), col_names=FALSE)
-write_csv(ROWname, paste0(expdirTPSP, "ROWname.csv"), col_names=FALSE)
+write_csv(ROWname %>% as.data.frame(), paste0(expdirTPSP, "ROWname.csv"), col_names=FALSE)
 
 # tradable shares (nu)
 nu <- P %>% select(j_iso3, Tshare) %>% arrange(j_iso3)
