@@ -51,8 +51,8 @@ tar <- left_join(tar, flowshs2) %>% select(i_iso3, j_iso3, hs2, year, adv, val) 
 tar$i_iso3 <- mapEU(tar$i_iso3, tar$year)
 tar$j_iso3 <- mapEU(tar$j_iso3, tar$year)
 
-tar$i_iso3 <- ifelse(tar$i_iso3 %in% ccodes, tar$i_iso3, "ROW")
-tar$j_iso3 <- ifelse(tar$j_iso3 %in% ccodes, tar$j_iso3, "ROW")
+tar$i_iso3 <- ifelse(tar$i_iso3 %in% ccodes, tar$i_iso3, ROWname)
+tar$j_iso3 <- ifelse(tar$j_iso3 %in% ccodes, tar$j_iso3, ROWname)
 # tar %>% filter(j_iso3=="EU", year==2007)
 
 tar$val <- ifelse(is.na(tar$val), 0, tar$val)

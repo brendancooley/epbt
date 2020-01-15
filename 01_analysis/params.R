@@ -78,6 +78,7 @@ endY <- 2011
 Y <- 2011
 
 est_sigma <- TRUE
+ROWname <- "RoW"
 
 # NOTE: small countries get unrealistic trade shares with theta \approx 4 and tauRev = FALSE
 # Standard results...theta=6(?)

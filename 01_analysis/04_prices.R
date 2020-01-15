@@ -81,7 +81,7 @@ if (MYSG==TRUE) {
 }
 
 # aggregate ROW
-icpPop$ccode <- ifelse(icpPop$ccode %in% c(ccodes, EU27), icpPop$ccode, "ROW")
+icpPop$ccode <- ifelse(icpPop$ccode %in% c(ccodes, EU27), icpPop$ccode, ROWname)
 
 icpPop <- icpPop %>% group_by(ccode) %>%
   summarise(pop=sum(pop))
@@ -132,7 +132,7 @@ if (MYSG==TRUE) {
   icpBHA$ccode <- ifelse(icpBHA$ccode %in% MYSGccodes, "MYSG", icpBHA$ccode)
 }
 
-icpBHA$ccode <- ifelse(icpBHA$ccode %in% c(ccodes, EU27), icpBHA$ccode, "ROW")
+icpBHA$ccode <- ifelse(icpBHA$ccode %in% c(ccodes, EU27), icpBHA$ccode, ROWname)
 
 # icpBHA %>% filter(ccode=="USA") %>% print(n=200)
 icpBHA$ccode %>% unique() %>% sort()
@@ -232,7 +232,7 @@ if (MYSG==TRUE) {
   icpBHT$ccode <- ifelse(icpBHT$ccode %in% MYSGccodes, "MYSG", icpBHT$ccode)
 }
 
-icpBHT$ccode <- ifelse(icpBHT$ccode %in% c(ccodes, EU27), icpBHT$ccode, "ROW")
+icpBHT$ccode <- ifelse(icpBHT$ccode %in% c(ccodes, EU27), icpBHT$ccode, ROWname)
 
 icpBHTAgg <- icpBHT %>% group_by(ccode, Name) %>%
   summarise(expReal=sum(expReal),
