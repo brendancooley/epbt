@@ -6,12 +6,15 @@
 # tauHMY <- read_csv(paste0(resultsdir, "tauHMY.csv"))
 # tauHMYEUD <- read_csv(paste0(resultsdirEU, "tauY.csv"))
 # 
-# tauHMYEUD %>% filter(j_iso3=="AUT") %>% print(n=50)
-# tauHMYEUD %>% filter(i_iso3=="BNL") %>% print(n=50)
-# tauHMYEUD %>% filter(j_iso3=="IRL") %>% print(n=50)
+# # tauHMYEUD %>% filter(j_iso3=="AUT") %>% print(n=50)
+# # tauHMYEUD %>% filter(i_iso3=="BNL") %>% print(n=50)
+# # tauHMYEUD %>% filter(j_iso3=="IRL") %>% print(n=50)
 # 
-# EUHM <- T
+# EUHM <- F
 # cluster <- T
+
+
+### COMMENT ABOVE FOR PAPER ###
 
 rectTrsp <- 0
 rectColor <- "#000000CC"
@@ -23,7 +26,7 @@ if (EUHM == T) {
   HMD <- tauHMY
 }
 
-ccodes <- HMD$i_iso3 %>% unique() %>% setdiff("TRI")
+ccodes <- HMD$j_iso3 %>% unique() %>% setdiff("MAI")
 
 HMD$i_iso3 <- factor(HMD$i_iso3, levels=c(sort(ccodes), "TRI"))
 HMD$j_iso3 <- factor(HMD$j_iso3, levels=c(sort(ccodes), "MAI"))

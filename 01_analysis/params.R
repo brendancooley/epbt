@@ -115,7 +115,7 @@ ELLccodes <- c("EST", "LVA", "LTU")
 TRIMAI <- F  # include TRI and MAI?
 cluster <- T  # cluster countries?
 Kmeans <- 3  # number of clusters
-KmeansEUD <- 3  # number of clusters with EU disaggregated
+KmeansEUD <- 4  # number of clusters with EU disaggregated
 
 # revenues
 tauRev <- FALSE
