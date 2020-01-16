@@ -1,9 +1,11 @@
 ---
 title: Estimating Policy Barriers to Trade
-author: Brendan Cooley
+author:
+	- name: Brendan Cooley
+      affiliation: Ph.D. Candidate, Department of Politics, Princeton University
 date: 15 January 2020
 abstract: To what extent is international trade free and fair? Because policy barriers to trade are often opaque and take on many forms, it is difficult to answer this question while relying on data on observable trade barriers. Here, I propose and implement a structural approach to estimating the magnitude of policy barriers to trade, measured at the trade partner level. The method allows for the possibility that these barriers are both *asymmetric* and *discriminatory*, affecting certain trade partners disproportionately. The approach reveals substantial latent policy barriers to trade, many times larger than observed tariffs. It also implies substantial effective policy discrimination, with exporters in a subset of favored countries enjoying far superior market access conditions than their peers in unfavored countries. Combined, these results suggest that the existing world trading system remains far from a free and fair ideal.
-thanks: Ph.D. candidate, Department of Politics, Princeton University. Princeton's Research Program in Political Economy provided financial support for this research. The World Bank's International Comparison Program kindly shared data. Thanks to James Bisbee, Christina Fattore, Haosen Ge, Gene Grossman, Gleason Judd, Kathy Ingram, Sojeong Lee, Aurora Ling, John Londregan, Marco Martini, Helen Milner, Sayumi Miyano, Steve Monroe, Tim Peterson, Sondre Solstad, Kris Ramsay, Steve Redding, Noam Reich, Esther Robinson, Alexandra Zeitz, and Grace Zeng for comments on earlier drafts of this paper, as well audiences at the Princeton Political Economy Graduate Colloquium, the Princeton IR Graduate Seminar, Princeton's Fellowship of Woodrow Wilson Scholars, the Midwest Political Science Association's 2019 Annual Meeting, the International Studies Association's 2019 Midwest Annual Conference, and the Southern Political Science Association's 2020 Annual Meeting.
+thanks: Princeton's Research Program in Political Economy provided financial support for this research. The World Bank's International Comparison Program kindly shared data. Thanks to James Bisbee, Christina Fattore, Haosen Ge, Gene Grossman, Gleason Judd, Kathy Ingram, Sojeong Lee, Aurora Ling, John Londregan, Marco Martini, Helen Milner, Sayumi Miyano, Steve Monroe, Tim Peterson, Sondre Solstad, Kris Ramsay, Steve Redding, Noam Reich, Esther Robinson, Alexandra Zeitz, and Grace Zeng for comments on earlier drafts of this paper, as well audiences at the Princeton Political Economy Graduate Colloquium, the Princeton IR Graduate Seminar, Princeton's Fellowship of Woodrow Wilson Scholars, the Midwest Political Science Association's 2019 Annual Meeting, the International Studies Association's 2019 Midwest Annual Conference, and the Southern Political Science Association's 2020 Annual Meeting.
 # jelcodes: JEL codes go here
 
 bibliography: /Users/bcooley/Dropbox (Princeton)/References/library.bib
@@ -87,11 +89,11 @@ There are $N$ countries in the international economy, indexed $i \in \left\{ 1, 
 
 Each consumer values aggregate tradable goods $Q_i$ and aggregate nontradable services $S_i$, which are combined in a Cobb-Douglas utility function
 \begin{equation} \label{eq:CD}
-U_i = Q_i^{\nu_i} S_i^{1 - \nu_i}
+U_i = Q_i^{\nu_i} S_i^{1 - \nu_i} .
 \end{equation}
 A country-specific parameter $\nu_i \in [0,1]$ governs the consumer's relative preference for goods over services. Wages are denoted $w_i$, which implies country gross domestic products are given by
 $$
-I_i = w_i L_i
+I_i = w_i L_i .
 $$
 Cobb-Douglas preferences imply consumers will spend a fraction $\nu_i$ of their income on tradable goods.^[In calibrating the model, I choose $\nu_i$ to match the factual expenditure shares on tradables in each country, as reported by the ICP.] Equilibrium consumer expenditure on tradables is then
 $$
@@ -105,17 +107,19 @@ h : \Omega \rightarrow \mathcal{K}
 $$
 be a function that associates varieties with good categories. The set of goods in category $k$ is $\Omega_k$ where
 $$
-\Omega_k = \left\{ \omega : h(\omega) = k \right\}
+\Omega_k = \left\{ \omega : h(\omega) = k \right\} .
 $$
-The mass of each tradable good category is $1 / K$. Consumers' preference for goods in category $k$ is given by $\alpha_k \geq 0$ and is constant across countries.
+The mass of each tradable good category is $1 / K$.
 
 Consumer utility over these varieties exhibits constant elasticity of substitution (CES)
 \begin{equation} \label{eq:CES}
-Q_i = \left( \int_{[0,1]} \alpha_{h(\omega)}^{\frac{1}{\sigma}} q_i(\omega)^{\frac{\sigma - 1}{\sigma}} d \omega \right)^{\frac{\sigma}{\sigma - 1}}
+Q_i = \left( \int_{[0,1]} \tilde{\alpha}_{i, h(\omega)}^{\frac{1}{\sigma}} q_i(\omega)^{\frac{\sigma - 1}{\sigma}} d \omega \right)^{\frac{\sigma}{\sigma - 1}}
 \end{equation}
-with $\sigma > 0$. With expenditure on tradables fixed by the Cobb Douglas upper level preference structure, consumers simply maximize $Q_i$ subject to their tradable budget constraint, $\int_{[0,1]} p_i(\omega) q_i(\omega) d \omega \leq E_i^q$, where $p_i(\omega)$ is the (endogenous) price of variety $\omega$ in country $i$. The aggregate price of tradables in country $i$ is as in @Dixit1977
+with $\sigma > 0$. $\tilde{\alpha}_{ik} = \epsilon_{ik} \alpha_k$ is a stochastic preference parameter that modulates country $i$'s consumer's relative preference for goods in category $i$. These preferences are constant across consumers in different countries up to a shock, $\epsilon_{ik}$, with $\E [ \epsilon_{ik} ] = 1$.
+
+With expenditure on tradables fixed by the Cobb Douglas upper level preference structure, consumers simply maximize $Q_i$ subject to their tradable budget constraint, $\int_{[0,1]} p_i(\omega) q_i(\omega) d \omega \leq E_i^q$, where $p_i(\omega)$ is the (endogenous) price of variety $\omega$ in country $i$. The aggregate price of tradables in country $i$ is as in @Dixit1977
 \begin{equation} \label{eq:P}
-P_i = \left( \int_{[0,1]} \alpha_{h(\omega)} p_i(\omega)^{1 - \sigma} d \omega \right)^{\frac{1}{1 - \sigma}}
+P_i = \left( \int_{[0,1]} \tilde{\alpha}_{i, h(\omega)} p_i(\omega)^{1 - \sigma} d \omega \right)^{\frac{1}{1 - \sigma}} .
 \end{equation}
 
 ### Production
@@ -126,33 +130,33 @@ c_i(\omega) = \frac{1}{z_i(\omega)} w_i^{1 - \beta} P_i^{\beta}
 \end{equation}
 where the global parameter $\beta \in [0, 1]$ governs the share of intermediates required in production.^[Services are produced at cost $c_i^s = \frac{w_i}{A_i}$, where $A_i$ is a country-specific services productivity.] Let $X_i$ denote the value of tradable production in country $i$. A constant share, $\beta$, of this value will be spent on intermediates
 $$
-E_i^x = \beta X_i
+E_i^x = \beta X_i .
 $$
 
 Countries require $1/z_i(\omega)$ labor-intermediate bundles to produce one unit of variety $\omega$. Markets are competitive, so prices are equal to marginal costs. The local price ($p_{ii}(\omega)$) of variety $\omega$ is therefore
 \begin{equation} \label{eq:pii}
-p_{ii}(\omega) = c_i(\omega)
+p_{ii}(\omega) = c_i(\omega) .
 \end{equation}
 
 $\omega$-specific productivities are stochastic. Let $F_i(z)$ denote the probability that country $i$'s productivity is less than or equal to $z$, formally
 $$
-F_i(z) = \text{Pr} \left\{ z_i(\omega) \leq z \right\}
+F_i(z) = \text{Pr} \left\{ z_i(\omega) \leq z \right\} .
 $$
-When $F_i(z)$ is distributed Frechet, then
+When $F_i(z)$ is distributed Frechet,
 \begin{equation} \label{eq:Frechet}
-F_i(z) = \exp \left\{ - T_i z^{-\theta} \right\}
-\end{equation} 
+F_i(z) = \exp \left\{ - T_i z^{-\theta} \right\} .
+\end{equation}
 The country-wide technology level $T_i$ shifts country $i$'s productivity distribution -- higher values of $T_i$ imply higher productivity values on average. $\theta > 1$ is a global parameter that governs the variance of the productivity draws.^[In equilibrium, it serves as the elasticity of trade flows to trade costs. As producers become more heterogeneous, trade becomes more sensitive to changes in costs.] 
 
 Exporters pay iceberg costs ($d_{ji} \geq 1$) to ship goods abroad. The price in country $j$ of varieties produced in $i$ is therefore
 $$
-p_{ji}(\omega) = d_{ji} p_{ii}(\omega)
+p_{ji}(\omega) = d_{ji} p_{ii}(\omega) .
 $$
 These costs are affected by transportation infrastructure at home and abroad, international freight costs, and policy distortions. Below, I present a framework for disentangling these costs and isolating the magnitude of distortions attributable to policy.
 
 Domestic consumers and producers alike search around the world for the cheapest source of each variety $\omega$. The equilibrium price of variety $\omega$ in country $i$ must satisfy
 $$
-p_i^\star(\omega) = \min_{j \in \left\{ 1,...,N \right\}} \left\{ p_{ij} \right\}
+p_i^\star(\omega) = \min_{j \in \left\{ 1,...,N \right\}} \left\{ p_{ij} \right\} .
 $$
 
 ## Equilibrium
@@ -161,9 +165,9 @@ For national accounts to balance, gross output and gross consumption, inclusive 
 \begin{equation} \label{eq:accounts}
 I_i + \beta X_i + D_i = E_i^q + E_i^x + (1 - \nu_i) I_i
 \end{equation}
-Total income is given by the sum of domestic payments for services and labor payments from the global sales of tradables, $X_i$
+Total income is given by the sum of domestic payments for services and labor payments from the global sales of tradables, $X_i$, or
 $$
-I_i = w_i L_i = (1 - \beta) X_i + (1 - \nu_i) I_i
+I_i = w_i L_i = (1 - \beta) X_i + (1 - \nu_i) I_i .
 $$
 Substituting into Equation \ref{eq:accounts} requires
 \begin{equation} \label{eq:tIncome}
@@ -173,11 +177,11 @@ or that trade less deficits is balanced.
 
 Total expenditure on tradables is the sum of expenditures from consumers and producers^[Note that expenditure on tradables can be written $$E_i = I_i + \beta X_i + D_i - (1 - \nu_i) I_i $$ or gross consumption less consumer expenditure on services. This is the empirical quantity for $E_i$ I use when calibrating the model.]
 $$
-E_i = E_i^q + E_i^x
+E_i = E_i^q + E_i^x .
 $$
 Let $\lambda_{ij}(\bm{w})$ denote the share of expenditure on tradables country $i$ spends on goods from $j$ and
 $$
-\Omega_{ij}^\star = \left\{ \omega \in [0,1] \left. \right\vert p_{ij}(\omega) \leq \min_{k \neq j} \left\{ p_{ik} \right\} \right\}
+\Omega_{ij}^\star = \left\{ \omega \in [0,1] \left. \right\vert p_{ij}(\omega) \leq \min_{k \neq j} \left\{ p_{ik} \right\} \right\} .
 $$
 Then
 \begin{equation} \label{eq:lambda}
@@ -187,7 +191,7 @@ where $q_i \left( p_{ij} (\omega) \right)$ is equilibrium consumption of variety
 
 This quantity depends on wages everywhere, stored in the vector $\bm{w} = \left\{ w_1, ..., w_N \right\}$. Note that given exogenous labor endowments $(L_i)$, trade costs $(d_{ij})$, technologies $(T_i)$, and parameters $\left\{ \sigma, \theta, \nu_i, \beta \right\}$, endogenous wages completely determine the pattern of trade. Gross income in country $i$ from the sale of tradables can be written
 \begin{equation} \label{eq:marketClearing}
-X_i = \sum_{j=1}^N \lambda_{ji}(\bm{w}) E_j
+X_i = \sum_{j=1}^N \lambda_{ji}(\bm{w}) E_j .
 \end{equation}
 
 **Definition:** An *international equilibrium* is a vector of wages $\bm{w}$ such that Equations \ref{eq:tIncome}, \ref{eq:lambda}, and \ref{eq:marketClearing} hold for all $i \in \left\{1, ..., N \right\}$.
@@ -198,7 +202,7 @@ X_i = \sum_{j=1}^N \lambda_{ji}(\bm{w}) E_j
 \end{equation}
 where
 $$
-\Phi_i =  \sum_j T_j \left( d_{ij} w_j^{1 - \beta} P_j^{\beta} \right)^{- \theta}
+\Phi_i =  \sum_j T_j \left( d_{ij} w_j^{1 - \beta} P_j^{\beta} \right)^{- \theta} .
 $$
 The equilibrium price index in country $i$ is
 \begin{equation} \label{eq:eqP}
@@ -220,16 +224,16 @@ where $\rho_j$ denotes exporter-specific costs, $\delta_{ij}$ denotes internatio
 
 Figure \ref{fig:tcostsMap} traces the path goods must travel from a factory in country $j$ to a market in country $i$. Goods first travel from the factory in $j$ to $j$'s border. Upon reaching the border (airport, port, or border crossing), goods must travel by land, sea, or air to the border of their destination country. Along the way, they incur freight costs $\delta_{ij}$. The market in $i$ is protected by a policy barrier $\tau_{ij}$ that can vary across importers. Once goods cross this border, they arrive at the market and are consumed at a price inclusive of the factory gate price $p_{jj}(\omega)$ and these transportation and policy costs. Substituting Equation \ref{eq:tcosts} into the gravity equation \ref{eq:Gravity} gives
 $$
-\lambda_{ij} = \frac{ T_j \left( \rho_j \delta_{ij}(\bm{Z}_{ij}) \tau_{ij} w_j^{1 - \beta} P_j^{\beta} \right)^{- \theta} }{\Phi_i}
+\lambda_{ij} = \frac{ T_j \left( \rho_j \delta_{ij}(\bm{Z}_{ij}) \tau_{ij} w_j^{1 - \beta} P_j^{\beta} \right)^{- \theta} }{\Phi_i} .
 $$
 
 The problem with taking this equation straight to the data is that it contains unobserved technologies and wages. This would also require taking a stance on several structural parameters. Comparing $j$'s import penetration in $i$ to its share of the home market $\lambda_{jj}$ solves this problem, however. To see this, note
 $$
-\frac{\lambda_{ij}}{\lambda_{jj}} = \left( \delta_{ij}(\bm{Z}_{ij}) \tau_{ij} \right)^{- \theta} \frac{\Phi_j}{\Phi_i}
+\frac{\lambda_{ij}}{\lambda_{jj}} = \left( \delta_{ij}(\bm{Z}_{ij}) \tau_{ij} \right)^{- \theta} \frac{\Phi_j}{\Phi_i} .
 $$
-Rearranging and substituting from Equation \ref{eq:eqP} gives the familiar relationship in Equation \ref{eq:Waugh} discussed above, modified to separate trade barriers from freight costs.^[Note that given prices, freight costs, and $\lambda_{jj}$, trade flows are a "sufficient statistic" for the magnitude of policy barriers to trade. In the face of opaque policy instruments, this provides a rationale for simply demanding bilateral trade deficit reductions in trade negotiations, a tactic utilized by the Trump administration in negotiations with China. Wei, Lingling. ["U.S. and China Make Scant Progress in Trade Talks."](https://www.wsj.com/articles/u-s-wants-200-billion-cut-in-china-trade-imbalance-by-end-of-2020-1525419253) *The Wall Street Journal*. 4 May, 2018.]
+Rearranging and substituting from Equation \ref{eq:eqP} gives the familiar relationship in Equation \ref{eq:Waugh} discussed above, modified to separate trade barriers from freight costs:^[Note that given prices, freight costs, and $\lambda_{jj}$, trade flows are a "sufficient statistic" for the magnitude of policy barriers to trade. In the face of opaque policy instruments, this provides a rationale for simply demanding bilateral trade deficit reductions in trade negotiations, a tactic utilized by the Trump administration in negotiations with China. Wei, Lingling. ["U.S. and China Make Scant Progress in Trade Talks."](https://www.wsj.com/articles/u-s-wants-200-billion-cut-in-china-trade-imbalance-by-end-of-2020-1525419253) *The Wall Street Journal*. 4 May, 2018.]
 \begin{equation} \label{eq:tau}
-\tau_{ij} = \left( \frac{\lambda_{ij}}{\lambda_{jj}} \right)^{-\frac{1}{\theta}} \frac{P_i}{P_j} \frac{1}{\delta_{ij}(\bm{Z}_{ij})}
+\tau_{ij} = \left( \frac{\lambda_{ij}}{\lambda_{jj}} \right)^{-\frac{1}{\theta}} \frac{P_i}{P_j} \frac{1}{\delta_{ij}(\bm{Z}_{ij})} .
 \end{equation}
 
 If the trade elasticity is known, data on trade shares, relative prices, and freight costs are sufficient to calculate policy barriers to trade, $\tau_{ij}$. In the next section, I discuss how these data are constructed to match the model presented here. 
@@ -249,26 +253,25 @@ The ICP surveys prices of hundreds of products and services across 146 countries
 
 I take these basic headings as the empirical analogue to good categories $k$ in the model. I assume that the local price of each variety in category $k$ is constant, $p_i(\omega) = p_i(\omega^\prime) = p_{ik}$ for all $\omega, \omega^\prime \in \Omega_k$. Then, the price index in Equation \ref{eq:P} can be written
 $$
-P_i = \left( \int_\omega \alpha_{h(\omega)} p_i(\omega)^{1 - \sigma} \right)^{\frac{1}{1 - \sigma}} = \frac{1}{K} \left( \sum_k \alpha_k p_{ik}^{1 - \sigma} \right)^{\frac{1}{1 - \sigma}}
+P_i = \left( \int_\omega \tilde{\alpha}_{i, h(\omega)} p_i(\omega)^{1 - \sigma} \right)^{\frac{1}{1 - \sigma}} = \frac{1}{K} \left( \sum_k \tilde{\alpha}_{ik} p_{ik}^{1 - \sigma} \right)^{\frac{1}{1 - \sigma}} .
 $$
-If the elasticity of substitution, $\sigma$, and the vector $\bm{\alpha} = \left\{ \alpha_0, ..., \alpha_{K-1} \right\}$ are known, then price indices can be calculated from the ICP's price data, $\bm{p}_i = \left\{ p_{i0}, ..., p_{i, K-1} \right\}$ and data on consumer expenditures. In Appendix A, I show these parameters relate consumer expenditure shares to prices in a simple log-linear model, which I estimate using ordinary least squares. Regressing consumer expenditure on prices produces a consistent estimate for $\sigma$ because prices do not depend on this demand-side in this competitive model. I estimate $\sigma$ to be 1.89.
+The ICP reports prices relative to their levels in the United States. In Appendix A, I show consumers' demand for each good is a function their preferences ($\tilde{\alpha}_{ik}$), the good's price ($p_{ik}$), and the price level in the country ($P_i$). Differencing this demand equation with respect to its analogue in the United States eliminates the constant portion of the preference parameter, $\alpha_k$. Then, demand relative to the United States is a function the stochastic preference shocks ($\epsilon_{ik}$), the price of the good, and the overall price level in the country. I estimate this differenced equation on observed prices and relative expenditure shares by minimizing the squared magnitudes of the preference shocks. This generates estimates for the country-specific price indices, $\hat{P}_i$.
 
+![Price index estimates and tradable expenditure shares \label{fig:P}](figure/P-1.png)
 
-![Price indices and tradable expenditure shares \label{fig:P}](figure/P-1.png)
-
-I plot the distribution of price indices and tradable expenditure shares on tradables that emerge from this procedure against per capita GDPs in Figure \ref{fig:P}. Within my sample, consumers in wealthier countries tend to face higher prices. The total share of consumer expenditure on tradable goods $(\sum_{k=0}^{K-1} x_{ik})$ is the empirical analogue to $\nu_i$. On average, consumers spend 40 percent of their income on tradable goods.
+I plot the distribution of estimated price indices and tradable expenditure shares on tradables that emerge from this procedure against per capita GDPs in Figure \ref{fig:P}. Within my sample, consumers in wealthier countries tend to face higher prices. The total share of consumer expenditure on tradable goods $(\sum_{k=0}^{K-1} x_{ik})$ is the empirical analogue to $\nu_i$. On average, consumers spend 40 percent of their income on tradable goods.
 
 ## Expenditure Shares
 
 The theory makes predictions about the share of consumer expenditure that will be devoted to products from each country. In the data, however, I only observe the value of imports *at the border*. Price distortions due to policy barriers to trade are not included in the valuations of shipments. Let $\lambda_{ij}^{\text{cif}}$ denote the share of $i$'s expenditure on tradables spent on goods from $j$, inclusive of freight rates and exclusive of policy barriers.^[While tariffs are usually assessed on the f.o.b. value of shipments, non-tariff barriers cannot be tailored in this manner. For this reason, I assume the costs of policy barriers are assessed on shipments' c.i.f. values.] We can then write $\lambda_{ij} = \tau_{ij} \lambda_{ij}^{\text{cif}}$ and
 \begin{equation} \label{eq:lambda_jj}
-\lambda_{jj}(\bm{\tau}_j) = \left( 1 - \sum_{i \neq j} \tau_{ji} \lambda_{ji}^{\text{cif}} \right)
+\lambda_{jj}(\bm{\tau}_j) = \left( 1 - \sum_{i \neq j} \tau_{ji} \lambda_{ji}^{\text{cif}} \right) .
 \end{equation}
 This formulation requires that policy barriers to trade are assessed "behind the border," as discussed in the introduction.
 
 Substituting this relationship into \ref{eq:tau} gives a modified equation relating observed trade flows, prices, and freight rates to unobserved policy barriers to trade
 \begin{equation} \label{eq:tauCIF}
-\tau_{ij} = \left( \frac{\lambda_{ij}^{\text{cif}}}{\lambda_{jj}(\bm{\tau}_j)} \right)^{-\frac{1}{\theta + 1}} \left( \frac{P_i}{P_j} \right)^{\frac{\theta}{\theta+1}} \left( \frac{1}{\delta_{ij}(\bm{Z}_{ij})} \right)^{\frac{\theta}{\theta+1}}
+\tau_{ij} = \left( \frac{\lambda_{ij}^{\text{cif}}}{\lambda_{jj}(\bm{\tau}_j)} \right)^{-\frac{1}{\theta + 1}} \left( \frac{P_i}{P_j} \right)^{\frac{\theta}{\theta+1}} \left( \frac{1}{\delta_{ij}(\bm{Z}_{ij})} \right)^{\frac{\theta}{\theta+1}} .
 \end{equation}
 
 Then, to calculate $\lambda_{ij}^{\text{cif}}$ and $\lambda_{jj}$, I need data on international trade flows as well as the market share of domestic tradables producers in their home market. Data on trade flows comes from the United Nations' [COMTRADE](https://comtrade.un.org/db/default.aspx), cleaned and harmonized by [CEPII](http://www.cepii.fr/CEPII/en/welcome.asp)'s [BACI](http://www.cepii.fr/cepii/en/bdd_modele/presentation.asp?id=1). BACI denominates trade flows in free on board (f.o.b. or pre-shipment) value, so predicted cost, insurance, and freight (c.i.f. or post-shipment) values can be calculated simply by multiplying these flows by $\delta_{ij}$, estimated below. Total domestic consumption on tradables can then be inferred from national accounts data, which report gross output, gross consumption, and GDP.^[Gross consumption includes consumer final expenditure as well as producers' expenditure on intermediates and is inclusive of trade deficits.] I simply subtract the share of consumer expenditure on services implied by the ICP data from each country's gross consumption, which provides a measure of gross consumption on tradables, the empirical analogue to $E_i = \nu_i I_i$. These national accounts data are taken from the [World Input Output Database (WIOD)](http://www.wiod.org/home) and the [OECD's National Input Output Tables](https://stats.oecd.org/Index.aspx?DataSetCode=IOTS).
@@ -397,53 +400,43 @@ I should qualify these conclusions on three counts. First, like most studies of 
 
 Demand for variety $\omega$ is
 $$
-q_i(\omega) = \alpha_{h(\omega)} p_i(\omega)^{-\sigma} E_i^q P_i^{\sigma - 1}
+q_i(\omega) = \tilde{\alpha}_{i, h(\omega)} p_i(\omega)^{-\sigma} E_i^q P_i^{\sigma - 1}
 $$
 and expenditure is
 $$
-x_i(\omega) = p_i(\omega) q_i(\omega) = \alpha_{h(\omega)} p_i(\omega)^{1-\sigma} E_i^q P_i^{\sigma - 1}
-$$.
+x_i(\omega) = p_i(\omega) q_i(\omega) = \tilde{\alpha}_{i, h(\omega)} p_i(\omega)^{1-\sigma} E_i^q P_i^{\sigma - 1} . 
+$$
 
 With constant prices in each basic heading, total spending on goods in category $k$ is
 \begin{align*}
-x_{ik} &= \int_{\omega \in \Omega_k} \alpha_{h(\omega)} p_i(\omega)^{1-\sigma} E_i^q P_i^{\sigma - 1} d \omega \\
-&= \int_{\omega \in \Omega_k} \alpha_k p_{ik}^{1 - \sigma} E_i^q P_i^{\sigma - 1} d \omega \\
-&= \frac{1}{K} \alpha_k p_{ik}^{1 - \sigma} E_i^q P_i^{\sigma - 1}
+x_{ik} &= \int_{\omega \in \Omega_k} \tilde{\alpha}_{i, h(\omega)} p_i(\omega)^{1-\sigma} E_i^q P_i^{\sigma - 1} d \omega \\
+&= \int_{\omega \in \Omega_k} \tilde{i, \alpha}_k p_{ik}^{1 - \sigma} E_i^q P_i^{\sigma - 1} d \omega \\
+&= \frac{1}{K} \tilde{\alpha}_{ik} p_{ik}^{1 - \sigma} E_i^q P_i^{\sigma - 1}
 \end{align*}
 and the share of $i$'s tradables expenditure spent on goods in category $k$ is 
 $$
-\lambda_{ik} = \frac{x_{ik}}{E_i^q} = \frac{1}{K} \alpha_k p_{ik}^{1 - \sigma} P_i^{\sigma - 1}
-$$.
-
-Normalizing $\alpha_0 = 1$ gives
+\lambda_{ik} = \frac{x_{ik}}{E_i^q} = \frac{1}{K} \tilde{\alpha}_{ik} p_{ik}^{1 - \sigma} P_i^{\sigma - 1} .
 $$
-\frac{\lambda_{ik}}{\lambda_{i0}} = \alpha_k \left( \frac{p_{ik}}{p_{i0}} \right)^{1 - \sigma}
-$$.
 
-Consumers are subject to relative demand shocks $\epsilon_{ik}$ with $\ln \epsilon_{ik} \sim \mathcal{N}(0, \sigma_{\epsilon}^2)$ that are i.i.d. across countries and good categories. Observed relative expenditure is then
+With the United States as the base country, $p_{\text{US}, k} = 1$ for all $k$. Differencing by $\lambda_{\text{US}, k}$ then gives
 \begin{align*}
-\frac{\lambda_{ik}}{\lambda_{i0}} &= \alpha_k \epsilon_{ik} \left( \frac{p_{ik}}{p_{i0}} \right)^{1 - \sigma} \\
-\Delta \lambda_{ik} &= \alpha_k \epsilon_{ik} \left( \Delta p_{ik} \right)^{1 - \sigma}
-\end{align*}.
-
-Taking logs,
+\frac{\lambda_{ik}}{\lambda_{\text{US}, k}} &= \frac{\tilde{\alpha}_{ik}}{\tilde{\alpha}_{\text{US}, k}} p_{ik}^{1-\sigma} P_i^{\sigma - 1}
+\\
+&= \frac{\epsilon_{ik}}{\epsilon_{\text{US},k}} p_{ik}^{1-\sigma} P_i^{\sigma - 1}
+\end{align*}
+where I enforce the normalization that $P_{US} = 1$. Taking logs,
 $$
-\ln \Delta \lambda_{ik} = \ln \alpha_k + (1 - \sigma) \ln \Delta p_{ik} + \ln \epsilon_{ik}
+\ln \left( \frac{\lambda_{ik}}{\lambda_{\text{US}, k}} \right) = \ln \left( \frac{\epsilon_{ik}}{\epsilon_{\text{US},k}} \right) + (1 - \sigma) \ln \left( p_{ik} \right) + (\sigma - 1) \ln \left( P_i \right)
 $$
-and rearranging gives
+which can be rearranged as
 $$
-\ln \epsilon_{ik} = \ln \Delta \lambda_{ik} - (1 - \sigma) \ln \Delta p_{ik} - \ln \alpha_k
-$$.
-
-Then, a least squares estimate for $\sigma$ and $\bm{\alpha}$ solves
+\ln p_{ik} = \frac{1}{1 - \sigma} \ln \left( \frac{\lambda_{ik}}{\lambda_{\text{US}, k}} \right) + \ln \left( P_i \right) + \frac{1}{\sigma - 1} \ln \left( \frac{\epsilon_{ik}}{\epsilon_{\text{US},k}} \right) .
 $$
-\left( \hat{\sigma}, \hat{\bm{\alpha}} \right) = \argmin_{\sigma, \bm{\alpha}} \sum_i \sum_k \left( \ln \epsilon_{ik} \right)^2
-$$.
-
-Finally, a theory-consistent estimate for the price index can then be calculated as
+Because $\E [ \epsilon_{ik} ] = 1$,
 $$
-\hat{P}_i = \left( \int_\omega \hat{\alpha}_{h(\omega)} p_i(\omega)^{1 - \sigma} \right)^{\frac{1}{1 - \sigma}} = \frac{1}{K} \left( \sum_k \hat{\alpha}_k p_{ik}^{1 - \hat{\sigma}} \right)^{\frac{1}{1 - \hat{\sigma}}}
-$$.
+\E \left[ \ln p_{ik} \right] = \frac{1}{1 - \sigma} \ln \left( \frac{\lambda_{ik}}{\lambda_{\text{US}, k}} \right) + \ln \left( P_i \right) 
+$$
+which gives a moment condition that I estimate via ordinary least squares.
 
 
 
@@ -462,37 +455,39 @@ $$
 $$
 where
 $$
-\delta_{ij}^m x_{ij}^m = \sum_{k=1}^K \delta_{ij}^{m k} x_{ij}^{m k} \implies \delta_{ij}^m =  \sum_{k=1}^K \delta_{ij}^{m k} \frac{x_{ij}^{m k}}{x_{ij}^m}
+\delta_{ij}^m x_{ij}^m = \sum_{k=1}^K \delta_{ij}^{m k} x_{ij}^{m k} \implies \delta_{ij}^m =  \sum_{k=1}^K \delta_{ij}^{m k} \frac{x_{ij}^{m k}}{x_{ij}^m} .
 $$
 
 Let $\zeta_{ij}^{m k}$ denote the share of imports by $i$ from $j$ of good $m$ that travel by mode $k$
 $$
-\zeta_{ij}^{m k} = \frac{x_{ij}^{m k}}{x_{ij}^m}
+\zeta_{ij}^{m k} = \frac{x_{ij}^{m k}}{x_{ij}^m} .
 $$
 
 In the data, I observe product-level trade flows, $x_{ij}^m$, but observe only a subset of ad valorem freight costs by mode $\delta_{ij}^{m k}$ and mode shares $\zeta_{ij}^{m k}$.^[All these variables are aggregated at the HS-2 level.] I also observe bilateral geographic covariates $\bm{Z}_{ij}$ and product dummies $d^m \in \left\{ 0, 1 \right\}$ that may be predictive of freight costs and mode shares. To compute aggregate freight costs $\delta_{ij}$ for all country pairs in our sample, I seek functions
 $$
 g: \left\{ \bm{Z}_{ij}, d^m \right\} \rightarrow \delta_{ij}^{m k}
 $$
+and
 $$
 h: \left\{ \bm{Z}_{ij}, d^m \right\} \rightarrow \zeta_{ij}^{m k}
 $$
 from which I can compute 
 $$
-\hat{\delta}_{ij} \left( \bm{Z}_{ij}, \bm{d}_{ij} \right) = \frac{1}{X_{ij}} \sum_{m = 1}^M x_{ij}^m \sum_{k=1}^K g \left( \bm{Z}_{ij}, d^m \right) h \left( \bm{Z}_{ij}, d^m \right)
+\hat{\delta}_{ij} \left( \bm{Z}_{ij}, \bm{d}_{ij} \right) = \frac{1}{X_{ij}} \sum_{m = 1}^M x_{ij}^m \sum_{k=1}^K g \left( \bm{Z}_{ij}, d^m \right) h \left( \bm{Z}_{ij}, d^m \right) .
 $$
 
-Let $\tilde{\bm{\delta}}$ and $\tilde{\bm{\zeta}}$ denote sets of observed freight costs and mode shares. Let $\mathcal{G}$ denote the set of possible functions $g$ and $\mathcal{H}$ denote the set of possible functions $h$. I choose $g$ and $h$ to satisfy the following
+Let $\tilde{\bm{\delta}}$ and $\tilde{\bm{\zeta}}$ denote sets of observed freight costs and mode shares. Let $\mathcal{G}$ denote the set of possible functions $g$ and $\mathcal{H}$ denote the set of possible functions $h$. I choose $g$ and $h$ to satisfy the following:
 \begin{equation} \label{eq:deltaG}
 \begin{split} 
 \hat{g}^m = \min_{g \in \mathcal{G}} & \quad \sum_{ \delta_{ij}^{m k} \in \tilde{\bm{\delta}} } \left( \delta_{ij}^{m k} - g \left( \bm{Z}_{ij}, d^m \right) \right)^2 \\
 \text{subject to  } & \quad g \left( \bm{Z}_{ij}, d^m \right) \geq 1
 \end{split}
 \end{equation}
+and
 \begin{equation}
 \begin{split} 
 \hat{h} = \min_{h \in \mathcal{H}} & \quad \sum_{\zeta_{ij}^{m k} \in \tilde{\bm{\zeta}}} \left( \zeta_{ij}^{\ell k} - h \left( \bm{Z}_{ij}, d^m \right) \right)^2 \\
-\text{subject to  } & \quad \sum_{k=2}^K h \left( \bm{Z}_{ij}, d^m \right) = 1
+\text{subject to  } & \quad \sum_{k=2}^K h \left( \bm{Z}_{ij}, d^m \right) = 1 .
 \end{split}
 \end{equation}
 
