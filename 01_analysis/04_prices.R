@@ -153,91 +153,63 @@ icpBHT <- left_join(icpBHT, icpGT)
 
 ### AGGREGATION ###
 
-aggregate <- TRUE
-if (aggregate==TRUE) {
-  # Aggregate EU, ROW
-  if (EUD==FALSE) {
-    icpBHT$ccode <- mapEU(icpBHT$ccode, rep(2011, nrow(icpBHT)))
-  } else {
-    # otherwise combine belgium and luxemborg
-    icpBHT$ccode <- ifelse(icpBHT$ccode=="LUX", "BEL", icpBHT$ccode)
-  }
-  
-  # other aggregations
-  if (BNL==TRUE) {
-    icpBHT$ccode <- ifelse(icpBHT$ccode %in% BNLccodes, "BNL", icpBHT$ccode)
-  }
-  if (ELL==TRUE) {
-    icpBHT$ccode <- ifelse(icpBHT$ccode %in% ELLccodes, "ELL", icpBHT$ccode)
-  }
-  if (MYSG==TRUE) {
-    icpBHT$ccode <- ifelse(icpBHT$ccode %in% MYSGccodes, "MYSG", icpBHT$ccode)
-  }
-  
-  icpBHT$ccode <- ifelse(icpBHT$ccode %in% c(ccodes, EU27), icpBHT$ccode, ROWname)
-  
-  icpBHTagg <- icpBHT %>% group_by(Name, ccode) %>%
-    summarise(pppReal=weighted.mean(pppReal, gdpUSDT),
-              expReal=sum(expReal))
-
-  icpBHTgdp <- icpBHT %>% group_by(ccode) %>%
-    summarise(gdpUSDT=sum(expReal))
-
-  icpBHTagg <- left_join(icpBHTagg, icpBHTgdp)
-  
+# Aggregate EU, ROW
+if (EUD==FALSE) {
+  icpBHT$ccode <- mapEU(icpBHT$ccode, rep(2011, nrow(icpBHT)))
 } else {
-  icpBHTagg <- icpBHT
+  # otherwise combine belgium and luxemborg
+  icpBHT$ccode <- ifelse(icpBHT$ccode=="LUX", "BEL", icpBHT$ccode)
 }
 
+# other aggregations
+if (BNL==TRUE) {
+  icpBHT$ccode <- ifelse(icpBHT$ccode %in% BNLccodes, "BNL", icpBHT$ccode)
+}
+if (ELL==TRUE) {
+  icpBHT$ccode <- ifelse(icpBHT$ccode %in% ELLccodes, "ELL", icpBHT$ccode)
+}
+if (MYSG==TRUE) {
+  icpBHT$ccode <- ifelse(icpBHT$ccode %in% MYSGccodes, "MYSG", icpBHT$ccode)
+}
 
-### ESTIMATE PREFERENCE PARAMETERS ###
+icpBHT$ccode <- ifelse(icpBHT$ccode %in% c(ccodes, EU27), icpBHT$ccode, ROWname)
+
+icpBHTagg <- icpBHT %>% group_by(Name, ccode) %>%
+  summarise(pppReal=weighted.mean(pppReal, gdpUSDT),
+            expReal=sum(expReal))
+
+icpBHTgdp <- icpBHT %>% group_by(ccode) %>%
+  summarise(gdpUSDT=sum(expReal))
+
+icpBHTagg <- left_join(icpBHTagg, icpBHTgdp)
 
 icpBHTagg$expShareT <- icpBHTagg$expReal / icpBHTagg$gdpUSDT
-icpBHTagg %>% print(n=100)
 
-# icpBHT$expShareT <- icpBHT$expReal / icpBHT$gdpUSDT
-# icpBHTagg <- icpBHT
-
-# cutpoint_exp <- .00001
-
-# Note: estimate using full sample, then aggregate EU
+# export
+if(EUD==FALSE) {
+  if (TPSP==FALSE) {
+    write_csv(icpBHTagg, paste0(cleandir, "icpBHTAgg.csv"))
+  } else {
+    write_csv(icpBHTagg, paste0(cleandirTPSP, "icpBHTAgg.csv"))
+  }
+} else {
+  write_csv(icpBHTagg, paste0(cleandirEU, "icpBHTAgg.csv"))
+}
 
 # filter products with less than or equal to zero expenditure share
 # Cyprus and Malta have negative expenditures on other transport equipment?
 icpBHTEst <- icpBHTagg %>% filter(expShareT > 0) %>% select(ccode, Name, pppReal, expShareT, gdpUSDT)
 icpBHTEst <- icpBHTEst %>% filter(!is.na(pppReal), !is.na(expShareT)) # filter out observations without ppps
-# icpBHTEst <- icpBHTEst %>% filter(expShareT > cutpoint_exp)
-# icpBHTEst %>% arrange(ccode) %>% print(n=100)
-# icpBHTEst %>% filter(ccode=="ROW", Name=="Rice")
 
 ### ESTIMATE SIGMA AND PRICE INDICES ###
 
 icpBHTEstUSA <- icpBHTEst %>% filter(ccode=="USA") %>% select(Name, expShareT)
 colnames(icpBHTEstUSA) <- c("Name", "expShareT_USA")
-icpBHTEstUSA %>% print(n=100)
 
 icpBHTEst <- left_join(icpBHTEst, icpBHTEstUSA) %>% filter(ccode != "USA")
 icpBHTEst$deltaLambda <- log(icpBHTEst$expShareT / icpBHTEst$expShareT_USA)
 icpBHTEst$lnp <- log(icpBHTEst$pppReal)
 icpBHTEst <- icpBHTEst %>% filter(!is.na(deltaLambda))
-icpBHTEst %>% filter(deltaLambda < -10) %>% print(n=100)
-
-icpBHTJPN <- icpBHTEst %>% filter(ccode=="JPN")
-icpBHTJPN$deltaLambda %>% mean() - icpBHTEst$deltaLambda %>% mean()
-icpBHTJPN %>% print(n=100)
-
-# sigmaModel <- lm(deltaLambda ~ lnp + ccode - 1, data=icpBHTEst, weights=icpBHTEst$gdpUSDT)
-# sigmaModel <- lm(deltaLambda ~ lnp + ccode - 1, data=icpBHTEst)
-# sigma_t <- sigmaModel$coefficients[1] %>% as.numeric()
-# sigma <- 1 - sigma_t
-# mu_t <- sigmaModel$coefficients[-1]
-# Phat <- exp(mu_t / (sigma - 1))
-# length(mu_t)
-# length(icpBHTEst$ccode %>% unique())
-
-# ggplot(data=icpBHTEst, aes(x=lnp, y=deltaLambda, col=ccode)) +
-#   geom_point() +
-#   theme_classic()
 
 # sigmaModel <- lm(deltaLambda ~ lnp + ccode - 1, data=icpBHTEst, weights=icpBHTEst$gdpUSDT)
 # sigmaModel <- lm(lnp ~ deltaLambda + ccode - 1, data=icpBHTEst, weights=expShareT_USA)
@@ -245,138 +217,47 @@ sigmaModel <- lm(lnp ~ deltaLambda + ccode - 1, data=icpBHTEst)
 sigma_t <- sigmaModel$coefficients[1] %>% as.numeric()
 sigma <- 1 - 1 / sigma_t
 mu_t <- sigmaModel$coefficients[-1]
-Phat <- exp(mu_t)
-sigma
+Phat <- data.frame(ccode=icpBHTEst$ccode %>% unique(), P=exp(mu_t)) %>% as_tibble()
+Phat <- Phat %>% add_row(ccode="USA", P=1) %>% arrange(ccode)
+# Phat %>% print(n=50)
 
-icpBHTEst$Name %>% unique()
-ggplot(data=icpBHTEst, aes(x=deltaLambda, y=lnp, col=ccode)) +
-    geom_point() +
-    theme_classic()
+### EXPORT ###
 
-# sigma <- 5
-# icpBHTEst$phi <- 1 / (1 - sigma) * icpBHTEst$deltaLambda
-# icpBHTEst$y <- icpBHTEst$lnp - icpBHTEst$phi
-# pModel <- lm(y ~ ccode - 1, data=icpBHTEst)
-# mu <- pModel$coefficients
-# Phat <- exp(mu)
-# Phat
-
-
-if (est_sigma == TRUE) {
-  
-  sigmaModel <- lm(DeltaLambda ~ DeltaP + Name - 1, data=icpBHTEst)
-  # sigmaModel <- lm(DeltaLambda ~ DeltaP + Name - 1, data=icpBHTEst, weights=icpBHTEst$gdpUSDT)  # with gdp weights
-  sigma_t <- sigmaModel$coefficients[1] %>% as.numeric()
-  sigma <- 1 - sigma_t
-  sigmaDF <- as.data.frame(sigma)
-  
-  if(EUD==FALSE) {
-    if (TPSP==FALSE) {
-      write_csv(sigmaDF, paste0(resultsdir, "sigma.csv"), col_names=FALSE)
-    } else {
-      write_csv(sigmaDF, paste0(resultsdirTPSP, "sigma.csv"), col_names=FALSE)
-    }
-  } else {
-    write_csv(sigmaDF, paste0(resultsdirEU, "sigma.csv"), col_names=FALSE)
-  }
-  
-  alpha_t <- sigmaModel$coefficients[-1]
-  icpBHTHat <- data.frame(icpBHTEst$Name %>% unique() %>% sort(), as.numeric(alpha_t))
-  colnames(icpBHTHat) <- c("Name", "alpha_t")
-  icpBHTHat$alpha_t <- exp(icpBHTHat$alpha_t)
-  colnames(icpBHTHat) <- c("Name", "alphaHat")
-  
-} else {
-  icpBHTEst$phi <- icpBHTEst$DeltaLambda - (1 - sigma) * icpBHTEst$DeltaP
-  icpBHTHat <- icpBHTEst  %>% group_by(Name) %>%
-    summarise(gammaHat=weighted.mean(phi, gdpUSDT))
-  icpBHTHat$alphaHat <- exp(icpBHTHat$gammaHat) 
-  icpBHTHat <- icpBHTHat %>% select(Name, alphaHat)
-}
-# products with coefficient of one are valued equally to cheese
-# will get different alphas if we don't weight observations
-
-icpBHT <- left_join(icpBHT, icpBHTHat)
-
-### CALCULATE PRICE INDICES ###
-
-icpBHTAgg <- icpBHT %>% group_by(ccode, Name) %>%
-  summarise(expReal=sum(expReal),
-            pppReal=weighted.mean(pppReal, gdpUSDT, na.rm=T),
-            alphaHat=mean(alphaHat))
-# icpBHTAgg %>% filter(is.na(pppReal))
-
-gdpUSDT <- icpBHT %>% group_by(ccode) %>%
+gdpUSDT <- icpBHTagg %>% group_by(ccode) %>%
   summarise(gdpUSDT=sum(expReal, na.rm=T))
 
-icpBHTAgg <- left_join(icpBHTAgg, gdpUSDT)
+icpBHTagg <- left_join(icpBHTagg, gdpUSDT)
 
-# recalculate expenditure shares for EU
-icpBHTAgg$expShareT <- icpBHTAgg$expReal / icpBHTAgg$gdpUSDT
+expT <- icpBHTagg %>% group_by(ccode) %>%
+  summarise(expT=sum(expReal, na.rm = T))
 
-# export
-if(EUD==FALSE) {
-  if (TPSP==FALSE) {
-    write_csv(icpBHTAgg, paste0(cleandir, "icpBHTAgg.csv"))
-  } else {
-    write_csv(icpBHTAgg, paste0(cleandirTPSP, "icpBHTAgg.csv"))
-  }
-} else {
-  write_csv(icpBHTAgg, paste0(cleandirEU, "icpBHTAgg.csv"))
-}
-# icpBHTAgg %>% print(n=100)
-# testJPN <- icpBHTAgg %>% filter(ccode=="JPN")
-# testUSA <- icpBHTAgg %>% filter(ccode=="USA")
-# 
-# priceIndex(testJPN$alphaHat, testJPN$pppReal, sigma)
-# sum(testUSA$alphaHat * testUSA$pppReal^(1-sigma))^(1/(1-sigma))
+cleanP <- left_join(Phat, expT)
+cleanP <- left_join(cleanP, gdpUSDT)
+cleanP <- left_join(cleanP, icpPop)
+cleanP <- left_join(cleanP, icpG)
 
-icpP <- icpBHTAgg %>% group_by(ccode) %>%
-  summarise(priceIndex=priceIndex(alphaHat, pppReal, sigma),
-            expT=sum(expReal, na.rm = T))
-# icpP %>% print(n=50)
+cleanP$gdppc <- cleanP$gdpUSD / cleanP$pop
+cleanP$year <- Y
+cleanP$Tshare <- cleanP$expT / cleanP$expUSD
 
-us <- icpP %>% filter(ccode=="USA") %>% pull(priceIndex)
-icpP$priceIndexBase <- icpP$priceIndex / us
-
-
-icpP <- left_join(icpP, icpG)
-# icpG %>% print(n=50)
-
-icpP$Tshare <- icpP$expT / icpP$expUSD
-# icpP %>% print(n=100)
-
-# gdppc
-icpP <- left_join(icpP, icpPop)
-icpP$gdppc <- icpP$gdpUSD / icpP$pop
-
-icpP <- icpP %>% select(-priceIndex)
-colnames(icpP)[colnames(icpP)=="priceIndexBase"] <- "priceIndex"
-colnames(icpP)[colnames(icpP)=="ccode"] <- "iso3"
-
-icpP$year <- 2011
-
-P <- icpP
-
-# P %>% print(n=100)
-# icpBH %>% filter(ccode=="SGP") %>% arrange(expReal) %>% print(n=200)
-# icpBH %>% filter(ccode=="NLD") %>% arrange(expReal) %>% print(n=200)
+colnames(cleanP)[colnames(cleanP)=="P"] <- "priceIndex"
+colnames(cleanP)[colnames(cleanP)=="ccode"] <- "iso3"
 
 ### EXPORT ###
 
 # price indices
 if(EUD==FALSE) {
   if (TPSP==FALSE) {
-    write_csv(P, paste0(cleandir, "priceIndex.csv"))
+    write_csv(cleanP, paste0(cleandir, "priceIndex.csv"))
   } else {
-    write_csv(P, paste0(cleandirTPSP, "priceIndex.csv"))
+    write_csv(cleanP, paste0(cleandirTPSP, "priceIndex.csv"))
   }
 } else {
-  write_csv(P, paste0(cleandirEU, "priceIndex.csv"))
+  write_csv(cleanP, paste0(cleandirEU, "priceIndex.csv"))
 }
 
 # population
-pop <- P %>% select(year, iso3, pop)
+pop <- cleanP %>% select(year, iso3, pop)
 
 if(EUD==FALSE) {
   if (TPSP==FALSE) {
@@ -387,9 +268,6 @@ if(EUD==FALSE) {
 } else {
   write_csv(pop, paste0(cleandirEU, "pop.csv"))
 }
-# P %>% print(n=50)
-# P %>% filter(iso3=="IRL")
-# P %>% filter(iso3 %in% EU27) %>% print(n=27)
 
 print("-----")
 print("Concluding 04_prices.R")

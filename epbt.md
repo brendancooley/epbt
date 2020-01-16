@@ -251,7 +251,7 @@ I take these basic headings as the empirical analogue to good categories $k$ in 
 $$
 P_i = \left( \int_\omega \alpha_{h(\omega)} p_i(\omega)^{1 - \sigma} \right)^{\frac{1}{1 - \sigma}} = \frac{1}{K} \left( \sum_k \alpha_k p_{ik}^{1 - \sigma} \right)^{\frac{1}{1 - \sigma}}
 $$
-If the elasticity of substitution, $\sigma$, and the vector $\bm{\alpha} = \left\{ \alpha_0, ..., \alpha_{K-1} \right\}$ are known, then price indices can be calculated from the ICP's price data, $\bm{p}_i = \left\{ p_{i0}, ..., p_{i, K-1} \right\}$ and data on consumer expenditures. In Appendix A, I show these parameters relate consumer expenditure shares to prices in a simple log-linear model, which I estimate using ordinary least squares. Regressing consumer expenditure on prices produces a consistent estimate for $\sigma$ because prices do not depend on this demand-side in this competitive model. I estimate $\sigma$ to be 2.46.
+If the elasticity of substitution, $\sigma$, and the vector $\bm{\alpha} = \left\{ \alpha_0, ..., \alpha_{K-1} \right\}$ are known, then price indices can be calculated from the ICP's price data, $\bm{p}_i = \left\{ p_{i0}, ..., p_{i, K-1} \right\}$ and data on consumer expenditures. In Appendix A, I show these parameters relate consumer expenditure shares to prices in a simple log-linear model, which I estimate using ordinary least squares. Regressing consumer expenditure on prices produces a consistent estimate for $\sigma$ because prices do not depend on this demand-side in this competitive model. I estimate $\sigma$ to be 1.89.
 
 
 ![Price indices and tradable expenditure shares \label{fig:P}](figure/P-1.png)
@@ -288,13 +288,13 @@ Figure \ref{fig:freight} depicts factual and predicted freight costs for the Uni
 
 
 
-The results of this exercise reveal substantial unobserved policy barriers to trade. In 2011, across all in-sample markets, exporters faced an average $\tau$ of 2.38, equivalent to a 138 percent import tariff.^[Of course, this result is sensitive to my stance on the trade elasticity. Doubling the trade elasticity to 12 cuts the average $\tau$ to 1.61] The magnitude of these barriers dwarfs that of applied aggregate tariffs, which average only 4 percent within my sample. This result is consistent with @Anderson2003, @Bradford2003, @deSousa2012, and @Waugh2016 which also uncover large implied trade costs using indirect measurement methods. Figure \ref{fig:tcosts} shows the distribution of implied policy barriers (panel A), relative to tariffs and predicted freight costs.
+The results of this exercise reveal substantial unobserved policy barriers to trade. In 2011, across all in-sample markets, exporters faced an average $\tau$ of 2.39, equivalent to a 139 percent import tariff.^[Of course, this result is sensitive to my stance on the trade elasticity. Doubling the trade elasticity to 12 cuts the average $\tau$ to 1.61] The magnitude of these barriers dwarfs that of applied aggregate tariffs, which average only 4 percent within my sample. This result is consistent with @Anderson2003, @Bradford2003, @deSousa2012, and @Waugh2016 which also uncover large implied trade costs using indirect measurement methods. Figure \ref{fig:tcosts} shows the distribution of implied policy barriers (panel A), relative to tariffs and predicted freight costs.
 
 ![Distribution of freight costs, tariff barriers, and structural policy barriers to trade ($\tau_{ij}$). Dashed lines show mean of each distribution. \label{fig:tcosts}](figure/tcosts-1.png)
 
 The model and data jointly suggest that international trade remains far from free, even taking into account unavoidable freight costs. Returning to Equation \ref{eq:tau}, this result suggests that the observed international price gaps and trade flows are inconsistent with a trade barrier-less world, given predicted freight costs. The model suggests that if implied policy barriers were removed, some combination of increases in trade flows and the reduction of price gaps would occur.
 
-International trade is also far from fair. A fair international trading system might allow for trade restrictions, but require that these restrictions affect all trading partners equally. In fact, policy barriers to trade are quite discriminatory. In 2011, the mean within-country standard deviation of $\tau_{ij}$ is 0.84, representing a significant preferential margin for preferred trade partners. For example, in 2011, U.S. trade with Canada ($\tau_{ij} =$ 1.26), Japan (1.26), and the European Union (1.38) was relatively unhindered. Conversely, U.S. trade with Peru (2.94) and Vietnam (3.51) was highly restricted.
+International trade is also far from fair. A fair international trading system might allow for trade restrictions, but require that these restrictions affect all trading partners equally. In fact, policy barriers to trade are quite discriminatory. In 2011, the mean within-country standard deviation of $\tau_{ij}$ is 0.85, representing a significant preferential margin for preferred trade partners. For example, in 2011, U.S. trade with Canada ($\tau_{ij} =$ 1.21), Japan (1.21), and the European Union (1.39) was relatively unhindered. Conversely, U.S. trade with Peru (3.09) and Vietnam (3.52) was highly restricted.
 
 ![Distribution of policy barriers to trade. Each cell reports the magnitude of the policy barrier each importing country (y-axis) imposes on every exporting country (x-axis). Countries are partitioned into 3 groups through K-means clustering. Black rectangles enclose each cluster. \label{fig:hm}](figure/hm-1.png)
 
@@ -335,26 +335,26 @@ I measure aggregate tariff protection with a trade-weighted average of applied t
 \cline{2-2} 
 \\[-1.8ex] & Structural Policy Barrier \\ 
 \hline \\[-1.8ex] 
- Tariffs & 1.075$^{*}$ \\ 
-  & (0.549) \\ 
+ Tariffs & 1.074$^{*}$ \\ 
+  & (0.560) \\ 
   & \\ 
- PTAs & $-$0.299$^{***}$ \\ 
-  & (0.061) \\ 
+ PTAs & $-$0.304$^{***}$ \\ 
+  & (0.062) \\ 
   & \\ 
- Core NTM & 0.083 \\ 
-  & (0.157) \\ 
+ Core NTM & 0.088 \\ 
+  & (0.160) \\ 
   & \\ 
- Health/Safety NTM & 0.168 \\ 
-  & (0.146) \\ 
+ Health/Safety NTM & 0.183 \\ 
+  & (0.149) \\ 
   & \\ 
- Other NTM & $-$0.099 \\ 
-  & (0.197) \\ 
+ Other NTM & $-$0.100 \\ 
+  & (0.202) \\ 
   & \\ 
 \hline \\[-1.8ex] 
 Importer Fixed Effects & \checkmark \\ 
 Exporter Fixed Effects & \checkmark \\ 
 Observations & 361 \\ 
-R$^{2}$ & 0.876 \\ 
+R$^{2}$ & 0.877 \\ 
 \hline 
 \hline \\[-1.8ex] 
 \textit{Note:}  & \multicolumn{1}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
@@ -369,7 +369,7 @@ In the preceding analysis, the European Union (EU) member states were treated as
 
 ![Intra and extra-European Union policy barriers to trade. Each cell reports the magnitude of the policy barrier each EU importing country (y-axis) imposes on every exporting country (x-axis). Barriers toward EU countries are on the left hand side of the solid line. Barriers toward non-EU countries are on the right hand side of the solid line. BNL is an aggregate of Belgium, Luxembourg, and the Netherlands (Benelux). ELL is an aggregate of the Baltic countries: Estonia, Latvia, and Lithuania. \label{fig:hmEUD}](figure/hmEUD-1.png)
 
-Figure \ref{fig:hmEUD} depicts the results of this exercise.^[In Appendix D, I reproduce Figure \ref{fig:hm} with the European Union disaggregated and re-implement K-means clustering, with $K=$ 4. The Asian and American blocs remain largely intact. The clustering uncovers 2 distinct European blocs -- a Western bloc consisting of Great Britain,France, Germany, and their neighbors as well as an Eatern bloc consisting of mostly post-Cold War EU entrants. Interestingly, Russia and Turkey are grouped with the Western bloc, rather than the more geographically proximate Eastern countries.] EU policy barriers toward other EU member states are on average 56 percent the size of barriers with non-EU states.^[This comparison was made by taking weighted means of tariff-equivalent policy barriers where the weights are the expenditures on tradable goods of the exporting countries.] Barriers are far from nonexistent, however. On average, EU countries implement an tariff-equivalent barrier of 69 percent on other EU member states, compared to 121 percent on non-EU states.^[These are unweighted averages of EU member states' TRIs, calculated with respect to EU and non-EU members respectively.] From the perspective of the model, there remained substantial policy-related trade frictions within the EU in 2011. This finding is consistent with the existence of "border effects" within the EU [@Comerford2015]. Of course, these inferences might be driven by features of the model itself. I discuss these limitations in more detail in the paper's conclusion.
+Figure \ref{fig:hmEUD} depicts the results of this exercise.^[In Appendix D, I reproduce Figure \ref{fig:hm} with the European Union disaggregated and re-implement K-means clustering, with $K=$ 4. The Asian and American blocs remain largely intact. The clustering uncovers 2 distinct European blocs -- a Western bloc consisting of Great Britain,France, Germany, and their neighbors as well as an Eatern bloc consisting of mostly post-Cold War EU entrants. Interestingly, Russia and Turkey are grouped with the Western bloc, rather than the more geographically proximate Eastern countries.] EU policy barriers toward other EU member states are on average 56 percent the size of barriers with non-EU states.^[This comparison was made by taking weighted means of tariff-equivalent policy barriers where the weights are the expenditures on tradable goods of the exporting countries.] Barriers are far from nonexistent, however. On average, EU countries implement an tariff-equivalent barrier of 69 percent on other EU member states, compared to 119 percent on non-EU states.^[These are unweighted averages of EU member states' TRIs, calculated with respect to EU and non-EU members respectively.] From the perspective of the model, there remained substantial policy-related trade frictions within the EU in 2011. This finding is consistent with the existence of "border effects" within the EU [@Comerford2015]. Of course, these inferences might be driven by features of the model itself. I discuss these limitations in more detail in the paper's conclusion.
 
 ## Discussion
 
