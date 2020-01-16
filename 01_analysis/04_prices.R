@@ -210,13 +210,6 @@ if (est_sigma == TRUE) {
 
 icpBHT <- left_join(icpBHT, icpBHTHat)
 
-### BACK OUT U.S. PRICES ###
-
-# icpBHTUSA <- icpBHT %>% filter(ccode=="USA")
-# exp_USAbase <- icpBHTUSA %>% filter(Name==baseProduct) %>% pull(expReal)
-# icpBHTUSA$p_implied <- (icpBHTUSA$alphaHat^(-1) * icpBHTUSA$expReal / exp_USAbase)^(1/(1-sigma))
-# icpBHTUSA %>% arrange(desc(expReal)) %>% print(n=100)
-
 ### CALCULATE PRICE INDICES ###
 
 # Aggregate EU, ROW
