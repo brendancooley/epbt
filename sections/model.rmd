@@ -47,11 +47,13 @@ The mass of each tradable good category is $1 / K$. Consumers' preference for go
 
 Consumer utility over these varieties exhibits constant elasticity of substitution (CES)
 \begin{equation} \label{eq:CES}
-Q_i = \left( \int_{[0,1]} \alpha_{h(\omega)}^{\frac{1}{\sigma}} q_i(\omega)^{\frac{\sigma - 1}{\sigma}} d \omega \right)^{\frac{\sigma}{\sigma - 1}}
+Q_i = \left( \int_{[0,1]} \tilde{alpha}_{i, h(\omega)}^{\frac{1}{\sigma}} q_i(\omega)^{\frac{\sigma - 1}{\sigma}} d \omega \right)^{\frac{\sigma}{\sigma - 1}}
 \end{equation}
-with $\sigma > 0$. With expenditure on tradables fixed by the Cobb Douglas upper level preference structure, consumers simply maximize $Q_i$ subject to their tradable budget constraint, $\int_{[0,1]} p_i(\omega) q_i(\omega) d \omega \leq E_i^q$, where $p_i(\omega)$ is the (endogenous) price of variety $\omega$ in country $i$. The aggregate price of tradables in country $i$ is as in @Dixit1977
+with $\sigma > 0$. $\tilde{alpha}_{ik} = \epsilon_{ik} \alpha_k$ is a stochastic preference parameter that modulates country $i$'s consumer's relative preference for goods in category $i$. These preferences are constant across consumers up to a shock, $\epsilon_{ik}$, with $\E [ \epsilon_{ik} ] = 1$.
+
+With expenditure on tradables fixed by the Cobb Douglas upper level preference structure, consumers simply maximize $Q_i$ subject to their tradable budget constraint, $\int_{[0,1]} p_i(\omega) q_i(\omega) d \omega \leq E_i^q$, where $p_i(\omega)$ is the (endogenous) price of variety $\omega$ in country $i$. The aggregate price of tradables in country $i$ is as in @Dixit1977
 \begin{equation} \label{eq:P}
-P_i = \left( \int_{[0,1]} \alpha_{h(\omega)} p_i(\omega)^{1 - \sigma} d \omega \right)^{\frac{1}{1 - \sigma}}
+P_i = \left( \int_{[0,1]} \tilde{alpha}_{h(\omega)} p_i(\omega)^{1 - \sigma} d \omega \right)^{\frac{1}{1 - \sigma}}
 \end{equation}
 
 ### Production
