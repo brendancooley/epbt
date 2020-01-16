@@ -106,8 +106,9 @@ def task_tpsp():
 	"""Export modular economies for companion paper, "Trade Policy in the Shadow of Power." Takes command line argument --mini and exports smaller subset of countries to
 	separate folder if True (see lists in params.R).
 	
-	To execute run  doit tpsp:tpsp --mini False --path tpsp_data/
-	or  doit tpsp:tpsp --mini True --path tpsp_data_mini/
+	To execute run  
+	doit tpsp:tpsp --mini False --path tpsp_data/
+	doit tpsp:tpsp --mini True --path tpsp_data_mini/
 
 
 	"""

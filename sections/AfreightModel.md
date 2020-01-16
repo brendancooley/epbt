@@ -10,37 +10,39 @@ $$
 $$
 where
 $$
-\delta_{ij}^m x_{ij}^m = \sum_{k=1}^K \delta_{ij}^{m k} x_{ij}^{m k} \implies \delta_{ij}^m =  \sum_{k=1}^K \delta_{ij}^{m k} \frac{x_{ij}^{m k}}{x_{ij}^m}
+\delta_{ij}^m x_{ij}^m = \sum_{k=1}^K \delta_{ij}^{m k} x_{ij}^{m k} \implies \delta_{ij}^m =  \sum_{k=1}^K \delta_{ij}^{m k} \frac{x_{ij}^{m k}}{x_{ij}^m} .
 $$
 
 Let $\zeta_{ij}^{m k}$ denote the share of imports by $i$ from $j$ of good $m$ that travel by mode $k$
 $$
-\zeta_{ij}^{m k} = \frac{x_{ij}^{m k}}{x_{ij}^m}
+\zeta_{ij}^{m k} = \frac{x_{ij}^{m k}}{x_{ij}^m} .
 $$
 
 In the data, I observe product-level trade flows, $x_{ij}^m$, but observe only a subset of ad valorem freight costs by mode $\delta_{ij}^{m k}$ and mode shares $\zeta_{ij}^{m k}$.^[All these variables are aggregated at the HS-2 level.] I also observe bilateral geographic covariates $\bm{Z}_{ij}$ and product dummies $d^m \in \left\{ 0, 1 \right\}$ that may be predictive of freight costs and mode shares. To compute aggregate freight costs $\delta_{ij}$ for all country pairs in our sample, I seek functions
 $$
 g: \left\{ \bm{Z}_{ij}, d^m \right\} \rightarrow \delta_{ij}^{m k}
 $$
+and
 $$
 h: \left\{ \bm{Z}_{ij}, d^m \right\} \rightarrow \zeta_{ij}^{m k}
 $$
 from which I can compute 
 $$
-\hat{\delta}_{ij} \left( \bm{Z}_{ij}, \bm{d}_{ij} \right) = \frac{1}{X_{ij}} \sum_{m = 1}^M x_{ij}^m \sum_{k=1}^K g \left( \bm{Z}_{ij}, d^m \right) h \left( \bm{Z}_{ij}, d^m \right)
+\hat{\delta}_{ij} \left( \bm{Z}_{ij}, \bm{d}_{ij} \right) = \frac{1}{X_{ij}} \sum_{m = 1}^M x_{ij}^m \sum_{k=1}^K g \left( \bm{Z}_{ij}, d^m \right) h \left( \bm{Z}_{ij}, d^m \right) .
 $$
 
-Let $\tilde{\bm{\delta}}$ and $\tilde{\bm{\zeta}}$ denote sets of observed freight costs and mode shares. Let $\mathcal{G}$ denote the set of possible functions $g$ and $\mathcal{H}$ denote the set of possible functions $h$. I choose $g$ and $h$ to satisfy the following
+Let $\tilde{\bm{\delta}}$ and $\tilde{\bm{\zeta}}$ denote sets of observed freight costs and mode shares. Let $\mathcal{G}$ denote the set of possible functions $g$ and $\mathcal{H}$ denote the set of possible functions $h$. I choose $g$ and $h$ to satisfy the following:
 \begin{equation} \label{eq:deltaG}
 \begin{split} 
 \hat{g}^m = \min_{g \in \mathcal{G}} & \quad \sum_{ \delta_{ij}^{m k} \in \tilde{\bm{\delta}} } \left( \delta_{ij}^{m k} - g \left( \bm{Z}_{ij}, d^m \right) \right)^2 \\
 \text{subject to  } & \quad g \left( \bm{Z}_{ij}, d^m \right) \geq 1
 \end{split}
 \end{equation}
+and
 \begin{equation}
 \begin{split} 
 \hat{h} = \min_{h \in \mathcal{H}} & \quad \sum_{\zeta_{ij}^{m k} \in \tilde{\bm{\zeta}}} \left( \zeta_{ij}^{\ell k} - h \left( \bm{Z}_{ij}, d^m \right) \right)^2 \\
-\text{subject to  } & \quad \sum_{k=2}^K h \left( \bm{Z}_{ij}, d^m \right) = 1
+\text{subject to  } & \quad \sum_{k=2}^K h \left( \bm{Z}_{ij}, d^m \right) = 1 .
 \end{split}
 \end{equation}
 
