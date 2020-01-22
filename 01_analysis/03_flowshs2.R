@@ -26,6 +26,7 @@ source("params.R")
 
 libs <- c('tidyverse', 'R.utils', 'countrycode', "readxl", "gdata", "stringr")
 ipak(libs)
+installXLSXsupport()
 
 if (EUD==FALSE) {
   if (TPSP==FALSE) {

@@ -83,8 +83,10 @@ ROWname <- "RoW"
 
 if (TPSP == FALSE) {
   theta <- 6
+  tauRev <- FALSE
 } else {
   theta <- 6
+  tauRev <- TRUE
 }
 thetaAlt <- 2 * theta
 
@@ -116,8 +118,8 @@ Kmeans <- 3  # number of clusters
 KmeansEUD <- 4  # number of clusters with EU disaggregated
 
 # revenues
-tauRev <- FALSE
-mu <- 1  # share of potential revenues captured by government
+# mu <- 1  # share of potential revenues captured by government
+mu <- 0  # share of potential revenues captured by government
 
 # mini economy for tpsp
 if (mini==TRUE) {

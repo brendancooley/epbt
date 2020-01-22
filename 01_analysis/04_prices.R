@@ -134,8 +134,8 @@ if (MYSG==TRUE) {
 
 icpBHA$ccode <- ifelse(icpBHA$ccode %in% c(ccodes, EU27), icpBHA$ccode, ROWname)
 
-# icpBHA %>% filter(ccode=="USA") %>% print(n=200)
-icpBHA$ccode %>% unique() %>% sort()
+icpBHA %>% filter(ccode=="RUS") %>% print(n=200)
+# icpBHA$ccode %>% unique() %>% sort()
 
 icpG <- icpBHA %>% group_by(ccode) %>%
   summarise(gdpUSD=sum(expReal, na.rm=T),
@@ -173,10 +173,11 @@ if (MYSG==TRUE) {
 }
 
 icpBHT$ccode <- ifelse(icpBHT$ccode %in% c(ccodes, EU27), icpBHT$ccode, ROWname)
+# icpBHT %>% filter(ccode=="RUS") %>% print(n=100)
 
 icpBHTagg <- icpBHT %>% group_by(Name, ccode) %>%
-  summarise(pppReal=weighted.mean(pppReal, gdpUSDT),
-            expReal=sum(expReal))
+  summarise(pppReal=weighted.mean(pppReal, gdpUSDT, na.rm=T),
+            expReal=sum(expReal, na.rm=T))
 
 icpBHTgdp <- icpBHT %>% group_by(ccode) %>%
   summarise(gdpUSDT=sum(expReal))
@@ -184,6 +185,7 @@ icpBHTgdp <- icpBHT %>% group_by(ccode) %>%
 icpBHTagg <- left_join(icpBHTagg, icpBHTgdp)
 
 icpBHTagg$expShareT <- icpBHTagg$expReal / icpBHTagg$gdpUSDT
+icpBHTagg %>% print(n=100)
 
 # export
 if(EUD==FALSE) {
@@ -246,6 +248,7 @@ colnames(cleanP)[colnames(cleanP)=="ccode"] <- "iso3"
 ### EXPORT ###
 
 # price indices
+cleanP %>% print(n=100)
 if(EUD==FALSE) {
   if (TPSP==FALSE) {
     write_csv(cleanP, paste0(cleandir, "priceIndex.csv"))
