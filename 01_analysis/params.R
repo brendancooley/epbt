@@ -31,6 +31,17 @@ resultsdirEU <- paste0(resultsdir, "EUD/")
 
 proprietaryDataPath <- "~/Dropbox (Princeton)/1_Papers/epbt/estimation/dataProprietary/"
 
+### BOOTSTRAP ###
+
+runBootstrap <- TRUE
+bootstrapdir <- paste0(basedir("05_bootstrap/"))
+bstrp_prices <- paste0(bootstrapdir, "prices/")
+bstrp_freight <- paste0(bootstrapdir, "freight/")
+
+mkdir(bootstrapdir)
+mkdir(bstrp_prices)
+mkdir(bstrp_freight)
+
 ### SOURCE HELPERS ###
 
 ccodesAll <- c()
