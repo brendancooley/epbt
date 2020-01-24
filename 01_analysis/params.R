@@ -34,13 +34,11 @@ proprietaryDataPath <- "~/Dropbox (Princeton)/1_Papers/epbt/estimation/dataPropr
 ### BOOTSTRAP ###
 
 runBootstrap <- TRUE
-bootstrapdir <- paste0(basedir("05_bootstrap/"))
-bstrp_prices <- paste0(bootstrapdir, "prices/")
-bstrp_freight <- paste0(bootstrapdir, "freight/")
+M <- 100  # number of bootstrap iterations
 
-mkdir(bootstrapdir)
-mkdir(bstrp_prices)
-mkdir(bstrp_freight)
+bootstrapdir <- paste0(basedir, "05_bootstrap/")
+# bstrp_prices <- paste0(bootstrapdir, "prices/")
+# bstrp_freight <- paste0(bootstrapdir, "freight/")
 
 ### SOURCE HELPERS ###
 
@@ -79,6 +77,12 @@ if ("sections" %in% strsplit(wd, "/")[[1]]) {
 # for (i in helperFiles) {
 #   source(paste0(helperPath, i))
 # }
+
+### MAKE DIRECTORIES ###
+
+mkdir(bootstrapdir)
+# mkdir(bstrp_prices)
+# mkdir(bstrp_freight)
 
 ### PARAMETERS ###
 
