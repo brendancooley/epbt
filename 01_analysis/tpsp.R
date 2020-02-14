@@ -11,12 +11,14 @@ args <- commandArgs(trailingOnly=TRUE)
 if (is.null(args) | identical(args, character(0))) {
   TPSP <- FALSE
   mini <- FALSE
-  expdirPath <- "tpsp_data/"
+  size <- "all"
 } else {
   TPSP <- ifelse(args[1] == "True", TRUE, FALSE)
   mini <- ifelse(args[2] == "True", TRUE, FALSE)
-  expdirPath <- args[3]
+  size <- args[3]
 }
+
+expdirPath <- paste0("tpsp_data_", size)
 
 source("params.R")
 expdirTPSP <- paste0(basedir, expdirPath)

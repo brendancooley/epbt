@@ -18,14 +18,23 @@ cleandir <- paste0(basedir, "02_clean/")
 resultsdir <- paste0(basedir, "03_results/")
 otherdir <- paste0(basedir, "04_other/")
 
-if (mini==TRUE) {
-  cleandirTPSP <- paste0(basedir, "tpsp_clean_mini/")
-  resultsdirTPSP <- paste0(basedir, "tpsp_results_mini/")
-} else {
-  cleandirTPSP <- paste0(basedir, "tpsp_clean/")
-  resultsdirTPSP <- paste0(basedir, "tpsp_results/")
+ccodes_mini <- c("CHN", "EU", "JPN", "RUS", "USA")
+ccodes_mid <- c("AUS", "BRA", "CAN", "CHN", "EU", "JPN", "KOR", "ROW", "RUS", "USA")
+ccodes_large <- c("AUS", "BRA", "CAN", "CHN", "EU", "IDN", "JPN", "KOR", "MEX", "ROW", "RUS", "TUR", "USA")
+
+if (size=="mid/") {
+  ccodesTPSP <- ccodes_mini
+}
+if (size=="large/") {
+  ccodesTPSP <- ccodes_large
+}
+if (size=="mini/") {
+  ccodesTPSP <- ccodes_mini
 }
 
+cleandirTPSP <- paste0(basedir, "tpsp_clean_", size)
+resultsdirTPSP <- paste0(basedir, "tpsp_results_", size)
+  
 cleandirEU <- paste0(cleandir, "EUD/")
 resultsdirEU <- paste0(resultsdir, "EUD/")
 
@@ -81,6 +90,8 @@ if ("sections" %in% strsplit(wd, "/")[[1]]) {
 ### MAKE DIRECTORIES ###
 
 mkdir(bootstrapdir)
+mkdir(cleandirTPSP)
+mkdir(resultsdirTPSP)
 # mkdir(bstrp_prices)
 # mkdir(bstrp_freight)
 
@@ -133,18 +144,10 @@ Kmeans <- 3  # number of clusters
 KmeansEUD <- 4  # number of clusters with EU disaggregated
 
 # revenues
-# mu <- 1  # share of potential revenues captured by government
-mu <- 0  # share of potential revenues captured by government
-
-# mini economy for tpsp
-if (mini==TRUE) {
-  ccodesTPSP <- c("CHN", "EU", "JPN", "RUS", "USA")  # subset for mini economy
+if (TPSP == TRUE) {
+  mu <- 1  # share of potential revenues captured by government
 } else {
-  dropTPSP1 <- c("VNM", "IND", "ISR", "NZL", "PER", "CHL", "ZAF", "PHL", "COL", "THA")
-  dropTPSP2 <- c("AUS", "IDN", "KOR", "MEX", "TUR") # comment out if we want larger set of countries
-  # This leaves BRA, CAN, CHN, EU, JPN, ROW, RUS, USA
-  ccodesTPSP <- setdiff(ccodesAll, dropTPSP1)
-  ccodesTPSP <- setdiff(ccodesTPSP, dropTPSP2)
+  mu <- 0  # share of potential revenues captured by government
 }
 
 # island indicator
