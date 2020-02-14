@@ -10,12 +10,10 @@ library(reshape2)
 args <- commandArgs(trailingOnly=TRUE)
 if (is.null(args) | identical(args, character(0))) {
   TPSP <- FALSE
-  mini <- FALSE
   size <- "all"
 } else {
   TPSP <- ifelse(args[1] == "True", TRUE, FALSE)
-  mini <- ifelse(args[2] == "True", TRUE, FALSE)
-  size <- args[3]
+  size <- args[2]
 }
 
 expdirPath <- paste0("tpsp_data_", size)
