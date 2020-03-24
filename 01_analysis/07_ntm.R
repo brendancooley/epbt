@@ -28,8 +28,8 @@ flowshs6Y <- flowshs6 %>% filter(year==Y)
 
 flowshs6Y$i_iso3 <- mapEU(flowshs6Y$i_iso3, flowshs6Y$year)
 flowshs6Y$j_iso3 <- mapEU(flowshs6Y$j_iso3, flowshs6Y$year)
-flowshs6Y$i_iso3 <- ifelse(flowshs6Y$i_iso3 %in% ccodes, flowshs6Y$i_iso3, "ROW")
-flowshs6Y$j_iso3 <- ifelse(flowshs6Y$j_iso3 %in% ccodes, flowshs6Y$j_iso3, "ROW")
+flowshs6Y$i_iso3 <- ifelse(flowshs6Y$i_iso3 %in% ccodes, flowshs6Y$i_iso3, ROWname)
+flowshs6Y$j_iso3 <- ifelse(flowshs6Y$j_iso3 %in% ccodes, flowshs6Y$j_iso3, ROWname)
 
 flowshs6join <- flowshs6Y %>% select(one_of(c("i_iso3", "j_iso3", "hs6", "year", "val")))
 
@@ -83,8 +83,8 @@ ntmAll$i_iso3 <- ifelse(ntmAll$i_iso3=="EUN", "EU", ntmAll$i_iso3)
 ntmAll$j_iso3 <- ifelse(ntmAll$j_iso3=="EUN", "EU", ntmAll$j_iso3)
 ntmAll$i_iso3 <- mapEU(ntmAll$i_iso3, ntmAll$year)
 
-ntmAll$i_iso3 <- ifelse(ntmAll$i_iso3 %in% c(ccodes, "WLD"), ntmAll$i_iso3, "ROW")
-ntmAll$j_iso3 <- ifelse(ntmAll$j_iso3 %in% c(ccodes, "WLD"), ntmAll$j_iso3, "ROW")
+ntmAll$i_iso3 <- ifelse(ntmAll$i_iso3 %in% c(ccodes, "WLD"), ntmAll$i_iso3, ROWname)
+ntmAll$j_iso3 <- ifelse(ntmAll$j_iso3 %in% c(ccodes, "WLD"), ntmAll$j_iso3, ROWname)
 
 # one entry for each country...expand NTMs that are directed at "WLD"
 codesstr <- paste(ccodes, collapse=", ")
@@ -122,7 +122,7 @@ ntmCoverage <- ntmAggBinFlows %>% group_by(i_iso3, j_iso3) %>%
     other=sum(otherN*val)/sum(val)
   )
 
-ntmCoverage <- ntmCoverage %>% filter(i_iso3!=j_iso3, !(j_iso3 %in% c("KOR", "ROW"))) # no NTM data on Korea, ROW aggregates over too many countries
+ntmCoverage <- ntmCoverage %>% filter(i_iso3!=j_iso3, !(j_iso3 %in% c("KOR", ROWname))) # no NTM data on Korea, ROW aggregates over too many countries
 ntmCoverage$year <- Y
 
 ### EXPORT ###

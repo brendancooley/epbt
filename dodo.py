@@ -66,9 +66,9 @@ def task_cleanclean():
 					'short': 'e',
 					'type':str,
 					'default':'False'}],
-		'actions': ['cd ' + estdir + '; Rscript ' + accounts + ' %(EUD)s False',
+		'actions': ['cd ' + estdir + '; Rscript ' + accounts + ' %(EUD)s False False',
 					'cd ' + estdir + '; Rscript ' + flowshs6,
-					'cd ' + estdir + '; Rscript ' + flowshs2 + ' %(EUD)s False',
+					'cd ' + estdir + '; Rscript ' + flowshs2 + ' %(EUD)s False False',
 					'cd ' + estdir + '; Rscript ' + ntm,
 					'cd ' + estdir + '; Rscript ' + tar,
 					'cd ' + estdir + '; Rscript ' + pta,
@@ -83,6 +83,11 @@ def task_results():
 
 	NOTE: needs to be run twice to replicate paper...first with EUD False and next with EUD True
 	NOTE: prices and tau need to be run together whenever theta/sigma are updated
+
+	To run:
+	doit results:results --EUD False
+	doit results:results --EUD True
+
 	"""
 	yield {
 		'name': "results",
@@ -90,9 +95,9 @@ def task_results():
 					'long':'EUD',
 					'type':str,
 					'default':'False'}],
-		'actions': ['cd ' + estdir + '; Rscript ' + prices + ' %(EUD)s False',
-					'cd ' + estdir + '; Rscript ' + freight + ' %(EUD)s False',
-					'cd ' + estdir + '; Rscript ' + tau + ' %(EUD)s False',
+		'actions': ['cd ' + estdir + '; Rscript ' + prices + ' %(EUD)s False False',
+					'cd ' + estdir + '; Rscript ' + freight + ' %(EUD)s False False',
+					'cd ' + estdir + '; Rscript ' + tau + ' %(EUD)s False False',
 					'cd ' + estdir + '; Rscript ' + correlates],
 		'verbosity': 2,
 	}
@@ -101,8 +106,9 @@ def task_tpsp():
 	"""Export modular economies for companion paper, "Trade Policy in the Shadow of Power." Takes command line argument --mini and exports smaller subset of countries to
 	separate folder if True (see lists in params.R).
 	
-	To execute run  doit tpsp:tpsp --mini False --path tpsp_data/
-	or  doit tpsp:tpsp --mini True --path tpsp_data_mini/
+	To execute run  
+	doit tpsp:tpsp --mini False --path tpsp_data/
+	doit tpsp:tpsp --mini True --path tpsp_data_mini/
 
 
 	"""
@@ -124,7 +130,7 @@ def task_tpsp():
 					'cd ' + estdir + '; Rscript ' + prices + ' False True %(mini)s',
 					'cd ' + estdir + '; Rscript ' + freight + ' False True %(mini)s',
 					'cd ' + estdir + '; Rscript ' + tau + ' False True %(mini)s',
-					'cd ' + estdir + '; Rscript tpsp.R True %(mini)s',
+					'cd ' + estdir + '; Rscript tpsp.R True %(mini)s %(path)s',
 					"mkdir -p " + tpspPath + "%(path)s",
 					"cp -a " + dataPath + "%(path)s " + tpspPath + "%(path)s"],
 		'verbosity': 2,
@@ -134,13 +140,16 @@ def task_paper():
 	"""
 
 	"""
+	if os.path.isfile("references.RData") is False:
+		yield {
+			'name': "collecting references...",
+			'actions':["R --slave -e \"set.seed(100);knitr::knit('epbt.rmd')\""]
+        }
 	yield {
-		'name': "draft paper",
-		'actions': ["R --slave -e \"set.seed(100); knitr::knit('epbt.rmd')\"",
-					"pandoc --template=templates/cooley-paper-template.latex \
-					--filter pandoc-citeproc \
-					-o epbt.pdf epbt.md"],
-		'verbosity': 2,
+    	'name': "writing paper...",
+    	'actions':["R --slave -e \"set.seed(100);knitr::knit('epbt.rmd')\"",
+                   "pandoc --template=templates/cooley-paper-template.latex --filter pandoc-citeproc -o epbt.pdf epbt.md"],
+                   'verbosity': 2,
 	}
 
 def task_post_to_web():

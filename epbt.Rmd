@@ -1,9 +1,11 @@
 ---
 title: Estimating Policy Barriers to Trade
-author: Brendan Cooley
-date: 3 May 2019
+author:
+	- name: Brendan Cooley
+      affiliation: Ph.D. Candidate, Department of Politics, Princeton University
+date: 15 January 2020
 abstract: To what extent is international trade free and fair? Because policy barriers to trade are often opaque and take on many forms, it is difficult to answer this question while relying on data on observable trade barriers. Here, I propose and implement a structural approach to estimating the magnitude of policy barriers to trade, measured at the trade partner level. The method allows for the possibility that these barriers are both *asymmetric* and *discriminatory*, affecting certain trade partners disproportionately. The approach reveals substantial latent policy barriers to trade, many times larger than observed tariffs. It also implies substantial effective policy discrimination, with exporters in a subset of favored countries enjoying far superior market access conditions than their peers in unfavored countries. Combined, these results suggest that the existing world trading system remains far from a free and fair ideal.
-thanks: Ph.D. candidate, Department of Politics, Princeton University. Princeton's Research Program in Political Economy provided financial support for this research. The World Bank's International Comparison Program kindly shared data. Thanks to Haosen Ge, Gene Grossman, Gleason Judd, Kathy Ingram, Sojeong Lee, Aurora Ling, John Londregan, Marco Martini, Helen Milner, Sayumi Miyano, Steve Monroe, Tim Peterson, Sondre Solstad, Kris Ramsay, Steve Redding, Noam Reich, Esther Robinson, Alexandra Zeitz, and Grace Zeng for comments on earlier drafts of this paper, as well audiences at the Princeton Political Economy Graduate Colloquium, the Princeton IR Graduate Seminar, Princeton's Fellowship of Woodrow Wilson Scholars, the Midwest Political Science Association's 2019 Annual Meeting, and the International Studies Association's 2019 Midwest Annual Conference.
+thanks: Princeton's Research Program in Political Economy provided financial support for this research. The World Bank's International Comparison Program kindly shared data. Thanks to James Bisbee, Christina Fattore, Haosen Ge, Gene Grossman, Gleason Judd, Kathy Ingram, Sojeong Lee, Aurora Ling, John Londregan, Marco Martini, Helen Milner, Sayumi Miyano, Steve Monroe, Tim Peterson, Sondre Solstad, Kris Ramsay, Steve Redding, Noam Reich, Esther Robinson, Alexandra Zeitz, and Grace Zeng for comments on earlier drafts of this paper, as well audiences at the Princeton Political Economy Graduate Colloquium, the Princeton IR Graduate Seminar, Princeton's Fellowship of Woodrow Wilson Scholars, the Midwest Political Science Association's 2019 Annual Meeting, the International Studies Association's 2019 Midwest Annual Conference, and the Southern Political Science Association's 2020 Annual Meeting.
 # jelcodes: JEL codes go here
 
 bibliography: /Users/bcooley/Dropbox (Princeton)/References/library.bib
@@ -30,6 +32,16 @@ ipak(libs)
 
 highlight <- NULL
 
+ApriceIndex <- "NA"
+AfreightModel <- "NA"
+AfreightResults <- "NA"
+AeconomicBlocs <- "NA"
+AsampleCountries <- "NA"
+AexpCategories <- "NA"
+
+# load references picked up later in document
+if (file.exists('references.RData')) load('references.RData')
+
 ```
 
 \newpage
@@ -44,7 +56,7 @@ highlight <- NULL
 ```{r, child = "sections/model.rmd"}
 ```
 
-# Calibration
+# Calibration and Estimation
 
 ```{r, child = "sections/calibration.rmd"}
 ```
@@ -63,32 +75,74 @@ highlight <- NULL
 
 # Appendix
 
-## Empirical Price Index: Estimating CES Taste Parameters
+```{r, echo=FALSE, warning=FALSE, message=FALSE, results='hide'}
+
+a <- 1
+ApriceIndex <- LETTERS[a]
+
+```
+
+## `r ApriceIndex`: Empirical Price Index: Estimating Consumers' Price Elasticity and Taste Parameters
 
 ```{r, child = "sections/AcesTastes.md"}
 ```
 
-## Modeling Freight Costs and Data Sources
+```{r, echo=FALSE, warning=FALSE, message=FALSE, results='hide'}
+
+a <- a + 1
+AfreightModel <- LETTERS[a]
+
+```
+
+## `r AfreightModel`: Modeling Freight Costs and Data Sources
 
 ```{r, child = "sections/AfreightModel.md"}
 ```
 
-## Freight Cost Results
+```{r, echo=FALSE, warning=FALSE, message=FALSE, results='hide'}
+
+a <- a + 1
+AfreightResults<- LETTERS[a]
+
+```
+
+## `r AfreightResults`: Freight Cost Results
 
 ```{r, child = "sections/AfreightResults.rmd"}
 ```
 
-## Economic Blocs, Disaggregated European Union
+```{r, echo=FALSE, warning=FALSE, message=FALSE, results='hide'}
+
+a <- a + 1
+AeconomicBlocs<- LETTERS[a]
+
+```
+
+## `r AeconomicBlocs`: Economic Blocs, Disaggregated European Union
 
 ```{r, child = "sections/AhmEUDC.rmd"}
 ```
 
-## Sample Countries
+```{r, echo=FALSE, warning=FALSE, message=FALSE, results='hide'}
+
+a <- a + 1
+AsampleCountries <- LETTERS[a]
+
+```
+
+## `r AsampleCountries`: Sample Countries
 
 ```{r, child = "sections/AsampleCountries.rmd"}
 ```
 
-## International Comparison Program Expenditure Categories
+```{r, echo=FALSE, warning=FALSE, message=FALSE, results='hide'}
+
+a <- a + 1
+AexpCategories <- LETTERS[a]
+
+```
+
+## `r AexpCategories`: International Comparison Program Expenditure Categories
 
 ```{r, child = "sections/AicpCategories.rmd"}
 ```
@@ -96,3 +150,9 @@ highlight <- NULL
 \clearpage
 
 # References
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE, results='hide'}
+
+save.image('references.RData')
+
+```

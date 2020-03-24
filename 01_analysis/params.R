@@ -9,7 +9,7 @@ library(tidyverse)
 
 ### DIRECTORIES ###
 
-analysisDir <- "01_analysis"
+analysis_dirname <- "01_analysis"
 
 basedir <- "~/Dropbox (Princeton)/1_Papers/epbt/01_data/"
 
@@ -21,11 +21,9 @@ otherdir <- paste0(basedir, "04_other/")
 if (mini==TRUE) {
   cleandirTPSP <- paste0(basedir, "tpsp_clean_mini/")
   resultsdirTPSP <- paste0(basedir, "tpsp_results_mini/")
-  expdirTPSP <- paste0(basedir, "tpsp_data_mini/")
 } else {
   cleandirTPSP <- paste0(basedir, "tpsp_clean/")
   resultsdirTPSP <- paste0(basedir, "tpsp_results/")
-  expdirTPSP <- paste0(basedir, "tpsp_data/")
 }
 
 cleandirEU <- paste0(cleandir, "EUD/")
@@ -40,13 +38,13 @@ ccodesAll <- c()
 wd <- getwd()
 
 if ("sections" %in% strsplit(wd, "/")[[1]]) {
-  sourceDir <- paste0("../", analysisDir, "source/")
+  sourceDir <- paste0("../", analysis_dirname, "/source/")
   sourceFiles <- list.files(sourceDir)
   for (i in sourceFiles) {
     source(paste0(sourceDir, i))
   }
 } else {
-  if (analysisDir %in% strsplit(wd, "/")[[1]]) {
+  if (analysis_dirname %in% strsplit(wd, "/")[[1]]) {
     sourceFiles <- list.files("source/")
     for (i in sourceFiles) {
       source(paste0("source/", i))
@@ -56,8 +54,9 @@ if ("sections" %in% strsplit(wd, "/")[[1]]) {
       ccodesAll <- read_csv(ccodesPath) %>% pull(.)  # all
     }
   } else {
-    sourceDir <- paste0(analysisDir, "source/")
+    sourceDir <- paste0(analysis_dirname, "/source/")
     sourceFiles <- list.files(sourceDir)
+    print(sourceFiles)
     for (i in sourceFiles) {
       source(paste0(sourceDir, i))
     }
@@ -76,13 +75,18 @@ startY <- 1995
 endY <- 2011
 Y <- 2011
 
+est_sigma <- TRUE
+ROWname <- "RoW"
+
 # NOTE: small countries get unrealistic trade shares with theta \approx 4 and tauRev = FALSE
 # Standard results...theta=6(?)
 
 if (TPSP == FALSE) {
   theta <- 6
+  tauRev <- FALSE
 } else {
-  theta <- 4
+  theta <- 6
+  tauRev <- TRUE
 }
 thetaAlt <- 2 * theta
 
@@ -111,18 +115,21 @@ ELLccodes <- c("EST", "LVA", "LTU")
 TRIMAI <- F  # include TRI and MAI?
 cluster <- T  # cluster countries?
 Kmeans <- 3  # number of clusters
-KmeansEUD <- 3  # number of clusters with EU disaggregated
+KmeansEUD <- 4  # number of clusters with EU disaggregated
 
 # revenues
-tauRev <- FALSE
-mu <- 1  # share of potential revenues captured by government
+# mu <- 1  # share of potential revenues captured by government
+mu <- 0  # share of potential revenues captured by government
 
 # mini economy for tpsp
 if (mini==TRUE) {
   ccodesTPSP <- c("CHN", "EU", "JPN", "RUS", "USA")  # subset for mini economy
 } else {
-  dropTPSP <- c("VNM", "IND", "ISR", "NZL", "PER", "CHL", "ZAF", "PHL", "COL", "THA")
-  ccodesTPSP <- setdiff(ccodesAll, dropTPSP)
+  dropTPSP1 <- c("VNM", "IND", "ISR", "NZL", "PER", "CHL", "ZAF", "PHL", "COL", "THA")
+  dropTPSP2 <- c("AUS", "IDN", "KOR", "MEX", "TUR") # comment out if we want larger set of countries
+  # This leaves BRA, CAN, CHN, EU, JPN, ROW, RUS, USA
+  ccodesTPSP <- setdiff(ccodesAll, dropTPSP1)
+  ccodesTPSP <- setdiff(ccodesTPSP, dropTPSP2)
 }
 
 # island indicator

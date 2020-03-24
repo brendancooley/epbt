@@ -46,7 +46,7 @@ C <- left_join(C, tarY)
 C$wtar <- C$wtar + 1
 
 # filter missing countries
-drop <- c("KOR", "ZAF", "ROW")
+drop <- c("KOR", "ZAF", ROWname)
 C <- C %>% filter(!(i_iso3 %in% drop) & !(j_iso3 %in% drop))
 
 C$j_iso3 <- as.factor(C$j_iso3)

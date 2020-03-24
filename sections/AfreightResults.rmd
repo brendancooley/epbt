@@ -45,3 +45,20 @@ stargazer(modesModelOutput, header=FALSE, type='latex', omit=c("hs2", "Constant"
 ```
 
 \FloatBarrier
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE, results='hide'}
+
+# clean up
+rm(flows)
+rm(flowsAir)
+rm(flowsLand)
+rm(flowsModes)
+rm(flowsModesX)
+rm(flowsModesXOutput)
+rm(flowsSea)
+rm(airModelOutput)
+rm(landModelOutput)
+rm(modesModelOutput)
+rm(seaModelOutput)
+
+```

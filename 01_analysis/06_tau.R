@@ -19,12 +19,6 @@ if (is.null(args) | identical(args, character(0))) {
 
 source("params.R")
 
-# compute estimates w/ tariff revenue if TPSP is TRUE
-if (TPSP == TRUE) {
-  tauRev <- TRUE
-}
-# tauRev <- TRUE
-
 if (EUD==TRUE) {
   mkdir(resultsdirEU)
 } else{
@@ -159,6 +153,7 @@ X <- left_join(X, P)
 
 X <- X %>% arrange(j_iso3, i_iso3)
 X %>% summary()
+X %>% filter(is.na(j_expS))
 
 # calculate taus and lambda_iis jointly
 if (tauRev==FALSE) {

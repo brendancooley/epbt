@@ -26,6 +26,7 @@ source("params.R")
 
 libs <- c('tidyverse', 'R.utils', 'countrycode', "readxl", "gdata", "stringr")
 ipak(libs)
+installXLSXsupport()
 
 if (EUD==FALSE) {
   if (TPSP==FALSE) {
@@ -95,7 +96,7 @@ if (MYSG==TRUE) {
   usmodesF$iso3 <- ifelse(usmodesF$iso3 %in% MYSGccodes, "MYSG", usmodesF$iso3)
 }
 
-usmodesF$iso3 <- ifelse(usmodesF$iso3 %in% ccodes, usmodesF$iso3, "ROW")
+usmodesF$iso3 <- ifelse(usmodesF$iso3 %in% ccodes, usmodesF$iso3, ROWname)
 
 # select shipments that clear customs, then aggregate
 usCosts <- usmodesF %>% filter(con_val_yr > 0) %>% group_by(year, iso3) %>%
@@ -186,7 +187,7 @@ if (MYSG==TRUE) {
   ausF$iso3 <- ifelse(ausF$iso3 %in% MYSGccodes, "MYSG", ausF$iso3)
 }
 
-ausF$iso3 <- ifelse(ausF$iso3 %in% ccodes, ausF$iso3, "ROW")
+ausF$iso3 <- ifelse(ausF$iso3 %in% ccodes, ausF$iso3, ROWname)
 # ausF %>% pull(iso3) %>% unique()
 
 ausCosts <- ausF %>% group_by(year, iso3) %>%
@@ -237,7 +238,7 @@ if (MYSG==TRUE) {
   nz$i_iso3 <- ifelse(nz$i_iso3 %in% MYSGccodes, "MYSG", nz$i_iso3)
 }
 
-nz$i_iso3 <- ifelse(nz$i_iso3 %in% ccodes, nz$i_iso3, "ROW")
+nz$i_iso3 <- ifelse(nz$i_iso3 %in% ccodes, nz$i_iso3, ROWname)
 nz <- nz %>% filter(i_iso3!="NZL")  # filter NZ own trade observations
 nz <- nz %>% filter(!(is.na(cif) | is.na(vfd)))  # filter unobserved costs
 
@@ -287,7 +288,7 @@ if (MYSG==TRUE) {
   chl$i_iso3 <- ifelse(chl$i_iso3 %in% MYSGccodes, "MYSG", chl$i_iso3)
 }
 
-chl$i_iso3 <- ifelse(chl$i_iso3 %in% ccodes, chl$i_iso3, "ROW")
+chl$i_iso3 <- ifelse(chl$i_iso3 %in% ccodes, chl$i_iso3, ROWname)
 
 chlCosts <- chl %>% group_by(year, i_iso3) %>%
   summarise(fob=sum(fob),
@@ -302,8 +303,8 @@ chlCosts <- chlCosts %>% select(year, i_iso3, j_iso3, adv)
 freightC <- list(usCosts, ausCosts, nzCosts, chlCosts)
 
 freight <- bind_rows(freightC)
-freight$j_iso3 <- ifelse(freight$j_iso3 %in% ccodes, freight$j_iso3, "ROW")
-freight <- freight %>% filter(!(i_iso3=="ROW" & j_iso3=="ROW")) # filter ROW internal trade
+freight$j_iso3 <- ifelse(freight$j_iso3 %in% ccodes, freight$j_iso3, ROWname)
+freight <- freight %>% filter(!(i_iso3==ROWname & j_iso3==ROWname)) # filter ROW internal trade
 
 if (EUD==FALSE) {
   if (TPSP==FALSE) {
@@ -727,11 +728,11 @@ flowshs2$avcsea <- ifelse(is.na(flowshs2$avcsea.x), flowshs2$avcsea.y, flowshs2$
 flowshs2 <- flowshs2 %>% select(-one_of(c("avcsea.x", "avcsea.y")))
 
 # remaining countries become ROW
-flowshs2$i_iso3 <- ifelse(flowshs2$i_iso3 %in% ccodes, flowshs2$i_iso3, 'ROW')
-flowshs2$j_iso3 <- ifelse(flowshs2$j_iso3 %in% ccodes, flowshs2$j_iso3, 'ROW')
+flowshs2$i_iso3 <- ifelse(flowshs2$i_iso3 %in% ccodes, flowshs2$i_iso3, ROWname)
+flowshs2$j_iso3 <- ifelse(flowshs2$j_iso3 %in% ccodes, flowshs2$j_iso3, ROWname)
 
 # filter internal trade
-flowshs2 <- flowshs2 %>% filter(!(i_iso3 == "ROW" & j_iso3 == "ROW"))
+flowshs2 <- flowshs2 %>% filter(!(i_iso3 == ROWname & j_iso3 == ROWname))
 if (ELL==TRUE) {
   flowshs2 <- flowshs2 %>% filter(!(i_iso3 == "ELL" & j_iso3 == "ELL"))
 }

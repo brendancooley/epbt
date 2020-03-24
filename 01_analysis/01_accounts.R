@@ -61,11 +61,11 @@ if (EUD==FALSE) {
 }
 
 if (TPSP==FALSE) {
-  wiot$col_country <- ifelse(wiot$col_country %in% ccodesWIOT, wiot$col_country, "ROW")
-  wiot$row_country <- ifelse(wiot$row_country %in% c(ccodesWIOT, aggs), wiot$row_country, "ROW")  # leave aggregates, turn everything else into ROW
+  wiot$col_country <- ifelse(wiot$col_country %in% ccodesWIOT, wiot$col_country, ROWname)
+  wiot$row_country <- ifelse(wiot$row_country %in% c(ccodesWIOT, aggs), wiot$row_country, ROWname)  # leave aggregates, turn everything else into ROW
 } else {
-  wiot$col_country <- ifelse(wiot$col_country %in% ccodesTPSP, wiot$col_country, "ROW")
-  wiot$row_country <- ifelse(wiot$row_country %in% c(ccodesTPSP, aggs), wiot$row_country, "ROW")
+  wiot$col_country <- ifelse(wiot$col_country %in% ccodesTPSP, wiot$col_country, ROWname)
+  wiot$row_country <- ifelse(wiot$row_country %in% c(ccodesTPSP, aggs), wiot$row_country, ROWname)
 }
 
 # combine Belgium and Luxemborg to match trade data
@@ -149,18 +149,18 @@ goOECD <- go %>% filter(iso3 %in% include) %>% group_by(year) %>%
 
 gdp <- left_join(gdp, gdpOECD)
 gdp$gdpOECD <- ifelse(is.na(gdp$gdpOECD), 0, gdp$gdpOECD)
-gdp$gdp <- ifelse(gdp$iso3=="ROW", gdp$gdp - gdp$gdpOECD, gdp$gdp)
+gdp$gdp <- ifelse(gdp$iso3==ROWname, gdp$gdp - gdp$gdpOECD, gdp$gdp)
 gdp <- gdp %>% select(-one_of(c("gdpOECD")))
 # gdp %>% filter(year==2011) %>% print(n=50)
 
 gc <- left_join(gc, gcOECD)
 gc$gcOECD <- ifelse(is.na(gc$gcOECD), 0, gc$gcOECD)
-gc$gc <- ifelse(gc$iso3=="ROW", gc$gc - gc$gcOECD, gc$gc)
+gc$gc <- ifelse(gc$iso3==ROWname, gc$gc - gc$gcOECD, gc$gc)
 gc <- gc %>% select(-one_of(c("gcOECD")))
 
 go <- left_join(go, goOECD)
 go$goOECD <- ifelse(is.na(go$goOECD), 0, go$goOECD)
-go$go <- ifelse(go$iso3=="ROW", go$go - go$goOECD, go$go)
+go$go <- ifelse(go$iso3==ROWname, go$go - go$goOECD, go$go)
 go <- go %>% select(-one_of(c("goOECD")))
 
 # other country groupings (OECD)

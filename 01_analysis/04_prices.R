@@ -81,7 +81,7 @@ if (MYSG==TRUE) {
 }
 
 # aggregate ROW
-icpPop$ccode <- ifelse(icpPop$ccode %in% c(ccodes, EU27), icpPop$ccode, "ROW")
+icpPop$ccode <- ifelse(icpPop$ccode %in% c(ccodes, EU27), icpPop$ccode, ROWname)
 
 icpPop <- icpPop %>% group_by(ccode) %>%
   summarise(pop=sum(pop))
@@ -132,10 +132,10 @@ if (MYSG==TRUE) {
   icpBHA$ccode <- ifelse(icpBHA$ccode %in% MYSGccodes, "MYSG", icpBHA$ccode)
 }
 
-icpBHA$ccode <- ifelse(icpBHA$ccode %in% c(ccodes, EU27), icpBHA$ccode, "ROW")
+icpBHA$ccode <- ifelse(icpBHA$ccode %in% c(ccodes, EU27), icpBHA$ccode, ROWname)
 
-# icpBHA %>% filter(ccode=="USA") %>% print(n=200)
-icpBHA$ccode %>% unique() %>% sort()
+icpBHA %>% filter(ccode=="RUS") %>% print(n=200)
+# icpBHA$ccode %>% unique() %>% sort()
 
 icpG <- icpBHA %>% group_by(ccode) %>%
   summarise(gdpUSD=sum(expReal, na.rm=T),
@@ -151,41 +151,7 @@ icpGT <- icpBHT %>% group_by(ccode) %>%
 
 icpBHT <- left_join(icpBHT, icpGT)
 
-icpBHT$expShareT <- icpBHT$expReal / icpBHT$gdpUSDT
-# icpBHT %>% print(n=100)
-
-### ESTIMATE PREFERENCE PARAMETERS ###
-
-# Note: estimate using full sample, then aggregate EU
-
-baseProduct <- "Cheese"
-icpBHTbase <- icpBHT %>% filter(Name==baseProduct) %>% select(ccode, pppReal, expShareT)
-colnames(icpBHTbase) <- c("ccode", "pppRealBase", "expShareTBase")
-# icpBHTbase %>% print(n=200)
-
-# filter products with less than or equal to zero expenditure share
-# Cyprus and Malta have negative expenditures on other transport equipment?
-icpBHTEst <- left_join(icpBHT, icpBHTbase) %>% filter(expShareT > 0) %>% select(ccode, Name, pppReal, expShareT, pppRealBase, expShareTBase, gdpUSDT)
-icpBHTEst <- icpBHTEst %>% filter(!is.na(pppReal) & !is.na(expShareT)) # filter out observations without ppps
-# icpBHTEst %>% arrange(ccode) %>% print(n=100)
-# icpBHTEst %>% filter(ccode=="ROW", Name=="Rice")
-
-icpBHTEst$DeltaLambda <- log(icpBHTEst$expShareT) - log(icpBHTEst$expShareTBase)
-icpBHTEst$DeltaP <- log(icpBHTEst$pppReal) - log(icpBHTEst$pppRealBase)
-
-icpBHTEst$phi <- icpBHTEst$DeltaLambda - (1 - sigma) * icpBHTEst$DeltaP
-
-icpBHTHat <- icpBHTEst  %>% group_by(Name) %>%
-  summarise(gammaHat=weighted.mean(phi, gdpUSDT))
-
-icpBHTHat$alphaHat <- exp(icpBHTHat$gammaHat) 
-# products with coefficient of one are valued equally to cheese
-
-icpBHTHat <- icpBHTHat %>% select(Name, alphaHat)
-
-### CALCULATE PRICE INDICES ###
-
-icpBHT <- left_join(icpBHT, icpBHTHat)
+### AGGREGATION ###
 
 # Aggregate EU, ROW
 if (EUD==FALSE) {
@@ -206,78 +172,95 @@ if (MYSG==TRUE) {
   icpBHT$ccode <- ifelse(icpBHT$ccode %in% MYSGccodes, "MYSG", icpBHT$ccode)
 }
 
-icpBHT$ccode <- ifelse(icpBHT$ccode %in% c(ccodes, EU27), icpBHT$ccode, "ROW")
+icpBHT$ccode <- ifelse(icpBHT$ccode %in% c(ccodes, EU27), icpBHT$ccode, ROWname)
+# icpBHT %>% filter(ccode=="RUS") %>% print(n=100)
 
-icpBHTAgg <- icpBHT %>% group_by(ccode, Name) %>%
-  summarise(expReal=sum(expReal),
-            pppReal=weighted.mean(pppReal, gdpUSDT, na.rm=T),
-            alphaHat=mean(alphaHat))
-# icpBHTAgg %>% filter(is.na(pppReal))
+icpBHTagg <- icpBHT %>% group_by(Name, ccode) %>%
+  summarise(pppReal=weighted.mean(pppReal, gdpUSDT, na.rm=T),
+            expReal=sum(expReal, na.rm=T))
 
-gdpUSDT <- icpBHT %>% group_by(ccode) %>%
-  summarise(gdpUSDT=sum(expReal, na.rm=T))
+icpBHTgdp <- icpBHT %>% group_by(ccode) %>%
+  summarise(gdpUSDT=sum(expReal))
 
-icpBHTAgg <- left_join(icpBHTAgg, gdpUSDT)
+icpBHTagg <- left_join(icpBHTagg, icpBHTgdp)
 
-# recalculate expenditure shares for EU
-icpBHTAgg$expShareT <- icpBHTAgg$expReal / icpBHTAgg$gdpUSDT
+icpBHTagg$expShareT <- icpBHTagg$expReal / icpBHTagg$gdpUSDT
+icpBHTagg %>% print(n=100)
 
 # export
 if(EUD==FALSE) {
   if (TPSP==FALSE) {
-    write_csv(icpBHTAgg, paste0(cleandir, "icpBHTAgg.csv"))
+    write_csv(icpBHTagg, paste0(cleandir, "icpBHTAgg.csv"))
   } else {
-    write_csv(icpBHTAgg, paste0(cleandirTPSP, "icpBHTAgg.csv"))
+    write_csv(icpBHTagg, paste0(cleandirTPSP, "icpBHTAgg.csv"))
   }
 } else {
-  write_csv(icpBHTAgg, paste0(cleandirEU, "icpBHTAgg.csv"))
+  write_csv(icpBHTagg, paste0(cleandirEU, "icpBHTAgg.csv"))
 }
-icpBHTAgg %>% print(n=100)
 
-icpP <- icpBHTAgg %>% group_by(ccode) %>%
-  summarise(priceIndex=priceIndex(alphaHat, pppReal, sigma),
-            expT=sum(expReal, na.rm = T))
+# filter products with less than or equal to zero expenditure share
+# Cyprus and Malta have negative expenditures on other transport equipment?
+icpBHTEst <- icpBHTagg %>% filter(expShareT > 0) %>% select(ccode, Name, pppReal, expShareT, gdpUSDT)
+icpBHTEst <- icpBHTEst %>% filter(!is.na(pppReal), !is.na(expShareT)) # filter out observations without ppps
 
-us <- icpP %>% filter(ccode=="USA") %>% pull(priceIndex)
-icpP$priceIndexBase <- icpP$priceIndex / us
+### ESTIMATE SIGMA AND PRICE INDICES ###
 
-icpP <- left_join(icpP, icpG)
-# icpG %>% print(n=50)
+icpBHTEstUSA <- icpBHTEst %>% filter(ccode=="USA") %>% select(Name, expShareT)
+colnames(icpBHTEstUSA) <- c("Name", "expShareT_USA")
 
-icpP$Tshare <- icpP$expT / icpP$expUSD
-# icpP %>% print(n=100)
+icpBHTEst <- left_join(icpBHTEst, icpBHTEstUSA) %>% filter(ccode != "USA")
+icpBHTEst$deltaLambda <- log(icpBHTEst$expShareT / icpBHTEst$expShareT_USA)
+icpBHTEst$lnp <- log(icpBHTEst$pppReal)
+icpBHTEst <- icpBHTEst %>% filter(!is.na(deltaLambda))
 
-# gdppc
-icpP <- left_join(icpP, icpPop)
-icpP$gdppc <- icpP$gdpUSD / icpP$pop
+# sigmaModel <- lm(deltaLambda ~ lnp + ccode - 1, data=icpBHTEst, weights=icpBHTEst$gdpUSDT)
+# sigmaModel <- lm(lnp ~ deltaLambda + ccode - 1, data=icpBHTEst, weights=expShareT_USA)
+sigmaModel <- lm(lnp ~ deltaLambda + ccode - 1, data=icpBHTEst)
+sigma_t <- sigmaModel$coefficients[1] %>% as.numeric()
+sigma <- 1 - 1 / sigma_t
+mu_t <- sigmaModel$coefficients[-1]
+Phat <- data.frame(ccode=icpBHTEst$ccode %>% unique(), P=exp(mu_t)) %>% as_tibble()
+Phat <- Phat %>% add_row(ccode="USA", P=1) %>% arrange(ccode)
+# Phat %>% print(n=50)
 
-icpP <- icpP %>% select(-priceIndex)
-colnames(icpP)[colnames(icpP)=="priceIndexBase"] <- "priceIndex"
-colnames(icpP)[colnames(icpP)=="ccode"] <- "iso3"
+### EXPORT ###
 
-icpP$year <- 2011
+gdpUSDT <- icpBHTagg %>% group_by(ccode) %>%
+  summarise(gdpUSDT=sum(expReal, na.rm=T))
 
-P <- icpP
+icpBHTagg <- left_join(icpBHTagg, gdpUSDT)
 
-# P %>% print(n=100)
-# icpBH %>% filter(ccode=="SGP") %>% arrange(expReal) %>% print(n=200)
-# icpBH %>% filter(ccode=="NLD") %>% arrange(expReal) %>% print(n=200)
+expT <- icpBHTagg %>% group_by(ccode) %>%
+  summarise(expT=sum(expReal, na.rm = T))
+
+cleanP <- left_join(Phat, expT)
+cleanP <- left_join(cleanP, gdpUSDT)
+cleanP <- left_join(cleanP, icpPop)
+cleanP <- left_join(cleanP, icpG)
+
+cleanP$gdppc <- cleanP$gdpUSD / cleanP$pop
+cleanP$year <- Y
+cleanP$Tshare <- cleanP$expT / cleanP$expUSD
+
+colnames(cleanP)[colnames(cleanP)=="P"] <- "priceIndex"
+colnames(cleanP)[colnames(cleanP)=="ccode"] <- "iso3"
 
 ### EXPORT ###
 
 # price indices
+cleanP %>% print(n=100)
 if(EUD==FALSE) {
   if (TPSP==FALSE) {
-    write_csv(P, paste0(cleandir, "priceIndex.csv"))
+    write_csv(cleanP, paste0(cleandir, "priceIndex.csv"))
   } else {
-    write_csv(P, paste0(cleandirTPSP, "priceIndex.csv"))
+    write_csv(cleanP, paste0(cleandirTPSP, "priceIndex.csv"))
   }
 } else {
-  write_csv(P, paste0(cleandirEU, "priceIndex.csv"))
+  write_csv(cleanP, paste0(cleandirEU, "priceIndex.csv"))
 }
 
 # population
-pop <- P %>% select(year, iso3, pop)
+pop <- cleanP %>% select(year, iso3, pop)
 
 if(EUD==FALSE) {
   if (TPSP==FALSE) {
@@ -288,9 +271,6 @@ if(EUD==FALSE) {
 } else {
   write_csv(pop, paste0(cleandirEU, "pop.csv"))
 }
-P
-# P %>% filter(iso3=="IRL")
-# P %>% filter(iso3 %in% EU27) %>% print(n=27)
 
 print("-----")
 print("Concluding 04_prices.R")

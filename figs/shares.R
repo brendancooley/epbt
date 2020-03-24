@@ -11,9 +11,9 @@ sharesH$tau <- 1
 shares <- shares %>% select(-Ljj)
 shares <- bind_rows(shares, sharesH)
 
-shares <- shares %>% filter(j_iso3 != "ROW")
+shares <- shares %>% filter(j_iso3 != ROWname)
 # shares %>% filter(i_iso3=="ROW")
-shares$i_gcT <- ifelse(shares$i_iso3 == "ROW", 0, shares$i_gcT)  # position ROW at end of list
+shares$i_gcT <- ifelse(shares$i_iso3 == ROWname, 0, shares$i_gcT)  # position ROW at end of list
 shares$i_gcT <- ifelse(is.na(shares$i_gcT), shares$j_gcT, shares$i_gcT)
 
 shares$Lji_pc <- shares$Lji * shares$tau
