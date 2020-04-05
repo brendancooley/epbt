@@ -18,8 +18,8 @@ cleandir <- paste0(basedir, "02_clean/")
 resultsdir <- paste0(basedir, "03_results/")
 otherdir <- paste0(basedir, "04_other/")
 
-ccodes_mini <- c("CHN", "EU", "JPN", "RUS", "USA")
-ccodes_mid <- c("AUS", "BRA", "CAN", "CHN", "EU", "JPN", "KOR", "ROW", "RUS", "USA")
+ccodes_mini <- c("CHN", "EU", "JPN", "USA")
+ccodes_mid <- c("AUS", "BRA", "CAN", "CHN", "EU", "JPN", "KOR", "ROW", "USA")
 ccodes_large <- c("AUS", "BRA", "CAN", "CHN", "EU", "IDN", "JPN", "KOR", "MEX", "ROW", "RUS", "TUR", "USA")
 
 if (size=="mid/") {
