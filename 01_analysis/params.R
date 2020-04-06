@@ -19,11 +19,11 @@ resultsdir <- paste0(basedir, "03_results/")
 otherdir <- paste0(basedir, "04_other/")
 
 ccodes_mini <- c("CHN", "EU", "JPN", "USA")
-ccodes_mid <- c("AUS", "BRA", "CAN", "CHN", "EU", "JPN", "KOR", "ROW", "USA")
+ccodes_mid <- c("AUS", "BRA", "CAN", "CHN", "EU", "JPN", "KOR", "USA")
 ccodes_large <- c("AUS", "BRA", "CAN", "CHN", "EU", "IDN", "JPN", "KOR", "MEX", "ROW", "RUS", "TUR", "USA")
 
 if (size=="mid/") {
-  ccodesTPSP <- ccodes_mini
+  ccodesTPSP <- ccodes_mid
 }
 if (size=="large/") {
   ccodesTPSP <- ccodes_large
