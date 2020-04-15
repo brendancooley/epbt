@@ -8,11 +8,14 @@ args <- commandArgs(trailingOnly=TRUE)
 if (is.null(args) | identical(args, character(0))) {
   EUD <- FALSE
   TPSP <- FALSE
-  size <- "all"
+  bootstrap <- FALSE
+  size <- "all/"
 } else {
   EUD <- ifelse(args[1] == "True", TRUE, FALSE)
   TPSP <- ifelse(args[2] == "True", TRUE, FALSE)
   size <- args[3]
+  bootstrap <- ifelse(args[4] == "True", TRUE, FALSE)
+  bootstrap_id <- args[5]
 }
 
 ### SETUP ###
@@ -94,7 +97,6 @@ icpBH$expNom <- as.numeric(icpBH$exp)
 
 icpBH <- left_join(icpBH, icpExc)
 icpBH <- left_join(icpBH, trdbls)
-# icpBH %>% filter(ccode=="LUX") %>% print(n=200)
 
 icpBH$expNom <- ifelse(is.na(icpBH$expNom), 0, icpBH$expNom)
 
@@ -103,8 +105,6 @@ icpBH$pppReal <- icpBH$pppNom / icpBH$exc
 icpBH$expReal <- icpBH$expNom / icpBH$exc
 
 icpBH <- icpBH %>% select(-c(Code, ppp, exp, pppNom, expNom, exc))
-
-# icpBH %>% filter(ccode=="EST") %>% arrange(expReal) %>% print(n=200)
 
 # filter out countries outside of analysis
 # icpBH <- icpBH %>% filter(ccode %in% c(ccodes, EU27))
@@ -133,9 +133,6 @@ if (MYSG==TRUE) {
 }
 
 icpBHA$ccode <- ifelse(icpBHA$ccode %in% c(ccodes, EU27), icpBHA$ccode, ROWname)
-
-icpBHA %>% filter(ccode=="RUS") %>% print(n=200)
-# icpBHA$ccode %>% unique() %>% sort()
 
 icpG <- icpBHA %>% group_by(ccode) %>%
   summarise(gdpUSD=sum(expReal, na.rm=T),
@@ -173,7 +170,6 @@ if (MYSG==TRUE) {
 }
 
 icpBHT$ccode <- ifelse(icpBHT$ccode %in% c(ccodes, EU27), icpBHT$ccode, ROWname)
-# icpBHT %>% filter(ccode=="RUS") %>% print(n=100)
 
 icpBHTagg <- icpBHT %>% group_by(Name, ccode) %>%
   summarise(pppReal=weighted.mean(pppReal, gdpUSDT, na.rm=T),
@@ -185,7 +181,6 @@ icpBHTgdp <- icpBHT %>% group_by(ccode) %>%
 icpBHTagg <- left_join(icpBHTagg, icpBHTgdp)
 
 icpBHTagg$expShareT <- icpBHTagg$expReal / icpBHTagg$gdpUSDT
-# icpBHTagg %>% print(n=100)
 
 # export
 if(EUD==FALSE) {
@@ -215,29 +210,34 @@ icpBHTEst <- icpBHTEst %>% filter(!is.na(deltaLambda))
 
 ### BOOTSTRAP ###
 
-if (runBootstrap == TRUE) {
-  
-  P_bstrp_mat <- data.frame(ccodes)
-  colnames(P_bstrp_mat) <- "ccode"
-  
-  for (m in 1:M) {
-    
-    # TODO: should I be sampling from here, or higher up in raw price data?
-    icpBHTEst_m <- icpBHTEst %>% group_by(ccode) %>% sample_frac(size=1, replace=T)
-    # icpBHTEst_m %>% filter(ccode=="AUS") %>% print(n=50)
-    
-    sigmaModel_m <- lm(lnp ~ deltaLambda + ccode - 1, data=icpBHTEst_m)
-    mu_t_m <- sigmaModel_m$coefficients[-1]
-    Phat_m <- data.frame(ccode=icpBHTEst$ccode %>% unique(), P=exp(mu_t_m)) %>% as_tibble()
-    Phat_m <- Phat_m %>% add_row(ccode="USA", P=1) %>% arrange(ccode)
-    colnames(Phat_m) <- c("ccode", paste0("P", m))
-    
-    P_bstrp_mat <- P_bstrp_mat %>% left_join(Phat_m)
+# if (runBootstrap==TRUE) {
+#   
+#   P_bstrp_mat <- data.frame(ccodes)
+#   colnames(P_bstrp_mat) <- "ccode"
+#   
+#   for (m in 1:M) {
+#     
+#     # TODO: should I be sampling from here, or higher up in raw price data?
+#     icpBHTEst_m <- icpBHTEst %>% group_by(ccode) %>% sample_frac(size=1, replace=T)
+#     # icpBHTEst_m %>% filter(ccode=="AUS") %>% print(n=50)
+#     
+#     sigmaModel_m <- lm(lnp ~ deltaLambda + ccode - 1, data=icpBHTEst_m)
+#     mu_t_m <- sigmaModel_m$coefficients[-1]
+#     Phat_m <- data.frame(ccode=icpBHTEst$ccode %>% unique(), P=exp(mu_t_m)) %>% as_tibble()
+#     Phat_m <- Phat_m %>% add_row(ccode="USA", P=1) %>% arrange(ccode)
+#     colnames(Phat_m) <- c("ccode", paste0("P", m))
+#     
+#     P_bstrp_mat <- P_bstrp_mat %>% left_join(Phat_m)
+# 
+#   }
+# }
+# 
+# P_bstrp_mat <- P_bstrp_mat %>% as_tibble()
+# write_csv(P_bstrp_mat, paste0(bootstrapdir, "P.csv"))
 
-  }
+if (bootstrap == TRUE) {
+  icpBHTEst <- icpBHTEst %>% group_by(ccode) %>% sample_frac(size=1, replace=T)
 }
-
-write_csv(P_bstrp_mat, paste0(bootstrapdir, "P.csv"))
 
 ### BASE MODEL ###
 
@@ -275,27 +275,33 @@ colnames(cleanP)[colnames(cleanP)=="ccode"] <- "iso3"
 
 # price indices
 # cleanP %>% print(n=100)
-if(EUD==FALSE) {
-  if (TPSP==FALSE) {
-    write_csv(cleanP, paste0(cleandir, "priceIndex.csv"))
+if (bootstrap==FALSE) {
+  if(EUD==FALSE) {
+    if (TPSP==FALSE) {
+      write_csv(cleanP, paste0(cleandir, "priceIndex.csv"))
+    } else {
+      write_csv(cleanP, paste0(cleandirTPSP, "priceIndex.csv"))
+    }
   } else {
-    write_csv(cleanP, paste0(cleandirTPSP, "priceIndex.csv"))
+    write_csv(cleanP, paste0(cleandirEU, "priceIndex.csv"))
   }
 } else {
-  write_csv(cleanP, paste0(cleandirEU, "priceIndex.csv"))
+  write_csv(cleanP, paste0(bootstrap_P_dir, bootstrap_id, ".csv"))
 }
 
 # population
 pop <- cleanP %>% select(year, iso3, pop)
 
-if(EUD==FALSE) {
-  if (TPSP==FALSE) {
-    write_csv(pop, paste0(cleandir, "pop.csv"))
+if (bootstrap==FALSE) {
+  if(EUD==FALSE) {
+    if (TPSP==FALSE) {
+      write_csv(pop, paste0(cleandir, "pop.csv"))
+    } else {
+      write_csv(pop, paste0(cleandirTPSP, "pop.csv"))
+    }
   } else {
-    write_csv(pop, paste0(cleandirTPSP, "pop.csv"))
+    write_csv(pop, paste0(cleandirEU, "pop.csv"))
   }
-} else {
-  write_csv(pop, paste0(cleandirEU, "pop.csv"))
 }
 
 print("-----")

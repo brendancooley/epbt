@@ -21,10 +21,13 @@ if (is.null(args) | identical(args, character(0))) {
   EUD <- FALSE
   TPSP <- FALSE
   size <- "all"
+  bootstrap <- FALSE
 } else {
   EUD <- ifelse(args[1] == "True", TRUE, FALSE)
   TPSP <- ifelse(args[2] == "True", TRUE, FALSE)
   size <- args[3]
+  bootstrap <- ifelse(args[4] == "True", TRUE, FALSE)
+  bootstrap_id <- args[5]
 }
 
 ### SETUP ###
@@ -102,12 +105,10 @@ flows$seadist_log_scaled <- scale(flows$seadist_log)
 ### Sea costs ### 
 flowsSea <- flows %>% filter(!is.na(avcsea))
 flowsSea$hs2 <- as.factor(flowsSea$hs2)
-
 # flowsSea$seadist_scaled <- scale(flowsSea$seadist)  # scale for interpretability only
-
-# flowsSeaX <- flowsSea %>% select(hs2, year, seadist, contig)  # no adist (don't lose much performance by dropping)
-# flowsSeaY <- flowsSea %>% select(avcsea)
-# flowsSeaM <- bind_cols(flowsSeaY, flowsSeaX)
+if (boostrap==TRUE) {
+  flowsSea <- flowsSea %>% group_by(j_iso3) %>% sample_frac(size=1, replace=TRUE)
+}
 
 # standardized model for paper, unstandardized for predictions
 seaModelOutput <- lm(avcsea ~ hs2 + bs(year, degree = 3) + seadist_log_scaled + contig, data=flowsSea, weights=flowsSea$val)
@@ -117,10 +118,9 @@ seaModelOutput <- lm(avcsea ~ hs2 + bs(year, degree = 3) + seadist_log_scaled + 
 flowsLand <- flows %>% filter(!is.na(avcland))
 flowsLand$hs2 <- as.factor(flowsLand$hs2)
 # flowsLand$adist_scaled <- scale(flowsLand$adist)
-
-# flowsLandX <- flowsLand %>% select(hs2, year, adist, contig)  # no seadist (don't lose much performance by dropping)
-# flowsLandY <- flowsLand %>% select(avcland)
-# flowsLandM <- bind_cols(flowsLandY, flowsLandX)
+if (boostrap==TRUE) {
+  flowsLand <- flowsLand %>% group_by(j_iso3) %>% sample_frac(size=1, replace=TRUE)
+}
 
 landModelOutput <- lm(avcland ~ hs2 + bs(year, degree=3) + adist_log_scaled + contig, data=flowsLand, weights=flowsLand$val)
 
@@ -128,16 +128,19 @@ landModelOutput <- lm(avcland ~ hs2 + bs(year, degree=3) + adist_log_scaled + co
 flowsAir <- flows %>% filter(!is.na(avcair))
 flowsAir$hs2 <- as.factor(flowsAir$hs2)
 # flowsAir$adist_scaled <- scale(flowsAir$adist)
-
-# flowsAirX <- flowsAir %>% select(hs2, year, adist, contig)
-# flowsAirY <- flowsAir %>% select(avcair)
-# flowsAirM <- bind_cols(flowsAirY, flowsAirX)
+if (boostrap==TRUE) {
+  flowsAir <- flowsAir %>% group_by(j_iso3) %>% sample_frac(size=1, replace=TRUE)
+}
 
 airModelOutput <- lm(avcair ~ hs2 + bs(year, degree=3) + adist_log_scaled + contig, data=flowsAir, weights=flowsAir$val)
 
 ### MODEL MODE SHARES ###
 
 flowsModes <- flows %>% filter(!is.na(airshare)) # %>% filter(airshare + seashare + landshare + othershare >= .01)
+flowsModes$landshare <- ifelse(is.na(flowsModes$landshare), 0, flowsModes$landshare)
+if (bootstrap==TRUE) {
+  flowsModes <- flowsModes %>% group_by(j_iso3) %>% sample_frac(size=1, replace=T)
+}
 
 flowsModes$hs2 <- as.factor(flowsModes$hs2)
 # flowsModes$adist_scaled <- scale(flowsModes$adist)
@@ -218,40 +221,21 @@ if (runPreds == TRUE) {
   delta$cif <- delta$fob + delta$freight
   delta$avc <- delta$cif / delta$fob
   
-  if (EUD==FALSE) {
-    if (TPSP==FALSE) {
-      write_csv(delta, paste0(cleandir, "delta.csv"))
+  if (bootstrap==FALSE) {
+    if (EUD==FALSE) {
+      if (TPSP==FALSE) {
+        write_csv(delta, paste0(cleandir, "delta.csv"))
+      } else {
+        write_csv(delta, paste0(cleandirTPSP, "delta.csv"))
+      }
     } else {
-      write_csv(delta, paste0(cleandirTPSP, "delta.csv"))
+      write_csv(delta, paste0(cleandirEU, "delta.csv"))
     }
   } else {
-    write_csv(delta, paste0(cleandirEU, "delta.csv"))
+    write_csv(delta, paste0(bootstrap_freight_dir, bootstrap_id, ".csv"))
   }
-  
   print("done")
 }
-
-# delta %>% filter(j_iso3=="IRL", year==2011) %>% print(n=50)
-
-### DIAGNOSTICS ###
-
-# logs seem to fit the data better
-
-# ggplot(data=flows, aes(x=adist_log, y=avcair)) +
-#   geom_point() +
-#   geom_smooth()
-# 
-# ggplot(data=flows, aes(x=adist, y=avcair)) +
-#   geom_point() +
-#   geom_smooth()
-# 
-# ggplot(data=flows, aes(x=seadist, y=avcsea)) +
-#   geom_point() +
-#   geom_smooth()
-# 
-# ggplot(data=flows, aes(x=seadist_log, y=avcsea)) +
-#   geom_point() +
-#   geom_smooth()
 
 print("-----")
 print("Concluding 05_freight.R")

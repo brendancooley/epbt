@@ -32,6 +32,8 @@ verticatorPath = "~/Dropbox\ \(Princeton\)/8_Templates/plugin/verticator"
 pluginDest = "index_files/reveal.js-3.8.0/plugin"
 revealPath = "~/Dropbox\ \(Princeton\)/8_Templates/reveal.js-3.8.0"
 
+M = 100  # number of bootstrap iterations
+
 def task_source():
 	yield {
 		'name': "initializing environment...",
@@ -95,12 +97,24 @@ def task_results():
 					'long':'EUD',
 					'type':str,
 					'default':'False'}],
-		'actions': ['cd ' + estdir + '; Rscript ' + prices + ' %(EUD)s False False',
+		'actions': ['cd ' + estdir + '; Rscript ' + prices + ' %(EUD)s False all/ False 1',
 					'cd ' + estdir + '; Rscript ' + freight + ' %(EUD)s False False',
 					'cd ' + estdir + '; Rscript ' + tau + ' %(EUD)s False False',
 					'cd ' + estdir + '; Rscript ' + correlates],
 		'verbosity': 2,
 	}
+
+def task_bootstrap():
+	for i in range(1, M+1):
+		yield {
+		'name': "bootstrap iteration " + str(i) + "...",
+		'actions': ['cd ' + estdir + '; Rscript ' + prices + 
+					' False False all/ True ' + str(i), 
+					'cd ' + estdir + '; Rscript ' + freight + 
+					' False False all/ True ' + str(i)],
+		'verbosity': 2,
+	}
+
 
 def task_tpsp():
 	"""Export modular economies for companion paper, "Trade Policy in the Shadow of Power." Takes command line argument --mini and exports smaller subset of countries to

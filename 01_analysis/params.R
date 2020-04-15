@@ -22,18 +22,21 @@ ccodes_mini <- c("CHN", "EU", "JPN", "USA")
 ccodes_mid <- c("AUS", "BRA", "CAN", "CHN", "EU", "JPN", "KOR", "USA")
 ccodes_large <- c("AUS", "BRA", "CAN", "CHN", "EU", "IDN", "JPN", "KOR", "MEX", "ROW", "RUS", "TUR", "USA")
 
-if (size=="mid/") {
-  ccodesTPSP <- ccodes_mid
-}
-if (size=="large/") {
-  ccodesTPSP <- ccodes_large
-}
-if (size=="mini/") {
-  ccodesTPSP <- ccodes_mini
+if (TPSP==TRUE) {
+  if (size=="mid/") {
+    ccodesTPSP <- ccodes_mid
+  }
+  if (size=="large/") {
+    ccodesTPSP <- ccodes_large
+  }
+  if (size=="mini/") {
+    ccodesTPSP <- ccodes_mini
+  }
+  cleandirTPSP <- paste0(basedir, "tpsp_clean_", size)
+  resultsdirTPSP <- paste0(basedir, "tpsp_results_", size)
 }
 
-cleandirTPSP <- paste0(basedir, "tpsp_clean_", size)
-resultsdirTPSP <- paste0(basedir, "tpsp_results_", size)
+
   
 cleandirEU <- paste0(cleandir, "EUD/")
 resultsdirEU <- paste0(resultsdir, "EUD/")
@@ -42,10 +45,9 @@ proprietaryDataPath <- "~/Dropbox (Princeton)/1_Papers/epbt/estimation/dataPropr
 
 ### BOOTSTRAP ###
 
-runBootstrap <- TRUE
-M <- 100  # number of bootstrap iterations
-
-bootstrapdir <- paste0(basedir, "05_bootstrap/")
+bootstrap_dir <- paste0(basedir, "05_bootstrap/")
+bootstrap_P_dir <- paste0(bootstrap_dir, "P/")
+bootstrap_freight_dir <- paste0(bootstrap_dir, "delta/")
 # bstrp_prices <- paste0(bootstrapdir, "prices/")
 # bstrp_freight <- paste0(bootstrapdir, "freight/")
 
@@ -89,9 +91,13 @@ if ("sections" %in% strsplit(wd, "/")[[1]]) {
 
 ### MAKE DIRECTORIES ###
 
-mkdir(bootstrapdir)
-mkdir(cleandirTPSP)
-mkdir(resultsdirTPSP)
+mkdir(bootstrap_dir)
+mkdir(bootstrap_P_dir)
+mkdir(bootstrap_freight_dir)
+if (TPSP==TRUE) {
+  mkdir(cleandirTPSP)
+  mkdir(resultsdirTPSP)
+}
 # mkdir(bstrp_prices)
 # mkdir(bstrp_freight)
 
