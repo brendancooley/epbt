@@ -25,7 +25,7 @@ softwarePath = "~/Dropbox\ \(Princeton\)/14_Software/"
 github = "~/GitHub/epbt"
 website_docs = "~/Dropbox\ \(Princeton\)/5_CV/website/static/docs"
 website_docs_github = "~/Github/brendancooley.github.io/docs"
-tpspPath = "~/Dropbox\ \(Princeton\)/1_Papers/tpsp/01_data/"
+tpspDataPath = "~/Dropbox\ \(Princeton\)/1_Papers/tpsp/01_data/data/"
 dataPath = "~/Dropbox\ \(Princeton\)/1_Papers/epbt/01_data/"
 
 verticatorPath = "~/Dropbox\ \(Princeton\)/8_Templates/plugin/verticator"
@@ -107,8 +107,8 @@ def task_tpsp():
 	separate folder if True (see lists in params.R).
 	
 	To execute run  
-	doit tpsp:tpsp --mini False --path tpsp_data/
-	doit tpsp:tpsp --mini True --path tpsp_data_mini/
+	doit tpsp:tpsp --size mini/
+	options: mini/ mid/ large/
 
 
 	"""
@@ -117,22 +117,18 @@ def task_tpsp():
 
 	yield {
 		'name': 'tpsp',
-		'params':[{'name':'mini',
-		      'long':'mini',
+		'params':[{'name':'size',
+		      'long':'size',
 		      'type':str,
-		      'default':'False'},
-		      {'name':'path',
-		      'long':'path',
-		      'type':str,
-		      'default':'tpsp_data/'}],
-		'actions': ['cd ' + estdir + '; Rscript ' + accounts + ' False True %(mini)s',
-					'cd ' + estdir + '; Rscript ' + flowshs2 + ' False True %(mini)s',
-					'cd ' + estdir + '; Rscript ' + prices + ' False True %(mini)s',
-					'cd ' + estdir + '; Rscript ' + freight + ' False True %(mini)s',
-					'cd ' + estdir + '; Rscript ' + tau + ' False True %(mini)s',
-					'cd ' + estdir + '; Rscript tpsp.R True %(mini)s %(path)s',
-					"mkdir -p " + tpspPath + "%(path)s",
-					"cp -a " + dataPath + "%(path)s " + tpspPath + "%(path)s"],
+		      'default':'mini/'}],
+		'actions': ['cd ' + estdir + '; Rscript ' + accounts + ' False True %(size)s',
+					'cd ' + estdir + '; Rscript ' + flowshs2 + ' False True %(size)s',
+					'cd ' + estdir + '; Rscript ' + prices + ' False True %(size)s',
+					'cd ' + estdir + '; Rscript ' + freight + ' False True %(size)s',
+					'cd ' + estdir + '; Rscript ' + tau + ' False True %(size)s',
+					'cd ' + estdir + '; Rscript tpsp.R True %(size)s',
+					"mkdir -p " + tpspDataPath + "%(size)s",
+					"cp -a " + dataPath + "tpsp_data_" + "%(size)s " + tpspDataPath + "%(size)s"],
 		'verbosity': 2,
 	}
 

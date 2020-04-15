@@ -12,13 +12,12 @@ args <- commandArgs(trailingOnly=TRUE)
 if (is.null(args) | identical(args, character(0))) {
   EUD <- FALSE
   TPSP <- FALSE
-  mini <- FALSE
+  size <- "all"
 } else {
   EUD <- ifelse(args[1] == "True", TRUE, FALSE)
   TPSP <- ifelse(args[2] == "True", TRUE, FALSE)
-  mini <- ifelse(args[3] == "True", TRUE, FALSE)
+  size <- args[3]
 }
-print(mini)
 
 ### SETUP ###
 
@@ -26,7 +25,7 @@ source("params.R")
 
 libs <- c('tidyverse', 'R.utils', 'countrycode', "readxl", "gdata", "stringr")
 ipak(libs)
-installXLSXsupport()
+# installXLSXsupport()
 
 if (EUD==FALSE) {
   if (TPSP==FALSE) {

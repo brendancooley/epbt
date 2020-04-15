@@ -8,11 +8,11 @@ args <- commandArgs(trailingOnly=TRUE)
 if (is.null(args) | identical(args, character(0))) {
   EUD <- FALSE
   TPSP <- FALSE
-  mini <- FALSE
+  size <- "all"
 } else {
   EUD <- ifelse(args[1] == "True", TRUE, FALSE)
   TPSP <- ifelse(args[2] == "True", TRUE, FALSE)
-  mini <- ifelse(args[3] == "True", TRUE, FALSE)
+  size <- args[3]
 }
 
 ### SETUP ###
@@ -213,8 +213,34 @@ icpBHTEst$deltaLambda <- log(icpBHTEst$expShareT / icpBHTEst$expShareT_USA)
 icpBHTEst$lnp <- log(icpBHTEst$pppReal)
 icpBHTEst <- icpBHTEst %>% filter(!is.na(deltaLambda))
 
-# sigmaModel <- lm(deltaLambda ~ lnp + ccode - 1, data=icpBHTEst, weights=icpBHTEst$gdpUSDT)
-# sigmaModel <- lm(lnp ~ deltaLambda + ccode - 1, data=icpBHTEst, weights=expShareT_USA)
+### BOOTSTRAP ###
+
+if (runBootstrap == TRUE) {
+  
+  P_bstrp_mat <- data.frame(ccodes)
+  colnames(P_bstrp_mat) <- "ccode"
+  
+  for (m in 1:M) {
+    
+    # TODO: should I be sampling from here, or higher up in raw price data?
+    icpBHTEst_m <- icpBHTEst %>% group_by(ccode) %>% sample_frac(size=1, replace=T)
+    # icpBHTEst_m %>% filter(ccode=="AUS") %>% print(n=50)
+    
+    sigmaModel_m <- lm(lnp ~ deltaLambda + ccode - 1, data=icpBHTEst_m)
+    mu_t_m <- sigmaModel_m$coefficients[-1]
+    Phat_m <- data.frame(ccode=icpBHTEst$ccode %>% unique(), P=exp(mu_t_m)) %>% as_tibble()
+    Phat_m <- Phat_m %>% add_row(ccode="USA", P=1) %>% arrange(ccode)
+    colnames(Phat_m) <- c("ccode", paste0("P", m))
+    
+    P_bstrp_mat <- P_bstrp_mat %>% left_join(Phat_m)
+
+  }
+}
+
+write_csv(P_bstrp_mat, paste0(bootstrapdir, "P.csv"))
+
+### BASE MODEL ###
+
 sigmaModel <- lm(lnp ~ deltaLambda + ccode - 1, data=icpBHTEst)
 sigma_t <- sigmaModel$coefficients[1] %>% as.numeric()
 sigma <- 1 - 1 / sigma_t
