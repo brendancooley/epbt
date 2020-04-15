@@ -6,7 +6,7 @@ helpersPath = os.path.expanduser("~/Dropbox (Princeton)/14_Software/R/")
 sys.path.insert(1, helpersPath)
 
 # estimation directory
-estdir = "01_analysis/"
+estdir = "01_code/"
 
 accounts = "01_accounts.R"
 flowshs6 = "02_flowshs6.R"
@@ -98,8 +98,8 @@ def task_results():
 					'type':str,
 					'default':'False'}],
 		'actions': ['cd ' + estdir + '; Rscript ' + prices + ' %(EUD)s False all/ False 1',
-					'cd ' + estdir + '; Rscript ' + freight + ' %(EUD)s False False',
-					'cd ' + estdir + '; Rscript ' + tau + ' %(EUD)s False False',
+					'cd ' + estdir + '; Rscript ' + freight + ' %(EUD)s False all/ False 1',
+					'cd ' + estdir + '; Rscript ' + tau + ' %(EUD)s False all/ False 1',
 					'cd ' + estdir + '; Rscript ' + correlates],
 		'verbosity': 2,
 	}
@@ -139,9 +139,9 @@ def task_tpsp():
 		      'default':'mini/'}],
 		'actions': ['cd ' + estdir + '; Rscript ' + accounts + ' False True %(size)s',
 					'cd ' + estdir + '; Rscript ' + flowshs2 + ' False True %(size)s',
-					'cd ' + estdir + '; Rscript ' + prices + ' False True %(size)s',
-					'cd ' + estdir + '; Rscript ' + freight + ' False True %(size)s',
-					'cd ' + estdir + '; Rscript ' + tau + ' False True %(size)s',
+					'cd ' + estdir + '; Rscript ' + prices + ' False True %(size)s False 1',
+					'cd ' + estdir + '; Rscript ' + freight + ' False True %(size)s False 1',
+					'cd ' + estdir + '; Rscript ' + tau + ' False True %(size)s False 1',
 					'cd ' + estdir + '; Rscript tpsp.R True %(size)s',
 					"mkdir -p " + tpspDataPath + "%(size)s",
 					"cp -a " + dataPath + "tpsp_data_" + "%(size)s " + tpspDataPath + "%(size)s"],

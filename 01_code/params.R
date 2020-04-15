@@ -7,9 +7,11 @@ if (!exists("mini")) {
 
 library(tidyverse)
 
+M <- 100 # number of bootstrap iterations
+
 ### DIRECTORIES ###
 
-analysis_dirname <- "01_analysis"
+analysis_dirname <- "01_code"
 
 basedir <- "~/Dropbox (Princeton)/1_Papers/epbt/01_data/"
 
@@ -17,6 +19,7 @@ datadir <- paste0(basedir, "01_raw/")
 cleandir <- paste0(basedir, "02_clean/")
 resultsdir <- paste0(basedir, "03_results/")
 otherdir <- paste0(basedir, "04_other/")
+results_local_dir <- paste0("../02_results/")
 
 ccodes_mini <- c("CHN", "EU", "JPN", "USA")
 ccodes_mid <- c("AUS", "BRA", "CAN", "CHN", "EU", "JPN", "KOR", "USA")
@@ -35,8 +38,6 @@ if (TPSP==TRUE) {
   cleandirTPSP <- paste0(basedir, "tpsp_clean_", size)
   resultsdirTPSP <- paste0(basedir, "tpsp_results_", size)
 }
-
-
   
 cleandirEU <- paste0(cleandir, "EUD/")
 resultsdirEU <- paste0(resultsdir, "EUD/")
@@ -51,6 +52,10 @@ bootstrap_freight_dir <- paste0(bootstrap_dir, "delta/")
 bootstrap_tau_dir <- paste0(bootstrap_dir, "tau/")
 # bstrp_prices <- paste0(bootstrapdir, "prices/")
 # bstrp_freight <- paste0(bootstrapdir, "freight/")
+
+### PATHS ###
+
+tau_quantiles_path <- paste0(results_local_dir, "tau_quantiles.csv")
 
 ### SOURCE HELPERS ###
 
@@ -75,7 +80,7 @@ if ("sections" %in% strsplit(wd, "/")[[1]]) {
       ccodesAll <- read_csv(ccodesPath) %>% pull(.)  # all
     }
   } else {
-    sourceDir <- paste0(analysis_dirname, "/source/")
+    sourceDir <- paste0("../", analysis_dirname, "/source/")
     sourceFiles <- list.files(sourceDir)
     print(sourceFiles)
     for (i in sourceFiles) {

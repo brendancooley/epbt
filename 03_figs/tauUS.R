@@ -1,3 +1,5 @@
+
+
 tauUSi <- tau %>% filter(i_iso3=="USA") %>% select(j_iso3, tau)
 colnames(tauUSi) <- c("iso3", "tauExp")
 tauUSj <- tau %>% filter(j_iso3=="USA") %>% select(i_iso3, tau)
