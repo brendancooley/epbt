@@ -111,6 +111,8 @@ def task_bootstrap():
 		'actions': ['cd ' + estdir + '; Rscript ' + prices + 
 					' False False all/ True ' + str(i), 
 					'cd ' + estdir + '; Rscript ' + freight + 
+					' False False all/ True ' + str(i),
+					'cd ' + estdir + '; Rscript ' + tau + 
 					' False False all/ True ' + str(i)],
 		'verbosity': 2,
 	}

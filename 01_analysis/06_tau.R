@@ -9,10 +9,13 @@ if (is.null(args) | identical(args, character(0))) {
   EUD <- FALSE
   TPSP <- FALSE
   size <- "all"
+  bootstrap <- FALSE
 } else {
   EUD <- ifelse(args[1] == "True", TRUE, FALSE)
   TPSP <- ifelse(args[2] == "True", TRUE, FALSE)
   size <- args[3]
+  bootstrap <- ifelse(args[4] == "True", TRUE, FALSE)
+  bootstrap_id <- args[5]
 }
 
 ### SETUP ###
@@ -38,31 +41,40 @@ ipak(libs)
 ### DATA ###
 
 # flows and predicted costs
-if (EUD==FALSE) {
-  if (TPSP==FALSE) {
-    X <- read_csv(paste0(cleandir, 'delta.csv')) %>% filter(year==Y)
+if (bootstrap==FALSE) {
+  if (EUD==FALSE) {
+    if (TPSP==FALSE) {
+      X <- read_csv(paste0(cleandir, 'delta.csv')) %>% filter(year==Y)
+    } else {
+      X <- read_csv(paste0(cleandirTPSP, 'delta.csv')) %>% filter(year==Y)
+    }
   } else {
-    X <- read_csv(paste0(cleandirTPSP, 'delta.csv')) %>% filter(year==Y)
+    X <- read_csv(paste0(cleandirEU, 'delta.csv')) %>% filter(year==Y)
   }
 } else {
-  X <- read_csv(paste0(cleandirEU, 'delta.csv')) %>% filter(year==Y)
+  X <- read_csv(paste0(bootstrap_freight_dir, bootstrap_id, ".csv")) %>% filter(year==Y)
 }
-# X %>% select(i_iso3, j_iso3, avc) %>% print(n=1000)
-# X %>% pull(j_iso3) %>% unique() %>% sort()
+
 
 # prices
-if (EUD==FALSE) {
-  if (TPSP==FALSE) {
-    P <- read_csv(paste0(cleandir, 'priceIndex.csv')) %>% select(iso3, year, priceIndex) %>% filter(year==Y)
-    Tshare <- read_csv(paste0(cleandir, 'priceIndex.csv')) %>% select(iso3, year, Tshare) %>% filter(year==Y)
+if (bootstrap==FALSE) {
+  if (EUD==FALSE) {
+    if (TPSP==FALSE) {
+      P <- read_csv(paste0(cleandir, 'priceIndex.csv')) %>% select(iso3, year, priceIndex) %>% filter(year==Y)
+      Tshare <- read_csv(paste0(cleandir, 'priceIndex.csv')) %>% select(iso3, year, Tshare) %>% filter(year==Y)
+    } else {
+      P <- read_csv(paste0(cleandirTPSP, 'priceIndex.csv')) %>% select(iso3, year, priceIndex) %>% filter(year==Y)
+      Tshare <- read_csv(paste0(cleandirTPSP, 'priceIndex.csv')) %>% select(iso3, year, Tshare) %>% filter(year==Y)
+    }
   } else {
-    P <- read_csv(paste0(cleandirTPSP, 'priceIndex.csv')) %>% select(iso3, year, priceIndex) %>% filter(year==Y)
-    Tshare <- read_csv(paste0(cleandirTPSP, 'priceIndex.csv')) %>% select(iso3, year, Tshare) %>% filter(year==Y)
+    P <- read_csv(paste0(cleandirEU, 'priceIndex.csv')) %>% select(iso3, year, priceIndex) %>% filter(year==Y)
+    Tshare <- read_csv(paste0(cleandirEU, 'priceIndex.csv')) %>% select(iso3, year, Tshare) %>% filter(year==Y)
   }
 } else {
-  P <- read_csv(paste0(cleandirEU, 'priceIndex.csv')) %>% select(iso3, year, priceIndex) %>% filter(year==Y)
-  Tshare <- read_csv(paste0(cleandirEU, 'priceIndex.csv')) %>% select(iso3, year, Tshare) %>% filter(year==Y)
+  P <- read_csv(paste0(bootstrap_P_dir, bootstrap_id, ".csv")) %>% select(iso3, year, priceIndex) %>% filter(year==Y)
+  Tshare <- read_csv(paste0(bootstrap_P_dir, bootstrap_id, ".csv")) %>% select(iso3, year, Tshare) %>% filter(year==Y)
 }
+
 
 # gross consumption
 if (EUD==FALSE) {
@@ -176,30 +188,33 @@ Xshares <- X %>% select(i_iso3, j_iso3, year, tau, Lji, Ljj, j_gcT, i_gcT)
 # Xshares %>% summary()
 # Xshares %>% filter(j_iso3=="VNM") %>% print(n=100)
 
-if (EUD==FALSE) {
-  if (tauRev==FALSE) {
-    write_csv(Xshares, paste0(cleandir, "shares.csv"))
-  } else {
-    if (TPSP==FALSE) {
-      write_csv(Xshares, paste0(cleandir, "sharesTR.csv"))
+if (bootstrap==FALSE) {
+  if (EUD==FALSE) {
+    if (tauRev==FALSE) {
+      write_csv(Xshares, paste0(cleandir, "shares.csv"))
     } else {
-      write_csv(Xshares, paste0(cleandirTPSP, "sharesTR.csv"))
+      if (TPSP==FALSE) {
+        write_csv(Xshares, paste0(cleandir, "sharesTR.csv"))
+      } else {
+        write_csv(Xshares, paste0(cleandirTPSP, "sharesTR.csv"))
+      }
+    }
+  } else {
+    write_csv(Xshares, paste0(cleandirEU, "shares.csv"))
+  }
+  
+  # export deficits
+  if (tauRev==TRUE) {
+    d <- gdpR %>% select(j_iso3, j_deficit)
+    colnames(d) <- c("iso3", "deficit")
+    if (TPSP==FALSE) {
+      write_csv(d, paste0(cleandir, "dTR.csv"))
+    } else {
+      write_csv(d, paste0(cleandirTPSP, "dTR.csv"))
     }
   }
-} else {
-  write_csv(Xshares, paste0(cleandirEU, "shares.csv"))
 }
 
-# export deficits
-if (tauRev==TRUE) {
-  d <- gdpR %>% select(j_iso3, j_deficit)
-  colnames(d) <- c("iso3", "deficit")
-  if (TPSP==FALSE) {
-    write_csv(d, paste0(cleandir, "dTR.csv"))
-  } else {
-    write_csv(d, paste0(cleandirTPSP, "dTR.csv"))
-  }
-}
 
 # export policies
 Xtau <- X %>% select(i_iso3, j_iso3, year, tau, tauAlt)
@@ -211,19 +226,24 @@ if (EUD==TRUE) {
 # Xtau %>% filter(j_iso3=="VNM") %>% print(n=100)
 
 # export
-if (EUD==FALSE) {
-  if (tauRev==FALSE) {
-    write_csv(Xtau, paste0(resultsdir, "tauY.csv"))
-  } else {
-    if (TPSP==FALSE) {
-      write_csv(Xtau, paste0(resultsdir, "tauYTR.csv"))
+if (bootstrap==FALSE) {
+  if (EUD==FALSE) {
+    if (tauRev==FALSE) {
+      write_csv(Xtau, paste0(resultsdir, "tauY.csv"))
     } else {
-      write_csv(Xtau, paste0(resultsdirTPSP, "tauYTR.csv"))
+      if (TPSP==FALSE) {
+        write_csv(Xtau, paste0(resultsdir, "tauYTR.csv"))
+      } else {
+        write_csv(Xtau, paste0(resultsdirTPSP, "tauYTR.csv"))
+      }
     }
+  } else {
+    write_csv(Xtau, paste0(resultsdirEU, "tauY.csv"))
   }
 } else {
-  write_csv(Xtau, paste0(resultsdirEU, "tauY.csv"))
+  write_csv(Xtau, paste0(bootstrap_tau_dir, bootstrap_id, ".csv"))
 }
+
 
 # calculate TRI and MAI
 # gc weights, reflects value of markets, not value of trade
@@ -276,32 +296,34 @@ if (EUD==TRUE) {
 
 ### PLOTS ###
 
-if (EUD==FALSE) {
-  if (TPSP==FALSE) {
-    tauHM <- bind_rows(list(Xtau, TRI, MAI))
-    tauHMY <- tauHM %>% filter(year==Y)
-    write_csv(tauHMY, paste0(resultsdir, "tauHMY.csv"))
+if (bootstrap==FALSE) {
+  if (EUD==FALSE) {
+    if (TPSP==FALSE) {
+      tauHM <- bind_rows(list(Xtau, TRI, MAI))
+      tauHMY <- tauHM %>% filter(year==Y)
+      write_csv(tauHMY, paste0(resultsdir, "tauHMY.csv"))
+    }
+  } else {
+    # different variables
+    # tauHM <- bind_rows(list(Xtau, TRIEU, MAIEU))
+    # tauHMY <- tauHM %>% filter(year==Y)
+    # write_csv(tauHMY, "results/tauHMYEUD.csv")
   }
-} else {
-  # different variables
-  # tauHM <- bind_rows(list(Xtau, TRIEU, MAIEU))
-  # tauHMY <- tauHM %>% filter(year==Y)
-  # write_csv(tauHMY, "results/tauHMYEUD.csv")
-}
-
-# TRI and MAI
-
-if (EUD==FALSE) {
-  if (TPSP==FALSE) {
-    trimai <- left_join(TRI %>% select(j_iso3, year, tau), MAI %>% select(i_iso3, year, tau), by=c("j_iso3"="i_iso3", "year")) %>% ungroup()
-    colnames(trimai) <- c("iso3", "year", "TRI", "MAI")
-    trimaiY <- trimai %>% filter(year==Y)
-    write_csv(trimaiY, paste0(resultsdir, "trimaiY.csv"))
+  
+  # TRI and MAI
+  
+  if (EUD==FALSE) {
+    if (TPSP==FALSE) {
+      trimai <- left_join(TRI %>% select(j_iso3, year, tau), MAI %>% select(i_iso3, year, tau), by=c("j_iso3"="i_iso3", "year")) %>% ungroup()
+      colnames(trimai) <- c("iso3", "year", "TRI", "MAI")
+      trimaiY <- trimai %>% filter(year==Y)
+      write_csv(trimaiY, paste0(resultsdir, "trimaiY.csv"))
+    }
+  } else {
+    trimai <- TRIEU %>% ungroup()
+    write_csv(trimai, paste0(resultsdirEU, "trimaiY.csv"))
+    write_csv(TRIEUall, paste0(resultsdirEU, "trimaiYall.csv"))
   }
-} else {
-  trimai <- TRIEU %>% ungroup()
-  write_csv(trimai, paste0(resultsdirEU, "trimaiY.csv"))
-  write_csv(TRIEUall, paste0(resultsdirEU, "trimaiYall.csv"))
 }
 
 print("-----")

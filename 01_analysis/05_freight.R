@@ -139,7 +139,7 @@ airModelOutput <- lm(avcair ~ hs2 + bs(year, degree=3) + adist_log_scaled + cont
 flowsModes <- flows %>% filter(!is.na(airshare)) # %>% filter(airshare + seashare + landshare + othershare >= .01)
 flowsModes$landshare <- ifelse(is.na(flowsModes$landshare), 0, flowsModes$landshare)
 if (bootstrap==TRUE) {
-  flowsModes <- flowsModes %>% group_by(j_iso3) %>% sample_frac(size=1, replace=T)
+  flowsModes <- flowsModes %>% group_by(j_iso3) %>% sample_frac(size=1, replace=T) %>% ungroup()
 }
 
 flowsModes$hs2 <- as.factor(flowsModes$hs2)

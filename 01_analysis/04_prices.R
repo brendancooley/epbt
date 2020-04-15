@@ -9,7 +9,7 @@ if (is.null(args) | identical(args, character(0))) {
   EUD <- FALSE
   TPSP <- FALSE
   bootstrap <- FALSE
-  size <- "all/"
+  size <- "all"
 } else {
   EUD <- ifelse(args[1] == "True", TRUE, FALSE)
   TPSP <- ifelse(args[2] == "True", TRUE, FALSE)
