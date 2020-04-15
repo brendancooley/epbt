@@ -185,7 +185,7 @@ icpBHTgdp <- icpBHT %>% group_by(ccode) %>%
 icpBHTagg <- left_join(icpBHTagg, icpBHTgdp)
 
 icpBHTagg$expShareT <- icpBHTagg$expReal / icpBHTagg$gdpUSDT
-icpBHTagg %>% print(n=100)
+# icpBHTagg %>% print(n=100)
 
 # export
 if(EUD==FALSE) {
@@ -248,7 +248,7 @@ colnames(cleanP)[colnames(cleanP)=="ccode"] <- "iso3"
 ### EXPORT ###
 
 # price indices
-cleanP %>% print(n=100)
+# cleanP %>% print(n=100)
 if(EUD==FALSE) {
   if (TPSP==FALSE) {
     write_csv(cleanP, paste0(cleandir, "priceIndex.csv"))
