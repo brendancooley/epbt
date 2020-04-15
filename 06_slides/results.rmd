@@ -1,0 +1,137 @@
+```{r, echo=FALSE, warning=FALSE, message=FALSE, results='hide'}
+
+tarYval <- read_csv(paste0(otherdir, "tarYval.csv")) %>% pull(.)
+
+trimaiY <- read_csv(paste0(resultsdir, "triMaiY.csv"))
+gdp <- read_csv(paste0(cleandir, "gdp.csv"))
+pop <- read_csv(paste0(cleandir, "pop.csv"))
+tar <- read_csv(paste0(cleandir, "tarY.csv"))
+
+correlates <- read_csv(paste0(resultsdir, "/correlates.csv"))
+
+delta <- read_csv(paste0(cleandir, "delta.csv")) %>% filter(year==Y)
+tau <- read_csv(paste0(resultsdir, "tauY.csv"))
+tar <- read_csv(paste0(cleandir, "tarY.csv"))
+
+shares <- read_csv(paste0(cleandir, "shares.csv"))
+
+tauHMY <- read_csv(paste0(resultsdir, "tauHMY.csv"))
+tauHMYEUD <- read_csv(paste0(resultsdirEU, "tauY.csv"))
+
+P <- read_csv(paste0(cleandir, "priceIndex.csv"))
+
+freight <- read_csv(paste0(cleandir, "freight.csv"))
+
+```
+
+
+# Results {id="results"}
+
+<hr style="height:3em; visibility:hidden;" />
+
+$$
+\bm{\tau}_{N \times N} = \begin{pmatrix}
+1 & \cdots & \tau_{1n} \\
+\vdots & \ddots & \vdots \\
+\tau_{n1} & \cdots & 1
+\end{pmatrix}
+$$
+
+<hr style="height:2em; visibility:hidden;" />
+
+$$
+\tau_{ij} = \left( \frac{\lambda_{ij}^{\text{cif}}}{ \lambda_{jj}(\bm{\tau}_j) } \right)^{-\frac{1}{\theta + 1}} \left( \frac{\hat{P}_i}{\hat{P}_j} \right)^{\frac{\theta}{\theta+1}} \left( \frac{1}{\delta_{ij}(\bm{Z}_{ij})} \right)^{\frac{\theta}{\theta+1}}
+$$
+
+## Results
+
+
+```{r hm1, echo=FALSE, warning=FALSE, message=FALSE, fig.height=4.5, dpi=300}
+
+EUHM <- FALSE
+cluster <- FALSE
+highlight <- NULL
+
+source(paste0("../", figs_dir, "hm.R"))
+hm
+
+```
+
+## Results
+
+
+```{r hmUSA, echo=FALSE, warning=FALSE, message=FALSE, fig.height=4.5, dpi=300}
+
+EUHM <- FALSE
+cluster <- FALSE
+highlight <- "USA"
+
+source(paste0("../", figs_dir, "hm.R"))
+hm
+
+```
+
+. . .
+
+- U.S. favored partners: Canada (`r tau %>% filter(j_iso3=="USA", i_iso3=="CAN") %>% pull(tau) %>% round(2) %>% -1 %>% "*"(100)`% ad valorem), Japan (`r tau %>% filter(j_iso3=="USA", i_iso3=="JPN") %>% pull(tau) %>% round(2) %>% -1 %>% "*"(100)`%), EU (`r tau %>% filter(j_iso3=="USA", i_iso3=="EU") %>% pull(tau) %>% round(2) %>% -1 %>% "*"(100)`%)
+- U.S. disfavored partners: Peru (`r tau %>% filter(j_iso3=="USA", i_iso3=="PER") %>% pull(tau) %>% round(2) %>% -1 %>% "*"(100)`%) and Vietnam (`r tau %>% filter(j_iso3=="USA", i_iso3=="VNM") %>% pull(tau) %>% round(2) %>% - 1 %>% "*"(100)`%)
+
+## Results (Free?)
+
+```{r tCostsPlot1, echo=FALSE, warning=FALSE, message=FALSE, fig.height=5.5, dpi=300}
+
+source(paste0("../", figs_dir, "tcosts.R"))
+
+tCostsFT + theme(aspect.ratio=1)
+
+```
+
+## Results (Free?)
+
+```{r tCostsPlot2, echo=FALSE, warning=FALSE, message=FALSE, fig.height=5.5, dpi=300}
+
+tCostsFTPbase + theme(aspect.ratio=1)
+
+```
+
+## Results (Free?) {id="magnitudes"}
+
+```{r tCostsPlot3, echo=FALSE, warning=FALSE, message=FALSE, fig.height=5.5, dpi=300}
+
+tCostsFTP + theme(aspect.ratio=1)
+
+```
+
+## Trade Restrictiveness and Market Access 
+
+**Trade Restrictiveness Index**
+
+$$
+\text{TRI}_i = \frac{1}{\sum_{j \neq i} E_j} \sum_{j \neq i} \tau_{ij} E_j
+$$
+
+**Market Access Index**
+
+$$
+\text{MAI}_j = \frac{1}{\sum_{i \neq j} E_i} \sum_{i \neq j} \tau_{ij} E_i
+$$
+
+## Results (Fair?) {id="TRI"}
+
+```{r triincome, echo=FALSE, warning=FALSE, message=FALSE, fig.height=5, dpi=300}
+
+source(paste0("../", figs_dir, "triIncome.R"))
+
+triIncome + theme(aspect.ratio=1)
+
+```
+
+## Results (Fair?) {id="MAI"}
+
+```{r maigdppc, echo=FALSE, warning=FALSE, message=FALSE, fig.height=5, dpi=300}
+
+source(paste0("../", figs_dir, "maigdppc.R"))
+
+maigdppcPlot + theme(aspect.ratio=1)
+
+```

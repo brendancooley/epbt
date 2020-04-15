@@ -1,0 +1,49 @@
+# Implications (Economic Blocs) {id="implications"}
+
+```{r hm2, echo=FALSE, warning=FALSE, message=FALSE, fig.height=5, dpi=300}
+
+# RESET DATA
+tauHMY <- read_csv(paste0(resultsdir, "tauHMY.csv"))
+tauHMYEUD <- read_csv(paste0(resultsdirEU, "tauY.csv"))
+
+EUHM <- T
+highlight <- NULL
+
+source(paste0("../", figs_dir, "hm.R"))
+
+hm + theme(axis.text.x=element_text(size=7), axis.text.y=element_text(size=7))
+
+```
+
+## Implications (Economic Blocs) {id="blocs"}
+
+```{r hm2C, echo=FALSE, warning=FALSE, message=FALSE, fig.height=5, dpi=300}
+
+EUHM <- T
+cluster <- T
+highlight <- NULL
+
+set.seed(755)
+
+source(paste0("../", figs_dir, "hm.R"))
+
+hm + theme(axis.text.x=element_text(size=7), axis.text.y=element_text(size=7))
+
+```
+
+## Implications (Democracy and Trade Policy)
+
+- Democracy *positively* associated with trade restrictiveness
+
+<hr style="height:3em; visibility:hidden;" />
+
+```{r polity, echo=FALSE, warning=FALSE, message=FALSE, results="asis"}
+
+library(stargazer)
+EUD <- TRUE
+source(paste0("../", code_dir, "11_correlates.R"))
+
+stargazer(modelD, header=FALSE, type='html', style = "qje", omit=c("Constant"), omit.stat=c("adj.rsq", "f", "ser"), dep.var.labels = c("DV: TRI"), covariate.labels = c("gdp (std)", "polity2 (std)"))
+
+
+```

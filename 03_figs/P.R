@@ -1,9 +1,10 @@
-# library(tidyverse)
-# library(ggrepel)
-# library(patchwork)
-# 
-# P <- read_csv("clean/priceIndexEUD.csv")
-# P %>% print(n=50)
+library(tidyverse)
+library(ggrepel)
+library(patchwork)
+
+source(paste0("../", code_dir, "params.R"))
+
+P <- read_csv(paste0(cleandir, "priceIndex.csv"))
 
 plotP <- ggplot(P, aes(x=gdppc, y=priceIndex, label=iso3)) + 
   geom_point() +

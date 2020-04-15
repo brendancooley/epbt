@@ -1,0 +1,22 @@
+# Conclusion {id="conclusion"}
+
+<div class="fragment">
+
+**Nondiscrimination in the Trade Regime**
+
+- Almost all countries in sample are WTO members, but substantial effective discrimination persists
+  + Contra @Bagwell1999, @Maggi1999, @Bown2004
+- PTAs negatively associated with barriers
+  + Importance of behind-the-border barriers, regulatory harmonization, "deep integration" [@Baccini2019]
+
+</div>
+<div class="fragment">
+
+**Democracy, Development, and Trade Policy**
+
+- Democracies less liberal than autocracies
+  + Contra @Milner2005, @Eichengreen2008, @Gawande2009, @Gawande2015, @Barari2018 (tariffs)
+- Tariffs as "second-best" solution to revenue-raising problem facing low-capacity governments
+  + @Acemoglu2005b, @Rodrik2008, and @Queralt2015
+
+</div>

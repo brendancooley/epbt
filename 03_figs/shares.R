@@ -1,7 +1,8 @@
-# library(tidyverse)
-# 
-# shares <- read_csv("clean/shares.csv")
-# source("params.R")
+library(tidyverse)
+
+source(paste0("../", code_dir, "params.R"))
+
+shares <- read_csv(paste0(cleandir, "shares.csv"))
 
 sharesH <- shares %>% select(j_iso3, year, Ljj, j_gcT) %>% unique()
 sharesH$i_iso3 <- sharesH$j_iso3

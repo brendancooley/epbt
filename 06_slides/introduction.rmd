@@ -1,0 +1,139 @@
+# Free and Fair? {id="introduction"}
+
+<div class="fragment">
+
+> "We believe that trade must be fair and reciprocal. The United States will not be taken advantage of any longer." <br/> $\qquad$ -- Donald Trump, Feb. 2019
+
+</div>
+<div class="fragment">
+
+> "I’m going to have a trade prosecutor...to make sure every trade deal we’re already in is absolutely followed to the letter so nobody takes advantage of us." <br/> $\qquad$ -- Hillary Clinton, Oct. 2016
+
+</div>
+<div class="fragment">
+
+> "Internationally, we are seeing a tendency toward protectionism and navel-gazing...What we need is trade that’s both fair and free." <br/> $\qquad$ -- Shinzo Abe, Oct. 2016
+
+</div>
+<div class="fragment">
+
+> "An open world is only worth it if the competition that takes place there is fair." <br/> $\qquad$ -- Emmanuel Macron, Sep. 2017
+
+</div>
+<div class="fragment">
+
+- **Free:** Foreign firms enjoy same market access conditions as domestic competitors \pause
+
+</div>
+<div class="fragment">
+
+- **Fair:** Barriers that do exist affect all trade partners symmetrically
+
+</div>
+
+## The Tariff System (GATT/WTO)
+
+- **Free?** Applied tariff rates are low, ~5% on average [@Baldwin2016]
+- **Fair?** WTO members (vast majority of world economy) commit to principle of non-discrimination (Most Favored Nation)
+
+```{r tcostsF, echo=FALSE, warning=FALSE, message=FALSE, fig.height=4, dpi=300}
+
+source(paste0("../", figs_dir, "tcosts.R"))
+
+tCostsF + plot_spacer()
+
+```
+
+
+## The Tariff System (GATT/WTO)
+
+- **Free?** Applied tariff rates are low, ~5% on average [@Baldwin2016]
+- **Fair?** WTO members (vast majority of world economy) commit to principle of non-discrimination (Most Favored Nation)
+
+```{r tcostsFT, echo=FALSE, warning=FALSE, message=FALSE, fig.height=4, dpi=300}
+
+tCostsF + tCostsFT
+
+```
+
+## Varieties of Barriers
+
+**Direct**
+
+- Tariffs
+- Non-Tariff Measures (NTMs)
+    + Price controls, quotas, health and safety regulations, technical barriers
+    + @Mansfield1995b, @Lee1997, @Gawande1999, @Kono2006, @Rickard2012, @Maggi2018
+
+. . .
+
+**Indirect** (Behind-the-Border)
+
+- Government procurement
+    + @Evenett2004, @Kono2014
+- Subsidies
+- Excise taxes
+- Regulations
+
+. . .
+
+**Effective Discrimination:** Target trade-disorting instruments to disproportionately affect disfavored trading partners.
+
+- E.g. high agricultural duties by developed countries disproportionately harm developing countries
+
+## Approach
+
+**Trade Costs:** Policy distortions and transportation costs to access market $i$ in excess of those faced by firms in country $i$
+
+. . .
+
+**Overview**
+
+1. Build model of international economy subject to trade costs [@Eaton2002]
+
+. . .
+
+2. Derive structural relationship linking trade costs to price levels, trade flows, market shares of home producers (observables)
+    + @Anderson2003, @Waugh2010, @Simonovska2014, @Sposi2015, @Waugh2016
+
+. . .
+
+3. Decompose trade costs into economic (transportation costs) and political (policy barriers) components
+
+. . .
+
+4. Model transportation costs, combine with data on variables in (2) to separately estimate magnitude of policy barriers
+
+. . .
+
+$\tau_{ij} - 1 \geq 0$ -- ad valorem tariff equivalent of policy barriers gov $i$ imposes on gov $j$
+
+## Estimand
+
+<hr style="height:7em; visibility:hidden;" />
+
+$$
+\bm{\tau}_{N \times N} = \begin{pmatrix}
+1 & \cdots & \tau_{1n} \\
+\vdots & \ddots & \vdots \\
+\tau_{n1} & \cdots & 1
+\end{pmatrix}
+$$
+
+## Measurement Matters {id="triIncome"}
+
+```{r triIncome1, echo=FALSE, warning=FALSE, message=FALSE, fig.height=5.5, dpi=300}
+
+source(paste0("../", figs_dir, "triIncome.R"))
+
+tarIncome + plot_spacer()
+
+```
+
+## Measurement Matters
+
+```{r triIncome2, echo=FALSE, warning=FALSE, message=FALSE, fig.height=5.5, dpi=300}
+
+tarIncome + triIncome
+
+```

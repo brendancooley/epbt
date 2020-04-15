@@ -1,0 +1,239 @@
+# Data and Measurement {id="measurement"}
+
+$$
+\tau_{ij} = \left( \frac{\lambda_{ij}}{\lambda_{jj}} \right)^{-\frac{1}{\theta}} \frac{P_i}{P_j} \frac{1}{\delta_{ij}}
+$$
+
+## Data and Measurement
+
+$$
+\tau_{ij} = \left( \color{bcOrange} \frac{\lambda_{ij}}{\lambda_{jj}} \color{black} \right)^{-\frac{1}{\theta}} \frac{P_i}{P_j} \frac{1}{\delta_{ij}}
+$$
+
+- $\color{bcOrange} \frac{\lambda_{ij}}{\lambda_{jj}}$ - relative expenditure shares
+  + Data: trade flows and national accounts
+
+## Data and Measurement
+
+$$
+\tau_{ij} = \left( \frac{\lambda_{ij}}{\lambda_{jj}} \right)^{-\frac{1}{\theta}} \color{bcOrange} \frac{P_i}{P_j} \color{black} \frac{1}{\delta_{ij}}
+$$
+
+- $\frac{\lambda_{ij}}{\lambda_{jj}}$ - relative expenditure shares
+  + Data: trade flows and national accounts
+- $\color{bcOrange} \frac{P_i}{P_j}$ - relative price levels
+  + Data: International Comparison Program (World Bank), good prices and exchange rates
+  + Estimate preference weights, $\bm{\alpha}$
+
+## Data and Measurement
+
+$$
+\tau_{ij} = \left( \frac{\lambda_{ij}}{\lambda_{jj}} \right)^{-\frac{1}{\theta}} \frac{P_i}{P_j} \color{bcOrange}  \frac{1}{\delta_{ij}}
+$$
+
+- $\frac{\lambda_{ij}}{\lambda_{jj}}$ - relative expenditure shares
+  + Data: trade flows and national accounts
+- $\frac{P_i}{P_j}$ - relative price levels
+  + Data: International Comparison Program (World Bank), good prices and exchange rates
+  + Estimate preference weights, $\bm{\alpha}$
+- $\color{bcOrange} \delta_{ij}(\bm{Z}_{ij})$
+  + $\bm{Z}_{ij}$ dyadic geographic covariates
+  + Data (I): freight costs for shipments to United States, Australia, sample of maritime trade (OECD)
+  + Data (II): transportation mode shares for United States, Australia, Japan, European Union, and Brazil
+  + Estimate function $\delta_{ij}(\bm{Z}_{ij})$ to predict freight costs out of sample
+
+## Data and Measurement
+
+$$
+\tau_{ij} = \left( \frac{\lambda_{ij}}{\lambda_{jj}} \right)^{-\frac{1}{\theta}} \frac{P_i}{P_j} \frac{1}{\delta_{ij}}
+$$
+
+- $\frac{\lambda_{ij}}{\lambda_{jj}}$ - relative expenditure shares
+  + Data: trade flows and national accounts
+- $\frac{P_i}{P_j}$ - relative price levels
+  + Data: International Comparison Program (World Bank), good prices and exchange rates
+  + Estimate preference weights, $\bm{\alpha}$
+- $\delta_{ij}(\bm{Z}_{ij})$
+  + $\bm{Z}_{ij}$ dyadic geographic covariates
+  + Data (I): freight costs for shipments to United States, Australia, sample of maritime trade (OECD)
+  + Data (II): transportation mode shares for United States, Australia, Japan, European Union, and Brazil
+  + Estimate function $\delta_{ij}(\bm{Z}_{ij})$ to predict freight costs out of sample
+- Year: 2011
+
+. . . 
+
+**Structural Paramters**
+
+$$
+\bm{\theta} = \left\{ \sigma, \theta, \bm{\nu} \right\}
+$$
+
+## Expenditure Shares $\frac{\hat{\lambda}_{ij}}{\hat{\lambda}_{jj}}$
+
+- Free on board (f.o.b.): value of goods pre-shipment
+- Cost, insurance, and freight (c.i.f.): value of goods at port of entry
+
+$$
+\lambda_{ij} = \tau_{ij} \lambda_{ij}^{\text{cif}} = \tau_{ij} \delta_{ij} \lambda_{ij}^{\text{fob}}
+$$
+
+$$
+\lambda_{jj}(\bm{\tau}) = \left( 1 - \sum_{k \neq j} \tau_{jk} \lambda_{jk}^{\text{cif}} \right)
+$$
+
+## Expenditure Shares $\frac{\hat{\lambda}_{ij}}{\hat{\lambda}_{jj}}$
+
+- Free on board (f.o.b.): value of goods pre-shipment
+- Cost, insurance, and freight (c.i.f.): value of goods at port of entry
+
+$$
+\lambda_{ij} = \tau_{ij} \lambda_{ij}^{\text{cif}} = \tau_{ij} \delta_{ij} \lambda_{ij}^{\text{fob}}
+$$
+
+$$
+\lambda_{jj}(\bm{\tau}) = \left( 1 - \sum_{k \neq j} \tau_{jk} \lambda_{jk}^{\text{cif}} \right)
+$$
+
+$$
+\color{bcOrange} \lambda_{jk}^{\text{cif}} \color{black} = \frac{X_{jk}^{\text{cif}}}{E_j}
+$$
+
+- $X_{jk}^{\text{cif}} = \delta_{ij}(\bm{Z}_{ij}) X_{ij}^{\text{fob}}$
+- $X_{ij}^{\text{fob}}$ - COMTRADE
+- $E_j = \text{GC}_j - (1 - \nu_j) \text{GDP}_j$ - national accounts (OECD and WIOD)
+- $\nu_j$ - share of income spent on tradables (ICP)
+
+## Modified Estimating Equation
+
+<hr style="height:8em; visibility:hidden;" />
+
+$$
+\tau_{ij} = \left( \frac{\lambda_{ij}^{\text{cif}}}{ \color{bcOrange} \lambda_{jj}(\bm{\tau}_j) \color{black} } \right)^{-\frac{1}{\theta + 1}} \left( \frac{\hat{P}_i}{\hat{P}_j} \right)^{\frac{\theta}{\theta+1}} \left( \frac{1}{\delta_{ij}(\bm{Z}_{ij})} \right)^{\frac{\theta}{\theta+1}}
+$$
+
+## Preliminary Evidence of Significant Barriers {id="shares"}
+
+```{r shares1, echo=FALSE, warning=FALSE, message=FALSE, fig.height=5.5, dpi=300}
+
+source(paste0("../", figs_dir, "shares.R"))
+
+sharesCF + plot_spacer()
+
+```
+
+## Preliminary Evidence of Significant Barriers
+
+```{r shares2, echo=FALSE, warning=FALSE, message=FALSE, fig.height=5.5, dpi=300}
+
+sharesCF + sharesF
+
+```
+
+## Price Levels $\frac{\hat{P}_i}{\hat{P}_j}$
+
+**Empirical Price Index**
+
+$$
+\hat{P}_i(\bm{w}) = \left( \int_{\omega \in [0,1]} \color{bcOrange} \hat{\alpha}_{h(\omega)} \color{black} p_i^\star(\omega)^{1 - \sigma} d \omega \right)^{\frac{1}{1 - \sigma}}
+$$
+
+**Good Categories**
+
+$$
+h : \Omega \rightarrow \mathcal{K}
+$$
+
+. . .
+
+**Assumption:** $p_i(\omega) = p_i(\omega^\prime) = p_{ik}$ for all $\omega, \omega^\prime \in \Omega_k$
+
+- $p_{ik}$ - price in country $i$ of good ICP basic heading $k$ (e.g. Rice)
+
+## Price Levels $\frac{\hat{P}_i}{\hat{P}_j}$
+
+**Demand**
+
+$$
+x_{ik} = \int_{\omega \in \Omega_k} \alpha_k p_{ik}^{1 - \sigma} E_i^q P_i^{\sigma - 1} d \omega
+$$
+
+. . .
+
+**Normalization**
+
+- $\alpha_{0} = 1$
+
+$$
+\frac{\lambda_{ik}}{\lambda_{i0}} = \alpha_k \left( \frac{p_{ik}}{p_{i0}} \right)^{1 - \sigma}
+$$
+
+- $\frac{\lambda_{ik}}{\lambda_{i0}}$ - basic heading expenditures (ICP)
+
+. . .
+
+**Estimation**
+
+$$
+\ln \Delta \lambda_{ik} = \ln \alpha_k + (1 - \sigma) \ln \Delta p_{ik} + \ln \epsilon_{ik}
+$$
+
+## Price Levels (Estimates) {id="priceLevels"}
+
+```{r prices, echo=FALSE, warning=FALSE, message=FALSE, fig.height=5, dpi=300}
+
+source(paste0("../", figs_dir, "P.R"))
+
+plotP + plotTshare
+
+```
+
+## Freight Costs $\delta_{ij}(\bm{Z}_{ij})$
+
+- Products $m \in \left\{ 1, ..., M \right\}$
+- Transportation modes $o \in \left\{ 1, ..., O \right\}$
+- $\zeta_{ij}^{m o}$ share of product $m$ transported by mode $o$
+  + United States, Australia, Japan, European Union, and Brazil
+- $\delta_{ij}^{m o}$
+  + United States, Australia, sample of maritime shipments (OECD)
+
+. . .
+
+**Mode and Cost Functions**
+
+$$
+g: \left\{ \boldsymbol{Z}_{ij}, d^m \right\} \rightarrow \delta_{ij}^{m o}
+$$
+$$
+h: \left\{ \boldsymbol{Z}_{ij}, d^m \right\} \rightarrow \zeta_{ij}^{m o}
+$$
+
+. . .
+
+**Aggregate Freight Costs**
+
+$$
+\hat{\delta}_{ij} \left( \boldsymbol{Z}_{ij}, \boldsymbol{d}_{ij} \right) = \frac{1}{X_{ij}} \sum_{m = 1}^M x_{ij}^m \sum_{o=1}^O g \left( \boldsymbol{Z}_{ij}, d^m \right) h \left( \boldsymbol{Z}_{ij}, d^m \right)
+$$
+
+## Freight Costs (Cross Validation) {id="freightCosts"}
+
+```{r freightCV, echo=FALSE, warning=FALSE, message=FALSE, fig.height=5, fig.cap="Out of sample (black): New Zealand and Chile", dpi=300}
+
+source(paste0("../", figs_dir, "freight.R"))
+
+freightCV + theme(aspect.ratio=1)
+
+```
+
+## Parameter Calibration
+
+$$
+\bm{\theta} = \left\{ \sigma, \theta, \bm{\nu} \right\}
+$$
+
+- Trade elasticity: $\sigma - 1 = \theta =$ `r theta`
+  + @Simonovska2014, @Head2014
+
+. . .
+
+- $\bm{\nu}$ - tradable expenditure share (ICP)

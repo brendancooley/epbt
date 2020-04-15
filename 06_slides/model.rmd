@@ -1,0 +1,121 @@
+
+# Model (Overview) {id="model"}
+
+- $\bm{d}_{N \times N} = \bm{\delta} \circ \bm{\tau}$ - trade costs (economic and political)
+
+$$
+\bm{d}_{N \times N} \mapsto \left( \bm{X}_{N \times N}, \bm{P}_{N \times 1} \right)
+$$
+
+- $\bm{X}_{N \times N}$ - trade flows
+- $\bm{P}_{N \times 1}$ - price levels
+
+<div class="fragment">
+
+<hr style="height:2em; visibility:hidden;" />
+
+- Based on @Eaton2002 (Ricardian model, technological differences as basis for trade, competitive economy)
+  + Equilibrium predictions isomorphic to models with market imperfections [e.g. @Melitz2003; @Chaney2008], see @Head2014 and @Costinot2015
+
+</div>
+
+## Model (Overview)
+
+- $\bm{d}_{N \times N} = \bm{\delta} \circ \bm{\tau}$ - trade costs (economic and political)
+
+$$
+\bm{d}_{N \times N} \mapsto \left( \color{bcOrange}  \bm{X}_{N \times N}, \bm{P}_{N \times 1} \color{black} \right)
+$$
+
+- $\color{bcOrange} \bm{X}_{N \times N}$ - trade flows
+- $\color{bcOrange} \bm{P}_{N \times 1}$ - price levels
+
+<hr style="height:2em; visibility:hidden;" />
+
+- Based on @Eaton2002 (Ricardian model, technological differences as basis for trade, competitive economy)
+  + Equilibrium predictions isomorphic to models with market imperfections [e.g. @Melitz2003; @Chaney2008], see @Head2014 and @Costinot2015
+
+**Observables**
+
+$$
+\left( \color{bcOrange} \bm{X}_{N \times N}, \bm{P}_{N \times 1} \color{black} \right) \mapsto \bm{d}_{N \times N} 
+$$
+
+## Consumption (I)
+
+**Consumer's Problem**
+
+\begin{equation*} \label{eq:consumer}
+\begin{split}
+\max & \quad U_i = Q_i^{\nu_i} S_i^{1 - \nu_i} \\
+\text{subject to} & \quad P_i Q_i + P_i^s S_i \leq w_i L_i
+\end{split}
+\end{equation*}
+
+- $Q_i$ - aggregate of tradable goods
+- $S_i$ - homogenous services
+
+. . .
+
+**Tradable Goods**
+
+- Continuum of tradable goods indexed $\omega \in \Omega = [0, 1]$
+- Set $\mathcal{K}$ of good categories
+$$
+h : \Omega \rightarrow \mathcal{K}
+$$
+- $\alpha_k$ relative preference for goods in category $k$
+
+$$
+Q_i = \left( \int_{[0,1]} \alpha_{h(\omega)}^{\frac{1}{\sigma}} q_i(\omega)^{\frac{\sigma - 1}{\sigma}} d \omega \right)^{\frac{\sigma}{\sigma - 1}}
+$$
+
+## Consumption (II)
+
+<hr style="height:4em; visibility:hidden;" />
+
+**Tradable Price Index**
+
+$$
+P_i = \left( \int_{[0,1]} \alpha_{h(\omega)} p_i(\omega)^{1 - \sigma} d \omega \right)^{\frac{1}{1 - \sigma}}
+$$
+
+**Expenditure on Tradables**
+
+$$
+E_i^q = \nu_i I_i + D_i = P_i Q_i^\star
+$$
+
+## Model (Production) {id="production"}
+
+- Competitive international economy, every country can produce each variety $\omega$
+
+**"Fundamental" Cost**
+
+$$
+c_i = w_i^{1 - \beta} P_i^{\beta}
+$$
+
+- $w_i$ - cost of labor
+- $P_i$ - cost of composite intermediate good
+  + equivalent to composite consumption good
+
+. . .
+
+**Product-Specific Costs, Local Prices**
+
+- Technology shocks $z_i(\omega)$ shift local prices
+
+$$
+p_{ii}(\omega) = \frac{c_i}{z_i(\omega)}
+$$
+
+. . .
+
+**Technology (Fréchet)** (<a href="#/frechet">Fréchet Distribution</a>)
+
+$$
+F_i(z) = \text{Pr} \left\{ z_i(\omega) \leq z \right\} = \exp \left\{ - T_i z^{-\theta} \right\}
+$$
+
+- $T_i$ - "fundamental" productivity

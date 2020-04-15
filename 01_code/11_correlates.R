@@ -9,7 +9,7 @@
 
 args <- commandArgs(trailingOnly=TRUE)
 if (is.null(args) | identical(args, character(0))) {
-  EUD <- FALSE
+  # EUD <- FALSE
   TPSP <- FALSE
   mini <- FALSE
 } else {

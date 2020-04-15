@@ -1,4 +1,12 @@
-# trimaiY <- read_csv("results/tauY.csv")
+# code_dir <- "01_code/"
+source(paste0("../", code_dir, "params.R"))
+
+library(tidyverse)
+library(ggrepel)
+
+trimaiY <- read_csv(paste0(resultsdir, "trimaiY.csv"))
+gdp <- read_csv(paste0(cleandir, "gdp.csv"))
+pop <- read_csv(paste0(cleandir, "pop.csv"))
 
 trimaiY <- left_join(trimaiY, gdp)
 trimaiY <- left_join(trimaiY, pop)

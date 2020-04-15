@@ -97,13 +97,15 @@ if ("sections" %in% strsplit(wd, "/")[[1]]) {
 
 ### MAKE DIRECTORIES ###
 
-mkdir(bootstrap_dir)
-mkdir(bootstrap_P_dir)
-mkdir(bootstrap_freight_dir)
-mkdir(bootstrap_tau_dir)
-if (TPSP==TRUE) {
-  mkdir(cleandirTPSP)
-  mkdir(resultsdirTPSP)
+if (analysis_dirname %in% strsplit(wd, "/")[[1]]) {
+  mkdir(bootstrap_dir)
+  mkdir(bootstrap_P_dir)
+  mkdir(bootstrap_freight_dir)
+  mkdir(bootstrap_tau_dir)
+  if (TPSP==TRUE) {
+    mkdir(cleandirTPSP)
+    mkdir(resultsdirTPSP)
+  }
 }
 # mkdir(bstrp_prices)
 # mkdir(bstrp_freight)

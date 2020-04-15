@@ -1,0 +1,24 @@
+
+# Robustness (Correlates) {id="robustness"}
+
+```{r correlates, echo=FALSE, warning=FALSE, message=FALSE, results="asis"}
+
+library(stargazer)
+
+EUD <- FALSE
+source(paste0("../", code_dir, "11_correlates.R"))
+
+stargazer(model, header=FALSE, type='html', style = "qje", omit=c("i_iso3", "j_iso3", "Constant"), omit.stat=c("adj.rsq", "f", "ser"), add.lines = list(c("Importer Fixed Effects", "Yes"), c("Exporter Fixed Effects", "Yes")), dep.var.labels = c("DV: Structural Policy Barrier"), covariate.labels = c("Tariffs", "PTAs", "Core NTM", "Health/Safety NTM", "Other NTM"))
+
+
+```
+
+## Robustness (Intra-European Barriers) {id="euPlacebo"}
+
+```{r hmEUPlot, echo=FALSE, warning=FALSE, message=FALSE, fig.height=5, dpi=300}
+
+source(paste0("../", figs_dir, "hmEUD.R"))
+
+hmEUPlot
+
+```

@@ -1,12 +1,13 @@
-# library(tidyverse)
-# library(ggplot2)
-# library(ggrepel)
-# library(ggthemes)
-# 
-# freight <- read_csv("clean/freight.csv")
-# delta <- read_csv("clean/delta.csv")
-# Y <- 2011
-# freight %>% filter(j_iso3 == "AUS")
+library(tidyverse)
+library(ggplot2)
+library(ggrepel)
+library(ggthemes)
+
+source(paste0("../", code_dir, "params.R"))
+
+freight <- read_csv(paste0(cleandir, "freight.csv"))
+delta <- read_csv(paste0(cleandir, "delta.csv"))
+Y <- 2011
 
 freight$avc <- freight$adv + 1
 freight$cyid <- paste0(freight$j_iso3, "-", freight$year)

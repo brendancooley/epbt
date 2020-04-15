@@ -1,8 +1,9 @@
-# library(tidyverse)
-# library(ggridges)
-# correlates <- read_csv("results/correlates.csv")
-# 
-# source("params.R")
+library(tidyverse)
+library(ggridges)
+
+source(paste0("../", code_dir, "params.R"))
+
+correlates <- read_csv(paste0(resultsdir, "correlates.csv"))
 
 CP <- correlates %>% gather(tau, wtar, avc, key="cost_type", value="cost") %>% select(i_iso3, j_iso3, cost_type, cost)
 

@@ -1,10 +1,14 @@
-# source("params.R")
+library(tidyverse)
+library(ggrepel)
 
-# trimaiY <- read_csv("results/triMaiY.csv")
-# gdp <- read_csv("clean/gdp.csv")
-# pop <- read_csv("clean/pop.csv")
-# tar <- read_csv("clean/tarY.csv")
+source(paste0("../", code_dir, "params.R"))
 
+trimaiY <- read_csv(paste0(resultsdir, "triMaiY.csv"))
+gdp <- read_csv(paste0(cleandir, "gdp.csv"))
+pop <- read_csv(paste0(cleandir, "pop.csv"))
+tar <- read_csv(paste0(cleandir, "tarY.csv"))
+
+tarYval <- read_csv(paste0(otherdir, "tarYval.csv")) %>% pull(.)
 
 trimaiY <- left_join(trimaiY, gdp)
 trimaiY <- left_join(trimaiY, pop)

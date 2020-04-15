@@ -1,16 +1,10 @@
-# library(tidyverse)
-# library(ggplot2)
-# library(ggthemes)
-# 
-# source("params.R")
-# 
-# sourceFiles <- list.files("source/")
-# for (i in sourceFiles) {
-#   source(paste0("source/", i))
-# }
-# 
-# tauHMYEUD <- read_csv("results/tauYEUD.csv")
-# tauHMYEUD %>% print(n=50)
+library(tidyverse)
+library(ggplot2)
+library(ggthemes)
+
+source(paste0("../", code_dir, "params.R"))
+
+tauHMYEUD <- read_csv(paste0(resultsdir, "EUD/", "tauY.csv"))
 
 ccodes <- unique(tauHMYEUD$i_iso3)
 # ccodesNEU <- setdiff(ccodes, EU27)
