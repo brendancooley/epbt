@@ -106,7 +106,7 @@ flows$seadist_log_scaled <- scale(flows$seadist_log)
 flowsSea <- flows %>% filter(!is.na(avcsea))
 flowsSea$hs2 <- as.factor(flowsSea$hs2)
 # flowsSea$seadist_scaled <- scale(flowsSea$seadist)  # scale for interpretability only
-if (boostrap==TRUE) {
+if (bootstrap==TRUE) {
   flowsSea <- flowsSea %>% group_by(j_iso3) %>% sample_frac(size=1, replace=TRUE)
 }
 
@@ -118,7 +118,7 @@ seaModelOutput <- lm(avcsea ~ hs2 + bs(year, degree = 3) + seadist_log_scaled + 
 flowsLand <- flows %>% filter(!is.na(avcland))
 flowsLand$hs2 <- as.factor(flowsLand$hs2)
 # flowsLand$adist_scaled <- scale(flowsLand$adist)
-if (boostrap==TRUE) {
+if (bootstrap==TRUE) {
   flowsLand <- flowsLand %>% group_by(j_iso3) %>% sample_frac(size=1, replace=TRUE)
 }
 
@@ -128,7 +128,7 @@ landModelOutput <- lm(avcland ~ hs2 + bs(year, degree=3) + adist_log_scaled + co
 flowsAir <- flows %>% filter(!is.na(avcair))
 flowsAir$hs2 <- as.factor(flowsAir$hs2)
 # flowsAir$adist_scaled <- scale(flowsAir$adist)
-if (boostrap==TRUE) {
+if (bootstrap==TRUE) {
   flowsAir <- flowsAir %>% group_by(j_iso3) %>% sample_frac(size=1, replace=TRUE)
 }
 
