@@ -31,6 +31,7 @@ libs <- c('tidyverse', "stargazer", "countrycode", "knitr", "ggrepel", "patchwor
 ipak(libs)
 
 highlight <- NULL
+shiny <- FALSE
 
 ApriceIndex <- "NA"
 AfreightModel <- "NA"

@@ -1,11 +1,13 @@
 library(tidyverse)
 library(skmeans)
 
-# code_dir <- "01_code/"
+code_dir <- "01_code/"
 source(paste0("../", code_dir, "params.R"))
 
-tauHMY <- read_csv(paste0(resultsdir, "tauHMY.csv"))
-tauHMYEUD <- read_csv(paste0(resultsdirEU, "tauY.csv"))
+if (shiny == FALSE) {
+  tauHMY <- read_csv(paste0(resultsdir, "tauHMY.csv"))
+  tauHMYEUD <- read_csv(paste0(resultsdirEU, "tauY.csv"))
+}
 
 # EUHM <- F
 # cluster <- F

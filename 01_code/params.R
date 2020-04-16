@@ -12,6 +12,7 @@ M <- 100 # number of bootstrap iterations
 ### DIRECTORIES ###
 
 analysis_dirname <- "01_code"
+code_dir <- "01_code/"
 
 basedir <- "~/Dropbox (Princeton)/1_Papers/epbt/01_data/"
 
@@ -20,6 +21,7 @@ cleandir <- paste0(basedir, "02_clean/")
 resultsdir <- paste0(basedir, "03_results/")
 otherdir <- paste0(basedir, "04_other/")
 results_local_dir <- paste0("../02_results/")
+shinydir <- paste0("../04_viz/")
 
 ccodes_mini <- c("CHN", "EU", "JPN", "USA")
 ccodes_mid <- c("AUS", "BRA", "CAN", "CHN", "EU", "JPN", "KOR", "USA")
@@ -154,8 +156,8 @@ ELLccodes <- c("EST", "LVA", "LTU")
 # figure options (heatmap)
 TRIMAI <- F  # include TRI and MAI?
 # cluster <- T  # cluster countries?
-Kmeans <- 3  # number of clusters
-KmeansEUD <- 4  # number of clusters with EU disaggregated
+# Kmeans <- 3  # number of clusters
+# KmeansEUD <- 4  # number of clusters with EU disaggregated
 
 # revenues
 if (TPSP == TRUE) {

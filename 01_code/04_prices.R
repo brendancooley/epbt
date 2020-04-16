@@ -8,8 +8,8 @@ args <- commandArgs(trailingOnly=TRUE)
 if (is.null(args) | identical(args, character(0))) {
   EUD <- FALSE
   TPSP <- FALSE
-  bootstrap <- FALSE
   size <- "all"
+  bootstrap <- FALSE
 } else {
   EUD <- ifelse(args[1] == "True", TRUE, FALSE)
   TPSP <- ifelse(args[2] == "True", TRUE, FALSE)
@@ -186,6 +186,7 @@ icpBHTagg$expShareT <- icpBHTagg$expReal / icpBHTagg$gdpUSDT
 if(EUD==FALSE) {
   if (TPSP==FALSE) {
     write_csv(icpBHTagg, paste0(cleandir, "icpBHTAgg.csv"))
+    write_csv(icpBHTagg, paste0(shinydir, "icpBHTAgg.csv"))
   } else {
     write_csv(icpBHTagg, paste0(cleandirTPSP, "icpBHTAgg.csv"))
   }
@@ -279,6 +280,7 @@ if (bootstrap==FALSE) {
   if(EUD==FALSE) {
     if (TPSP==FALSE) {
       write_csv(cleanP, paste0(cleandir, "priceIndex.csv"))
+      write_csv(cleanP, paste0(shinydir, "priceIndex.csv"))
     } else {
       write_csv(cleanP, paste0(cleandirTPSP, "priceIndex.csv"))
     }

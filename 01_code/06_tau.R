@@ -239,6 +239,7 @@ if (bootstrap==FALSE) {
     }
   } else {
     write_csv(Xtau, paste0(resultsdirEU, "tauY.csv"))
+    write_csv(Xtau, paste0(shinydir, "tauY.csv"))
   }
 } else {
   write_csv(Xtau, paste0(bootstrap_tau_dir, bootstrap_id, ".csv"))
@@ -302,6 +303,7 @@ if (bootstrap==FALSE) {
       tauHM <- bind_rows(list(Xtau, TRI, MAI))
       tauHMY <- tauHM %>% filter(year==Y)
       write_csv(tauHMY, paste0(resultsdir, "tauHMY.csv"))
+      write_csv(tauHMY, paste0(shinydir, "tauHMY.csv"))
     }
   } else {
     # different variables

@@ -12,9 +12,13 @@ p_choices <- icpBHTAgg$Name %>% sort()
 
 ui <- fluidPage(
   
+  tags$head(tags$style(HTML(paste0("a {color: ", bcOrange, "}")))),
+  tags$head(tags$style(HTML(paste0("a:hover {color: ", bcOrange, "}")))),
+  
   # Application title
   h3("Estimating Policy Barriers to Trade: Results"),
-  p("Brendan Cooley, Ph.D. Candidate, Department of Politics, Princeton University"),
+  p("Brendan Cooley"),
+  p("Ph.D. Candidate, Department of Politics, Princeton University"),
   p(icon("file-pdf", lib="font-awesome"), a(" Paper", href="http://brendancooley.com/docs/epbt.pdf"),
     HTML("&emsp;"),
     icon("github", lib="font-awesome"), a(" Code", href="https://github.com/brendancooley/epbt"),
@@ -51,11 +55,18 @@ ui <- fluidPage(
           radioButtons("cluster", "Cluster?", choices=c("Yes"="yes", "No"="no"), selected="no"),
           uiOutput("K")
         ),
-        column(6,
-          p("plot")
-        ),
+        column(6, plotOutput("hm")),
         column(3,
-          p("test notes")
+          p("Plot shows point estimates for policy barriers imposed by ", em("row"), 
+            "on imports from ", em("column. ")),
+          p(strong("Disaggregate EU "),
+            "controls whether or not European Union countries should be aggregated into a single
+            unit or not. "),
+          p(strong("Cluster "), "controls whether or not countries should be clustered
+            into economic blocs based on policy similarity (using k-means)."),
+          p("If ", strong("Cluster "),
+            "is ", em("yes "), "a numeric input box will appear, allowing the user to choose the 
+            number of clusters (2-10).")
         )
       )
     ),
@@ -66,8 +77,8 @@ ui <- fluidPage(
         column(6, plotOutput("pricePlot")),
         column(3,
           p("Plot shows ICP-sampled price levels for tradable goods, 
-            used to construct tradable price indices in the paper.",
-            strong("Highlight Products"), "allows the user to
+            used to construct tradable price indices in the paper."),
+          p(strong("Highlight Products"), "allows the user to
             and compare product-level prices across countries. 
             Countries ordered by estimated tradable price index (top: most expensive).")
         )

@@ -3,9 +3,16 @@ source("../01_code/params.R")
 libs <- c('tidyverse', 'shiny', 'countrycode')
 ipak(libs)
 
+shiny <- TRUE
+
+figs_path <- "../03_figs/"
+
+tauHMY <- read_csv("tauHMY.csv")
+tauHMYEUD <- read_csv("tauY.csv")
+
 tau_quantiles <- read_csv(tau_quantiles_path)
-icpBHTAgg <- read_csv(paste0(cleandir, "icpBHTAgg.csv"))
-priceIndex <- read_csv(paste0(cleandir, "priceIndex.csv")) %>% select(iso3, priceIndex)
+icpBHTAgg <- read_csv("icpBHTAgg.csv")
+priceIndex <- read_csv("priceIndex.csv") %>% select(iso3, priceIndex)
 colnames(priceIndex) <- c("ccode", "priceIndex")
 
 icpBHTAgg <- icpBHTAgg %>% left_join(priceIndex)
@@ -40,7 +47,7 @@ server <- function(input, output) {
   
   output$K <- renderUI({
     if (input$cluster=="yes") {
-      out <- numericInput("K_val", "K:", 3, min=1, max=10, step=1)
+      out <- numericInput("K_val", "K:", 3, min=2, max=10, step=1)
     } else {
       out <- textOutput(" ")
     }
@@ -89,7 +96,9 @@ server <- function(input, output) {
     EUHM <- ifelse(input$eud=="yes", T, F)
     highlight <- NULL
     cluster <- ifelse(input$cluster=="yes", T, F)
-    Kmeans <- KmeansEUD <- input$K_val
+    Kmeans <- KmeansEUD <- ifelse(is.null(input$K_val), 3, input$K_val)
+    source(paste0(figs_path, "hm.R"), local=T)
+    hm
   })
     
   ### PRICES ###
