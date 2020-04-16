@@ -3,12 +3,12 @@ title: Estimating Policy Barriers to Trade
 author:
 	- name: Brendan Cooley
       affiliation: Ph.D. Candidate, Department of Politics, Princeton University
-date: 15 January 2020
+date: 16 April 2020
 abstract: To what extent is international trade free and fair? Because policy barriers to trade are often opaque and take on many forms, it is difficult to answer this question while relying on data on observable trade barriers. Here, I propose and implement a structural approach to estimating the magnitude of policy barriers to trade, measured at the trade partner level. The method allows for the possibility that these barriers are both *asymmetric* and *discriminatory*, affecting certain trade partners disproportionately. The approach reveals substantial latent policy barriers to trade, many times larger than observed tariffs. It also implies substantial effective policy discrimination, with exporters in a subset of favored countries enjoying far superior market access conditions than their peers in unfavored countries. Combined, these results suggest that the existing world trading system remains far from a free and fair ideal.
 thanks: Princeton's Research Program in Political Economy provided financial support for this research. The World Bank's International Comparison Program kindly shared data. Thanks to James Bisbee, Christina Fattore, Haosen Ge, Gene Grossman, Gleason Judd, Kathy Ingram, Sojeong Lee, Aurora Ling, John Londregan, Marco Martini, Helen Milner, Sayumi Miyano, Steve Monroe, Tim Peterson, Sondre Solstad, Kris Ramsay, Steve Redding, Noam Reich, Esther Robinson, Alexandra Zeitz, and Grace Zeng for comments on earlier drafts of this paper, as well audiences at the Princeton Political Economy Graduate Colloquium, the Princeton IR Graduate Seminar, Princeton's Fellowship of Woodrow Wilson Scholars, the Midwest Political Science Association's 2019 Annual Meeting, the International Studies Association's 2019 Midwest Annual Conference, and the Southern Political Science Association's 2020 Annual Meeting.
 # jelcodes: JEL codes go here
 
-bibliography: /Users/bcooley/Dropbox (Princeton)/References/library.bib
+bibliography: /Users/brendancooley/Dropbox (Princeton)/References/library.bib
 biblio-style: apsr
 
 papersize: letter
@@ -24,14 +24,15 @@ output:
 
 ```{r libs, echo=FALSE, warning=FALSE, message=FALSE, results='hide'}
 
-analysisDir <- "01_analysis/"
+analysisDir <- "01_code/"
+figs_dir <- "03_figs/"
 
+shiny <- FALSE
 source(paste0(analysisDir, 'params.R'))
 libs <- c('tidyverse', "stargazer", "countrycode", "knitr", "ggrepel", "patchwork", "ggthemes", "latex2exp", "readxl", "kableExtra", "skmeans", "ggridges")
 ipak(libs)
 
 highlight <- NULL
-shiny <- FALSE
 
 ApriceIndex <- "NA"
 AfreightModel <- "NA"
@@ -49,27 +50,27 @@ if (file.exists('references.RData')) load('references.RData')
 
 # Introduction
 
-```{r, child = 'sections/introduction.rmd'}
+```{r, child = '05_sections/introduction.rmd'}
 ```
 
 # Model
 
-```{r, child = "sections/model.rmd"}
+```{r, child = "05_sections/model.rmd"}
 ```
 
 # Calibration and Estimation
 
-```{r, child = "sections/calibration.rmd"}
+```{r, child = "05_sections/calibration.rmd"}
 ```
 
 # Results
 
-```{r, child = "sections/results.rmd"}
+```{r, child = "05_sections/results.rmd"}
 ```
 
 # Conclusion
 
-```{r, child = "sections/conclusion.md"}
+```{r, child = "05_sections/conclusion.md"}
 ```
 
 \clearpage
@@ -85,7 +86,7 @@ ApriceIndex <- LETTERS[a]
 
 ## `r ApriceIndex`: Empirical Price Index: Estimating Consumers' Price Elasticity and Taste Parameters
 
-```{r, child = "sections/AcesTastes.md"}
+```{r, child = "05_sections/AcesTastes.md"}
 ```
 
 ```{r, echo=FALSE, warning=FALSE, message=FALSE, results='hide'}
@@ -97,7 +98,7 @@ AfreightModel <- LETTERS[a]
 
 ## `r AfreightModel`: Modeling Freight Costs and Data Sources
 
-```{r, child = "sections/AfreightModel.md"}
+```{r, child = "05_sections/AfreightModel.md"}
 ```
 
 ```{r, echo=FALSE, warning=FALSE, message=FALSE, results='hide'}
@@ -109,7 +110,7 @@ AfreightResults<- LETTERS[a]
 
 ## `r AfreightResults`: Freight Cost Results
 
-```{r, child = "sections/AfreightResults.rmd"}
+```{r, child = "05_sections/AfreightResults.rmd"}
 ```
 
 ```{r, echo=FALSE, warning=FALSE, message=FALSE, results='hide'}
@@ -121,7 +122,7 @@ AeconomicBlocs<- LETTERS[a]
 
 ## `r AeconomicBlocs`: Economic Blocs, Disaggregated European Union
 
-```{r, child = "sections/AhmEUDC.rmd"}
+```{r, child = "05_sections/AhmEUDC.rmd"}
 ```
 
 ```{r, echo=FALSE, warning=FALSE, message=FALSE, results='hide'}
@@ -133,7 +134,7 @@ AsampleCountries <- LETTERS[a]
 
 ## `r AsampleCountries`: Sample Countries
 
-```{r, child = "sections/AsampleCountries.rmd"}
+```{r, child = "05_sections/AsampleCountries.rmd"}
 ```
 
 ```{r, echo=FALSE, warning=FALSE, message=FALSE, results='hide'}
@@ -145,7 +146,7 @@ AexpCategories <- LETTERS[a]
 
 ## `r AexpCategories`: International Comparison Program Expenditure Categories
 
-```{r, child = "sections/AicpCategories.rmd"}
+```{r, child = "05_sections/AicpCategories.rmd"}
 ```
 
 \clearpage

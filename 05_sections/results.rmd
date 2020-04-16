@@ -3,16 +3,13 @@
 source(paste0("../", analysisDir, "params.R"))
 
 EUntmY <- read_csv(paste0(otherdir, "EUntmY.csv")) %>% pull(.)
-tarYval <- read_csv(paste0(otherdir, "tarYval.csv")) %>% pull(.)
 
 tau <- read_csv(paste0(resultsdir, "tauY.csv"))
 tar <- read_csv(paste0(cleandir, "tarY.csv"))
-correlates <- read_csv(paste0(resultsdir, "correlates.csv"))
-trimaiY <- read_csv(paste0(resultsdir, "trimaiY.csv"))
-tauHMY <- read_csv(paste0(resultsdir, "tauHMY.csv"))
-
-tauHMYEUD <- read_csv(paste0(resultsdirEU, "tauY.csv"))
 TRIEU <- read_csv(paste0(resultsdirEU, "trimaiY.csv"))
+
+Kmeans <- 3
+KmeansEUD <- 4
 
 ```
 
