@@ -1,12 +1,11 @@
-source("params.R")
+# NOTE: run doit prep_shiny before running to get update dependencies
+
+shiny <- TRUE
+source("params.R", local=TRUE)
 
 library(tidyverse)
 library(shiny)
 library(countrycode)
-
-shiny <- TRUE
-
-figs_path <- "../03_figs/"
 
 tauHMY <- read_csv("tauHMY.csv")
 tauHMYEUD <- read_csv("tauY.csv")
@@ -95,7 +94,7 @@ server <- function(input, output) {
     highlight <- NULL
     cluster <- ifelse(input$cluster=="yes", T, F)
     Kmeans <- KmeansEUD <- ifelse(is.null(input$K_val), 3, input$K_val)
-    source(paste0(figs_path, "hm.R"), local=T)
+    source("hm.R", local=T)
     hm
   })
     

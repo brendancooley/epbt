@@ -8,6 +8,7 @@ sys.path.insert(1, helpersPath)
 # estimation directory
 estdir = "01_code/"
 shinydir = "04_viz/"
+figsdir = "03_figs/"
 
 accounts = "01_accounts.R"
 flowshs6 = "02_flowshs6.R"
@@ -204,5 +205,6 @@ def task_prep_shiny():
 	"""
 	yield {
 		'name': "moving params...",
-		'actions': ["cp -a " + estdir + "params.R " + shinydir + "params.R"]
+		'actions': ["cp -a " + estdir + "params.R " + shinydir + "params.R",
+					"cp -a " + figsdir + "hm.R " + shinydir + "hm.R"]
 	}

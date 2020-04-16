@@ -1,4 +1,5 @@
-source("params.R")
+shiny <- TRUE
+source("params.R", local=TRUE)
 
 library(tidyverse)
 library(shiny)
