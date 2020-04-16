@@ -39,6 +39,7 @@ output:
 # control slides from phone
 # http://remot.io/
 
+shiny <- FALSE
 source("01_code/params.R")
 
 library(tidyverse)
@@ -46,7 +47,6 @@ library(patchwork)
 
 figs_dir <- "03_figs/"
 code_dir <- "01_code/"
-shiny <- FALSE
 
 ```
 
