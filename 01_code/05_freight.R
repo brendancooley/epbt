@@ -7,13 +7,6 @@ print("-----")
 # problem with mode shares somewhere in cleaning...ROW as j_iso3 has mode share data
   # We actually have this data! Comes from non-EU countries that provide data before ascension
   # drop ROW from delta estimation?
-# what about NAs in year?
-# Cross validation wrapper on CHL/NZL data, try out MARS again but cross validate with aggregated output
-
-# function to recompile flows matrix with subsample of countries...remap ROW
-
-# drop find.file...redo file paths to Dropbox
-
 ### Get customizable arguments from command line ###
 
 args <- commandArgs(trailingOnly=TRUE)
@@ -36,10 +29,10 @@ wd <- getwd()
 if ("sections" %in% strsplit(wd, "/")[[1]]) {
   runPreds <- FALSE
 } else {
+  shiny <- FALSE
   source('params.R')
   runPreds <- TRUE
 }
-
 
 libs <- c('tidyverse', 'earth', "nnet", "olpsR", "glmnet", "plotly", "splines", 'ggsci', 'ggthemes', 'ggrepel', "reader")
 ipak(libs) 

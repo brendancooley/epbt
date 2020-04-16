@@ -34,6 +34,7 @@
 ### SETUP ###
 
 # source helpers and get parameters
+shiny <- FALSE
 source("params.R")
 
 libs <- c('tidyverse', 'OECD', 'readstata13', 'R.utils', 'openxlsx', 'googleway', 'revgeo', 'wbstats', 'foreign')

@@ -4,6 +4,7 @@
 
 ### SETUP ###
 
+shiny <- FALSE
 source("params.R")
 
 libs <- c('tidyverse', 'latex2exp', 'readstata13', "patchwork", "countrycode")

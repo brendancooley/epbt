@@ -1,7 +1,8 @@
 source("params.R")
 
-libs <- c('tidyverse', 'shiny', 'countrycode')
-ipak(libs)
+library(tidyverse)
+library(shiny)
+library(countrycode)
 
 shiny <- TRUE
 
@@ -34,9 +35,6 @@ ccodes_df$country.name <- countrycode(ccodes_df$iso3, "iso3c", "country.name")
 ccodes_df$country.name[ccodes_df$iso3=="EU"] <- "European Union"
 ccodes_df$country.name[ccodes_df$iso3==ROWname] <- "Rest of World"
 ccodes_df$country.name[ccodes_df$iso3=="MYSG"] <- "Malaysia/Singapore"
-
-tq_test <- tau_quantiles %>% filter(j_iso3=="AUS")
-fct_reorder(tq_test$i_iso3, tq_test$q500)
 
 server <- function(input, output) {
   

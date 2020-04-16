@@ -1,3 +1,4 @@
+shiny <- FALSE
 source("params.R")
 
 libs <- c("tidyverse")

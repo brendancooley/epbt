@@ -20,6 +20,7 @@ if (is.null(args) | identical(args, character(0))) {
 
 ### SETUP ###
 
+shiny <- FALSE
 source("params.R")
 
 if (EUD==TRUE) {

@@ -1,7 +1,7 @@
 source("params.R")
 
-libs <- c('tidyverse', 'shiny')
-ipak(libs)
+library(tidyverse)
+library(shiny)
 
 tau_quantiles <- read_csv("tau_quantiles.csv")
 icpBHTAgg <- read_csv("icpBHTAgg.csv")

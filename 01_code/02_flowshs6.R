@@ -11,6 +11,7 @@ print("-----")
 
 ### SETUP ###
 
+shiny <- FALSE
 source("params.R")
 
 libs <- c('tidyverse', 'R.utils', 'countrycode')

@@ -21,6 +21,7 @@ if (is.null(args) | identical(args, character(0))) {
 
 ### SETUP ###
 
+shiny <- FALSE
 source("params.R")
 
 libs <- c('tidyverse', 'R.utils', 'countrycode', "readxl", "gdata", "stringr")
