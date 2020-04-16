@@ -16,10 +16,7 @@ stargazer(model, header=FALSE, type='html', style = "qje", omit=c("i_iso3", "j_i
 
 ```{r hmEUPlot, echo=FALSE, warning=FALSE, message=FALSE, fig.height=5, dpi=300}
 
-EUHM <- T
-cluster <- T
-highlight <- NULL
-source(paste0("../", figs_dir, "hm.R"))
-hm
+source(paste0("../", figs_dir, "hmEUD.R"))
+hmEUPlot
 
 ```

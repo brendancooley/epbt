@@ -22,6 +22,8 @@ hm + theme(axis.text.x=element_text(size=7), axis.text.y=element_text(size=7))
 EUHM <- T
 cluster <- T
 highlight <- NULL
+Kmeans <- 3
+KmeansEUD <- 4
 
 set.seed(755)
 

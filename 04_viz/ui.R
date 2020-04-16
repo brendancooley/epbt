@@ -34,19 +34,43 @@ ui <- fluidPage(
         ),
         column(6, plotOutput("pbc_plot")),
         column(3,
-          p("Notes go here")
+          p("Plot shows point estimates and 95% confidence interval for estimated policy barrier 
+            imposed by/on selected country's imports/exports with trading partners. 
+            An estimate of one is consistent with no policy barriers (free trade)."),
+          p(strong("TR/MA"), " toggles showing the selected country's estimated ", em("trade restrictiveness,"), 
+            "the effective taxes it imposes on its imports, and it's estimated ", em("market access,"),
+            "the effective taxes imposed on its exports.")
         )
       )
     ),
     tabPanel("Policy Barriers (Economic Blocs)",
+      p(),
       fluidRow(
-        
+        column(3,
+          radioButtons("eud", "Disaggregate EU?", choices=c("Yes"="yes", "No"="no"), selected="no"),
+          radioButtons("cluster", "Cluster?", choices=c("Yes"="yes", "No"="no"), selected="no"),
+          uiOutput("K")
+        ),
+        column(6,
+          p("plot")
+        ),
+        column(3,
+          p("test notes")
+        )
       )
     ),
     tabPanel("Prices",
+      p(),
       fluidRow(
         column(3, selectizeInput("p_categories", "Highlight Products:", p_choices, multiple=TRUE)),
-        column(9, plotOutput("pricePlot"))
+        column(6, plotOutput("pricePlot")),
+        column(3,
+          p("Plot shows ICP-sampled price levels for tradable goods, 
+            used to construct tradable price indices in the paper.",
+            strong("Highlight Products"), "allows the user to
+            and compare product-level prices across countries. 
+            Countries ordered by estimated tradable price index (top: most expensive).")
+        )
       )
     )
   )

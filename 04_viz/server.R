@@ -38,6 +38,15 @@ server <- function(input, output) {
     tagList(web_link)
   })
   
+  output$K <- renderUI({
+    if (input$cluster=="yes") {
+      out <- numericInput("K_val", "K:", 3, min=1, max=10, step=1)
+    } else {
+      out <- textOutput(" ")
+    }
+    out
+  })
+  
   ### BARRIERS (COUNTRY LEVEL) ###
   
   data_pbc <- reactive({
@@ -72,6 +81,15 @@ server <- function(input, output) {
             panel.grid.major.y=element_line(rev(levels(tau_quantiles$i_iso3)), color=grid.col)
       ) +
       labs(x="Policy Barrier", y="Trade Partner", title=plot_pbc_title())
+  })
+  
+  ### HM ###
+  
+  output$hm <- renderPlot({
+    EUHM <- ifelse(input$eud=="yes", T, F)
+    highlight <- NULL
+    cluster <- ifelse(input$cluster=="yes", T, F)
+    Kmeans <- KmeansEUD <- input$K_val
   })
     
   ### PRICES ###
