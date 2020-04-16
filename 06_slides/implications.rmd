@@ -7,8 +7,8 @@ tauHMY <- read_csv(paste0(resultsdir, "tauHMY.csv"))
 tauHMYEUD <- read_csv(paste0(resultsdirEU, "tauY.csv"))
 
 EUHM <- T
+cluster <- F
 highlight <- NULL
-
 source(paste0("../", figs_dir, "hm.R"))
 
 hm + theme(axis.text.x=element_text(size=7), axis.text.y=element_text(size=7))

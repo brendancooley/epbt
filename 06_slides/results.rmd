@@ -15,15 +15,11 @@ tar <- read_csv(paste0(cleandir, "tarY.csv"))
 
 shares <- read_csv(paste0(cleandir, "shares.csv"))
 
-tauHMY <- read_csv(paste0(resultsdir, "tauHMY.csv"))
-tauHMYEUD <- read_csv(paste0(resultsdirEU, "tauY.csv"))
-
 P <- read_csv(paste0(cleandir, "priceIndex.csv"))
 
 freight <- read_csv(paste0(cleandir, "freight.csv"))
 
 ```
-
 
 # Results {id="results"}
 
@@ -48,8 +44,8 @@ $$
 
 ```{r hm1, echo=FALSE, warning=FALSE, message=FALSE, fig.height=4.5, dpi=300}
 
-EUHM <- FALSE
-cluster <- FALSE
+EUHM <- F
+cluster <- F
 highlight <- NULL
 
 source(paste0("../", figs_dir, "hm.R"))
@@ -62,8 +58,8 @@ hm
 
 ```{r hmUSA, echo=FALSE, warning=FALSE, message=FALSE, fig.height=4.5, dpi=300}
 
-EUHM <- FALSE
-cluster <- FALSE
+EUHM <- F
+cluster <- F
 highlight <- "USA"
 
 source(paste0("../", figs_dir, "hm.R"))

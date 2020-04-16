@@ -18,11 +18,7 @@ if (is.null(args) | identical(args, character(0))) {
   mini <- ifelse(args[3] == "True", TRUE, FALSE)
 }
 
-
-wd <- getwd()
-if ("01_analysis" %in% strsplit(wd, "/")[[1]]) {
-  source('params.R')
-}
+source("../01_code/params.R")
 
 libs <- c('tidyverse', 'ggrepel')
 ipak(libs)

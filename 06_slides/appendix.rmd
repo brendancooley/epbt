@@ -1,6 +1,6 @@
 # Fréchet Distribution {id="frechet"}
 
-![Fréchet distribution. [Source](https://en.wikipedia.org/wiki/Fr%C3%A9chet_distribution#/media/File:Frechet_pdf.svg) ](figs/Frechet.png){ width=75% }
+![Fréchet distribution. [Source](https://en.wikipedia.org/wiki/Fr%C3%A9chet_distribution#/media/File:Frechet_pdf.svg) ](03_figs/Frechet.png){ width=75% }
 
 <a href="#/production" style="float: right;">Back</a>
 

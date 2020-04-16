@@ -1,15 +1,15 @@
 library(tidyverse)
 library(skmeans)
 
+# code_dir <- "01_code/"
 source(paste0("../", code_dir, "params.R"))
 
 tauHMY <- read_csv(paste0(resultsdir, "tauHMY.csv"))
 tauHMYEUD <- read_csv(paste0(resultsdirEU, "tauY.csv"))
 
-EUHM <- T
-cluster <- T
-highlight <- NULL
-
+# EUHM <- F
+# cluster <- F
+# highlight <- "USA"
 
 ### COMMENT ABOVE FOR PAPER ###
 
@@ -97,6 +97,7 @@ hm <- ggplot(HMD, aes(x=i_iso3, y=j_iso3, fill=tau)) +
         axis.ticks.x=element_blank(),
         axis.line.y=element_blank(),
         axis.line.x=element_blank())
+
 if (cluster==T) {
   for (i in 1:K) {
     if (i!=K) {
@@ -124,6 +125,6 @@ if (TRIMAI==T) {
     annotate("segment", y=.5, yend=length(j_iso3)+.5, x=length(i_iso3)-.5, xend=length(i_iso3)-.5)
 }
 if (!is.null(highlight)) {
-  cc <- which(ccodes==highlight) + 1
+  cc <- which(ccodes==highlight)
   hm <- hm + annotate("rect", ymin=cc-.5, ymax=cc+.5, xmin=.5, xmax=length(ccodes)+.5, alpha=rectTrsp, color=rectColor, size=rectStroke)
 }

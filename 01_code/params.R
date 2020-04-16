@@ -82,7 +82,6 @@ if ("sections" %in% strsplit(wd, "/")[[1]]) {
   } else {
     sourceDir <- paste0("../", analysis_dirname, "/source/")
     sourceFiles <- list.files(sourceDir)
-    print(sourceFiles)
     for (i in sourceFiles) {
       source(paste0(sourceDir, i))
     }
@@ -154,7 +153,7 @@ ELLccodes <- c("EST", "LVA", "LTU")
 
 # figure options (heatmap)
 TRIMAI <- F  # include TRI and MAI?
-cluster <- T  # cluster countries?
+# cluster <- T  # cluster countries?
 Kmeans <- 3  # number of clusters
 KmeansEUD <- 4  # number of clusters with EU disaggregated
 
