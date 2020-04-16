@@ -7,6 +7,7 @@ sys.path.insert(1, helpersPath)
 
 # estimation directory
 estdir = "01_code/"
+shinydir = "04_viz/"
 
 accounts = "01_accounts.R"
 flowshs6 = "02_flowshs6.R"
@@ -195,4 +196,13 @@ def task_slides():
             "cp -r " + revealPath + " index_files/",
             "cp -a " + verticatorPath + " " + pluginDest],
 		'verbosity': 2,
+	}
+
+def task_prep_shiny():
+	"""
+
+	"""
+	yield {
+		'name': "moving params...",
+		'actions': ["cp -a " + estdir + "params.R " + shinydir + "params.R"]
 	}

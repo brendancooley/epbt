@@ -1,4 +1,4 @@
-source("../01_code/params.R")
+source("params.R")
 
 libs <- c('tidyverse', 'shiny')
 ipak(libs)
