@@ -15,9 +15,11 @@ ui <- fluidPage(
   # Application title
   h3("Estimating Policy Barriers to Trade: Results"),
   p("Brendan Cooley, Ph.D. Candidate, Department of Politics, Princeton University"),
-  p(icon("file-pdf", lib="font-awesome"), a(" Paper", href="brendancooley.com/docs/epbt.pdf"),
+  p(icon("file-pdf", lib="font-awesome"), a(" Paper", href="http://brendancooley.com/docs/epbt.pdf"),
     HTML("&emsp;"),
     icon("github", lib="font-awesome"), a(" Code", href="https://github.com/brendancooley/epbt"),
+    HTML("&emsp;"),
+    icon("table", lib="font-awesome"), a(" Data", href="https://raw.githubusercontent.com/brendancooley/epbt/master/02_results/tau_quantiles.csv"),
     HTML("&emsp;"),
     icon("envelope", lib="font-awesome"), "bcooley (at) princeton.edu"),
   
