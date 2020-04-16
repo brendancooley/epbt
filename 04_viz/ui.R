@@ -3,8 +3,8 @@ source("params.R")
 libs <- c('tidyverse', 'shiny')
 ipak(libs)
 
-tau_quantiles <- read_csv(tau_quantiles_path)
-icpBHTAgg <- read_csv(paste0(cleandir, "icpBHTAgg.csv"))
+tau_quantiles <- read_csv("tau_quantiles.csv")
+icpBHTAgg <- read_csv("icpBHTAgg.csv")
 
 ccodes <- tau_quantiles$j_iso3 %>% unique()
 

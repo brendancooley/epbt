@@ -58,6 +58,7 @@ bootstrap_tau_dir <- paste0(bootstrap_dir, "tau/")
 ### PATHS ###
 
 tau_quantiles_path <- paste0(results_local_dir, "tau_quantiles.csv")
+tau_quantiles_shiny_path <- paste0(shinydir, "tau_quantiles.csv")
 
 ### SOURCE HELPERS ###
 

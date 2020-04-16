@@ -24,3 +24,4 @@ tau_quantiles <- cbind(tau_M %>% select(i_iso3, j_iso3), Q) %>% as_tibble()
 tau_quantiles$i_iso3 <- as.factor(tau_quantiles$i_iso3)
 
 write_csv(tau_quantiles, tau_quantiles_path)
+write_csv(tau_quantiles, tau_quantiles_shiny_path)

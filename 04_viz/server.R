@@ -10,7 +10,7 @@ figs_path <- "../03_figs/"
 tauHMY <- read_csv("tauHMY.csv")
 tauHMYEUD <- read_csv("tauY.csv")
 
-tau_quantiles <- read_csv(tau_quantiles_path)
+tau_quantiles <- read_csv("tau_quantiles.csv")
 icpBHTAgg <- read_csv("icpBHTAgg.csv")
 priceIndex <- read_csv("priceIndex.csv") %>% select(iso3, priceIndex)
 colnames(priceIndex) <- c("ccode", "priceIndex")
