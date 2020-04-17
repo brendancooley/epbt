@@ -1,6 +1,6 @@
 ```{r, echo=FALSE, warning=FALSE, message=FALSE, results='hide'}
 
-source(paste0("../", analysisDir, "params.R"))
+source(paste0("../", code_dir, "params.R"))
 
 N <- read_csv(paste0(cleandir, "ccodes.csv")) %>% pull(.) %>% length()
 P <- read_csv(paste0(cleandir, "priceIndex.csv")) %>% filter(year==Y)

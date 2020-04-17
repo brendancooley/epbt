@@ -67,7 +67,7 @@ ccodesAll <- c()
 wd <- getwd()
 
 if (shiny==FALSE) {
-  if ("sections" %in% strsplit(wd, "/")[[1]]) {
+  if ("05_sections" %in% strsplit(wd, "/")[[1]]) {
     sourceDir <- paste0("../", analysis_dirname, "/source/")
     sourceFiles <- list.files(sourceDir)
     for (i in sourceFiles) {

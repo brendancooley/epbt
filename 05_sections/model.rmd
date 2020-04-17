@@ -1,6 +1,6 @@
 ```{r, echo=FALSE, warning=FALSE, message=FALSE, results='hide'}
 
-source(paste0("../", analysisDir, "params.R"))
+source(paste0("../", code_dir, "params.R"))
 
 ```
 

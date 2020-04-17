@@ -23,13 +23,12 @@ output:
 ---
 
 
-```
-## Error in ipak(libs): could not find function "ipak"
-```
 
 \newpage
 
 # Introduction
+
+
 
 
 Is international trade free and fair? For trade to be free, firms must not face government-imposed burdens to foreign market access. I refer to these burdens as policy barriers to trade. For trade to be fair, any policy barriers that do exist must treat products from all origin countries equally.^[Of course, there are many competing conceptions of what a free and fair international trading system should look like. These are the definitions of free and fair I use here.]
@@ -50,13 +49,7 @@ The logic behind the approach employed here is also articulated in @Leamer1988. 
 
 The results point to far more policy distortion and effective discrimination than would be inferred from the tariff data. Tariff equivalents of implied policy barriers are generically more than an order of magnitude larger than observed tariffs. Moreover, exporters in subset of favored countries enjoy far superior market access conditions than their peers in unfavored countries.
 
-
-```
-## Error: <text>:4:1: unexpected symbol
-## 3: 
-## 4: tarIncome
-##    ^
-```
+![Tariff rates (left) and structural trade restrictiveness (right) against GDP per capita \label{fig:triIncome}](figure/triIncome-1.png)
 
 The trade policy openness attributed to developed countries also depends strongly on the metric used to evaluate openness.^[See @Rodriguez2000, @Dollar2004, and @Tavares2008 for discussions of this phenomenon.] As shown in Figure \ref{fig:triIncome}, there is a negative association between economic development (per capita GDP) and applied tariff rates. This relationship is reversed if trade policy restrictiveness is measured as proposed here. Countries with higher per capita incomes tend to have higher Trade Restrictiveness Indices.^[See Equation \ref{eq:tri}.] This is consistent with @Kono2006 and @Queralt2015, which suggest that developed countries offset tariff reductions with increases in non-tariff direct barriers and (potentially distortionary) domestic taxes.
 
@@ -76,9 +69,6 @@ I proceed in three steps. The next section specifies a model of international tr
 
 
 
-```
-## Error in file(filename, "r", encoding = encoding): cannot open the connection
-```
 
 
 In 2011, tradable goods were, on average, twice as expensive in Japan than in Malaysia.^[See The World Bank, [International Comparison Program (ICP)](http://www.worldbank.org/en/programs/icp#1)]  If trade were frictionless, Malaysian merchants could exploit this price difference by shipping goods to Japan, making more than twice what they would be selling their goods in their home market. Factually, however, Malaysian exporters made up less than one percent of the market for tradables in Japan in 2011. The model explicated below allows me to infer that these prospective exporters must have faced high costs to sell in the Japanese market and to quantify the exact magnitude of these costs. If freight costs are known, then the component of these costs attributable to policy distortions can be recovered separately.
@@ -252,9 +242,6 @@ If the trade elasticity is known, data on trade shares, relative prices, and fre
 
 
 
-```
-## Error in file(filename, "r", encoding = encoding): cannot open the connection
-```
 
 I present results from a calibration on a set of 24 of the world's largest economies in 2011.^[The list of the economies in the sample is included in Appendix E.] These in-sample countries collectively made up 87 percent of world GDP. I treat the rest of the world as an aggregate outside economy. The calibration requires me to take a stance on two structural parameters, the Frechet parameter $\theta$ and the consumers' elasticity of substitution $\sigma$. I set $\theta =$ 6, in line with the estimates from the structural gravity literature [@Head2014]. I estimate $\sigma$ using cross-national variation in prices and consumer expenditure shares on categories of tradable goods. 
 
@@ -303,9 +290,6 @@ Figure \ref{fig:freight} depicts factual and predicted freight costs for the Uni
 
 
 
-```
-## Error in file(filename, "r", encoding = encoding): cannot open the connection
-```
 
 The results of this exercise reveal substantial unobserved policy barriers to trade. In 2011, across all in-sample markets, exporters faced an average $\tau$ of 2.39, equivalent to a 139 percent import tariff.^[Of course, this result is sensitive to my stance on the trade elasticity. Doubling the trade elasticity to 12 cuts the average $\tau$ to 1.61] The magnitude of these barriers dwarfs that of applied aggregate tariffs, which average only 4 percent within my sample. This result is consistent with @Anderson2003, @Bradford2003, @deSousa2012, and @Waugh2016 which also uncover large implied trade costs using indirect measurement methods. Figure \ref{fig:tcosts} shows the distribution of implied policy barriers (panel A), relative to tariffs and predicted freight costs.
 
@@ -329,13 +313,7 @@ Similarly, the market access index is an expenditure weighted average of the bar
 \end{equation}
 Higher values of the TRI correspond to higher aggregate trade restrictiveness. Conversely, higher values of the MAI correspond to lower aggregate market access (a high tax on a country's exports).
 
-
-```
-## Error: <text>:2:31: unexpected string constant
-## 1: 
-## 2: source(paste0("../", figs_dir "trimai.R"
-##                                  ^
-```
+![Trade restrictiveness and market access conditions by country \label{fig:trimai}](figure/trimai-1.png)
 
 Figure \ref{fig:trimai} plots the TRIs and MAIs jointly. A negative correlation between these indices emerges naturally from the structure of the model. High domestic prices imply arbitrage opportunities, raising the TRI. They also imply high opportunity costs for domestic exporting firms that forgo these high prices. To rationalize these flows, the model infers that these firms must face relatively friendly market access conditions abroad, raising the MAI.
 
@@ -350,9 +328,41 @@ To evaluate this proposition, I gather data on applied tariff rates, NTMs, and P
 I measure aggregate tariff protection with a trade-weighted average of applied tariff rates, taken from UN Conference on Trade and Development's (UNCTAD) [TRAINS database](https://databank.worldbank.org/data/reports.aspx?source=UNCTAD-~-Trade-Analysis-Information-System-%28TRAINS%29#).^[This allows the measure to vary at the trade partner level, as exporters with different product portfolios are differentially exposed to tariff lines.] UNCTAD also tracks the incidence of NTMs in governments official trade regulations. As is standard in the literature on NTMs,^[See, for example, @Anderson2004.] I employ NTM coverage ratios as a measure of aggregate NTM protection. A coverage ratio is simply the proportion of Harmonized System (HS) 6-digit tariff lines that are subject to an NTM. I group NTMs into three categories, price/quota (core), health/safety, and other, and calculate coverage ratios for each category.^[Due to data availability constraints, data for the European Union is taken from 2012, while the rest of the NTM data is taken from 2011. NTM data for South Korea is unavailable, so it is dropped from the analysis.] Finally, I construct a binary indicator that takes the value of one if two countries are members of a bilateral or multilateral PTA, and zero if not, employing the [DESTA](https://www.designoftradeagreements.org/downloads/) database [@Dur2014]. I include importer and exporter fixed effects in order to make comparisons relative to mean levels of protection and market access.
 
 
-```
-## Error in stargazer(correlatesModel, header = FALSE, type = "latex", omit = c("i_iso3", : could not find function "stargazer"
-```
+\begin{table}[!htbp] \centering 
+  \caption{Correlates of Structural Policy Barriers, 2011\label{tab:correlates}} 
+  \label{} 
+\begin{tabular}{@{\extracolsep{5pt}}lc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & \multicolumn{1}{c}{\textit{Dependent variable:}} \\ 
+\cline{2-2} 
+\\[-1.8ex] & Structural Policy Barrier \\ 
+\hline \\[-1.8ex] 
+ Tariffs & 1.074$^{*}$ \\ 
+  & (0.560) \\ 
+  & \\ 
+ PTAs & $-$0.304$^{***}$ \\ 
+  & (0.062) \\ 
+  & \\ 
+ Core NTM & 0.088 \\ 
+  & (0.160) \\ 
+  & \\ 
+ Health/Safety NTM & 0.183 \\ 
+  & (0.149) \\ 
+  & \\ 
+ Other NTM & $-$0.100 \\ 
+  & (0.202) \\ 
+  & \\ 
+\hline \\[-1.8ex] 
+Importer Fixed Effects & \checkmark \\ 
+Exporter Fixed Effects & \checkmark \\ 
+Observations & 361 \\ 
+R$^{2}$ & 0.877 \\ 
+\hline 
+\hline \\[-1.8ex] 
+\textit{Note:}  & \multicolumn{1}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+\end{tabular} 
+\end{table} 
 
 The results are shown in Table \ref{tab:correlates}. Estimated policy barriers are positively correlated with observed tariffs. Independently of tariff rate reductions, policy barriers are negatively correlated with the existence of a PTA. This is consistent with PTAs as a tool of "deep liberalization" that reduce trade costs in excess of those imposed by tariffs. In particular, the existence of a PTA is associated with a tariff-equivalent decrease in $\tau_{ij}$ of 30 percentage points. Policy barriers show no significant association with any category of NTMs. However, coverage ratios are an extremely coarse measure of the magnitude of NTMs, and the TRAINS data are of imperfect quality [@Kono2008].
 
@@ -360,13 +370,7 @@ The results are shown in Table \ref{tab:correlates}. Estimated policy barriers a
 
 In the preceding analysis, the European Union (EU) member states were treated as a single economic entity. Within the EU, goods face few policy barriers to trade. The EU customs union eliminates direct barriers to trade assessed at the border, and regulatory harmonization efforts seek to minimize indirect barriers. For this reason, intra-EU policy barriers to trade should be substantially lower than external barriers. Because the EU documents internal trade and the ICP collects price data for each EU member state, I can test this hypothesis in the data. To do so, I first employ my freight cost model to predict shipping costs within EU member states. European Union policy barriers to trade can then be disaggregated by member state.^[There were 27 members of the European Union in 2011, and Turkey participated in the economic bloc through a customs union. Due to inconsistencies between its trade and national accounts data, I drop Malta from the analysis.]
 
-
-```
-## Error: <text>:2:22: unexpected symbol
-## 1: 
-## 2: source(paste0("../," figs_dir
-##                         ^
-```
+![Intra and extra-European Union policy barriers to trade. Each cell reports the magnitude of the policy barrier each EU importing country (y-axis) imposes on every exporting country (x-axis). Barriers toward EU countries are on the left hand side of the solid line. Barriers toward non-EU countries are on the right hand side of the solid line. BNL is an aggregate of Belgium, Luxembourg, and the Netherlands (Benelux). ELL is an aggregate of the Baltic countries: Estonia, Latvia, and Lithuania. \label{fig:hmEUD}](figure/hmEUD-1.png)
 
 Figure \ref{fig:hmEUD} depicts the results of this exercise.^[In Appendix D, I reproduce Figure \ref{fig:hm} with the European Union disaggregated and re-implement K-means clustering, with $K=$ 4. The Asian and American blocs remain largely intact. The clustering uncovers 2 distinct European blocs -- a Western bloc consisting of Great Britain,France, Germany, and their neighbors as well as an Eatern bloc consisting of mostly post-Cold War EU entrants. Interestingly, Russia and Turkey are grouped with the Western bloc, rather than the more geographically proximate Eastern countries.] EU policy barriers toward other EU member states are on average 56 percent the size of barriers with non-EU states.^[This comparison was made by taking weighted means of tariff-equivalent policy barriers where the weights are the expenditures on tradable goods of the exporting countries.] Barriers are far from nonexistent, however. On average, EU countries implement an tariff-equivalent barrier of 69 percent on other EU member states, compared to 119 percent on non-EU states.^[These are unweighted averages of EU member states' TRIs, calculated with respect to EU and non-EU members respectively.] From the perspective of the model, there remained substantial policy-related trade frictions within the EU in 2011. This finding is consistent with the existence of "border effects" within the EU [@Comerford2015]. Of course, these inferences might be driven by features of the model itself. I discuss these limitations in more detail in the paper's conclusion.
 
@@ -497,34 +501,100 @@ This results in three functions $\hat{g}^m$ for each transportation mode (air, l
 
 
 
-```
-## Error in file(filename, "r", encoding = encoding): cannot open the connection
-```
 
 ### Maritime Freight Costs
 
 
-```
-## Error in stargazer(seaModelOutput, header = FALSE, type = "latex", omit = c("hs2", : could not find function "stargazer"
-```
+\begin{table}[!htbp] \centering 
+  \caption{Maritime Cost Model} 
+  \label{} 
+\begin{tabular}{@{\extracolsep{5pt}}lc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & \multicolumn{1}{c}{\textit{Dependent variable:}} \\ 
+\cline{2-2} 
+\\[-1.8ex] & Freight Cost \\ 
+\hline \\[-1.8ex] 
+ CERDI seadist (log, std) & 0.010$^{***}$ \\ 
+  & (0.0002) \\ 
+  & \\ 
+ Contiguity & 0.013$^{***}$ \\ 
+  & (0.0004) \\ 
+  & \\ 
+\hline \\[-1.8ex] 
+Product fixed effects? & \checkmark \\ 
+Cubic time spline? & \checkmark \\ 
+Observations & 156,135 \\ 
+R$^{2}$ & 0.388 \\ 
+\hline 
+\hline \\[-1.8ex] 
+\textit{Note:}  & \multicolumn{1}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+\end{tabular} 
+\end{table} 
 
 \FloatBarrier
 
 ### Land Freight Costs
 
 
-```
-## Error in stargazer(landModelOutput, header = FALSE, type = "latex", omit = c("hs2", : could not find function "stargazer"
-```
+\begin{table}[!htbp] \centering 
+  \caption{Land Cost Model} 
+  \label{} 
+\begin{tabular}{@{\extracolsep{5pt}}lc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & \multicolumn{1}{c}{\textit{Dependent variable:}} \\ 
+\cline{2-2} 
+\\[-1.8ex] & Freight Cost \\ 
+\hline \\[-1.8ex] 
+ CEPII distw (log, std) & 0.003$^{***}$ \\ 
+  & (0.0003) \\ 
+  & \\ 
+ Contiguity & $-$0.016$^{***}$ \\ 
+  & (0.001) \\ 
+  & \\ 
+\hline \\[-1.8ex] 
+Product fixed effects? & \checkmark \\ 
+Cubic time spline? & \checkmark \\ 
+Observations & 26,455 \\ 
+R$^{2}$ & 0.500 \\ 
+\hline 
+\hline \\[-1.8ex] 
+\textit{Note:}  & \multicolumn{1}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+\end{tabular} 
+\end{table} 
 
 \FloatBarrier
 
 ### Air Freight Costs
 
 
-```
-## Error in stargazer(airModelOutput, header = FALSE, type = "latex", omit = c("hs2", : could not find function "stargazer"
-```
+\begin{table}[!htbp] \centering 
+  \caption{Air Cost Model} 
+  \label{} 
+\begin{tabular}{@{\extracolsep{5pt}}lc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & \multicolumn{1}{c}{\textit{Dependent variable:}} \\ 
+\cline{2-2} 
+\\[-1.8ex] & Freight Cost \\ 
+\hline \\[-1.8ex] 
+ CEPII distw (log, std) & 0.028$^{***}$ \\ 
+  & (0.001) \\ 
+  & \\ 
+ Contiguity & $-$0.030$^{***}$ \\ 
+  & (0.002) \\ 
+  & \\ 
+\hline \\[-1.8ex] 
+Product fixed effects? & \checkmark \\ 
+Cubic time spline? & \checkmark \\ 
+Observations & 58,346 \\ 
+R$^{2}$ & 0.351 \\ 
+\hline 
+\hline \\[-1.8ex] 
+\textit{Note:}  & \multicolumn{1}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+\end{tabular} 
+\end{table} 
 
 \FloatBarrier
 
@@ -532,9 +602,41 @@ This results in three functions $\hat{g}^m$ for each transportation mode (air, l
 ### Transportation Mode Shares
 
 
-```
-## Error in stargazer(modesModelOutput, header = FALSE, type = "latex", omit = c("hs2", : could not find function "stargazer"
-```
+\begin{table}[!htbp] \centering 
+  \caption{Mode Share Model} 
+  \label{} 
+\begin{tabular}{@{\extracolsep{5pt}}lccc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & \multicolumn{3}{c}{\textit{Dependent variable:}} \\ 
+\cline{2-4} 
+\\[-1.8ex] & Air Share & Sea Share & Land Share \\ 
+\\[-1.8ex] & (1) & (2) & (3)\\ 
+\hline \\[-1.8ex] 
+ Air Distance (log, std) & 0.001 & $-$0.928$^{***}$ & $-$0.919$^{***}$ \\ 
+  & (0.015) & (0.030) & (0.032) \\ 
+  & & & \\ 
+ Sea Distance (log, std) & $-$0.058$^{***}$ & $-$0.189$^{***}$ & 0.517$^{***}$ \\ 
+  & (0.014) & (0.025) & (0.026) \\ 
+  & & & \\ 
+ Contiguity & 0.037 & 1.309$^{***}$ & 0.508$^{***}$ \\ 
+  & (0.034) & (0.039) & (0.053) \\ 
+  & & & \\ 
+ Importer Island? & 0.162$^{***}$ & 0.961$^{***}$ & 0.481$^{***}$ \\ 
+  & (0.019) & (0.037) & (0.043) \\ 
+  & & & \\ 
+ Exporter Island? & $-$0.056$^{***}$ & $-$4.519$^{***}$ & $-$2.946$^{***}$ \\ 
+  & (0.015) & (0.092) & (0.074) \\ 
+  & & & \\ 
+\hline \\[-1.8ex] 
+Product fixed effects? & \checkmark & \checkmark & \checkmark \\ 
+Cubic time spline? & \checkmark & \checkmark & \checkmark \\ 
+Akaike Inf. Crit. & 224,458.400 & 224,458.400 & 224,458.400 \\ 
+\hline 
+\hline \\[-1.8ex] 
+\textit{Note:}  & \multicolumn{3}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+\end{tabular} 
+\end{table} 
 
 \FloatBarrier
 
@@ -552,44 +654,252 @@ This results in three functions $\hat{g}^m$ for each transportation mode (air, l
 ## E: Sample Countries
 
 
-
-```
-## Error in countrycode(ccodesTable$ccodes, "iso3c", "country.name"): could not find function "countrycode"
-```
-
-```
-## Error in ans[npos] <- rep(no, length.out = len)[npos]: replacement has length zero
-```
-
-```
-## Error in ans[npos] <- rep(no, length.out = len)[npos]: replacement has length zero
-```
-
-```
-## Error in names(x) <- value: 'names' attribute [2] must be the same length as the vector [1]
-```
-
-```
-## Error: object 'iso3' not found
-```
-
-```
-## Error in kable(ccodesTable, "latex", booktabs = T): could not find function "kable"
-```
+\begin{table}[H]
+\centering
+\begin{tabular}{ll}
+\toprule
+iso3 & Country Name\\
+\midrule
+AUS & Australia\\
+BRA & Brazil\\
+CAN & Canada\\
+CHL & Chile\\
+CHN & China\\
+\addlinespace
+COL & Colombia\\
+EU & European Union\\
+IDN & Indonesia\\
+IND & India\\
+ISR & Israel\\
+\addlinespace
+JPN & Japan\\
+KOR & South Korea\\
+MEX & Mexico\\
+MYSG & NA\\
+NZL & New Zealand\\
+\addlinespace
+PER & Peru\\
+PHL & Philippines\\
+RoW & Rest of the World\\
+RUS & Russia\\
+THA & Thailand\\
+\addlinespace
+TUR & Turkey\\
+USA & United States\\
+VNM & Vietnam\\
+ZAF & South Africa\\
+\bottomrule
+\end{tabular}
+\end{table}
 
 
 
 ## F: International Comparison Program Expenditure Categories
 
 
+\begingroup\fontsize{9}{11}\selectfont
 
-```
-## Error in read_excel(paste0(proprietaryDataPath, "bh.xlsx")): could not find function "read_excel"
-```
-
-```
-## Error in kable(icpCodes, "latex", escape = F, longtable = T, booktabs = T): could not find function "kable"
-```
+\begin{longtable}{rll}
+\toprule
+Code & Basic Heading & Tradable?\\
+\midrule
+\endfirsthead
+\multicolumn{3}{@{}l}{\textit{(continued)}}\\
+\toprule
+Code & Basic Heading & Tradable?\\
+\midrule
+\endhead
+\
+\endfoot
+\bottomrule
+\endlastfoot
+1101111 & Rice & \checkmark\\
+1101112 & Other cereals, flour and other products & \checkmark\\
+1101113 & Bread & \checkmark\\
+1101114 & Other bakery products & \checkmark\\
+1101115 & Pasta products & \checkmark\\
+\addlinespace
+1101121 & Beef and veal & \checkmark\\
+1101122 & Pork & \checkmark\\
+1101123 & Lamb, mutton and goat & \checkmark\\
+1101124 & Poultry & \checkmark\\
+1101125 & Other meats and meat preparations & \checkmark\\
+\addlinespace
+1101131 & Fresh, chilled or frozen fish and seafood & \checkmark\\
+1101132 & Preserved or processed fish and seafood & \checkmark\\
+1101141 & Fresh milk & \checkmark\\
+1101142 & Preserved milk and other milk products & \checkmark\\
+1101143 & Cheese & \checkmark\\
+\addlinespace
+1101144 & Eggs and egg-based products & \checkmark\\
+1101151 & Butter and margarine & \checkmark\\
+1101153 & Other edible oils and fats & \checkmark\\
+1101161 & Fresh or chilled fruit & \checkmark\\
+1101162 & Frozen, preserved or processed fruit and fruit-based products & \checkmark\\
+\addlinespace
+1101171 & Fresh or chilled vegetables other than potatoes & \checkmark\\
+1101172 & Fresh or chilled potatoes & \checkmark\\
+1101173 & Frozen, preserved or processed vegetables and vegetable-based products & \checkmark\\
+1101181 & Sugar & \checkmark\\
+1101182 & Jams, marmalades and honey & \checkmark\\
+\addlinespace
+1101183 & Confectionery, chocolate and ice cream & \checkmark\\
+1101191 & Food products nec & \checkmark\\
+1101211 & Coffee, tea and cocoa & \checkmark\\
+1101221 & Mineral waters, soft drinks, fruit and vegetable juices & \checkmark\\
+1102111 & Spirits & \checkmark\\
+\addlinespace
+1102121 & Wine & \checkmark\\
+1102131 & Beer & \checkmark\\
+1102211 & Tobacco & \checkmark\\
+1102311 & Narcotics & \\
+1103111 & Clothing materials, other articles of clothing and clothing accessories & \checkmark\\
+\addlinespace
+1103121 & Garments & \checkmark\\
+1103141 & Cleaning, repair and hire of clothing & \\
+1103211 & Shoes and other footwear & \checkmark\\
+1103221 & Repair and hire of footwear & \\
+1104111 & Actual and imputed rentals for housing & \\
+\addlinespace
+1104311 & Maintenance and repair of the dwelling & \\
+1104411 & Water supply & \\
+1104421 & Miscellaneous services relating to the dwelling & \\
+1104511 & Electricity & \checkmark\\
+1104521 & Gas & \checkmark\\
+\addlinespace
+1104531 & Other fuels & \checkmark\\
+1105111 & Furniture and furnishings & \checkmark\\
+1105121 & Carpets and other floor coverings & \checkmark\\
+1105131 & Repair of furniture, furnishings and floor coverings & \\
+1105211 & Household textiles & \checkmark\\
+\addlinespace
+1105311 & Major household appliances whether electric or not & \checkmark\\
+1105321 & Small electric household appliances & \checkmark\\
+1105331 & Repair of household appliances & \\
+1105411 & Glassware, tableware and household utensils & \checkmark\\
+1105511 & Major tools and equipment & \checkmark\\
+\addlinespace
+1105521 & Small tools and miscellaneous accessories & \checkmark\\
+1105611 & Non-durable household goods & \checkmark\\
+1105621 & Domestic services & \\
+1105622 & Household services & \\
+1106111 & Pharmaceutical products & \checkmark\\
+\addlinespace
+1106121 & Other medical products & \checkmark\\
+1106131 & Therapeutic appliances and equipment & \checkmark\\
+1106211 & Medical Services & \\
+1106221 & Dental services & \\
+1106231 & Paramedical services & \\
+\addlinespace
+1106311 & Hospital services & \\
+1107111 & Motor cars & \checkmark\\
+1107121 & Motor cycles & \checkmark\\
+1107131 & Bicycles & \checkmark\\
+1107141 & Animal drawn vehicles & \checkmark\\
+\addlinespace
+1107221 & Fuels and lubricants for personal transport equipment & \checkmark\\
+1107231 & Maintenance and repair of personal transport equipemnt & \\
+1107241 & Other services in respect of personal transport equipment & \\
+1107311 & Passenger transport by railway & \\
+1107321 & Passenger transport by road & \\
+\addlinespace
+1107331 & Passenger transport by air & \\
+1107341 & Passenger transport by sea and inland waterway & \\
+1107351 & Combined passenger transport & \\
+1107361 & Other purchased transport services & \\
+1108111 & Postal services & \\
+\addlinespace
+1108211 & Telephone and telefax equipment & \checkmark\\
+1108311 & Telephone and telefax services & \\
+1109111 & Audio-visual, photographic and information processing equipment & \checkmark\\
+1109141 & Recording media & \checkmark\\
+1109151 & Repair of audio-visual, photographic and information processing equipment & \\
+\addlinespace
+1109211 & Major durables for outdoor and indoor recreation & \checkmark\\
+1109231 & Maintenance and repair of other major durables for recreation and culture & \\
+1109311 & Other recreational items and equipment & \checkmark\\
+1109331 & Garden and pets & \\
+1109351 & Veterinary and other services for pets & \\
+\addlinespace
+1109411 & Recreational and sporting services & \\
+1109421 & Cultural services & \\
+1109431 & Games of chance & \\
+1109511 & Newspapers, books and stationery & \checkmark\\
+1109611 & Package holidays & \\
+\addlinespace
+1110111 & Education & \\
+1111111 & Catering services & \\
+1111211 & Accommodation services & \\
+1112111 & Hairdressing salons and personal grooming establishments & \\
+1112121 & Appliances, articles and products for personal care & \checkmark\\
+\addlinespace
+1112211 & Prostitution & \\
+1112311 & Jewellery, clocks and watches & \checkmark\\
+1112321 & Other personal effects & \checkmark\\
+1112411 & Social protection & \\
+1112511 & Insurance & \\
+\addlinespace
+1112611 & Financial Intermediation Services Indirectly Measured (FISIM) & \\
+1112621 & Other financial services & \\
+1112711 & Other services nec & \\
+1113111 & Final consumption expenditure of resident households in the rest of the world & \\
+1113112 & Final consumption expenditure of non-resident households in the economic territory & \\
+\addlinespace
+1201111 & Individual consumption expenditure by NPISHs & \\
+1301111 & Housing & \\
+1302111 & Pharmaceutical products & \checkmark\\
+1302112 & Other medical products & \checkmark\\
+1302113 & Therapeutic appliances and equipment & \checkmark\\
+\addlinespace
+1302121 & Out-patient medical services & \\
+1302122 & Out-patient dental services & \\
+1302123 & Out-patient paramedical services & \\
+1302124 & Hospital services & \\
+1302211 & Compensation of employees & \\
+\addlinespace
+1302221 & Intermediate consumption & \\
+1302231 & Gross operating surplus & \\
+1302241 & Net taxes on production & \\
+1302251 & Receipts from sales & \\
+1303111 & Recreation and culture & \\
+\addlinespace
+1304111 & Education benefits and reimbursements & \\
+1304211 & Compensation of employees & \\
+1304221 & Intermediate consumption & \\
+1304231 & Gross operating surplus & \\
+1304241 & Net taxes on production & \\
+\addlinespace
+1304251 & Receipt from sales & \\
+1305111 & Social protection & \\
+1401111 & Compensation of employees & \\
+1401121 & Intermediate consumption & \\
+1401131 & Gross operating surplus & \\
+\addlinespace
+1401141 & Net taxes on production & \\
+1401151 & Receipts from sales & \\
+1501111 & Fabricated metal products, except machinery and equipment & \checkmark\\
+1501121 & General purpose machinery & \checkmark\\
+1501131 & Special purpose machinery & \checkmark\\
+\addlinespace
+1501141 & Electrical and optical equipment & \checkmark\\
+1501151 & Other manufactured goods nec & \checkmark\\
+1501211 & Motor vehicles, trailers and semi-trailers & \checkmark\\
+1501212 & Other road transport & \checkmark\\
+1501221 & Other transport equipment & \checkmark\\
+\addlinespace
+1502111 & Residential buildings & \\
+1502211 & Non-residential buildings & \\
+1502311 & Civil engineering works & \\
+1503111 & Other products & \\
+1601111 & Opening value of inventories & \\
+\addlinespace
+1601112 & Closing value of inventories & \\
+1602111 & Acquisitions of valuables & \\
+1602112 & Disposals of valuables & \\
+1701111 & Exports of goods and services & \\
+1701112 & Imports of goods and services & \\*
+\end{longtable}
+\endgroup{}
 
 \clearpage
 

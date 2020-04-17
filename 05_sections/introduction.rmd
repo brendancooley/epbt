@@ -1,3 +1,9 @@
+```{r, echo=FALSE, warning=FALSE, message=FALSE, results='hide'}
+
+source(paste0("../", code_dir, "params.R"))
+
+```
+
 Is international trade free and fair? For trade to be free, firms must not face government-imposed burdens to foreign market access. I refer to these burdens as policy barriers to trade. For trade to be fair, any policy barriers that do exist must treat products from all origin countries equally.^[Of course, there are many competing conceptions of what a free and fair international trading system should look like. These are the definitions of free and fair I use here.]
 
 Examining tariff rates produces a qualified "yes," on both counts. Despite recent threats to the world trading system,^[See Bown, Chad P. ["Is the Global Trade System Broken?"](https://piie.com/commentary/op-eds/global-trade-system-broken) *Peterson Institute for International Economics*. 8 May 2018.] tariffs remain at historically low rates (less than five percent on most trade [@Baldwin2016]), suggesting trade is relatively free. Moreover, World Trade Organization (WTO) member countries, accounting for the vast majority of the world economy, commit to the principle of nondiscrimination (or most-favored-nation (MFN)) in tariff policy, applying the same tariff rates to the imports of all member countries. At first glance, adherence to this principle suggests international trade is also fair.
@@ -18,8 +24,9 @@ The results point to far more policy distortion and effective discrimination tha
 
 ```{r triIncome, echo=FALSE, warning=FALSE, message=FALSE, fig.cap = "Tariff rates (left) and structural trade restrictiveness (right) against GDP per capita \\label{fig:triIncome}", fig.height=5, dpi=300}
 
-source(paste0("../", figs_dir, "triIncome.R")
+source(paste0("../", figs_dir, "triIncome.R"))
 
+library(patchwork)
 tarIncome + triIncome
 
 ```

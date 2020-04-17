@@ -1,6 +1,6 @@
 ```{r, echo=FALSE, warning=FALSE, message=FALSE, results='hide'}
 
-source(paste0("../", analysisDir, "params.R"))
+source(paste0("../", code_dir, "params.R"))
 
 EUntmY <- read_csv(paste0(otherdir, "EUntmY.csv")) %>% pull(.)
 
@@ -31,7 +31,7 @@ International trade is also far from fair. A fair international trading system m
 
 EUHM <- F
 highlight <- NULL
-cluster <- FALSE
+cluster <- TRUE
 
 source(paste0("../", figs_dir, "/hm.R"))
 hm
@@ -52,7 +52,7 @@ Higher values of the TRI correspond to higher aggregate trade restrictiveness. C
 
 ```{r trimai, echo=FALSE, warning=FALSE, message=FALSE, fig.cap = "Trade restrictiveness and market access conditions by country \\label{fig:trimai}", fig.height=6, dpi=300, fig.pos="t"}
 
-source(paste0("../", figs_dir "trimai.R"))
+source(paste0("../", figs_dir, "trimai.R"))
 
 trimaiPlot
 
@@ -74,6 +74,7 @@ I measure aggregate tariff protection with a trade-weighted average of applied t
 
 source(paste0("../", figs_dir, "/correlates.R"))
 
+library(stargazer)
 stargazer(correlatesModel, header=FALSE, type='latex', omit=c("i_iso3", "j_iso3", "Constant"), omit.stat=c("adj.rsq", "f", "ser"), add.lines = list(c("Importer Fixed Effects", "\\checkmark"), c("Exporter Fixed Effects", "\\checkmark")), dep.var.labels = c("Structural Policy Barrier"), covariate.labels = c("Tariffs", "PTAs", "Core NTM", "Health/Safety NTM", "Other NTM"), title = paste0("Correlates of Structural Policy Barriers, ", Y, "\\label{tab:correlates}"))
 
 ```
@@ -86,7 +87,7 @@ In the preceding analysis, the European Union (EU) member states were treated as
 
 ```{r hmEUD, echo=FALSE, warning=FALSE, message=FALSE, fig.cap = "Intra and extra-European Union policy barriers to trade. Each cell reports the magnitude of the policy barrier each EU importing country (y-axis) imposes on every exporting country (x-axis). Barriers toward EU countries are on the left hand side of the solid line. Barriers toward non-EU countries are on the right hand side of the solid line. BNL is an aggregate of Belgium, Luxembourg, and the Netherlands (Benelux). ELL is an aggregate of the Baltic countries: Estonia, Latvia, and Lithuania. \\label{fig:hmEUD}", fig.height=5, dpi=300, fig.pos="t"}
 
-source(paste0("../," figs_dir "hmEUD.R"))
+source(paste0("../", figs_dir, "hmEUD.R"))
 
 hmEUPlot
 

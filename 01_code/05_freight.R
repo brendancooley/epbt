@@ -26,7 +26,7 @@ if (is.null(args) | identical(args, character(0))) {
 ### SETUP ###
 
 wd <- getwd()
-if ("sections" %in% strsplit(wd, "/")[[1]]) {
+if ("05_sections" %in% strsplit(wd, "/")[[1]]) {
   runPreds <- FALSE
 } else {
   shiny <- FALSE

@@ -1,7 +1,8 @@
 ```{r, echo=FALSE, warning=FALSE, message=FALSE, results='hide'}
 
 # get freight cost model results
-source(paste0("../", analysisDir, "05_freight.R"))
+source(paste0("../", code_dir, "params.R"))
+source(paste0("../", code_dir, "05_freight.R"))
 
 ```
 
