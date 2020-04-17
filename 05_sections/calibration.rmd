@@ -4,7 +4,7 @@ source(paste0("../", analysisDir, "params.R"))
 
 N <- read_csv(paste0(cleandir, "ccodes.csv")) %>% pull(.) %>% length()
 P <- read_csv(paste0(cleandir, "priceIndex.csv")) %>% filter(year==Y)
-freight <- read_csv(paste0(cleandir, "freight.csv"))
+
 gdp <- read_csv(paste0(cleandir, "gdp.csv"))
 delta <- read_csv(paste0(cleandir, "delta.csv")) %>% filter(year==Y)
 
@@ -29,7 +29,7 @@ The ICP reports prices relative to their levels in the United States. In Appendi
 
 ```{r P, echo=FALSE, warning=FALSE, message=FALSE, fig.cap = "Price index estimates and tradable expenditure shares \\label{fig:P}", fig.height=5, dpi=300, fig.pos="t"}
 
-source("../figs/P.R")
+source(paste0("../", figs_dir, "P.R"))
 
 plotP + plotTshare
 
@@ -60,7 +60,7 @@ I combine a variety of data sources on factual freight costs and modes of transp
 
 ```{r freight, echo=FALSE, warning=FALSE, message=FALSE, fig.cap = "Factual versus predicted freight costs. In-sample observations are shown in grey. Out-of-sample observations are shown in black. \\label{fig:freight}", fig.height=6, dpi=300, fig.pos="t"}
 
-source("../figs/freight.R")
+source(paste0("../", figs_dir ,"freight.R"))
 
 freightCV
 

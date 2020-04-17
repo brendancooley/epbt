@@ -1,15 +1,5 @@
 ```{r expenditures, echo=FALSE, warning=FALSE, message=FALSE, results='asis'}
 
-# analytic categories
-# icpCodes <- read_csv("../estimation/data/prices/icpCodes.csv") %>% filter(aggregate==0) %>% select(Series, tradable)
-
-# icpCodes$tchar <- ifelse(icpCodes$tradable == 1, "\\checkmark", "") 
-# icpCodes <- icpCodes %>% select(Series, tchar)
-# icpCodes$Series <- icpCodes$Series %>% strsplit(" ") %>% lapply(function(x) x[2:length(x)]) %>% lapply(paste, collapse=" ") %>% unlist()
-# colnames(icpCodes) <- c("Expenditure Category", "Tradable?")
-
-# source("../figs/icpCodes.R")
-
 # basic headings
 icpCodes <- read_excel(paste0(proprietaryDataPath, "bh.xlsx")) %>% select(Code, Name, `Tradeable (BC)`)
 colnames(icpCodes) <- c("Code", "Basic Heading", "Tradable?")

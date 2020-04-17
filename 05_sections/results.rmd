@@ -17,7 +17,7 @@ The results of this exercise reveal substantial unobserved policy barriers to tr
 
 ```{r tcosts, echo=FALSE, warning=FALSE, message=FALSE, fig.cap = "Distribution of freight costs, tariff barriers, and structural policy barriers to trade ($\\tau_{ij}$). Dashed lines show mean of each distribution. \\label{fig:tcosts}", fig.height=5, dpi=300, fig.pos="t"}
 
-source("../figs/tcosts.R")
+source(paste0("../", figs_dir, "tcosts.R"))
 
 tCostsPlot
 
@@ -29,11 +29,11 @@ International trade is also far from fair. A fair international trading system m
 
 ```{r hm, echo=FALSE, warning=FALSE, message=FALSE, fig.cap = paste("Distribution of policy barriers to trade. Each cell reports the magnitude of the policy barrier each importing country (y-axis) imposes on every exporting country (x-axis). Countries are partitioned into", Kmeans, "groups through K-means clustering. Black rectangles enclose each cluster. \\label{fig:hm}"), fig.height=6, dpi=300, fig.pos="t"}
 
-trimaiText <- "In the margins are the magnitudes of each country's Trade Restrictivenss Index (TRI) and Market Access Index (MAI), defined in Equations \\ref{eq:tri} and \\ref{eq:mai}, respectively. \\label{fig:hm}"
 EUHM <- F
+highlight <- NULL
+cluster <- FALSE
 
-source("../figs/hm.R")
-
+source(paste0("../", figs_dir, "/hm.R"))
 hm
 
 ```
@@ -52,7 +52,7 @@ Higher values of the TRI correspond to higher aggregate trade restrictiveness. C
 
 ```{r trimai, echo=FALSE, warning=FALSE, message=FALSE, fig.cap = "Trade restrictiveness and market access conditions by country \\label{fig:trimai}", fig.height=6, dpi=300, fig.pos="t"}
 
-source("../figs/trimai.R")
+source(paste0("../", figs_dir "trimai.R"))
 
 trimaiPlot
 
@@ -72,7 +72,7 @@ I measure aggregate tariff protection with a trade-weighted average of applied t
 
 ```{r correlates, echo=FALSE, warning=FALSE, message=FALSE, results="asis", fig.pos="t"}
 
-source("../figs/correlates.R")
+source(paste0("../", figs_dir, "/correlates.R"))
 
 stargazer(correlatesModel, header=FALSE, type='latex', omit=c("i_iso3", "j_iso3", "Constant"), omit.stat=c("adj.rsq", "f", "ser"), add.lines = list(c("Importer Fixed Effects", "\\checkmark"), c("Exporter Fixed Effects", "\\checkmark")), dep.var.labels = c("Structural Policy Barrier"), covariate.labels = c("Tariffs", "PTAs", "Core NTM", "Health/Safety NTM", "Other NTM"), title = paste0("Correlates of Structural Policy Barriers, ", Y, "\\label{tab:correlates}"))
 
@@ -86,7 +86,7 @@ In the preceding analysis, the European Union (EU) member states were treated as
 
 ```{r hmEUD, echo=FALSE, warning=FALSE, message=FALSE, fig.cap = "Intra and extra-European Union policy barriers to trade. Each cell reports the magnitude of the policy barrier each EU importing country (y-axis) imposes on every exporting country (x-axis). Barriers toward EU countries are on the left hand side of the solid line. Barriers toward non-EU countries are on the right hand side of the solid line. BNL is an aggregate of Belgium, Luxembourg, and the Netherlands (Benelux). ELL is an aggregate of the Baltic countries: Estonia, Latvia, and Lithuania. \\label{fig:hmEUD}", fig.height=5, dpi=300, fig.pos="t"}
 
-source("../figs/hmEUD.R")
+source(paste0("../," figs_dir "hmEUD.R"))
 
 hmEUPlot
 
@@ -100,7 +100,7 @@ In the introduction, I noted that richer countries tend to have higher policy ba
 
 ```{r maiGdppc, echo=FALSE, warning=FALSE, message=FALSE, fig.cap = "Market access conditions and per capita national income \\label{fig:maiGdppc}", fig.height=5, dpi=300, fig.pos="t"}
 
-source("../figs/maigdppc.R")
+source(paste0("../", figs_dir, "/maigdppc.R"))
 
 maigdppcPlot
 
