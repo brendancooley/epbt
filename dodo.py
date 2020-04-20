@@ -1,6 +1,9 @@
 import os
 import sys
 import glob
+from doit import get_var
+
+config = {"EUD": get_var('EUD', 'False')}
 
 helpersPath = os.path.expanduser("~/Dropbox (Princeton)/14_Software/R/")
 sys.path.insert(1, helpersPath)
@@ -107,15 +110,24 @@ def task_results():
 	}
 
 def task_bootstrap():
+	"""
+	To run:
+	doit EUD=False bootstrap
+	doit EUD=True bootstrap
+	"""
 	for i in range(1, M+1):
 		yield {
 		'name': "bootstrap iteration " + str(i) + "...",
-		'actions': ['cd ' + estdir + '; Rscript ' + prices + 
-					' False False all/ True ' + str(i), 
-					'cd ' + estdir + '; Rscript ' + freight + 
-					' False False all/ True ' + str(i),
-					'cd ' + estdir + '; Rscript ' + tau + 
-					' False False all/ True ' + str(i)],
+		'params': [{'name':'EUD',
+					'long':'EUD',
+					'type':str,
+					'default':'False'}],
+		'actions': ['cd ' + estdir + '; Rscript ' + prices + " " + config["EUD"] +
+					' False all/ True ' + str(i), 
+					'cd ' + estdir + '; Rscript ' + freight + " " + config["EUD"] + 
+					' False all/ True ' + str(i),
+					'cd ' + estdir + '; Rscript ' + tau + " " + config["EUD"] +
+					' False all/ True ' + str(i)],
 		'verbosity': 2,
 	}
 

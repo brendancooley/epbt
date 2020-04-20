@@ -17,7 +17,7 @@ ui <- fluidPage(
   tags$head(tags$style(HTML(paste0("a:hover {color: ", bcOrange, "}")))),
   
   # Application title
-  h3("Estimating Policy Barriers to Trade: Results"),
+  h3("Estimating Policy Barriers to Trade: Results (2011)"),
   p("Brendan Cooley"),
   p("Ph.D. Candidate, Department of Politics, Princeton University"),
   p(icon("file-pdf", lib="font-awesome"), a(" Paper", href="http://brendancooley.com/docs/epbt.pdf"),

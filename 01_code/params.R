@@ -48,10 +48,16 @@ proprietaryDataPath <- "~/Dropbox (Princeton)/1_Papers/epbt/estimation/dataPropr
 
 ### BOOTSTRAP ###
 
-bootstrap_dir <- paste0(basedir, "05_bootstrap/")
+if (EUD == FALSE) {
+  bootstrap_dir <- paste0(basedir, "05_bootstrap/")
+} else {
+  bootstrap_dir <- paste0(basedir, "05_bootstrap/EUD/")
+}
+
 bootstrap_P_dir <- paste0(bootstrap_dir, "P/")
 bootstrap_freight_dir <- paste0(bootstrap_dir, "delta/")
 bootstrap_tau_dir <- paste0(bootstrap_dir, "tau/")
+
 # bstrp_prices <- paste0(bootstrapdir, "prices/")
 # bstrp_freight <- paste0(bootstrapdir, "freight/")
 
