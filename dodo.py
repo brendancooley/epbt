@@ -25,6 +25,7 @@ tar = "08_tar.R"
 pta = "09_pta.R"
 polity = "10_polity.R"
 correlates = "11_correlates.R"
+results = "12_results.R"
 
 templatesPath = "~/Dropbox\ \(Princeton\)/8_Templates/"
 softwarePath = "~/Dropbox\ \(Princeton\)/14_Software/"
@@ -129,6 +130,11 @@ def task_bootstrap():
 					'cd ' + estdir + '; Rscript ' + tau + " " + config["EUD"] +  " " + 
 					config["tpsp"] + " " + config["size"] + ' True ' + str(i)],
 		'verbosity': 2,
+	}
+	yield {
+		'name': "summarizing...",
+		'actions': ['cd ' + estdir + "; Rscript " + results + " " + config["EUD"] + " " + 
+					config["tpsp"] + " " + config["size"]]
 	}
 
 

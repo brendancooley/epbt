@@ -86,7 +86,10 @@ bootstrap_tau_dir <- paste0(bootstrap_dir, "tau/")
 
 tau_quantiles_path <- paste0(results_local_dir, "tau_quantiles.csv")
 tau_quantiles_shiny_path <- paste0(shinydir, "tau_quantiles.csv")
-
+if (EUD == TRUE) {
+  tau_quantiles_path <- paste0(results_local_dir, "tau_quantiles_EUD.csv")
+  tau_quantiles_shiny_path <- paste0(shinydir, "tau_quantiles_EUD.csv")
+}
 
 # helperPath <- "~/Dropbox (Princeton)/14_Software/R/"
 # helperFiles <- list.files(helperPath)

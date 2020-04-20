@@ -1,3 +1,14 @@
+args <- commandArgs(trailingOnly=TRUE)
+if (is.null(args) | identical(args, character(0))) {
+  EUD <- FALSE
+  TPSP <- FALSE
+  size <- "all"
+} else {
+  EUD <- ifelse(args[1] == "True", TRUE, FALSE)
+  TPSP <- ifelse(args[2] == "True", TRUE, FALSE)
+  size <- args[3]
+}
+
 shiny <- FALSE
 source("params.R")
 
@@ -24,5 +35,7 @@ colnames(Q) <- c("q025", "q500", "q975")
 tau_quantiles <- cbind(tau_M %>% select(i_iso3, j_iso3), Q) %>% as_tibble()
 tau_quantiles$i_iso3 <- as.factor(tau_quantiles$i_iso3)
 
-write_csv(tau_quantiles, tau_quantiles_path)
-write_csv(tau_quantiles, tau_quantiles_shiny_path)
+if (TPSP==FALSE) {
+  write_csv(tau_quantiles, tau_quantiles_path)
+  write_csv(tau_quantiles, tau_quantiles_shiny_path)
+}
