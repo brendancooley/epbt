@@ -1,5 +1,6 @@
 ### SETUP ###
 
+# shiny <- FALSE
 source("../01_code/params.R")
 
 libs <- c('tidyverse', "plotly", "ggvis")
@@ -8,6 +9,7 @@ ipak(libs)
 M <- 24
 
 tau_quantiles <- read_csv(tau_quantiles_path)
+# ccodes <- ccodesAll
 
 ### PLOT ###
 
@@ -24,7 +26,7 @@ tauq_ci <- tau_quantiles %>% ggplot(aes(x=q500, y=factor(i_iso3, levels=ccodes))
         panel.grid.major.x=element_line(c(2, 4, 6), color=grid.col),
         panel.grid.major.y=element_line(rev(levels(tau_quantiles$i_iso3)), color=grid.col)
         ) +
-  labs(x="Policy Barrier", y="Trade Partner", title="Policy Barriers, Uncertainty") +
+  labs(x="Policy Barrier", y="Trade Partner", title="Policy Barriers, Uncertainty (by Importer)") +
   facet_wrap(~j_iso3, ncol=4)
 
 ggsave("tauq_ci.png", tauq_ci, scale=2)

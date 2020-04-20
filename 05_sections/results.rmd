@@ -27,7 +27,7 @@ The model and data jointly suggest that international trade remains far from fre
 
 International trade is also far from fair. A fair international trading system might allow for trade restrictions, but require that these restrictions affect all trading partners equally. In fact, policy barriers to trade are quite discriminatory. In `r Y`, the mean within-country standard deviation of $\tau_{ij}$ is `r round(mean(tau %>% group_by(j_iso3) %>% summarise(sd=sd(tau)) %>% pull(), na.rm=T), 2)`, representing a significant preferential margin for preferred trade partners. For example, in `r Y`, U.S. trade with Canada ($\tau_{ij} =$ `r tau %>% filter(j_iso3=="USA", i_iso3=="CAN") %>% pull(tau) %>% round(2)`), Japan (`r tau %>% filter(j_iso3=="USA", i_iso3=="JPN") %>% pull(tau) %>% round(2)`), and the European Union (`r tau %>% filter(j_iso3=="USA", i_iso3=="EU") %>% pull(tau) %>% round(2)`) was relatively unhindered. Conversely, U.S. trade with Peru (`r tau %>% filter(j_iso3=="USA", i_iso3=="PER") %>% pull(tau) %>% round(2)`) and Vietnam (`r tau %>% filter(j_iso3=="USA", i_iso3=="VNM") %>% pull(tau) %>% round(2)`) was highly restricted.
 
-```{r hm, echo=FALSE, warning=FALSE, message=FALSE, fig.cap = paste("Distribution of policy barriers to trade. Each cell reports the magnitude of the policy barrier each importing country (y-axis) imposes on every exporting country (x-axis). Countries are partitioned into", Kmeans, "groups through K-means clustering. Black rectangles enclose each cluster. \\label{fig:hm}"), fig.height=6, dpi=300, fig.pos="t"}
+```{r hm, echo=FALSE, warning=FALSE, message=FALSE, fig.cap = paste("Distribution of policy barriers to trade. Each cell reports the magnitude of the policy barrier each importing country (y-axis) imposes on every exporting country (x-axis). Countries are partitioned into", Kmeans, "groups through K-means clustering. Black rectangles enclose each cluster. An interactive version of this plot is available at [https://brendancooley.shinyapps.io/epbt](https://brendancooley.shinyapps.io/epbt). \\label{fig:hm}"), fig.height=6, dpi=300, fig.pos="t"}
 
 EUHM <- F
 highlight <- NULL
@@ -39,6 +39,17 @@ hm
 ```
 
 Figure \ref{fig:hm} shows the distribution of directed policy barriers to trade in the data. The latent trade discrimination implemented by the United States is not unique -- openness varies significantly at the importer-exporter level. Clustering countries by the similarity of their trade policy vectors uncovers regional biases in trade policy. I sort countries into economic blocs through a K-means procedure with `r Kmeans` groups. Pacific countries (East and Southeast Asia and Australasia) are grouped together, as are North and South American countries. The European Union is grouped with Russia and Turkey. Because freight costs are not included in these measures, these economic blocs are not the result of mere geographic proximity. Rather, these countries have undergone political-economic union by reducing policy barriers to trade on one anothers' products.
+
+Figure \ref{fig:tau_ci} plots uncertainty intervals surrounding the magnitude of policy barriers for each importing country in the sample. These intervals are asymmetric around the point estimates due to nonlinearities in the estimating equation (\ref{eq:tau}). 
+
+```{r tau_ci, echo=FALSE, warning=FALSE, message=FALSE, fig.cap ="", fig.height=12, dpi=300,fig.pos="t"}
+
+source(paste0("../", figs_dir, "/tau_ci.R"))
+# NOTE: runs ggsave, pull file below
+
+```
+
+![Policy barrier estimates, magnitudes and uncertainty intervals. Each panel displays the estimated policy barriers applied by an importing country on products from every in-sample source country. An interactive version of this plot is available at [https://brendancooley.shinyapps.io/epbt](https://brendancooley.shinyapps.io/epbt). \label{fig:tau_ci}](03_figs/tauq_ci.png)
 
 These barriers can be aggregated into two numbers -- a Trade Restrictiveness Index (TRI) and a Market Access Index (MAI) -- that summarize each country's import restrictiveness and international market access conditions, respectively. The TRI is simply a weighted average of the policy barriers an importing country imposes on all other countries, where the weights are the gross tradable expenditures of these other countries.^[I use gross consumption, rather than observed flows, as weights for consistency with the theoretical framework. Trade flows are endogenous to each country's trade policy decisions. In a friction-less world, exporters would capture a constant share of every market's gross expenditure on tradables.]
 \begin{equation} \label{eq:tri}

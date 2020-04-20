@@ -13,7 +13,9 @@ gdpWorld <- gdp %>% filter(year==Y) %>% pull(gdp) %>% sum()
 
 ```
 
-I present results from a calibration on a set of `r N` of the world's largest economies in `r Y`.^[The list of the economies in the sample is included in Appendix `r AsampleCountries`.] These in-sample countries collectively made up `r round(gdpSample/gdpWorld*100, digits=0)` percent of world GDP. I treat the rest of the world as an aggregate outside economy. The calibration requires me to take a stance on two structural parameters, the Frechet parameter $\theta$ and the consumers' elasticity of substitution $\sigma$. I set $\theta =$ `r theta`, in line with the estimates from the structural gravity literature [@Head2014]. I estimate $\sigma$ using cross-national variation in prices and consumer expenditure shares on categories of tradable goods. 
+I present results from a calibration on a set of `r N` of the world's largest economies in `r Y`.^[The list of the economies in the sample is included in Appendix `r AsampleCountries`.] These in-sample countries collectively made up `r round(gdpSample/gdpWorld*100, digits=0)` percent of world GDP. I treat the rest of the world as an aggregate outside economy. The calibration requires me to take a stance on a single structural parameter, the Frechét parameter, $\theta$. I set $\theta =$ `r theta`, in line with the estimates from the structural gravity literature [@Head2014].
+
+Price indices and freight costs estimated below are measured with error. I employ a nonparametric bootstrap to quantify the uncertainty surrounding the implied magnitude of policy barriers. This entails sampling product-level prices and observed freight costs with replacement and recomputing $\tau_{ij}$ many times. 
 
 ## Prices and Consumer Expenditures
 
