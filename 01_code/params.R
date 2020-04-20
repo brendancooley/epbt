@@ -9,6 +9,22 @@ library(tidyverse)
 
 M <- 100 # number of bootstrap iterations
 
+### SOURCE HELPERS ###
+
+ccodesAll <- c()
+
+if (shiny==FALSE) {
+  ccodesPath <- paste0(cleandir, "ccodes.csv")
+  if (file.exists(ccodesPath)) {
+    ccodesAll <- read_csv(ccodesPath) %>% pull(.)  # all
+  }
+  sourceDir <- paste0("../source/R/")
+  sourceFiles <- list.files(sourceDir)
+  for (i in sourceFiles) {
+    source(paste0(sourceDir, i))
+  }
+}
+
 ### DIRECTORIES ###
 
 analysis_dirname <- "01_code"
@@ -69,24 +85,6 @@ bootstrap_tau_dir <- paste0(bootstrap_dir, "tau/")
 
 tau_quantiles_path <- paste0(results_local_dir, "tau_quantiles.csv")
 tau_quantiles_shiny_path <- paste0(shinydir, "tau_quantiles.csv")
-
-### SOURCE HELPERS ###
-
-ccodesAll <- c()
-
-wd <- getwd()
-
-if (shiny==FALSE) {
-  ccodesPath <- paste0(cleandir, "ccodes.csv")
-  if (file.exists(ccodesPath)) {
-    ccodesAll <- read_csv(ccodesPath) %>% pull(.)  # all
-  }
-  sourceDir <- paste0("../source/R/")
-  sourceFiles <- list.files(sourceDir)
-  for (i in sourceFiles) {
-    source(paste0(sourceDir, i))
-  }
-}
 
 
 # helperPath <- "~/Dropbox (Princeton)/14_Software/R/"
