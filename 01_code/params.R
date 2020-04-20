@@ -50,8 +50,9 @@ proprietaryDataPath <- "~/Dropbox (Princeton)/1_Papers/epbt/estimation/dataPropr
 
 bootstrap_dir <- paste0(basedir, "05_bootstrap/")
 if (EUD == TRUE) {
-  bootstrap_dir <- paste0(basedir, "05_bootstrap/EUD/")
-} if (TPSP == TRUE) {
+  bootstrap_dir <- paste0(basedir, "05_bootstrap/EUD/") 
+}
+if (TPSP == TRUE) {
   bootstrap_dir <- paste0(basedir, "05_bootstrap/tpsp/", size)
 }
 
