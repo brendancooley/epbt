@@ -9,22 +9,6 @@ library(tidyverse)
 
 M <- 100 # number of bootstrap iterations
 
-### SOURCE HELPERS ###
-
-ccodesAll <- c()
-
-if (shiny==FALSE) {
-  ccodesPath <- paste0(cleandir, "ccodes.csv")
-  if (file.exists(ccodesPath)) {
-    ccodesAll <- read_csv(ccodesPath) %>% pull(.)  # all
-  }
-  sourceDir <- paste0("../source/R/")
-  sourceFiles <- list.files(sourceDir)
-  for (i in sourceFiles) {
-    source(paste0(sourceDir, i))
-  }
-}
-
 ### DIRECTORIES ###
 
 analysis_dirname <- "01_code"
@@ -61,6 +45,23 @@ cleandirEU <- paste0(cleandir, "EUD/")
 resultsdirEU <- paste0(resultsdir, "EUD/")
 
 proprietaryDataPath <- "~/Dropbox (Princeton)/1_Papers/epbt/estimation/dataProprietary/"
+
+### SOURCE HELPERS ###
+
+ccodesAll <- c()
+
+if (shiny==FALSE) {
+  ccodesPath <- paste0(cleandir, "ccodes.csv")
+  if (file.exists(ccodesPath)) {
+    ccodesAll <- read_csv(ccodesPath) %>% pull(.)  # all
+  }
+  sourceDir <- paste0("../source/R/")
+  sourceFiles <- list.files(sourceDir)
+  for (i in sourceFiles) {
+    source(paste0(sourceDir, i))
+  }
+}
+
 
 ### BOOTSTRAP ###
 
