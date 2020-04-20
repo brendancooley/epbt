@@ -96,6 +96,8 @@ tau_quantiles_shiny_path <- paste0(shinydir, "tau_quantiles.csv")
 
 ### MAKE DIRECTORIES ###
 
+wd <- getwd()
+
 if (analysis_dirname %in% strsplit(wd, "/")[[1]]) {
   mkdir(bootstrap_dir)
   mkdir(bootstrap_P_dir)
