@@ -67,29 +67,14 @@ ccodesAll <- c()
 wd <- getwd()
 
 if (shiny==FALSE) {
-  if ("05_sections" %in% strsplit(wd, "/")[[1]]) {
-    sourceDir <- paste0("../", analysis_dirname, "/source/")
-    sourceFiles <- list.files(sourceDir)
-    for (i in sourceFiles) {
-      source(paste0(sourceDir, i))
-    }
-  } else {
-    if (analysis_dirname %in% strsplit(wd, "/")[[1]]) {
-      sourceFiles <- list.files("source/")
-      for (i in sourceFiles) {
-        source(paste0("source/", i))
-      }
-      ccodesPath <- paste0(cleandir, "ccodes.csv")
-      if (file.exists(ccodesPath)) {
-        ccodesAll <- read_csv(ccodesPath) %>% pull(.)  # all
-      }
-    } else {
-      sourceDir <- paste0("../", analysis_dirname, "/source/")
-      sourceFiles <- list.files(sourceDir)
-      for (i in sourceFiles) {
-        source(paste0(sourceDir, i))
-      }
-    }
+  ccodesPath <- paste0(cleandir, "ccodes.csv")
+  if (file.exists(ccodesPath)) {
+    ccodesAll <- read_csv(ccodesPath) %>% pull(.)  # all
+  }
+  sourceDir <- paste0("../source/R/")
+  sourceFiles <- list.files(sourceDir)
+  for (i in sourceFiles) {
+    source(paste0(sourceDir, i))
   }
 }
 

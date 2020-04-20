@@ -41,7 +41,7 @@ def task_source():
 		'name': "initializing environment...",
 		'actions':["mkdir -p templates/",
 				   "cp " + templatesPath + "cooley-paper-template.latex" + " templates/",
-				   "cp -a " + softwarePath + "R/ " + estdir + "source/"]
+				   "cp -a " + softwarePath + " source/"]
 	}
 
 def task_extract():
