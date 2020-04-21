@@ -18,7 +18,11 @@ ipak(libs)
 ### DATA ###
 
 if (EUD == FALSE) {
-  ccodes <- read_csv(paste0(cleandir, "ccodes.csv")) %>% pull(.)
+  if (TPSP == FALSE) {
+    ccodes <- read_csv(paste0(cleandir, "ccodes.csv")) %>% pull(.)
+  } else {
+    ccodes <- ccodesTPSP
+  }
 } else {
   ccodes <- read_csv(paste0(cleandir, "EUD/", "ccodes.csv")) %>% pull(.)
 }

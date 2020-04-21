@@ -119,10 +119,6 @@ def task_bootstrap():
 	for i in range(1, M+1):
 		yield {
 		'name': "bootstrap iteration " + str(i) + "...",
-		'params': [{'name':'EUD',
-					'long':'EUD',
-					'type':str,
-					'default':'False'}],
 		'actions': ['cd ' + estdir + '; Rscript ' + prices + " " + config["EUD"] + " " + 
 					config["tpsp"] + " " + config["size"] + ' True ' + str(i), 
 					'cd ' + estdir + '; Rscript ' + freight + " " + config["EUD"] +  " " + 
@@ -136,6 +132,13 @@ def task_bootstrap():
 		'actions': ['cd ' + estdir + "; Rscript " + results + " " + config["EUD"] + " " + 
 					config["tpsp"] + " " + config["size"]]
 	}
+	if config["tpsp"] == "True":
+		yield {
+			'name': "transferring  " + str(i) + "...",
+			'actions':['cd ' + estdir + '; Rscript tpsp.R True ' + config["size"] + ' True ' + str(i),
+					   "mkdir -p " + tpspDataPath + config["size"] + str(i) + "/",
+					   "cp -a " + dataPath + "tpsp_bootstrap_" + config["size"] + str(i) + "/ " + tpspDataPath + config["size"] + "/" + str(i) + "/"]
+		}
 
 
 def task_tpsp():
@@ -162,7 +165,7 @@ def task_tpsp():
 					'cd ' + estdir + '; Rscript ' + prices + ' False True %(size)s False 1',
 					'cd ' + estdir + '; Rscript ' + freight + ' False True %(size)s False 1',
 					'cd ' + estdir + '; Rscript ' + tau + ' False True %(size)s False 1',
-					'cd ' + estdir + '; Rscript tpsp.R True %(size)s',
+					'cd ' + estdir + '; Rscript tpsp.R True %(size)s False 0',
 					"mkdir -p " + tpspDataPath + "%(size)s",
 					"cp -a " + dataPath + "tpsp_data_" + "%(size)s " + tpspDataPath + "%(size)s"],
 		'verbosity': 2,
