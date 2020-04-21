@@ -189,6 +189,9 @@ Xshares <- X %>% select(i_iso3, j_iso3, year, tau, Lji, Ljj, j_gcT, i_gcT)
 # Xshares %>% summary()
 # Xshares %>% filter(j_iso3=="VNM") %>% print(n=100)
 
+d <- gdpR %>% select(j_iso3, j_deficit)
+colnames(d) <- c("iso3", "deficit")
+
 if (bootstrap==FALSE) {
   if (EUD==FALSE) {
     if (tauRev==FALSE) {
@@ -205,8 +208,6 @@ if (bootstrap==FALSE) {
   } 
   # export deficits
   if (tauRev==TRUE) {
-    d <- gdpR %>% select(j_iso3, j_deficit)
-    colnames(d) <- c("iso3", "deficit")
     if (TPSP==FALSE) {
       write_csv(d, paste0(cleandir, "dTR.csv"))
     } else {
