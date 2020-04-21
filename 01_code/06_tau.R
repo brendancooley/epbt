@@ -202,8 +202,7 @@ if (bootstrap==FALSE) {
     }
   } else {
     write_csv(Xshares, paste0(cleandirEU, "shares.csv"))
-  }
-  
+  } 
   # export deficits
   if (tauRev==TRUE) {
     d <- gdpR %>% select(j_iso3, j_deficit)
@@ -213,6 +212,11 @@ if (bootstrap==FALSE) {
     } else {
       write_csv(d, paste0(cleandirTPSP, "dTR.csv"))
     }
+  }
+} else {
+  if (TPSP==TRUE) {
+    write_csv(Xshares, paste0(bootstrap_sharesTR_dir, bootstrap_id, ".csv"))
+    write_csv(d, paste0(bootstrap_dTR_dir, bootstrap_id, ".csv"))
   }
 }
 
