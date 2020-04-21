@@ -26,6 +26,8 @@ ui <- fluidPage(
     HTML("&emsp;"),
     icon("table", lib="font-awesome"), a(" Data", href="https://raw.githubusercontent.com/brendancooley/epbt/master/02_results/tau_quantiles.csv"),
     HTML("&emsp;"),
+    icon("table", lib="font-awesome"), a(" Data (within-EU)", href="https://raw.githubusercontent.com/brendancooley/epbt/master/02_results/tau_quantiles_EUD.csv"),
+    HTML("&emsp;"),
     icon("envelope", lib="font-awesome"), "bcooley (at) princeton.edu"),
   
   tabsetPanel(
@@ -34,6 +36,7 @@ ui <- fluidPage(
       p(),
       fluidRow(
         column(3, 
+          radioButtons("eud_pp", "Disaggregate EU?", choices=c("Yes"="yes", "No"="no"), selected="no"),
           radioButtons("trma", "TR/MA:", choices=c("Trade Restrictiveness"="tr", "Market Access"="ma")),
           selectInput("pbc_ccode", "Choose Country:", choices=ccodes, selected="USA")
         ),
@@ -42,6 +45,9 @@ ui <- fluidPage(
           p("Plot shows point estimates and 95% confidence interval for estimated policy barrier 
             imposed by/on selected country's imports/exports with trading partners. 
             An estimate of one is consistent with no policy barriers (free trade)."),
+          p(strong("Disaggregate EU "),
+            "controls whether or not European Union countries should be aggregated into a single
+            unit or not. "),
           p(strong("TR/MA"), " toggles showing the selected country's estimated ", em("trade restrictiveness,"), 
             "the effective taxes it imposes on its imports, and it's estimated ", em("market access,"),
             "the effective taxes imposed on its exports.")
@@ -52,7 +58,7 @@ ui <- fluidPage(
       p(),
       fluidRow(
         column(3,
-          radioButtons("eud", "Disaggregate EU?", choices=c("Yes"="yes", "No"="no"), selected="no"),
+          radioButtons("eud_hm", "Disaggregate EU?", choices=c("Yes"="yes", "No"="no"), selected="no"),
           radioButtons("cluster", "Cluster?", choices=c("Yes"="yes", "No"="no"), selected="no"),
           uiOutput("K")
         ),

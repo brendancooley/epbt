@@ -11,6 +11,7 @@ tauHMY <- read_csv("tauHMY.csv")
 tauHMYEUD <- read_csv("tauY.csv")
 
 tau_quantiles <- read_csv("tau_quantiles.csv")
+tau_quantiles_EUD <- read_csv("tau_quantiles_EUD.csv")
 icpBHTAgg <- read_csv("icpBHTAgg.csv")
 priceIndex <- read_csv("priceIndex.csv") %>% select(iso3, priceIndex)
 colnames(priceIndex) <- c("ccode", "priceIndex")
@@ -27,15 +28,20 @@ highlight <- bcOrange
 background <- "#77C3FA"
 grid.col <- "#E8E8E8"
 
-ccodes <- tau_quantiles$j_iso3 %>% unique()
+ccodes_base <- tau_quantiles$j_iso3 %>% unique()
+ccodes_EUD <- tau_quantiles_EUD$j_iso3 %>% unique()
+
+ccodes <- c(tau_quantiles$j_iso3, tau_quantiles_EUD$j_iso3) %>% unique()
 ccodes_df <- data.frame(ccodes)
 colnames(ccodes_df) <- c("iso3")
 ccodes_df$country.name <- countrycode(ccodes_df$iso3, "iso3c", "country.name")
 ccodes_df$country.name[ccodes_df$iso3=="EU"] <- "European Union"
 ccodes_df$country.name[ccodes_df$iso3==ROWname] <- "Rest of World"
 ccodes_df$country.name[ccodes_df$iso3=="MYSG"] <- "Malaysia/Singapore"
+ccodes_df$country.name[ccodes_df$iso3=="BNL"] <- "Belgium/Netherlands/Luxembourg"
+ccodes_df$country.name[ccodes_df$iso3=="ELL"] <- "Estonia/Latvia/Lithuania"
 
-server <- function(input, output) {
+server <- function(input, output, session) {
   
   paper_link <- a("brendancooley.com/docs/epbt.pdf", href="brendancooley.com")
   output$web_link <- renderUI({
@@ -53,12 +59,26 @@ server <- function(input, output) {
   
   ### BARRIERS (COUNTRY LEVEL) ###
   
+  observeEvent(input$eud_pp, {
+    if (input$eud_pp=="no") {
+      ccodes_out <- ccodes_base
+    } else {
+      ccodes_out <- ccodes_EUD
+    }
+    updateSelectInput(session, "pbc_ccode", choices=ccodes_out, selected=input$pbc_ccode)
+  })
+  
   data_pbc <- reactive({
+    if (input$eud_pp=="no") {
+      tq_pbc <- tau_quantiles
+    } else {
+      tq_pbc <- tau_quantiles_EUD
+    }
     if (input$trma=="tr") {
-      out <- tau_quantiles %>% filter(j_iso3==input$pbc_ccode)
+      out <- tq_pbc %>% filter(j_iso3==input$pbc_ccode)
       out$y <- out$i_iso3
     } else {
-      out <- tau_quantiles %>% filter(i_iso3==input$pbc_ccode)
+      out <- tq_pbc %>% filter(i_iso3==input$pbc_ccode)
       out$y <- out$j_iso3
     }
     out
@@ -90,7 +110,7 @@ server <- function(input, output) {
   ### HM ###
   
   output$hm <- renderPlot({
-    EUHM <- ifelse(input$eud=="yes", T, F)
+    EUHM <- ifelse(input$eud_hm=="yes", T, F)
     highlight <- NULL
     cluster <- ifelse(input$cluster=="yes", T, F)
     Kmeans <- KmeansEUD <- ifelse(is.null(input$K_val), 3, input$K_val)

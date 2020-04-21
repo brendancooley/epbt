@@ -17,7 +17,11 @@ ipak(libs)
 
 ### DATA ###
 
-ccodes <- read_csv(paste0(cleandir, "ccodes.csv")) %>% pull(.)
+if (EUD == FALSE) {
+  ccodes <- read_csv(paste0(cleandir, "ccodes.csv")) %>% pull(.)
+} else {
+  ccodes <- read_csv(paste0(cleandir, "EUD/", "ccodes.csv")) %>% pull(.)
+}
 
 tau_M <- data.frame(expand.grid(ccodes, ccodes)) %>% as_tibble()
 colnames(tau_M) <- c("i_iso3", "j_iso3")
