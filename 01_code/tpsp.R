@@ -2,25 +2,36 @@ print("-----")
 print("Starting tpsp.R")
 print("-----")
 
-library(tidyverse)
-library(countrycode)
-library(cshapes)
-library(reshape2)
-
 args <- commandArgs(trailingOnly=TRUE)
 if (is.null(args) | identical(args, character(0))) {
   TPSP <- FALSE
   size <- "all"
+  bootstrap <- FALSE
+  bootstrap_id <- 1
 } else {
   TPSP <- ifelse(args[1] == "True", TRUE, FALSE)
   size <- args[2]
+  bootstrap <- ifelse(args[3] == "True", TRUE, FALSE)
+  bootstrap_id <- args[4]
 }
 
-expdirPath <- paste0("tpsp_data_", size)
-
+shiny <- FALSE
+EUD <- FALSE
 source("params.R")
-expdirTPSP <- paste0(basedir, expdirPath)
-mkdir(expdirTPSP)
+libs <- c("tidyverse", "countrycode", "cshapes", "reshape2", "WDI")
+ipak(libs)
+
+if (bootstrap==FALSE) {
+  expdirPath <- paste0("tpsp_data_", size)
+  expdirTPSP <- paste0(basedir, expdirPath)
+  mkdir(expdirTPSP)
+} else {
+  expdirPath <- paste0("tpsp_bootstrap_", size, "/")
+  expdirTPSP_base <- paste0(basedir, expdirPath)
+  mkdir(expdirTPSP_base)
+  expdirTPSP <- paste0(expdirTPSP_base, bootstrap_id, "/")
+  mkdir(expdirTPSP)
+}
 
 write_csv(mu %>% as.data.frame(), paste0(expdirTPSP, "mu.csv"), col_names = FALSE)
 write_csv(Y %>% as.data.frame(), paste0(expdirTPSP, "year.csv"), col_names = FALSE)
@@ -45,19 +56,30 @@ if (TPSP==FALSE) {
   
 } else {
   
-  # sigma <- read_csv(paste0(resultsdirTPSP, "sigma.csv"))
-  
-  P <- read_csv(paste0(cleandirTPSP, "priceIndex.csv"))
-  tau <- read_csv(paste0(resultsdirTPSP, "tauYTR.csv")) %>% select(-tauAlt)
-  shares <- read_csv(paste0(cleandirTPSP, "sharesTR.csv"))  # in cif value
-  delta <- read_csv(paste0(cleandirTPSP, "delta.csv")) %>% filter(year==Y)
-  
   gc <- read_csv(paste0(cleandirTPSP,"gc.csv")) %>% filter(year==Y)
   # go <- read_csv("clean/go.csv") %>% filter(year==Y)
   gdp <- read_csv(paste0(cleandirTPSP, "gdp.csv")) %>% filter(year==Y) %>% select(-deficit, -gdp)
-  deficits <- read_csv(paste0(cleandirTPSP, "dTR.csv"))
-  
   ccodes <- read_csv(paste0(cleandirTPSP, "ccodes.csv"))
+  
+  if (bootstrap==FALSE) {
+    
+    # sigma <- read_csv(paste0(resultsdirTPSP, "sigma.csv"))
+    
+    P <- read_csv(paste0(cleandirTPSP, "priceIndex.csv"))
+    tau <- read_csv(paste0(resultsdirTPSP, "tauYTR.csv")) %>% select(-tauAlt)
+    shares <- read_csv(paste0(cleandirTPSP, "sharesTR.csv"))  # in cif value
+    deficits <- read_csv(paste0(cleandirTPSP, "dTR.csv"))
+    delta <- read_csv(paste0(cleandirTPSP, "delta.csv")) %>% filter(year==Y)
+    
+  } else {
+    
+    P <- read_csv(paste0(bootstrap_P_dir, bootstrap_id, ".csv"))
+    tau <- read_csv(paste0(bootstrap_tau_dir, bootstrap_id, ".csv")) %>% select(-tauAlt)
+    shares <- read_csv(paste0(bootstrap_sharesTR_dir, bootstrap_id, ".csv"))  # in cif value
+    deficits <- read_csv(paste0(bootstrap_dTR_dir, bootstrap_id, ".csv"))
+    delta <- read_csv(paste0(bootstrap_freight_dir, bootstrap_id, ".csv")) %>% filter(year==Y)
+    
+  }
   
 }
 
@@ -171,7 +193,11 @@ write_csv(d, paste0(expdirTPSP, "d.csv"), col_names=FALSE)
 write_csv(y, paste0(expdirTPSP, "y.csv"), col_names=FALSE)
 
 # trade policies
-tau <- tau %>% arrange(j_iso3, i_iso3) %>% select(-year)
+if (bootstrap==FALSE) {
+  tau <- tau %>% arrange(j_iso3, i_iso3) %>% select(-year)
+} else {
+  tau <- tau %>% arrange(j_iso3, i_iso3)
+}
 
 tauM <- tau %>% 
   select(i_iso3, j_iso3, tau) %>% 
@@ -242,7 +268,6 @@ dmatOut <- ddfOut %>% spread(iso2, minDist) %>% select(-iso1) %>% as.matrix()
 write_csv(dmatOut %>% as.data.frame(), paste0(expdirTPSP, "cDists.csv"), col_names=FALSE)
 
 ### military spending ###
-library(WDI)
 
 milex <- WDI(indicator="MS.MIL.XPND.CD", start=Y, end=Y) %>% as_tibble()
 milex$iso3 <- countrycode(milex$iso2c, "iso2c", "iso3c")
