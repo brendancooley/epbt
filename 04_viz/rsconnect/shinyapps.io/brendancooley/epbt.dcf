@@ -5,8 +5,8 @@ account: brendancooley
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 2131223
-bundleId: 3039240
+bundleId: 3044619
 url: https://brendancooley.shinyapps.io/epbt/
-when: 1587394477.52415
+when: 1587480962.51872
 asMultiple: FALSE
 asStatic: FALSE
