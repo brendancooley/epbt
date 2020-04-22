@@ -133,12 +133,13 @@ def task_bootstrap():
 					config["tpsp"] + " " + config["size"]]
 	}
 	if config["tpsp"] == "True":
-		yield {
-			'name': "transferring  " + str(i) + "...",
-			'actions':['cd ' + estdir + '; Rscript tpsp.R True ' + config["size"] + ' True ' + str(i),
-					   "mkdir -p " + tpspDataPath + config["size"] + str(i) + "/",
-					   "cp -a " + dataPath + "tpsp_bootstrap_" + config["size"] + str(i) + "/ " + tpspDataPath + config["size"] + "/" + str(i) + "/"]
-		}
+		for i in range(1, M+1):
+			yield {
+				'name': "transferring  " + str(i) + "...",
+				'actions':['cd ' + estdir + '; Rscript tpsp.R True ' + config["size"] + ' True ' + str(i),
+						   "mkdir -p " + tpspDataPath + config["size"] + str(i) + "/",
+						   "cp -a " + dataPath + "tpsp_bootstrap_" + config["size"] + str(i) + "/ " + tpspDataPath + config["size"] + "/" + str(i) + "/"]
+			}
 
 
 def task_tpsp():

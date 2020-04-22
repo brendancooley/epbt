@@ -25,11 +25,15 @@ shinydir <- paste0("../04_viz/")
 
 ccodes_mini <- c("CHN", "EU", "JPN", "USA")
 ccodes_mid <- c("AUS", "BRA", "CAN", "CHN", "EU", "JPN", "KOR", "USA")
+ccodes_mid_RUS <- c("AUS", "BRA", "CAN", "CHN", "EU", "JPN", "KOR", "RUS", "USA")
 ccodes_large <- c("AUS", "BRA", "CAN", "CHN", "EU", "IDN", "JPN", "KOR", "MEX", "ROW", "RUS", "TUR", "USA")
 
 if (TPSP==TRUE) {
   if (size=="mid/") {
     ccodesTPSP <- ccodes_mid
+  }
+  if (size=="mid_RUS/") {
+    ccodesTPSP <- ccodes_mid_RUS
   }
   if (size=="large/") {
     ccodesTPSP <- ccodes_large
