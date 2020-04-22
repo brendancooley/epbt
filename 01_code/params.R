@@ -79,6 +79,7 @@ if (TPSP == TRUE) {
   bootstrap_sharesTR_dir <- paste0(bootstrap_dir, "sharesTR/")
   bootstrap_dTR_dir <- paste0(bootstrap_dir, "dTR/")
   mkdir(bootstrap_tpsp_dir)
+  mkdir(bootstrap_dir)
   mkdir(bootstrap_sharesTR_dir)
   mkdir(bootstrap_dTR_dir)
 }
