@@ -39,7 +39,7 @@ verticatorPath = "~/Dropbox\ \(Princeton\)/8_Templates/plugin/verticator"
 pluginDest = "index_files/reveal.js-3.8.0/plugin"
 revealPath = "~/Dropbox\ \(Princeton\)/8_Templates/reveal.js-3.8.0"
 
-M = 100  # number of bootstrap iterations
+M = 1000  # number of bootstrap iterations
 
 def task_source():
 	yield {
