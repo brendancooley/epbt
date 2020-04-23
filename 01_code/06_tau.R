@@ -165,8 +165,6 @@ colnames(P) <- c("j_iso3", "year", "Pj")
 X <- left_join(X, P)
 
 X <- X %>% arrange(j_iso3, i_iso3)
-X %>% summary()
-X %>% filter(is.na(j_expS))
 
 # calculate taus and lambda_iis jointly
 if (tauRev==FALSE) {
@@ -189,7 +187,7 @@ Xshares <- X %>% select(i_iso3, j_iso3, year, tau, Lji, Ljj, j_gcT, i_gcT)
 # Xshares %>% summary()
 # Xshares %>% filter(j_iso3=="VNM") %>% print(n=100)
 
-d <- gdpR %>% select(j_iso3, j_deficit)
+d <- gdpR %>% select(iso3, j_deficit)
 colnames(d) <- c("iso3", "deficit")
 
 if (bootstrap==FALSE) {
