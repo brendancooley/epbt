@@ -120,8 +120,6 @@ modesModelOutput <- multinom(flowsModesY ~ hs2 + bs(year, degree=3) + adist_log_
 if (runPreds == TRUE) {
   
   seaModel <- lm(avcsea ~ hs2 + bs(year, degree = 3) + seadist_log + contig, data=flowsSea, weights=flowsSea$val)
-  # summary(seaModel)
-  # flowsSea %>% filter(j_iso3=="AUS")
   landModel <- lm(avcland ~ hs2 + bs(year, degree=3) + adist_log + contig, data=flowsLand, weights=flowsLand$val)
   airModel <- lm(avcair ~ hs2 + bs(year, degree=3) + adist_log + contig, data=flowsAir, weights=flowsAir$val)
   # summary(airModel)
