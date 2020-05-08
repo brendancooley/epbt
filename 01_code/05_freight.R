@@ -2,11 +2,6 @@ print("-----")
 print("Starting 05_freight.R")
 print("-----")
 
-### TO DOs ###
-
-# problem with mode shares somewhere in cleaning...ROW as j_iso3 has mode share data
-  # We actually have this data! Comes from non-EU countries that provide data before ascension
-  # drop ROW from delta estimation?
 ### Get customizable arguments from command line ###
 
 args <- commandArgs(trailingOnly=TRUE)
@@ -37,15 +32,6 @@ if ("05_sections" %in% strsplit(wd, "/")[[1]]) {
 libs <- c('tidyverse', 'earth', "nnet", "olpsR", "glmnet", "plotly", "splines", 'ggsci', 'ggthemes', 'ggrepel', "reader")
 ipak(libs) 
 
-# variable search for calling locally or from Rmd
-# wd <- getwd()
-# if ("sections" %in% strsplit(wd, "/")[[1]]) {
-#   if (EUD==FALSE) {
-#     flowsPath <- find.file('flowshs2.csv', dir=cleandir, dirs=paste0("../estimation/", cleandir))
-#   } else {
-#     flowsPath <- find.file('flowshs2.csv', dir=cleandirEU, dirs=paste0("../estimation/", cleandirEU))
-#   }
-# } else {
 if (EUD==FALSE) {
   if (TPSP==FALSE) {
     flowsPath <- paste0(cleandir, "flowshs2.csv")
@@ -55,23 +41,15 @@ if (EUD==FALSE) {
 } else{
   flowsPath <- paste0(cleandirEU, "flowshs2.csv")
 }
-# }
 
 
 flows <- read_csv(flowsPath)
-# summary(flows)
-# flows %>% filter(!is.na(avcair) & avcair < 0)
 
 # filter extreme observations
 thres <- 2.5
 flows$avcsea <- ifelse(flows$avcsea > thres, NA, flows$avcsea)
 flows$avcland <- ifelse(flows$avcland > thres, NA, flows$avcland)
 flows$avcair <- ifelse(flows$avcair > thres, NA, flows$avcair)
-
-# drop ROW (don't want to do this because we need this as part of output)
-# just estimate with weighted average of distances
-# flows <- flows %>% filter(i_iso3 != "ROW" & j_iso3 != "ROW")
-# flows %>% filter(j_iso3=="AUS") %>% print(n=100)
 
 ### island indicator
 isl <- data.frame(ccode=unique(flows$i_iso3), island=0)
@@ -89,8 +67,6 @@ flows$seadist_log <- flows$seadist + 1 %>% log()
 # scaled distances
 flows$adist_log_scaled <- scale(flows$adist_log)
 flows$seadist_log_scaled <- scale(flows$seadist_log)
-# flows %>% filter(!is.na(seadist)) %>% select(seadist, seadist_log, seadist_log_scaled) %>% summary()
-# flows %>% filter(seadist==0)
 
 
 ### MODEL AD VALOREM COSTS ###
@@ -98,7 +74,6 @@ flows$seadist_log_scaled <- scale(flows$seadist_log)
 ### Sea costs ### 
 flowsSea <- flows %>% filter(!is.na(avcsea))
 flowsSea$hs2 <- as.factor(flowsSea$hs2)
-# flowsSea$seadist_scaled <- scale(flowsSea$seadist)  # scale for interpretability only
 if (bootstrap==TRUE) {
   flowsSea <- flowsSea %>% group_by(j_iso3) %>% sample_frac(size=1, replace=TRUE)
 }
@@ -110,7 +85,6 @@ seaModelOutput <- lm(avcsea ~ hs2 + bs(year, degree = 3) + seadist_log_scaled + 
 ### Land costs ### 
 flowsLand <- flows %>% filter(!is.na(avcland))
 flowsLand$hs2 <- as.factor(flowsLand$hs2)
-# flowsLand$adist_scaled <- scale(flowsLand$adist)
 if (bootstrap==TRUE) {
   flowsLand <- flowsLand %>% group_by(j_iso3) %>% sample_frac(size=1, replace=TRUE)
 }
@@ -120,7 +94,6 @@ landModelOutput <- lm(avcland ~ hs2 + bs(year, degree=3) + adist_log_scaled + co
 ### Air Costs ###
 flowsAir <- flows %>% filter(!is.na(avcair))
 flowsAir$hs2 <- as.factor(flowsAir$hs2)
-# flowsAir$adist_scaled <- scale(flowsAir$adist)
 if (bootstrap==TRUE) {
   flowsAir <- flowsAir %>% group_by(j_iso3) %>% sample_frac(size=1, replace=TRUE)
 }
@@ -136,8 +109,6 @@ if (bootstrap==TRUE) {
 }
 
 flowsModes$hs2 <- as.factor(flowsModes$hs2)
-# flowsModes$adist_scaled <- scale(flowsModes$adist)
-# flowsModes$seadist_scaled <- scale(flowsModes$seadist)
 
 flowsModesX <- flowsModes %>% select(adist_log, seadist_log, contig, year, i_island, j_island, hs2)
 flowsModesXOutput <- flowsModes %>% select(adist_log_scaled, seadist_log_scaled, contig, year, i_island, j_island, hs2)
