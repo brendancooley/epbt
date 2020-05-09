@@ -3,9 +3,13 @@ library(ggplot2)
 library(ggrepel)
 library(ggthemes)
 
+code_dir <- "01_code/"
+shiny <- FALSE
+EUD <- FALSE
 source(paste0("../", code_dir, "params.R"))
 
 freight <- read_csv(paste0(cleandir, "freight.csv"))
+freight_proj <- read_csv(paste0(cleandir, "freight_proj.csv"))
 delta <- read_csv(paste0(cleandir, "delta.csv"))
 Y <- 2011
 

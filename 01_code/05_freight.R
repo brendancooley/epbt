@@ -147,7 +147,7 @@ flowsLogitLand$land_indicator <- 1
 flowsLogit <- bind_rows(flowsLogitSea, flowsLogitLand)
 
 flowsLogitModel <- lm(data=flowsLogit, share_diff~price_diff+sea_indicator+land_indicator-1)
-summary(flowsLogitModel)
+# summary(flowsLogitModel)
 beta_price <- coef(flowsLogitModel)[1]
 u_sea <- coef(flowsLogitModel)[2]
 u_land <- coef(flowsLogitModel)[3]
@@ -193,11 +193,14 @@ if (bootstrap==FALSE) {
   if (EUD==FALSE) {
     if (TPSP==FALSE) {
       write_csv(delta, paste0(cleandir, "delta.csv"))
+      write_csv(flows, paste0(cleandir, "freight_proj.csv"))
     } else {
       write_csv(delta, paste0(cleandirTPSP, "delta.csv"))
+      write_csv(flows, paste0(cleandirTPSP, "freight_proj.csv"))
     }
   } else {
     write_csv(delta, paste0(cleandirEU, "delta.csv"))
+    write_csv(flows, paste0(cleandirEU, "freight_proj.csv"))
   }
 } else {
   write_csv(delta, paste0(bootstrap_freight_dir, bootstrap_id, ".csv"))
