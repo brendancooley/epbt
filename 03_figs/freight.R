@@ -47,3 +47,16 @@ freightCV <- ggplot(data=dvyCHL_NZL, aes(x=dobs, y=dpred)) +
   coord_fixed() +
   guides(color=guide_legend(title="Importer")) +
   theme_classic()
+
+# ggplot(data=freight_proj, aes(x=airshare, airshareP)) +
+#   geom_point(size=.1) +
+#   geom_abline(slope=1, lty='dashed') +
+#   xlim(0, 1) +
+#   ylim(0, 1) +
+#   coord_fixed() +
+#   theme_classic()
+# 
+# seashareM <- lm(data=freight_proj, seashare~seashareP)
+# summary(seashareM)
+# landshareM <- lm(data=freight_proj, landshare~landshareP)
+# summary(landshareM)

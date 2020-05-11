@@ -29,7 +29,8 @@ if ("05_sections" %in% strsplit(wd, "/")[[1]]) {
   runPreds <- TRUE
 }
 
-libs <- c('tidyverse', 'earth', "nnet", "olpsR", "glmnet", "plotly", "splines", 'ggsci', 'ggthemes', 'ggrepel', "reader")
+libs <- c('tidyverse', 'earth', "nnet", "olpsR", "glmnet",
+          "splines", 'ggsci', 'ggthemes', 'ggrepel', "reader", "countrycode")
 ipak(libs) 
 
 if (EUD==FALSE) {
@@ -118,8 +119,31 @@ flows$avcairP <- ifelse(flows$avcairP < 0, 0, flows$avcairP)
 flows$avcseaP <- ifelse(flows$avcseaP < 0, 0, flows$avcseaP)
 flows$avclandP <- ifelse(flows$avclandP < 0, 0, flows$avclandP)
 
-### LOGIT DEMAND MODEL ###
+### MODE CONNECTIVITY ###
 
+flows$i_continent <- countrycode(flows$i_iso3, "iso3c", "continent")
+flows$j_continent <- countrycode(flows$j_iso3, "iso3c", "continent")
+
+flows$i_continent <- ifelse(flows$i_iso3 == "EU", "Europe", flows$i_continent)
+flows$j_continent <- ifelse(flows$j_iso3 == "EU", "Europe", flows$j_continent)
+flows$i_continent <- ifelse(flows$i_iso3 == "MYSG", "Asia", flows$i_continent)
+flows$j_continent <- ifelse(flows$j_iso3 == "MYSG", "Asia", flows$j_continent)
+flows$i_continent <- ifelse(flows$i_iso3 == "ELL", "Europe", flows$i_continent)
+flows$j_continent <- ifelse(flows$j_iso3 == "ELL", "Europe", flows$j_continent)
+flows$i_continent <- ifelse(flows$i_iso3 == "BNL", "Europe", flows$i_continent)
+flows$j_continent <- ifelse(flows$j_iso3 == "BNL", "Europe", flows$j_continent)
+
+# merge Asia and Europe
+flows$j_continent <- ifelse(flows$j_continent %in% c("Europe", "Asia"), "Eurasia", flows$j_continent)
+flows$i_continent <- ifelse(flows$i_continent %in% c("Europe", "Asia"), "Eurasia", flows$i_continent)
+
+# breakup Americas
+flows$j_continent <- ifelse(flows$j_iso3 %in% c("USA", "CAN", "MEX"), "North America", flows$j_continent)
+flows$i_continent <- ifelse(flows$i_iso3 %in% c("USA", "CAN", "MEX"), "North America", flows$i_continent)
+flows$j_continent <- ifelse(flows$j_continent== "Americas", "South America", flows$j_continent)
+flows$i_continent <- ifelse(flows$i_continent== "Americas", "South America", flows$i_continent)
+
+### LOGIT DEMAND MODEL ###
 
 # project out othershare
 flows_proj <- flows %>% select(seashare, airshare, landshare) %>% as.matrix() %>% apply(1, projsplx) %>% t() %>% as_tibble()
@@ -132,7 +156,15 @@ flows$avcsea_diff <- flows$avcseaP - flows$avcairP
 flows$avcland_diff <- flows$avclandP - flows$avcairP
 
 flows$island_max <- apply(flows %>% select(i_island, j_island), 1, max)
+flows$continent_dist <- ifelse(flows$i_continent==flows$j_continent, 0, 1)
+flows$land_connect <- 1 - apply(flows %>% select(island_max, continent_dist), 1, max)  # 1 if connected, 0 if not
+
+# complete ROW connections
+flows$land_connect <- ifelse(flows$i_iso3==ROWname, 1, flows$land_connect)
+flows$land_connect <- ifelse(flows$j_iso3==ROWname, 1, flows$land_connect)
+
 flows$landlocked_max <- apply(flows %>% select(i_landlocked, j_landlocked), 1, max)
+flows$sea_connect <- 1 - flows$landlocked_max
 
 flowsLogitSea <- flows %>% select(seashare_diff, avcsea_diff) %>% filter(!is.na(seashare_diff), !is.infinite(seashare_diff))
 colnames(flowsLogitSea)[1:2] <- c("share_diff", "price_diff")
@@ -153,13 +185,23 @@ u_sea <- coef(flowsLogitModel)[2]
 u_land <- coef(flowsLogitModel)[3]
 
 flows$airshare_exp <- 1
-flows$seashare_exp <- exp(flows$avcsea_diff * beta_price + u_sea) * (1 - flows$landlocked_max)
-flows$landshare_exp <- exp(flows$avcland_diff * beta_price + u_land) * (1 - flows$island_max)
+flows$seashare_exp <- exp(flows$avcsea_diff * beta_price + u_sea) * flows$sea_connect
+flows$landshare_exp <- exp(flows$avcland_diff * beta_price + u_land) * flows$land_connect
 flows$logit_denom <- flows$airshare_exp + flows$seashare_exp + flows$landshare_exp
 
 flows$airshareP <- flows$airshare_exp / flows$logit_denom
 flows$seashareP <- flows$seashare_exp / flows$logit_denom
 flows$landshareP <- flows$landshare_exp / flows$logit_denom
+
+### SHARES SUBSTANTIVE EFFECTS ###
+
+sea_base <- exp(0 * beta_price + u_sea)
+land_base <- exp(0 * beta_price + u_land)
+  
+sea_prime <- exp(.01 * beta_price + u_sea)
+
+seashare_base <- sea_base / (sea_base+land_base+1)
+seashare_prime <- sea_prime / (sea_prime+land_base+1)
 
 ### CALCULATE PREDICTED DELTAS ###
 
