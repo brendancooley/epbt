@@ -282,11 +282,17 @@ Note that implicit domestic consumption in Equation \ref{eq:lambda_jj} depends o
 
 ## Freight Costs
 
-I combine a variety of data sources on factual freight costs and modes of transportation with bilateral geographic covariates to estimate aggregate freight costs between all countries in my sample. These predicted values serve as the $\delta_{ij}$ in Equation \ref{eq:tau}.^[Because the bilateral covariates used are symmetric between any two countries, predicted freight costs are nearly symmetric as well ($\delta_{ij} \approx \delta_{ji}$). Differences in the product-level makeup of trade are the only asymmetry introduced in my framework. @Takahashi2011 and @Behrens2011 show scale economies in shipping generally do produce asymmetries in bilateral freight costs. However, given the small ratio of freight costs to implied policy barriers, accounting for these asymmetries are unlikely to fundamentally alter my results.] As depicted in Figure \ref{fig:tcosts}, all freight costs I observe cover the cost of shipments from border-to-border. They do not include costs that are incurred during intranational transit ($\rho_i$), which are differenced out of Equation \ref{eq:tau}. I discuss these data sources and the methodology used to estimate freight costs in Appendix B. Predicted freight costs average 6 percent the value of shipments and are positively correlated with distance.
+Freight costs are observed for only a subset of my sample. As depicted in Figure \ref{fig:tcosts}, all freight costs I observe cover the cost of shipments from border-to-border. They do not include costs that are incurred during intranational transit ($\rho_i$), which are differenced out of Equation \ref{eq:tau}.
+
+I build a simple model of the transportation sector in order to estimate freight costs out of sample, using data on observed freight costs and modes of transportation along with geographic covariates. I assume there is a competitive transportation sector in each mode (generating constant freight costs) and that the costs of transportation within a mode depend on dyadic geography. Observing these costs, a continuum of exporters in each country-sector choose the mode with which to ship their products to market abroad. Exporter-specific shocks lead to utilization of all modes by some exporters. This model generates a simple multinomial logistic functional form for predicted mode shares [@Mcfadden1974], which can be estimated given data on predicted freight costs. Predicted freight costs and mode shares can be aggregated to predict total trade costs, which serve as the $\delta_{ij}$ in Equation \ref{eq:tau}. This model, and the data used to estimate it, are discussed in more detail in Appendices B and C, respectively.
+
+There are two limitations of this simple model of the transportation sector. First, @Takahashi2011, @Behrens2011, and @Brancaccio2020 show that there are significant scale economies in international shipping. This contradicts the assumption of elastic supply of transportation services. Moreover, non-freight trade costs may affect the attractiveness of different ports and the prices demanded by transportation services providers. For example,  @Brancaccio2020 show that the level of tariffs applied on a countries *exports* affect its desirability as a shipping destination, affecting the price of freight to that country. This implies that $\delta_{ij}$ depends on $\tau_{ij}$, a feature my framework is unable to capture.^[These features also rationalize asymmetric freight costs. Because the bilateral covariates used to estimate my model are symmetric between any two countries, predicted freight costs are nearly symmetric as well ($\delta_{ij} \approx \delta_{ji}$). Differences in the product-level makeup of trade are the only asymmetry introduced in my framework.]
+
+Accounting for these features of the market for transportation services would add considerable complexity to the framework developed here. Moreover, the simple model I consider produces reasonable out-of-sample fit, and estimated freight costs are small relative to estimated policy barriers. Figure \ref{fig:freight} depicts factual and predicted freight costs for the United States, Australia, New Zealand, and Chile in 2011. The observations for New Zealand and Chile are out of sample -- the model was not trained on these data.^[The model of aggregate freight costs relies on information on transportation mode shares, which were not available for these countries. They do report c.i.f.-f.o.b. ratios, however.]  Chile and New Zealand's predicted bilateral freight costs have a mean absolute error of 2 percentage points. Overall, predicted freight costs average 7 percent the value of shipments and are positively correlated with distance.
 
 ![Factual versus predicted freight costs. In-sample observations are shown in grey. Out-of-sample observations are shown in black. \label{fig:freight}](figure/freight-1.png)
 
-Figure \ref{fig:freight} depicts factual and predicted freight costs for the United States, Australia, New Zealand, and Chile in 2011. The observations for New Zealand and Chile are out of sample -- the model was not trained on these data.^[The model of aggregate freight costs relies on information on transportation mode shares, which were not available for these countries. They do report c.i.f.-f.o.b. ratios, however.] The out of sample fit is reasonable. Chile and New Zealand's predicted bilateral freight costs have a mean absolute error of 2 percentage points.
+
 
 # Results
 
@@ -448,14 +454,24 @@ which gives a moment condition that I estimate via ordinary least squares.
 
 
 
-## B: Modeling Freight Costs and Data Sources
+## B: Modeling Freight Costs
 
 
-In order to estimate the magnitude of policy barriers to trade, I must difference out the component of trade costs attributable to freight costs. However, freight costs are, at best, *partially* observed. I employ data from the United States Census Bureau and the Australian Bureau of Statistics on the c.i.f. and f.o.b. values of its imports.^[The Australian data are also used by @Shapiro2016 and @Adao2017.] The ratio of the c.i.f. value of goods to their f.o.b. value can then be taken as a measure of the ad valorem freight cost. I supplement these values with international data on the costs of *maritime* shipments from the OECD's [Maritime Transport Cost Dataset](https://doi.org/10.1787/data-00490-en) [@Korinek2011]. I also observe the transportation modes of imports (air, land, or sea) to the European Union, Japan, Brazil, Australia and the United States .^[Data from the United States come from the Census Bureau and are available on the website of [Peter Schott](http://faculty.som.yale.edu/peterschott/sub_international.htm). Data from the European Union are from [Eurostat](https://ec.europa.eu/eurostat). Data from Japan are from the government's statistical agency, [e-Stat](https://www.e-stat.go.jp/en/stat-search/files?page=1&toukei=00350300&bunya_l=16&tstat=000001013142&result_page=1&second=1). Data from Brazil come from the [ministry of trade and industry](http://comexstat.mdic.gov.br/en/home). Data from Australia are from the Australian Bureau of Statistics.]
+I build a simple model of demand for transportation services in order to estimate freight costs. There are $M$ sectors, indexed $m \in \left\{ 1, ..., M \right\}$ and $K$ modes of transportation (air, sea, land), indexed $k \in \left\{ 1, ..., K \right\}$. There is a mass of exporters within each country-sector. The cost of shipping a good from sector $m$ from country $i$ to country $j$ via mode $k$ is $\delta_{ij}^{mk}(\bm{Z}_ij)$ where $\bm{Z}_{ij}$ is a vector storing geographic covariates including indicators of air and sea distances between $i$ and $j$, and whether or not $i$ and $j$ are contiguous.
 
-Geographic covariates $\bm{Z}_{ij}$ include indicators of air and sea distances between $i$ and $j$, whether or not $i$ and $j$ are contiguous, and whether or not $i$ and/or $j$ are island countries. Sea distances are from [CERDI](http://www.ferdi.fr/en/indicator/cerdi-seadistance-database) [@Bertoli2016]. The remainder of these data are from CEPII's [GeoDist](http://www.cepii.fr/cepii/en/bdd_modele/presentation.asp?id=6) database [@Mayer2011].
+Exporters have preferences over the mode of transit and cost of freight. Let 
+$$
+V_{ij}^{mk} = \tilde{\beta}_0 \delta_{ij}^{mk}(\bm{Z}_{ij}) + \tilde{\beta}_k + \eta_{ij}^{km}
+$$
+where $\eta_{ij}^{km}$ is a Type-I extreme value-distributed preference shock with $\E [\eta_{ij}^{km}] = 0$. $\tilde{\beta}_k$ modulates exporters' relative preference for mode $k$, independent of it's cost. This is a simple logit model of mode choice a la @Mcfadden1974. Under these assumptions, the share of exporters in sector $k$ that choose to ship from $j$ to $i$ via mode $m$ is
+\begin{equation} \label{eq:logitShares}
+\zeta_{ij}^{m k} = \frac{\exp \left( \tilde{\beta}_0 \delta_{ij}^{mk}(\bm{Z}_{ij}) + \tilde{\beta}_k \right)}{\sum_{k^\prime=1}^K \exp \left( \tilde{\beta}_0 \delta_{ij}^{mk^\prime}(\bm{Z}_{ij}) + \tilde{\beta}_{k^\prime} \right)} .
+\end{equation}
+I impose natural technological constraints on this function, prohibiting shipment by sea to landlocked countries and shipment by land to islands or across continents.^[Where Eurasia is treated as an aggregate.]
 
-To model international freight costs, assume there are $M$ categories of goods, indexed $m \in \left\{ 1, ..., M \right\}$ and $K$ modes of transportation, indexed $k \in \left\{ 1, ..., K \right\}$.
+I model $\delta_{ij}^{mk}(\bm{Z}_{ij})$ as linear in distance and contiguity and sector (HS2) fixed effects.^[I also smooth the model's predictions over years using a polynomial spline.] Parameter estimates for each mode are reported in the next section.
+
+I obtain estimates for $\tilde{\beta}_0$ and $\tilde{\beta}_k$ by taking the log of \ref{eq:logitShares}, differencing with respect to a base transportation mode, and estimating the resulting linear equation via ordinary least squares. With parameter estimates in hand, I can compute predictions for total trade costs by aggregating over sectors and projecting out of sample. 
 
 The total free on board (f.o.b.) value of imports of country $i$ from country $j$ is given by $X_{ij}$. The cost, insurance, and freight (c.i.f.) value of these goods is $\delta_{ij} X_{ij}$. These c.i.f. costs can be decomposed by product and mode of transporatation as follows
 $$
@@ -466,46 +482,27 @@ $$
 \delta_{ij}^m x_{ij}^m = \sum_{k=1}^K \delta_{ij}^{m k} x_{ij}^{m k} \implies \delta_{ij}^m =  \sum_{k=1}^K \delta_{ij}^{m k} \frac{x_{ij}^{m k}}{x_{ij}^m} .
 $$
 
-Let $\zeta_{ij}^{m k}$ denote the share of imports by $i$ from $j$ of good $m$ that travel by mode $k$
+Recall that $\zeta_{ij}^{m k}$ is the share of imports by $i$ from $j$ of good $m$ that travel by mode $k$
 $$
 \zeta_{ij}^{m k} = \frac{x_{ij}^{m k}}{x_{ij}^m} .
 $$
 
-In the data, I observe product-level trade flows, $x_{ij}^m$, but observe only a subset of ad valorem freight costs by mode $\delta_{ij}^{m k}$ and mode shares $\zeta_{ij}^{m k}$.^[All these variables are aggregated at the HS-2 level.] I also observe bilateral geographic covariates $\bm{Z}_{ij}$ and product dummies $d^m \in \left\{ 0, 1 \right\}$ that may be predictive of freight costs and mode shares. To compute aggregate freight costs $\delta_{ij}$ for all country pairs in our sample, I seek functions
+With these terms defined, total predicted freight costs can be computed as 
 $$
-g: \left\{ \bm{Z}_{ij}, d^m \right\} \rightarrow \delta_{ij}^{m k}
-$$
-and
-$$
-h: \left\{ \bm{Z}_{ij}, d^m \right\} \rightarrow \zeta_{ij}^{m k}
-$$
-from which I can compute 
-$$
-\hat{\delta}_{ij} \left( \bm{Z}_{ij}, \bm{d}_{ij} \right) = \frac{1}{X_{ij}} \sum_{m = 1}^M x_{ij}^m \sum_{k=1}^K g \left( \bm{Z}_{ij}, d^m \right) h \left( \bm{Z}_{ij}, d^m \right) .
+\hat{\delta}_{ij} \left( \bm{Z}_{ij} \right) = \frac{1}{X_{ij}} \sum_{m = 1}^M x_{ij}^m \sum_{k=1}^K \zeta_{ij}^{m k}\left( \delta_{ij}^{mk}(\bm{Z}_{ij}) \right) \delta_{ij}^{mk}(\bm{Z}_{ij}) .
 $$
 
-Let $\tilde{\bm{\delta}}$ and $\tilde{\bm{\zeta}}$ denote sets of observed freight costs and mode shares. Let $\mathcal{G}$ denote the set of possible functions $g$ and $\mathcal{H}$ denote the set of possible functions $h$. I choose $g$ and $h$ to satisfy the following:
-\begin{equation} \label{eq:deltaG}
-\begin{split} 
-\hat{g}^m = \min_{g \in \mathcal{G}} & \quad \sum_{ \delta_{ij}^{m k} \in \tilde{\bm{\delta}} } \left( \delta_{ij}^{m k} - g \left( \bm{Z}_{ij}, d^m \right) \right)^2 \\
-\text{subject to  } & \quad g \left( \bm{Z}_{ij}, d^m \right) \geq 1
-\end{split}
-\end{equation}
-and
-\begin{equation}
-\begin{split} 
-\hat{h} = \min_{h \in \mathcal{H}} & \quad \sum_{\zeta_{ij}^{m k} \in \tilde{\bm{\zeta}}} \left( \zeta_{ij}^{\ell k} - h \left( \bm{Z}_{ij}, d^m \right) \right)^2 \\
-\text{subject to  } & \quad \sum_{k=2}^K h \left( \bm{Z}_{ij}, d^m \right) = 1 .
-\end{split}
-\end{equation}
-
-I let $\mathcal{G}$ be the set of linear functions with polynomial time splines and $\mathcal{H}$ be the set of multinomial link functions, following @Shapiro2016. I impose the constraints in Equation \ref{eq:deltaG} ex post, replacing values violating the constraint with $1$.
-
-This results in three functions $\hat{g}^m$ for each transportation mode (air, land, sea) and one function $\hat{h}$ that outputs predicted mode shares. The data used to estimate these functions is discussed in more detail below.
 
 
 
-## C: Freight Cost Results
+## C: Freight Cost Data Sources and Results
+
+
+To estimate freight costs and mode share choice, I employ data from the United States Census Bureau and the Australian Bureau of Statistics on the c.i.f. and f.o.b. values of its imports.^[The Australian data are also used by @Shapiro2016 and @Adao2017.] The ratio of the c.i.f. value of goods to their f.o.b. value can then be taken as a measure of the ad valorem freight cost. I supplement these values with international data on the costs of *maritime* shipments from the OECD's [Maritime Transport Cost Dataset](https://doi.org/10.1787/data-00490-en) [@Korinek2011]. I also observe the transportation modes of imports (air, land, or sea) to the European Union, Japan, Brazil, Australia and the United States .^[Data from the United States come from the Census Bureau and are available on the website of [Peter Schott](http://faculty.som.yale.edu/peterschott/sub_international.htm). Data from the European Union are from [Eurostat](https://ec.europa.eu/eurostat). Data from Japan are from the government's statistical agency, [e-Stat](https://www.e-stat.go.jp/en/stat-search/files?page=1&toukei=00350300&bunya_l=16&tstat=000001013142&result_page=1&second=1). Data from Brazil come from the [ministry of trade and industry](http://comexstat.mdic.gov.br/en/home). Data from Australia are from the Australian Bureau of Statistics.]
+
+To model the cost of transport via sea, I take sea distances are taken from [CERDI](http://www.ferdi.fr/en/indicator/cerdi-seadistance-database) [@Bertoli2016]. For land and air distances, I use CEPII's [GeoDist](http://www.cepii.fr/cepii/en/bdd_modele/presentation.asp?id=6) database [@Mayer2011].
+
+Parameter estimates for mode-specific freight cost models are reported in the following three tables. Across modes, distance is estimated to significantly increase freight costs. Continguity is estimated to decrease costs for land and air shipments while increasing costs for seaborne shipments. 
 
 
 
@@ -609,40 +606,36 @@ R$^{2}$ & 0.351 \\
 
 ### Transportation Mode Shares
 
+With $\delta_{ij}(\bm{Z}_{ij})$ estimated I can compute predicted sector-level freight costs for all country pairs. I use these predicted freight prices to estimate the parameters of the mode choice model, using all observed mode share choices.
+
+I take air transport as the baseline category for the transportation modes model. Price increases in mode $k$ are estimated to decrease that mode's relative market share. Sea is estimated to be the most popular mode, holding prices fixed, followed by air and land respectively. Holding these preferences (captured in $\tilde{\beta}_k$) fixed at estimated values for all modes and assuming transport via all modes is equally costly, a one percent increase in the relative cost of seaborne trade decreases its expected market share from 70.7 percent to 68.8 percent.
+
 
 \begin{table}[!htbp] \centering 
   \caption{Mode Share Model} 
   \label{} 
-\begin{tabular}{@{\extracolsep{5pt}}lccc} 
+\begin{tabular}{@{\extracolsep{5pt}}lc} 
 \\[-1.8ex]\hline 
 \hline \\[-1.8ex] 
- & \multicolumn{3}{c}{\textit{Dependent variable:}} \\ 
-\cline{2-4} 
-\\[-1.8ex] & Air Share & Sea Share & Land Share \\ 
-\\[-1.8ex] & (1) & (2) & (3)\\ 
+ & \multicolumn{1}{c}{\textit{Dependent variable:}} \\ 
+\cline{2-2} 
+\\[-1.8ex] & (Log) Relative Share \\ 
 \hline \\[-1.8ex] 
- Air Distance (log, std) & 0.001 & $-$0.928$^{***}$ & $-$0.919$^{***}$ \\ 
-  & (0.015) & (0.030) & (0.032) \\ 
-  & & & \\ 
- Sea Distance (log, std) & $-$0.058$^{***}$ & $-$0.189$^{***}$ & 0.517$^{***}$ \\ 
-  & (0.014) & (0.025) & (0.026) \\ 
-  & & & \\ 
- Contiguity & 0.037 & 1.309$^{***}$ & 0.508$^{***}$ \\ 
-  & (0.034) & (0.039) & (0.053) \\ 
-  & & & \\ 
- Importer Island? & 0.162$^{***}$ & 0.961$^{***}$ & 0.481$^{***}$ \\ 
-  & (0.019) & (0.037) & (0.043) \\ 
-  & & & \\ 
- Exporter Island? & $-$0.056$^{***}$ & $-$4.519$^{***}$ & $-$2.946$^{***}$ \\ 
-  & (0.015) & (0.092) & (0.074) \\ 
-  & & & \\ 
+ Predicted Price Ratio & $-$9.039$^{***}$ \\ 
+  & (0.090) \\ 
+  & \\ 
+ Sea FE & 1.115$^{***}$ \\ 
+  & (0.013) \\ 
+  & \\ 
+ Land FE & $-$1.338$^{***}$ \\ 
+  & (0.017) \\ 
+  & \\ 
 \hline \\[-1.8ex] 
-Product fixed effects? & \checkmark & \checkmark & \checkmark \\ 
-Cubic time spline? & \checkmark & \checkmark & \checkmark \\ 
-Akaike Inf. Crit. & 224,458.400 & 224,458.400 & 224,458.400 \\ 
+Observations & 145,846 \\ 
+R$^{2}$ & 0.263 \\ 
 \hline 
 \hline \\[-1.8ex] 
-\textit{Note:}  & \multicolumn{3}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+\textit{Note:}  & \multicolumn{1}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
 \end{tabular} 
 \end{table} 
 

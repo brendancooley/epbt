@@ -1,10 +1,4 @@
 base
-methods
-datasets
-utils
-grDevices
-graphics
-stats
 tidyverse
 ggplot2
 tibble
@@ -30,7 +24,8 @@ olpsR
 Matrix
 glmnet
 plotly
-splines
 ggsci
 NCmisc
 reader
+ggvis
+countrycode

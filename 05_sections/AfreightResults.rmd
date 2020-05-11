@@ -1,3 +1,10 @@
+To estimate freight costs and mode share choice, I employ data from the United States Census Bureau and the Australian Bureau of Statistics on the c.i.f. and f.o.b. values of its imports.^[The Australian data are also used by @Shapiro2016 and @Adao2017.] The ratio of the c.i.f. value of goods to their f.o.b. value can then be taken as a measure of the ad valorem freight cost. I supplement these values with international data on the costs of *maritime* shipments from the OECD's [Maritime Transport Cost Dataset](https://doi.org/10.1787/data-00490-en) [@Korinek2011]. I also observe the transportation modes of imports (air, land, or sea) to the European Union, Japan, Brazil, Australia and the United States .^[Data from the United States come from the Census Bureau and are available on the website of [Peter Schott](http://faculty.som.yale.edu/peterschott/sub_international.htm). Data from the European Union are from [Eurostat](https://ec.europa.eu/eurostat). Data from Japan are from the government's statistical agency, [e-Stat](https://www.e-stat.go.jp/en/stat-search/files?page=1&toukei=00350300&bunya_l=16&tstat=000001013142&result_page=1&second=1). Data from Brazil come from the [ministry of trade and industry](http://comexstat.mdic.gov.br/en/home). Data from Australia are from the Australian Bureau of Statistics.]
+
+To model the cost of transport via sea, I take sea distances are taken from [CERDI](http://www.ferdi.fr/en/indicator/cerdi-seadistance-database) [@Bertoli2016]. For land and air distances, I use CEPII's [GeoDist](http://www.cepii.fr/cepii/en/bdd_modele/presentation.asp?id=6) database [@Mayer2011].
+
+Parameter estimates for mode-specific freight cost models are reported in the following three tables. Across modes, distance is estimated to significantly increase freight costs. Continguity is estimated to decrease costs for land and air shipments while increasing costs for seaborne shipments. 
+
+
 ```{r, echo=FALSE, warning=FALSE, message=FALSE, results='hide'}
 
 # get freight cost model results
@@ -39,9 +46,13 @@ stargazer(airModelOutput, header=FALSE, type='latex', omit=c("hs2", "Constant", 
 
 ### Transportation Mode Shares
 
+With $\delta_{ij}(\bm{Z}_{ij})$ estimated I can compute predicted sector-level freight costs for all country pairs. I use these predicted freight prices to estimate the parameters of the mode choice model, using all observed mode share choices.
+
+I take air transport as the baseline category for the transportation modes model. Price increases in mode $k$ are estimated to decrease that mode's relative market share. Sea is estimated to be the most popular mode, holding prices fixed, followed by air and land respectively. Holding these preferences (captured in $\tilde{\beta}_k$) fixed at estimated values for all modes and assuming transport via all modes is equally costly, a one percent increase in the relative cost of seaborne trade decreases its expected market share from `r round(seashare_base*100, 1)` percent to `r round(seashare_prime*100, 1)` percent.
+
 ```{r modesModel, echo=FALSE, warning=FALSE, message=FALSE, results="asis", cache=TRUE}
 
-stargazer(modesModelOutput, header=FALSE, type='latex', omit=c("hs2", "Constant", "year"), add.lines = list(c("Product fixed effects?", "\\checkmark", "\\checkmark", "\\checkmark"), c("Cubic time spline?", "\\checkmark", "\\checkmark", "\\checkmark")), dep.var.labels = c("Air Share", "Sea Share", "Land Share", "Other Share"), covariate.labels = c("Air Distance (log, std)", "Sea Distance (log, std)", "Contiguity", "Importer Island?", "Exporter Island?"), title = "Mode Share Model")
+stargazer(flowsLogitModel, header=FALSE, type='latex', omit.stat=c("adj.rsq", "f", "ser"), dep.var.labels = c("(Log) Relative Share"), covariate.labels = c("Predicted Price Ratio", "Sea FE", "Land FE"), title = "Mode Share Model")
 
 ```
 
@@ -52,14 +63,20 @@ stargazer(modesModelOutput, header=FALSE, type='latex', omit=c("hs2", "Constant"
 # clean up
 rm(flows)
 rm(flowsAir)
+rm(flowsAirX)
 rm(flowsLand)
-rm(flowsModes)
-rm(flowsModesX)
-rm(flowsModesXOutput)
+rm(flowsLandX)
 rm(flowsSea)
+rm(flowsSeaX)
+rm(airModel)
 rm(airModelOutput)
+rm(landModel)
 rm(landModelOutput)
-rm(modesModelOutput)
+rm(seaModel)
 rm(seaModelOutput)
+rm(flowsLogitModel)
+rm(flows_proj)
+rm(flowsLogitSea)
+rm(flowsLogitLand)
 
 ```

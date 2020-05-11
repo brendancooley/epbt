@@ -3,9 +3,13 @@ library(ggplot2)
 library(ggrepel)
 library(ggthemes)
 
+code_dir <- "01_code/"
+shiny <- FALSE
+EUD <- FALSE
 source(paste0("../", code_dir, "params.R"))
 
 freight <- read_csv(paste0(cleandir, "freight.csv"))
+freight_proj <- read_csv(paste0(cleandir, "freight_proj.csv"))
 delta <- read_csv(paste0(cleandir, "delta.csv"))
 Y <- 2011
 
@@ -43,3 +47,16 @@ freightCV <- ggplot(data=dvyCHL_NZL, aes(x=dobs, y=dpred)) +
   coord_fixed() +
   guides(color=guide_legend(title="Importer")) +
   theme_classic()
+
+# ggplot(data=freight_proj, aes(x=airshare, airshareP)) +
+#   geom_point(size=.1) +
+#   geom_abline(slope=1, lty='dashed') +
+#   xlim(0, 1) +
+#   ylim(0, 1) +
+#   coord_fixed() +
+#   theme_classic()
+# 
+# seashareM <- lm(data=freight_proj, seashare~seashareP)
+# summary(seashareM)
+# landshareM <- lm(data=freight_proj, landshare~landshareP)
+# summary(landshareM)

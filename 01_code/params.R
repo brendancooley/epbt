@@ -66,7 +66,6 @@ if (shiny==FALSE) {
   }
 }
 
-
 ### BOOTSTRAP ###
 
 bootstrap_dir <- paste0(basedir, "05_bootstrap/")

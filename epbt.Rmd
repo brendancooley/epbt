@@ -28,6 +28,7 @@ code_dir <- "01_code/"
 figs_dir <- "03_figs/"
 
 shiny <- FALSE
+EUD <- FALSE
 
 ApriceIndex <- "NA"
 AfreightModel <- "NA"
@@ -91,7 +92,7 @@ AfreightModel <- LETTERS[a]
 
 ```
 
-## `r AfreightModel`: Modeling Freight Costs and Data Sources
+## `r AfreightModel`: Modeling Freight Costs
 
 ```{r, child = "05_sections/AfreightModel.md"}
 ```
@@ -103,7 +104,7 @@ AfreightResults<- LETTERS[a]
 
 ```
 
-## `r AfreightResults`: Freight Cost Results
+## `r AfreightResults`: Freight Cost Data Sources and Results
 
 ```{r, child = "05_sections/AfreightResults.rmd"}
 ```
