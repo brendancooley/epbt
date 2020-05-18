@@ -50,7 +50,7 @@ With $\delta_{ij}(\bm{Z}_{ij})$ estimated I can compute predicted sector-level f
 
 I take air transport as the baseline category for the transportation modes model. Price increases in mode $k$ are estimated to decrease that mode's relative market share. Sea is estimated to be the most popular mode, holding prices fixed, followed by air and land respectively. Holding these preferences (captured in $\tilde{\beta}_k$) fixed at estimated values for all modes and assuming transport via all modes is equally costly, a one percent increase in the relative cost of seaborne trade decreases its expected market share from `r round(seashare_base*100, 1)` percent to `r round(seashare_prime*100, 1)` percent.
 
-```{r modesModel, echo=FALSE, warning=FALSE, message=FALSE, results="asis", cache=TRUE}
+```{r modesModel, echo=FALSE, warning=FALSE, message=FALSE, results="asis", cache=FALSE}
 
 stargazer(flowsLogitModel, header=FALSE, type='latex', omit.stat=c("adj.rsq", "f", "ser"), dep.var.labels = c("(Log) Relative Share"), covariate.labels = c("Predicted Price Ratio", "Sea FE", "Land FE"), title = "Mode Share Model")
 
