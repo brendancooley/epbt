@@ -178,6 +178,7 @@ if (tauRev==FALSE) {
   X <- XgdpR[[1]]
   gdpR <- XgdpR[[2]]
   X$tauAlt <- X$tau
+  colnames(gdpR)[colnames(gdpR)=="j_iso3"] <- "iso3"
   # X %>% filter(j_iso3=="BNL") %>% select(Lji, Ljj)
 }
 

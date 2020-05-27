@@ -7,7 +7,7 @@ if (!exists("mini")) {
 
 library(tidyverse)
 
-M <- 1000 # number of bootstrap iterations
+M <- 100 # number of bootstrap iterations
 
 ### DIRECTORIES ###
 
@@ -24,7 +24,8 @@ results_local_dir <- paste0("../02_results/")
 shinydir <- paste0("../04_viz/")
 
 ccodes_mini <- c("CHN", "EU", "JPN", "USA")
-ccodes_mid <- c("AUS", "BRA", "CAN", "CHN", "EU", "JPN", "KOR", "USA")
+# ccodes_mid <- c("AUS", "BRA", "CAN", "CHN", "EU", "JPN", "KOR", "USA")
+ccodes_mid <- c("AUS", "CAN", "CHN", "EU", "JPN", "KOR", "RUS", "USA")
 ccodes_mid_RUS <- c("AUS", "BRA", "CAN", "CHN", "EU", "JPN", "KOR", "RUS", "USA")
 ccodes_large <- c("AUS", "BRA", "CAN", "CHN", "EU", "IDN", "JPN", "KOR", "MEX", "ROW", "RUS", "TUR", "USA")
 
