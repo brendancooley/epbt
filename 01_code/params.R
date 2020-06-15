@@ -23,7 +23,7 @@ otherdir <- paste0(basedir, "04_other/")
 results_local_dir <- paste0("../02_results/")
 shinydir <- paste0("../04_viz/")
 
-ccodes_mini <- c("CHN", "EU", "JPN", "USA")
+ccodes_mini <- c("CHN", "EU", "JPN", "RUS", "USA")
 # ccodes_mid <- c("AUS", "BRA", "CAN", "CHN", "EU", "JPN", "KOR", "USA")
 ccodes_mid <- c("AUS", "CAN", "CHN", "EU", "JPN", "KOR", "RUS", "USA")
 ccodes_mid_RUS <- c("AUS", "BRA", "CAN", "CHN", "EU", "JPN", "KOR", "RUS", "USA")

@@ -4,8 +4,8 @@ print("-----")
 
 args <- commandArgs(trailingOnly=TRUE)
 if (is.null(args) | identical(args, character(0))) {
-  TPSP <- FALSE
-  size <- "all"
+  TPSP <- TRUE
+  size <- "mid/"
   bootstrap <- FALSE
   bootstrap_id <- 1
 } else {
@@ -58,7 +58,7 @@ if (TPSP==FALSE) {
   
   gc <- read_csv(paste0(cleandirTPSP,"gc.csv")) %>% filter(year==Y)
   # go <- read_csv("clean/go.csv") %>% filter(year==Y)
-  gdp <- read_csv(paste0(cleandirTPSP, "gdp.csv")) %>% filter(year==Y) %>% select(-deficit, -gdp)
+  gdp <- read_csv(paste0(cleandirTPSP, "gdp.csv")) %>% filter(year==Y) %>% select(-deficit)
   ccodes <- read_csv(paste0(cleandirTPSP, "ccodes.csv"))
   
   if (bootstrap==FALSE) {
@@ -86,6 +86,7 @@ if (TPSP==FALSE) {
 
 gdp <- left_join(gdp, deficits)
 gdp$exp <- gdp$exp * 1000
+gdp$gdp <- gdp$gdp * 1000
 
 
 P <- P %>% select(iso3, year, priceIndex, Tshare)
@@ -132,6 +133,8 @@ gc$gc <- gc$gc * 1000
 
 gdp <- left_join(gdp, gc)
 # gdp <- left_join(gdp, go)
+
+write_csv(gdp %>% select(gdp), paste0(expdirTPSP, "gdp_raw.csv"))
 
 # correct gdp
 colnames(r) <- c("iso3", "r")
