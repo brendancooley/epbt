@@ -32,7 +32,7 @@ softwarePath = "~/Dropbox\ \(Princeton\)/14_Software/"
 github = "~/GitHub/epbt"
 website_docs = "~/Dropbox\ \(Princeton\)/5_CV/website/static/docs"
 website_docs_github = "~/Github/brendancooley.github.io/docs"
-tpspDataPath = "~/Dropbox\ \(Princeton\)/1_Papers/tpsp/01_data/data/"
+tpspDataPath = "~/Dropbox\ \(Princeton\)/1_Papers/tpsp/01_files/data/"
 dataPath = "~/Dropbox\ \(Princeton\)/1_Papers/epbt/01_data/"
 
 verticatorPath = "~/Dropbox\ \(Princeton\)/8_Templates/plugin/verticator"
