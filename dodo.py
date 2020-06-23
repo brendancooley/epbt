@@ -39,7 +39,7 @@ verticatorPath = "~/Dropbox\ \(Princeton\)/8_Templates/plugin/verticator"
 pluginDest = "index_files/reveal.js-3.8.0/plugin"
 revealPath = "~/Dropbox\ \(Princeton\)/8_Templates/reveal.js-3.8.0"
 
-M = 100  # number of bootstrap iterations
+M = 250  # number of bootstrap iterations
 
 def task_source():
 	yield {
@@ -117,29 +117,33 @@ def task_bootstrap():
 	doit EUD=False tpsp=False size=all/ bootstrap
 	"""
 	for i in range(1, M+1):
-		yield {
-		'name': "bootstrap iteration " + str(i) + "...",
-		'actions': ['cd ' + estdir + '; Rscript ' + prices + " " + config["EUD"] + " " + 
-					config["tpsp"] + " " + config["size"] + ' True ' + str(i), 
-					'cd ' + estdir + '; Rscript ' + freight + " " + config["EUD"] +  " " + 
-					config["tpsp"] + " " + config["size"] + ' True ' + str(i),
-					'cd ' + estdir + '; Rscript ' + tau + " " + config["EUD"] +  " " + 
-					config["tpsp"] + " " + config["size"] + ' True ' + str(i)],
-		'verbosity': 2,
-	}
+		path_i = os.path.expanduser(tpspDataPath + config["size"] + str(i) + "/")
+		path_i = path_i.replace("\\", "")
+		if os.path.exists(path_i):
+			print("bootstrap iteration " + str(i) + " exists on machine. Proceeding...")
+		else:
+			yield {
+				'name': "bootstrap iteration " + str(i) + "...",
+				'actions': ['cd ' + estdir + '; Rscript ' + prices + " " + config["EUD"] + " " + 
+							config["tpsp"] + " " + config["size"] + ' True ' + str(i), 
+							'cd ' + estdir + '; Rscript ' + freight + " " + config["EUD"] +  " " + 
+							config["tpsp"] + " " + config["size"] + ' True ' + str(i),
+							'cd ' + estdir + '; Rscript ' + tau + " " + config["EUD"] +  " " + 
+							config["tpsp"] + " " + config["size"] + ' True ' + str(i)],
+				'verbosity': 2,
+			}
+			if config["tpsp"] == "True": 
+				yield {
+					'name': "transferring  " + str(i) + "...",
+					'actions':['cd ' + estdir + '; Rscript tpsp.R True ' + config["size"] + ' True ' + str(i),
+							   "mkdir -p " + tpspDataPath + config["size"] + str(i) + "/",
+							   "cp -a " + dataPath + "tpsp_bootstrap_" + config["size"] + str(i) + "/ " + tpspDataPath + config["size"] + "/" + str(i) + "/"]
+				}
 	yield {
 		'name': "summarizing...",
 		'actions': ['cd ' + estdir + "; Rscript " + results + " " + config["EUD"] + " " + 
 					config["tpsp"] + " " + config["size"]]
 	}
-	if config["tpsp"] == "True":
-		for i in range(1, M+1):
-			yield {
-				'name': "transferring  " + str(i) + "...",
-				'actions':['cd ' + estdir + '; Rscript tpsp.R True ' + config["size"] + ' True ' + str(i),
-						   "mkdir -p " + tpspDataPath + config["size"] + str(i) + "/",
-						   "cp -a " + dataPath + "tpsp_bootstrap_" + config["size"] + str(i) + "/ " + tpspDataPath + config["size"] + "/" + str(i) + "/"]
-			}
 
 
 def task_tpsp():

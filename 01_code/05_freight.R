@@ -29,7 +29,7 @@ if ("05_sections" %in% strsplit(wd, "/")[[1]]) {
   runPreds <- TRUE
 }
 
-libs <- c('tidyverse', 'earth', "nnet", "olpsR", "glmnet",
+libs <- c('tidyverse', 'earth', "nnet", "olpsR",
           "splines", 'ggsci', 'ggthemes', 'ggrepel', "reader", "countrycode")
 ipak(libs) 
 

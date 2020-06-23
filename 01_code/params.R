@@ -7,7 +7,7 @@ if (!exists("mini")) {
 
 library(tidyverse)
 
-M <- 100 # number of bootstrap iterations
+M <- 250 # number of bootstrap iterations
 
 ### DIRECTORIES ###
 
