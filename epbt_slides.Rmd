@@ -101,13 +101,13 @@ code_dir <- "01_code/"
 ```{r, child = "06_slides/conclusion.rmd"}
 ```
 
-# Thank You {.aligncenter}
+## Thank You {.aligncenter}
 
 [brendancooley.com](http://brendancooley.com)
 
 [bcooley@princeton.edu](bcooley@princeton.edu)
 
-# Table of Contents
+## Table of Contents
 
 <div id="left">
 
