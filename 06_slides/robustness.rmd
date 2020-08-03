@@ -1,4 +1,4 @@
-# Robustness (Correlates) {id="robustness"}
+## Robustness (Correlates) {id="robustness"}
 
 ```{r correlates, echo=FALSE, warning=FALSE, message=FALSE, results="asis"}
 

@@ -1,4 +1,4 @@
-# Data and Measurement {id="measurement"}
+## Data and Measurement {id="measurement"}
 
 $$
 \tau_{ij} = \left( \frac{\lambda_{ij}}{\lambda_{jj}} \right)^{-\frac{1}{\theta}} \frac{P_i}{P_j} \frac{1}{\delta_{ij}}

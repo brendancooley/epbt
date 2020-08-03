@@ -1,4 +1,4 @@
-# Implications (Economic Blocs) {id="implications"}
+## Implications (Economic Blocs) {id="implications"}
 
 ```{r hm2, echo=FALSE, warning=FALSE, message=FALSE, fig.height=5, dpi=300}
 

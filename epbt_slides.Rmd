@@ -6,7 +6,7 @@ position: Ph.D. Candidate
 institution: Princeton University
 email: "bcooley (at) princeton.edu"
 
-bibliography: /Users/brendancooley/Dropbox (Princeton)/References/library.bib
+bibliography: bib/library.bib
 biblio-style: apsr
 
 backgroundTitle: "03_figs/title/containerDark.jpg"
@@ -39,6 +39,17 @@ output:
 # control slides from phone
 # http://remot.io/
 
+helperPath <- "~/Dropbox (Princeton)/14_Software/R/"
+helperFiles <- list.files(helperPath)
+for (i in helperFiles) {
+  source(paste0(helperPath, i))
+}
+
+# setup bib
+mkdir("bib/")
+file.copy("~/Dropbox (Princeton)/References/library.bib", "bib/library.bib")
+
+EUD <- FALSE
 shiny <- FALSE
 source("01_code/params.R")
 
@@ -50,26 +61,42 @@ code_dir <- "01_code/"
 
 ```
 
+# Introduction {.aligncenter}
+
 ```{r, child = "06_slides/introduction.rmd"}
 ```
+
+# Model {.aligncenter}
 
 ```{r, child = "06_slides/model.rmd"}
 ```
 
+# Prices and Trade Costs {.aligncenter}
+
 ```{r, child = "06_slides/prices.rmd"}
 ```
+
+# Data {.aligncenter}
 
 ```{r, child = "06_slides/data.rmd"}
 ```
 
+# Results {.aligncenter}
+
 ```{r, child = "06_slides/results.rmd"}
 ```
+
+# Robustness {.aligncenter}
 
 ```{r, child = "06_slides/robustness.rmd"}
 ```
 
+# Implications {.aligncenter}
+
 ```{r, child = "06_slides/implications.rmd"}
 ```
+
+# Conclusion {.aligncenter}
 
 ```{r, child = "06_slides/conclusion.rmd"}
 ```
@@ -114,6 +141,8 @@ code_dir <- "01_code/"
 11. <a href="#/frechet">Fréchet Distribution</a>
 
 </div>
+
+# Appendix {.aligncenter}
 
 ```{r, child = "06_slides/appendix.rmd"}
 ```

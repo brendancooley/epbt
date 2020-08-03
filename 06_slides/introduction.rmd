@@ -1,4 +1,4 @@
-# Free and Fair? {id="introduction"}
+## Free and Fair? {id="introduction"}
 
 <div class="fragment">
 

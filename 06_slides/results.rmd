@@ -21,7 +21,7 @@ freight <- read_csv(paste0(cleandir, "freight.csv"))
 
 ```
 
-# Results {id="results"}
+## Results {id="results"}
 
 <hr style="height:3em; visibility:hidden;" />
 

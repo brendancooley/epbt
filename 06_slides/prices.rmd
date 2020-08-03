@@ -1,4 +1,4 @@
-# Prices and Trade Costs {id="tcostMap"}
+## Prices and Trade Costs {id="tcostMap"}
 
 <hr style="height:2em; visibility:hidden;" />
 
@@ -77,7 +77,7 @@ $$
 
 - @Alvarez2007: existence and uniqueness
 
-# Identification (I) {id="identification"}
+## Identification (I) {id="identification"}
 
 <div class="fragment">
 

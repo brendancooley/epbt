@@ -1,5 +1,5 @@
 
-# Model (Overview) {id="model"}
+## Model (Overview) {id="model"}
 
 - $\bm{d}_{N \times N} = \bm{\delta} \circ \bm{\tau}$ - trade costs (economic and political)
 
