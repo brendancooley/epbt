@@ -41,7 +41,7 @@ However, tariffs are but one instrument by which governments can influence the f
 
 All of these instruments can in principle be targeted to generate *de facto* discrimation. For example, the MFN principle is enforced at the tariff line level, allowing importers to target duties at products exported by specific countries, without running afoul of WTO rules. Through high agricultural duties, the United States, Europe, and Japan effectively discriminate against the developing world, which specializes in the production of these products [@Anderson2005]. NTMs and behind-the-border barriers can produce effective discrimination in the same manner.
 
-Even armed with data on all such trade-distorting policy instruments, estimating the magnitude of aggregate policy barriers to trade would be challenging. Here, I propose and implement a new method to estimate policy barriers to trade with minimal data requirements. I construct a parsimonious model of international trade subject to frictions, following @Eaton2002.^[Theirs is a Ricardian model, in which the basis for trade emerges from differences in technologies across countries.] I show that the magnitude of trade frictions between two countries $i$ and $j$ is related by the theoretical model to price levels in both countries, trade flows between them, and the market shares of domestic producers in home markets. I then decompose these barriers into their economic (transportation costs) and political (policy barriers) components. Finally, I calibrate this relationship to the data on prices, trade, and freight costs in 2011.
+Even armed with data on all such trade-distorting policy instruments, estimating the magnitude of aggregate policy barriers to trade would be challenging. Here, I propose and implement a new method to estimate policy barriers to trade with minimal data requirements. I construct a parsimonious model of international trade subject to frictions, following @Eaton2002.^[In their technology-based model, trade frictions enter as variable costs, introducing a wedge between the price of a good when it leaves an exporting country and when it is sold in an importing country. @Gulotty2020 argues that many of the regulatory barriers discussed above are better conceptualized as fixed costs, applied on firms as a condition for market entry. @Head2014 show that this distinction is important for modeling the effects of trade costs on trade flows. Namely, the elasticity of trade with respect to changes in fixed costs is different than the elasticity governing the responsiveness of trade to changes in variable costs [@Melitz2003; @Chaney2008; @Arkolakis2012]. The presence of fixed costs of exporting have also been used to rationalize the sparsity of the empirical trade flow matrix [@Helpman2008]. Methods developed in @Helpman2008 could in principle be used to separately measure fixed and variable policy barriers to trade.] I show that the magnitude of trade frictions between two countries $i$ and $j$ is related by the theoretical model to price levels in both countries, trade flows between them, and the market shares of domestic producers in home markets. I then decompose these barriers into their economic (transportation costs) and political (policy barriers) components. Finally, I calibrate this relationship to the data on prices, trade, and freight costs in 2011.
 
 The intuition underlying the model is straightforward. Cross-national price gaps inform about the existence of arbitrage opportunities, and imply that large trade flows should exist from countries with low prices toward those with high prices. The extent to which these flows are realized in the data informs about the magnitude of trade costs. If the cost of freight between countries is known, then the component of these costs than cannot be attributed to purely economic frictions can be independently identified. The remaining "missing trade" is attributed to the existence of policy distortions, broadly defined.
 
@@ -276,7 +276,7 @@ Substituting this relationship into \ref{eq:tau} gives a modified equation relat
 \tau_{ij} = \left( \frac{\lambda_{ij}^{\text{cif}}}{\lambda_{jj}(\bm{\tau}_j)} \right)^{-\frac{1}{\theta + 1}} \left( \frac{P_i}{P_j} \right)^{\frac{\theta}{\theta+1}} \left( \frac{1}{\delta_{ij}(\bm{Z}_{ij})} \right)^{\frac{\theta}{\theta+1}} .
 \end{equation}
 
-Then, to calculate $\lambda_{ij}^{\text{cif}}$ and $\lambda_{jj}$, I need data on international trade flows as well as the market share of domestic tradables producers in their home market. Data on trade flows comes from the United Nations' [COMTRADE](https://comtrade.un.org/db/default.aspx), cleaned and harmonized by [CEPII](http://www.cepii.fr/CEPII/en/welcome.asp)'s [BACI](http://www.cepii.fr/cepii/en/bdd_modele/presentation.asp?id=1). BACI denominates trade flows in free on board (f.o.b. or pre-shipment) value, so predicted cost, insurance, and freight (c.i.f. or post-shipment) values can be calculated simply by multiplying these flows by $\delta_{ij}$, estimated below. Total domestic consumption on tradables can then be inferred from national accounts data, which report gross output, gross consumption, and GDP.^[Gross consumption includes consumer final expenditure as well as producers' expenditure on intermediates and is inclusive of trade deficits.] I simply subtract the share of consumer expenditure on services implied by the ICP data from each country's gross consumption, which provides a measure of gross consumption on tradables, the empirical analogue to $E_i = \nu_i I_i$. These national accounts data are taken from the [World Input Output Database (WIOD)](http://www.wiod.org/home) and the [OECD's National Input Output Tables](https://stats.oecd.org/Index.aspx?DataSetCode=IOTS).
+Then, to calculate $\lambda_{ij}^{\text{cif}}$ and $\lambda_{jj}$, I need data on international trade flows as well as the market share of domestic tradables producers in their home market. Data on trade flows comes from the United Nations' [COMTRADE](https://comtrade.un.org/db/default.aspx), cleaned and harmonized by [CEPII](http://www.cepii.fr/CEPII/en/welcome.asp)'s [BACI](http://www.cepii.fr/cepii/en/bdd_modele/presentation.asp?id=1). BACI denominates trade flows in free on board (f.o.b. or pre-shipment) value, so predicted cost, insurance, and freight (c.i.f. or post-shipment) values can be calculated simply by multiplying these flows by $\delta_{ij}$, estimated below. Total domestic consumption on tradables can then be inferred from national accounts data, which report gross output, gross consumption, and GDP.^[Gross consumption includes consumer final expenditure as well as producers' expenditure on intermediates and is inclusive of trade deficits.] I simply subtract the share of consumer expenditure on services implied by the ICP data from each country's gross consumption, which provides a measure of gross consumption on tradables, the empirical analogue to $E_i = \nu_i I_i$. These national accounts data are taken from the [World Input Output Database (WIOD)](http://www.wiod.org/home) [@Timmer2015] and the [OECD's National Input Output Tables](https://stats.oecd.org/Index.aspx?DataSetCode=IOTS).
 
 Note that implicit domestic consumption in Equation \ref{eq:lambda_jj} depends on the magnitude of policy barriers to trade. This is because consumers' expenditure on foreign goods inclusive of policy barriers is greater than the value of these purchases observed at the border. Because $\lambda_{jj}(\bm{\tau}_j)$ is a decreasing function, a unique solution to Equation \ref{eq:tauCIF} is guaranteed to exist, so I simply iterate on the values of $\bm{\tau}$ and $\bm{\lambda}$ until convergence.
 
@@ -314,6 +314,11 @@ Figure \ref{fig:hm} shows the distribution of directed policy barriers to trade 
 Figure \ref{fig:tau_ci} plots uncertainty intervals surrounding the magnitude of policy barriers for each importing country in the sample. These intervals are asymmetric around the point estimates due to nonlinearities in the estimating equation (\ref{eq:tau}). 
 
 
+```
+## 
+## The downloaded binary packages are in
+## 	/var/folders/br/sld_554j6q33n2dsq58dd1_5g36dn8/T//RtmpMMglkt/downloaded_packages
+```
 
 ![Policy barrier estimates, magnitudes and uncertainty intervals. Each panel displays the estimated policy barriers applied by an importing country on products from every in-sample source country. An interactive version of this plot is available at [https://brendancooley.shinyapps.io/epbt](https://brendancooley.shinyapps.io/epbt). \label{fig:tau_ci}](03_figs/tauq_ci.png)
 
@@ -352,33 +357,33 @@ I measure aggregate tariff protection with a trade-weighted average of applied t
 \cline{2-2} 
 \\[-1.8ex] & Structural Policy Barrier \\ 
 \hline \\[-1.8ex] 
- Tariffs & 1.074$^{*}$ \\ 
-  & (0.560) \\ 
+ Tariffs & 1.194$^{**}$ \\ 
+  & (0.570) \\ 
   & \\ 
- PTAs & $-$0.304$^{***}$ \\ 
-  & (0.062) \\ 
+ PTAs & $-$0.316$^{***}$ \\ 
+  & (0.063) \\ 
   & \\ 
- Core NTM & 0.088 \\ 
-  & (0.160) \\ 
+ Core NTM & 0.097 \\ 
+  & (0.163) \\ 
   & \\ 
- Health/Safety NTM & 0.183 \\ 
-  & (0.149) \\ 
+ Health/Safety NTM & 0.171 \\ 
+  & (0.152) \\ 
   & \\ 
- Other NTM & $-$0.100 \\ 
-  & (0.202) \\ 
+ Other NTM & $-$0.082 \\ 
+  & (0.205) \\ 
   & \\ 
 \hline \\[-1.8ex] 
 Importer Fixed Effects & \checkmark \\ 
 Exporter Fixed Effects & \checkmark \\ 
 Observations & 361 \\ 
-R$^{2}$ & 0.877 \\ 
+R$^{2}$ & 0.876 \\ 
 \hline 
 \hline \\[-1.8ex] 
 \textit{Note:}  & \multicolumn{1}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
 \end{tabular} 
 \end{table} 
 
-The results are shown in Table \ref{tab:correlates}. Estimated policy barriers are positively correlated with observed tariffs. Independently of tariff rate reductions, policy barriers are negatively correlated with the existence of a PTA. This is consistent with PTAs as a tool of "deep liberalization" that reduce trade costs in excess of those imposed by tariffs. In particular, the existence of a PTA is associated with a tariff-equivalent decrease in $\tau_{ij}$ of 30 percentage points. Policy barriers show no significant association with any category of NTMs. However, coverage ratios are an extremely coarse measure of the magnitude of NTMs, and the TRAINS data are of imperfect quality [@Kono2008].
+The results are shown in Table \ref{tab:correlates}. Estimated policy barriers are positively correlated with observed tariffs. Independently of tariff rate reductions, policy barriers are negatively correlated with the existence of a PTA. This is consistent with PTAs as a tool of "deep liberalization" that reduce trade costs in excess of those imposed by tariffs. In particular, the existence of a PTA is associated with a tariff-equivalent decrease in $\tau_{ij}$ of 32 percentage points. Policy barriers show no significant association with any category of NTMs. However, coverage ratios are an extremely coarse measure of the magnitude of NTMs, and the TRAINS data are of imperfect quality [@Kono2008].
 
 ## A Placebo Test: Intra-European Union Barriers
 
@@ -674,7 +679,7 @@ IND & India\\
 ISR & Israel\\
 \addlinespace
 JPN & Japan\\
-KOR & Republic of Korea\\
+KOR & South Korea\\
 MEX & Mexico\\
 MYSG & NA\\
 NZL & New Zealand\\
@@ -682,12 +687,12 @@ NZL & New Zealand\\
 PER & Peru\\
 PHL & Philippines\\
 RoW & Rest of the World\\
-RUS & Russian Federation\\
+RUS & Russia\\
 THA & Thailand\\
 \addlinespace
 TUR & Turkey\\
-USA & United States of America\\
-VNM & Viet Nam\\
+USA & United States\\
+VNM & Vietnam\\
 ZAF & South Africa\\
 \bottomrule
 \end{tabular}
