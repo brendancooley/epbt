@@ -39,6 +39,8 @@ verticatorPath = "~/Dropbox\ \(Princeton\)/8_Templates/plugin/verticator"
 pluginDest = "index_files/reveal.js-3.8.0/plugin"
 revealPath = "~/Dropbox\ \(Princeton\)/8_Templates/reveal.js-3.8.0"
 
+figs_to_transfer = ["tcosts.pdf", "tauq_ci.pdf"]
+
 M = 250  # number of bootstrap iterations
 
 def task_source():
@@ -191,6 +193,14 @@ def task_paper():
                    "pandoc --template=templates/cooley-paper-template.latex --filter pandoc-citeproc -o epbt.pdf epbt.md"],
                    'verbosity': 2,
 	}
+
+def task_transfer_figs():
+    for i in figs_to_transfer:
+        yield {
+            'name': "transferring figs" + i + "...",
+            'actions':["mkdir -p figure/",
+                       "cp " + figsdir + i + " " + "figure/" + i]
+        }
 
 def task_post_to_web():
 	"""

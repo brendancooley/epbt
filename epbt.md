@@ -47,7 +47,7 @@ The logic behind the approach employed here is also articulated in @Leamer1988. 
 
 The results point to far more policy distortion and effective discrimination than would be inferred from the tariff data. Tariff equivalents of implied policy barriers are generically more than an order of magnitude larger than observed tariffs. Moreover, exporters in subset of favored countries enjoy far superior market access conditions than their peers in unfavored countries.
 
-![Tariff rates (left) and structural trade restrictiveness (right) against GDP per capita \label{fig:triIncome}](figure/triIncome-1.png)
+![Tariff rates (left) and structural trade restrictiveness (right) against GDP per capita \label{fig:triIncome}](figure/triIncome-1.pdf)
 
 The trade policy openness attributed to developed countries also depends strongly on the metric used to evaluate openness.^[See @Rodriguez2000, @Dollar2004, and @Tavares2008 for discussions of this phenomenon.] As shown in Figure \ref{fig:triIncome}, there is a negative association between economic development (per capita GDP) and applied tariff rates. This relationship is reversed if trade policy restrictiveness is measured as proposed here. Countries with higher per capita incomes tend to have higher Trade Restrictiveness Indices.^[See Equation \ref{eq:tri}.] This is consistent with @Kono2006 and @Queralt2015, which suggest that developed countries offset tariff reductions with increases in non-tariff direct barriers and (potentially distortionary) domestic taxes.
 
@@ -218,7 +218,7 @@ d_{ij} = \rho_j \delta_{ij}(\bm{Z}_{ij}) \tau_{ij}
 \end{equation}
 where $\rho_j$ denotes exporter-specific costs, $\delta_{ij}$ denotes international freight costs, and $\tau_{ij}$ denotes policy barriers. $\delta_{ij}$ is a function, which takes a vector of bilateral geographic covariates $\bm{Z}_{ij}$ and outputs bilateral freight costs.^[I discuss how I model these costs in more detail in Appendix B.] I normalize $\delta_{ii} = \tau_{ii} = 1$. 
 
-![Trade cost decomposition. \label{fig:tcostsMap}](03_figs/tcosts.png){ width=75% }
+![Trade cost decomposition. \label{fig:tcostsMap}](figure/tcosts.pdf){ width=75% }
 
 Figure \ref{fig:tcostsMap} traces the path goods must travel from a factory in country $j$ to a market in country $i$. Goods first travel from the factory in $j$ to $j$'s border. Upon reaching the border (airport, port, or border crossing), goods must travel by land, sea, or air to the border of their destination country. Along the way, they incur freight costs $\delta_{ij}$. The market in $i$ is protected by a policy barrier $\tau_{ij}$ that can vary across importers. Once goods cross this border, they arrive at the market and are consumed at a price inclusive of the factory gate price $p_{jj}(\omega)$ and these transportation and policy costs. Substituting Equation \ref{eq:tcosts} into the gravity equation \ref{eq:Gravity} gives
 $$
@@ -257,7 +257,7 @@ P_i = \left( \int_\omega \tilde{\alpha}_{i, h(\omega)} p_i(\omega)^{1 - \sigma} 
 $$
 The ICP reports prices relative to their levels in the United States. In Appendix A, I show consumers' demand for each good is a function their preferences ($\tilde{\alpha}_{ik}$), the good's price ($p_{ik}$), and the price level in the country ($P_i$). Differencing this demand equation with respect to its analogue in the United States eliminates the constant portion of the preference parameter, $\alpha_k$. Then, demand relative to the United States is a function the stochastic preference shocks ($\epsilon_{ik}$), the price of the good, and the overall price level in the country. I estimate this differenced equation on observed prices and relative expenditure shares by minimizing the squared magnitudes of the preference shocks. This generates estimates for the country-specific price indices, $\hat{P}_i$.
 
-![Price index estimates and tradable expenditure shares \label{fig:P}](figure/P-1.png)
+![Price index estimates and tradable expenditure shares \label{fig:P}](figure/P-1.pdf)
 
 I plot the distribution of estimated price indices and tradable expenditure shares on tradables that emerge from this procedure against per capita GDPs in Figure \ref{fig:P}. Within my sample, consumers in wealthier countries tend to face higher prices. The total share of consumer expenditure on tradable goods $(\sum_{k=0}^{K-1} x_{ik})$ is the empirical analogue to $\nu_i$. On average, consumers spend 40 percent of their income on tradable goods.
 
@@ -288,7 +288,7 @@ There are two limitations of this simple model of the transportation sector. Fir
 
 Accounting for these features of the market for transportation services would add considerable complexity to the framework developed here. Moreover, the simple model I consider produces reasonable out-of-sample fit, and estimated freight costs are small relative to estimated policy barriers. Figure \ref{fig:freight} depicts factual and predicted freight costs for the United States, Australia, New Zealand, and Chile in 2011. The observations for New Zealand and Chile are out of sample -- the model was not trained on these data.^[The model of aggregate freight costs relies on information on transportation mode shares, which were not available for these countries. They do report c.i.f.-f.o.b. ratios, however.]  Chile and New Zealand's predicted bilateral freight costs have a mean absolute error of 2 percentage points. Overall, predicted freight costs average 7 percent the value of shipments and are positively correlated with distance.
 
-![Factual versus predicted freight costs. In-sample observations are shown in grey. Out-of-sample observations are shown in black. \label{fig:freight}](figure/freight-1.png)
+![Factual versus predicted freight costs. In-sample observations are shown in grey. Out-of-sample observations are shown in black. \label{fig:freight}](figure/freight-1.pdf)
 
 
 
@@ -299,13 +299,13 @@ Accounting for these features of the market for transportation services would ad
 
 The results of this exercise reveal substantial unobserved policy barriers to trade. In 2011, across all in-sample markets, exporters faced an average $\tau$ of 2.4, equivalent to a 140 percent import tariff.^[Of course, this result is sensitive to my stance on the trade elasticity. Doubling the trade elasticity to 12 cuts the average $\tau$ to 1.62] The magnitude of these barriers dwarfs that of applied aggregate tariffs, which average only 4 percent within my sample. This result is consistent with @Anderson2003, @Bradford2003, @deSousa2012, and @Waugh2016 which also uncover large implied trade costs using indirect measurement methods. Figure \ref{fig:tcosts} shows the distribution of implied policy barriers (panel A), relative to tariffs and predicted freight costs.
 
-![Distribution of freight costs, tariff barriers, and structural policy barriers to trade ($\tau_{ij}$). Dashed lines show mean of each distribution. \label{fig:tcosts}](figure/tcosts-1.png)
+![Distribution of freight costs, tariff barriers, and structural policy barriers to trade ($\tau_{ij}$). Dashed lines show mean of each distribution. \label{fig:tcosts}](figure/tcosts-1.pdf)
 
 The model and data jointly suggest that international trade remains far from free, even taking into account unavoidable freight costs. Returning to Equation \ref{eq:tau}, this result suggests that the observed international price gaps and trade flows are inconsistent with a trade barrier-less world, given predicted freight costs. The model suggests that if implied policy barriers were removed, some combination of increases in trade flows and the reduction of price gaps would occur.
 
 International trade is also far from fair. A fair international trading system might allow for trade restrictions, but require that these restrictions affect all trading partners equally. In fact, policy barriers to trade are quite discriminatory. In 2011, the mean within-country standard deviation of $\tau_{ij}$ is 0.86, representing a significant preferential margin for preferred trade partners. For example, in 2011, U.S. trade with Canada ($\tau_{ij} =$ 1.19), Japan (1.21), and the European Union (1.4) was relatively unhindered. Conversely, U.S. trade with Peru (3.11) and Vietnam (3.6) was highly restricted.
 
-![Distribution of policy barriers to trade. Each cell reports the magnitude of the policy barrier each importing country (y-axis) imposes on every exporting country (x-axis). Countries are partitioned into 3 groups through K-means clustering. Black rectangles enclose each cluster. An interactive version of this plot is available at \protect[https://brendancooley.shinyapps.io/epbt](https://brendancooley.shinyapps.io/epbt). \label{fig:hm}](figure/hm-1.png)
+![Distribution of policy barriers to trade. Each cell reports the magnitude of the policy barrier each importing country (y-axis) imposes on every exporting country (x-axis). Countries are partitioned into 3 groups through K-means clustering. Black rectangles enclose each cluster. An interactive version of this plot is available at \protect[https://brendancooley.shinyapps.io/epbt](https://brendancooley.shinyapps.io/epbt). \label{fig:hm}](figure/hm-1.pdf)
 
 Figure \ref{fig:hm} shows the distribution of directed policy barriers to trade in the data. The latent trade discrimination implemented by the United States is not unique -- openness varies significantly at the importer-exporter level. Clustering countries by the similarity of their trade policy vectors uncovers regional biases in trade policy. I sort countries into economic blocs through a K-means procedure with 3 groups. Pacific countries (East and Southeast Asia and Australasia) are grouped together, as are North and South American countries. The European Union is grouped with Russia and Turkey. Because freight costs are not included in these measures, these economic blocs are not the result of mere geographic proximity. Rather, these countries have undergone political-economic union by reducing policy barriers to trade on one anothers' products.
 
@@ -313,7 +313,7 @@ Figure \ref{fig:tau_ci} plots uncertainty intervals surrounding the magnitude of
 
 
 
-![Policy barrier estimates, magnitudes and uncertainty intervals. Each panel displays the estimated policy barriers applied by an importing country on products from every in-sample source country. An interactive version of this plot is available at [https://brendancooley.shinyapps.io/epbt](https://brendancooley.shinyapps.io/epbt). \label{fig:tau_ci}](03_figs/tauq_ci.png)
+![Policy barrier estimates, magnitudes and uncertainty intervals. Each panel displays the estimated policy barriers applied by an importing country on products from every in-sample source country. An interactive version of this plot is available at [https://brendancooley.shinyapps.io/epbt](https://brendancooley.shinyapps.io/epbt). \label{fig:tau_ci}](figure/tauq_ci.pdf)
 
 These barriers can be aggregated into two numbers -- a Trade Restrictiveness Index (TRI) and a Market Access Index (MAI) -- that summarize each country's import restrictiveness and international market access conditions, respectively. The TRI is simply a weighted average of the policy barriers an importing country imposes on all other countries, where the weights are the gross tradable expenditures of these other countries.^[I use gross consumption, rather than observed flows, as weights for consistency with the theoretical framework. Trade flows are endogenous to each country's trade policy decisions. In a friction-less world, exporters would capture a constant share of every market's gross expenditure on tradables.]
 \begin{equation} \label{eq:tri}
@@ -325,7 +325,7 @@ Similarly, the market access index is an expenditure weighted average of the bar
 \end{equation}
 Higher values of the TRI correspond to higher aggregate trade restrictiveness. Conversely, higher values of the MAI correspond to lower aggregate market access (a high tax on a country's exports).
 
-![Trade restrictiveness and market access conditions by country \label{fig:trimai}](figure/trimai-1.png)
+![Trade restrictiveness and market access conditions by country \label{fig:trimai}](figure/trimai-1.pdf)
 
 Figure \ref{fig:trimai} plots the TRIs and MAIs jointly. A negative correlation between these indices emerges naturally from the structure of the model. High domestic prices imply arbitrage opportunities, raising the TRI. They also imply high opportunity costs for domestic exporting firms that forgo these high prices. To rationalize these flows, the model infers that these firms must face relatively friendly market access conditions abroad, raising the MAI.
 
@@ -382,7 +382,7 @@ The results are shown in Table \ref{tab:correlates}. Estimated policy barriers a
 
 In the preceding analysis, the European Union (EU) member states were treated as a single economic entity. Within the EU, goods face few policy barriers to trade. The EU customs union eliminates direct barriers to trade assessed at the border, and regulatory harmonization efforts seek to minimize indirect barriers. For this reason, intra-EU policy barriers to trade should be substantially lower than external barriers. Because the EU documents internal trade and the ICP collects price data for each EU member state, I can test this hypothesis in the data. To do so, I first employ my freight cost model to predict shipping costs within EU member states. European Union policy barriers to trade can then be disaggregated by member state.^[There were 27 members of the European Union in 2011, and Turkey participated in the economic bloc through a customs union. Due to inconsistencies between its trade and national accounts data, I drop Malta from the analysis.]
 
-![Intra and extra-European Union policy barriers to trade. Each cell reports the magnitude of the policy barrier each EU importing country (y-axis) imposes on every exporting country (x-axis). Barriers toward EU countries are on the left hand side of the solid line. Barriers toward non-EU countries are on the right hand side of the solid line. BNL is an aggregate of Belgium, Luxembourg, and the Netherlands (Benelux). ELL is an aggregate of the Baltic countries: Estonia, Latvia, and Lithuania. \label{fig:hmEUD}](figure/hmEUD-1.png)
+![Intra and extra-European Union policy barriers to trade. Each cell reports the magnitude of the policy barrier each EU importing country (y-axis) imposes on every exporting country (x-axis). Barriers toward EU countries are on the left hand side of the solid line. Barriers toward non-EU countries are on the right hand side of the solid line. BNL is an aggregate of Belgium, Luxembourg, and the Netherlands (Benelux). ELL is an aggregate of the Baltic countries: Estonia, Latvia, and Lithuania. \label{fig:hmEUD}](figure/hmEUD-1.pdf)
 
 Figure \ref{fig:hmEUD} depicts the results of this exercise.^[In Appendix D, I reproduce Figure \ref{fig:hm} with the European Union disaggregated and re-implement K-means clustering, with $K=$ 4. The Asian and American blocs remain largely intact. The clustering uncovers 2 distinct European blocs -- a Western bloc consisting of Great Britain,France, Germany, and their neighbors as well as an Eatern bloc consisting of mostly post-Cold War EU entrants. Interestingly, Russia and Turkey are grouped with the Western bloc, rather than the more geographically proximate Eastern countries.] EU policy barriers toward other EU member states are on average 56 percent the size of barriers with non-EU states.^[This comparison was made by taking weighted means of tariff-equivalent policy barriers where the weights are the expenditures on tradable goods of the exporting countries.] Barriers are far from nonexistent, however. On average, EU countries implement an tariff-equivalent barrier of 69 percent on other EU member states, compared to 119 percent on non-EU states.^[These are unweighted averages of EU member states' TRIs, calculated with respect to EU and non-EU members respectively.] From the perspective of the model, there remained substantial policy-related trade frictions within the EU in 2011. This finding is consistent with the existence of "border effects" within the EU [@Comerford2015]. Of course, these inferences might be driven by features of the model itself. I discuss these limitations in more detail in the paper's conclusion.
 
@@ -390,7 +390,7 @@ Figure \ref{fig:hmEUD} depicts the results of this exercise.^[In Appendix D, I r
 
 In the introduction, I noted that richer countries tend to have higher policy barriers to trade, contrary to their relatively liberal tariff regimes. From this fact, some conclude that political institutions in developed countries are more "welfare-concious" than those in their developing counterparts [@Gawande2009; @Gawande2015]. These results are consistent with an alternative approach, emphasizing state capacity, articulated in @Acemoglu2005b, @Rodrik2008, and @Queralt2015. Here, tariffs emerge as a "second-best" solution to a revenue-raising problem facing low-capacity governments, which struggle to raise revenue through other channels. As capacity grows, governments employ alternative instruments to raise revenues. As shown here, these governments do not necessarily become less protectionist in the process. In fact, they may become more closed to international trade.
 
-![Market access conditions and per capita national income \label{fig:maiGdppc}](figure/maiGdppc-1.png)
+![Market access conditions and per capita national income \label{fig:maiGdppc}](figure/maiGdppc-1.pdf)
 
 Due to the restrictiveness and discrimination inherent in developed countries' trade policies, poor countries also struggle to access international markets, shown in Figure \ref{fig:maiGdppc}. Several studies examining trade costs as a whole replicate this finding, and suggest that this explains some of the variation in cross-national income per capita [@Redding2004; @Romalis2007; @Waugh2010]. These results suggest that even complete tariff liberalization on the part of developed countries would still leave developing countries confronting substantial market access barriers.
 
@@ -646,19 +646,31 @@ R$^{2}$ & 0.263 \\
 ## D: Economic Blocs, Disaggregated European Union
 
 
-![Distribution of policy barriers to trade with individual EU countries. Each cell reports the magnitude of the policy barrier each importing country (y-axis) imposes on every exporting country (x-axis). Countries are partitioned into 4 groups through K-means clustering. Black rectangles enclose each cluster.](figure/hmEUDC-1.png)
+![Distribution of policy barriers to trade with individual EU countries. Each cell reports the magnitude of the policy barrier each importing country (y-axis) imposes on every exporting country (x-axis). Countries are partitioned into 4 groups through K-means clustering. Black rectangles enclose each cluster.](figure/hmEUDC-1.pdf)
 
 
+
+\FloatBarrier
 
 ## E: Sample Countries
 
 
-\begin{table}[H]
-\centering
-\begin{tabular}{ll}
+\begingroup\fontsize{9}{11}\selectfont
+
+\begin{longtable}{ll}
 \toprule
 iso3 & Country Name\\
 \midrule
+\endfirsthead
+\multicolumn{2}{@{}l}{\textit{(continued)}}\\
+\toprule
+iso3 & Country Name\\
+\midrule
+\endhead
+\
+\endfoot
+\bottomrule
+\endlastfoot
 AUS & Australia\\
 BRA & Brazil\\
 CAN & Canada\\
@@ -686,10 +698,9 @@ THA & Thailand\\
 TUR & Turkey\\
 USA & United States\\
 VNM & Vietnam\\
-ZAF & South Africa\\
-\bottomrule
-\end{tabular}
-\end{table}
+ZAF & South Africa\\*
+\end{longtable}
+\endgroup{}
 
 
 

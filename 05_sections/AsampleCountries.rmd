@@ -15,6 +15,7 @@ colnames(ccodesTable) <- c("iso3", "Country Name")
 
 ccodesTable <- ccodesTable %>% arrange(iso3)
 
-kable(ccodesTable, "latex", booktabs = T) %>% kable_styling(position = "center")
+kable(ccodesTable, "latex", escape = F, longtable = T, booktabs = T) %>%
+	kable_styling(latex_options = c("repeat_header"), position = "center", font_size = 9)
 
 ```

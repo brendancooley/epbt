@@ -1,4 +1,4 @@
-```{r hmEUDC, echo=FALSE, warning=FALSE, message=FALSE, fig.cap = paste("Distribution of policy barriers to trade with individual EU countries. Each cell reports the magnitude of the policy barrier each importing country (y-axis) imposes on every exporting country (x-axis). Countries are partitioned into", KmeansEUD, "groups through K-means clustering. Black rectangles enclose each cluster."), fig.height=6, dpi=300, fig.pos="t"}
+```{r hmEUDC, echo=FALSE, warning=FALSE, message=FALSE, fig.cap = paste("Distribution of policy barriers to trade with individual EU countries. Each cell reports the magnitude of the policy barrier each importing country (y-axis) imposes on every exporting country (x-axis). Countries are partitioned into", KmeansEUD, "groups through K-means clustering. Black rectangles enclose each cluster."), fig.height=6, dpi=300, fig.pos="H"}
 
 tauHMYEUD <- read_csv(paste0(resultsdirEU, "tauY.csv"))
 
