@@ -42,8 +42,6 @@ if (file.exists('references.RData')) load('references.RData')
 
 ```
 
-\newpage
-
 # Introduction
 
 ```{r, child = '05_sections/introduction.rmd'}

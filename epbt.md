@@ -24,8 +24,6 @@ output:
 
 
 
-\newpage
-
 # Introduction
 
 
@@ -314,11 +312,6 @@ Figure \ref{fig:hm} shows the distribution of directed policy barriers to trade 
 Figure \ref{fig:tau_ci} plots uncertainty intervals surrounding the magnitude of policy barriers for each importing country in the sample. These intervals are asymmetric around the point estimates due to nonlinearities in the estimating equation (\ref{eq:tau}). 
 
 
-```
-## 
-## The downloaded binary packages are in
-## 	/var/folders/br/sld_554j6q33n2dsq58dd1_5g36dn8/T//RtmpMMglkt/downloaded_packages
-```
 
 ![Policy barrier estimates, magnitudes and uncertainty intervals. Each panel displays the estimated policy barriers applied by an importing country on products from every in-sample source country. An interactive version of this plot is available at [https://brendancooley.shinyapps.io/epbt](https://brendancooley.shinyapps.io/epbt). \label{fig:tau_ci}](03_figs/tauq_ci.png)
 
