@@ -15,7 +15,7 @@ KmeansEUD <- 4
 
 The results of this exercise reveal substantial unobserved policy barriers to trade. In `r Y`, across all in-sample markets, exporters faced an average $\tau$ of `r round(mean(tau$tau, na.rm=T), 2)`, equivalent to a `r round(mean(tau$tau, na.rm=T), 2) * 100 - 100` percent import tariff.^[Of course, this result is sensitive to my stance on the trade elasticity. Doubling the trade elasticity to `r thetaAlt` cuts the average $\tau$ to `r round(mean(tau$tauAlt, na.rm=T), 2)`] The magnitude of these barriers dwarfs that of applied aggregate tariffs, which average only `r round(mean(tar$wtar, na.rm=T), 2 ) * 100` percent within my sample. This result is consistent with @Anderson2003, @Bradford2003, @deSousa2012, and @Waugh2016 which also uncover large implied trade costs using indirect measurement methods. Figure \ref{fig:tcosts} shows the distribution of implied policy barriers (panel A), relative to tariffs and predicted freight costs.
 
-```{r tcosts, echo=FALSE, warning=FALSE, message=FALSE, fig.cap = "Distribution of freight costs, tariff barriers, and structural policy barriers to trade ($\\tau_{ij}$). Dashed lines show mean of each distribution. \\label{fig:tcosts}", fig.height=5, dpi=300, fig.pos="t"}
+```{r tcosts, echo=FALSE, warning=FALSE, message=FALSE, fig.cap = "Distribution of freight costs, tariff barriers, and structural policy barriers to trade ($\\tau_{ij}$). Dashed lines show mean of each distribution. \\label{fig:tcosts}", fig.height=4.5, fig.width=6.5, dpi=300, fig.pos="t"}
 
 source(paste0("../", figs_dir, "tcosts.R"))
 
@@ -27,7 +27,7 @@ The model and data jointly suggest that international trade remains far from fre
 
 International trade is also far from fair. A fair international trading system might allow for trade restrictions, but require that these restrictions affect all trading partners equally. In fact, policy barriers to trade are quite discriminatory. In `r Y`, the mean within-country standard deviation of $\tau_{ij}$ is `r round(mean(tau %>% group_by(j_iso3) %>% summarise(sd=sd(tau)) %>% pull(), na.rm=T), 2)`, representing a significant preferential margin for preferred trade partners. For example, in `r Y`, U.S. trade with Canada ($\tau_{ij} =$ `r tau %>% filter(j_iso3=="USA", i_iso3=="CAN") %>% pull(tau) %>% round(2)`), Japan (`r tau %>% filter(j_iso3=="USA", i_iso3=="JPN") %>% pull(tau) %>% round(2)`), and the European Union (`r tau %>% filter(j_iso3=="USA", i_iso3=="EU") %>% pull(tau) %>% round(2)`) was relatively unhindered. Conversely, U.S. trade with Peru (`r tau %>% filter(j_iso3=="USA", i_iso3=="PER") %>% pull(tau) %>% round(2)`) and Vietnam (`r tau %>% filter(j_iso3=="USA", i_iso3=="VNM") %>% pull(tau) %>% round(2)`) was highly restricted.
 
-```{r hm, echo=FALSE, warning=FALSE, message=FALSE, fig.cap = paste("Distribution of policy barriers to trade. Each cell reports the magnitude of the policy barrier each importing country (y-axis) imposes on every exporting country (x-axis). Countries are partitioned into", Kmeans, "groups through K-means clustering. Black rectangles enclose each cluster. An interactive version of this plot is available at \\protect[https://brendancooley.shinyapps.io/epbt](https://brendancooley.shinyapps.io/epbt). \\label{fig:hm}"), fig.height=6, dpi=300, fig.pos="t"}
+```{r hm, echo=FALSE, warning=FALSE, message=FALSE, fig.cap = paste("Distribution of policy barriers to trade. Each cell reports the magnitude of the policy barrier each importing country (y-axis) imposes on every exporting country (x-axis). Countries are partitioned into", Kmeans, "groups through K-means clustering. Black rectangles enclose each cluster. An interactive version of this plot is available at \\protect\\url{https://brendancooley.shinyapps.io/epbt}. \\label{fig:hm}"), fig.height=5.5, fig.width=5.5, dpi=300, fig.pos="t"}
 
 EUHM <- F
 highlight <- NULL
@@ -49,7 +49,7 @@ source(paste0("../", figs_dir, "/tau_ci.R"))
 
 ```
 
-![Policy barrier estimates, magnitudes and uncertainty intervals. Each panel displays the estimated policy barriers applied by an importing country on products from every in-sample source country. An interactive version of this plot is available at \protect[https://brendancooley.shinyapps.io/epbt](https://brendancooley.shinyapps.io/epbt). \label{fig:tau_ci}](figure/tauq_ci.pdf)
+![Policy barrier estimates, magnitudes and uncertainty intervals. Each panel displays the estimated policy barriers applied by an importing country on products from every in-sample source country. An interactive version of this plot is available at \protect\url{https://brendancooley.shinyapps.io/epbt}. \label{fig:tau_ci}](figure/tauq_ci.pdf){ width=7.5in height=9.5in}
 
 These barriers can be aggregated into two numbers -- a Trade Restrictiveness Index (TRI) and a Market Access Index (MAI) -- that summarize each country's import restrictiveness and international market access conditions, respectively. The TRI is simply a weighted average of the policy barriers an importing country imposes on all other countries, where the weights are the gross tradable expenditures of these other countries.^[I use gross consumption, rather than observed flows, as weights for consistency with the theoretical framework. Trade flows are endogenous to each country's trade policy decisions. In a friction-less world, exporters would capture a constant share of every market's gross expenditure on tradables.]
 \begin{equation} \label{eq:tri}
@@ -61,7 +61,7 @@ Similarly, the market access index is an expenditure weighted average of the bar
 \end{equation}
 Higher values of the TRI correspond to higher aggregate trade restrictiveness. Conversely, higher values of the MAI correspond to lower aggregate market access (a high tax on a country's exports).
 
-```{r trimai, echo=FALSE, warning=FALSE, message=FALSE, fig.cap = "Trade restrictiveness and market access conditions by country \\label{fig:trimai}", fig.height=6, dpi=300, fig.pos="t"}
+```{r trimai, echo=FALSE, warning=FALSE, message=FALSE, fig.cap = "Trade restrictiveness and market access conditions by country \\label{fig:trimai}", fig.height=4.5, fig.width=6, dpi=300, fig.pos="t"}
 
 source(paste0("../", figs_dir, "trimai.R"))
 
@@ -96,7 +96,7 @@ The results are shown in Table \ref{tab:correlates}. Estimated policy barriers a
 
 In the preceding analysis, the European Union (EU) member states were treated as a single economic entity. Within the EU, goods face few policy barriers to trade. The EU customs union eliminates direct barriers to trade assessed at the border, and regulatory harmonization efforts seek to minimize indirect barriers. For this reason, intra-EU policy barriers to trade should be substantially lower than external barriers. Because the EU documents internal trade and the ICP collects price data for each EU member state, I can test this hypothesis in the data. To do so, I first employ my freight cost model to predict shipping costs within EU member states. European Union policy barriers to trade can then be disaggregated by member state.^[There were 27 members of the European Union in 2011, and Turkey participated in the economic bloc through a customs union. Due to inconsistencies between its trade and national accounts data, I drop Malta from the analysis.]
 
-```{r hmEUD, echo=FALSE, warning=FALSE, message=FALSE, fig.cap = "Intra and extra-European Union policy barriers to trade. Each cell reports the magnitude of the policy barrier each EU importing country (y-axis) imposes on every exporting country (x-axis). Barriers toward EU countries are on the left hand side of the solid line. Barriers toward non-EU countries are on the right hand side of the solid line. BNL is an aggregate of Belgium, Luxembourg, and the Netherlands (Benelux). ELL is an aggregate of the Baltic countries: Estonia, Latvia, and Lithuania. \\label{fig:hmEUD}", fig.height=5, dpi=300, fig.pos="t"}
+```{r hmEUD, echo=FALSE, warning=FALSE, message=FALSE, fig.cap = "Intra and extra-European Union policy barriers to trade. Each cell reports the magnitude of the policy barrier each EU importing country (y-axis) imposes on every exporting country (x-axis). Barriers toward EU countries are on the left hand side of the solid line. Barriers toward non-EU countries are on the right hand side of the solid line. BNL is an aggregate of Belgium, Luxembourg, and the Netherlands (Benelux). ELL is an aggregate of the Baltic countries: Estonia, Latvia, and Lithuania. \\label{fig:hmEUD}", fig.height=4.5, fig.width=6.5, dpi=300, fig.pos="t"}
 
 source(paste0("../", figs_dir, "hmEUD.R"))
 
@@ -110,7 +110,7 @@ Figure \ref{fig:hmEUD} depicts the results of this exercise.^[In Appendix `r Aec
 
 In the introduction, I noted that richer countries tend to have higher policy barriers to trade, contrary to their relatively liberal tariff regimes. From this fact, some conclude that political institutions in developed countries are more "welfare-concious" than those in their developing counterparts [@Gawande2009; @Gawande2015]. These results are consistent with an alternative approach, emphasizing state capacity, articulated in @Acemoglu2005b, @Rodrik2008, and @Queralt2015. Here, tariffs emerge as a "second-best" solution to a revenue-raising problem facing low-capacity governments, which struggle to raise revenue through other channels. As capacity grows, governments employ alternative instruments to raise revenues. As shown here, these governments do not necessarily become less protectionist in the process. In fact, they may become more closed to international trade.
 
-```{r maiGdppc, echo=FALSE, warning=FALSE, message=FALSE, fig.cap = "Market access conditions and per capita national income \\label{fig:maiGdppc}", fig.height=5, dpi=300, fig.pos="t"}
+```{r maiGdppc, echo=FALSE, warning=FALSE, message=FALSE, fig.cap = "Market access conditions and per capita national income \\label{fig:maiGdppc}", fig.height=4.5, fig.width=4.5, dpi=300, fig.pos="t"}
 
 source(paste0("../", figs_dir, "/maigdppc.R"))
 

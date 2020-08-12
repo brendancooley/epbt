@@ -22,7 +22,7 @@ The logic behind the approach employed here is also articulated in @Leamer1988. 
 
 The results point to far more policy distortion and effective discrimination than would be inferred from the tariff data. Tariff equivalents of implied policy barriers are generically more than an order of magnitude larger than observed tariffs. Moreover, exporters in subset of favored countries enjoy far superior market access conditions than their peers in unfavored countries.
 
-```{r triIncome, echo=FALSE, warning=FALSE, message=FALSE, fig.cap = "Tariff rates (left) and structural trade restrictiveness (right) against GDP per capita \\label{fig:triIncome}", fig.height=5, dpi=300}
+```{r triIncome, echo=FALSE, warning=FALSE, message=FALSE, fig.cap = "Tariff rates (left) and structural trade restrictiveness (right) against GDP per capita \\label{fig:triIncome}", fig.height=4.5, fig.width=6.5, dpi=300}
 
 source(paste0("../", figs_dir, "triIncome.R"))
 
