@@ -15,7 +15,7 @@ trimaiY$gdppc <- trimaiY$gdp / trimaiY$pop
 
 maigdppcPlot <- ggplot(data=trimaiY, aes(x=gdppc, y=MAI, label=iso3))  +
   geom_point() +
-  geom_text_repel() +
+  geom_text_repel(size=2.5) +
   geom_smooth(method='lm', lty=2, se=FALSE, color=bcOrange, size=.75) +
   xlab('GDP Per Capita') +
   ylab('Market Access Index') +
