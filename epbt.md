@@ -218,7 +218,7 @@ d_{ij} = \rho_j \delta_{ij}(\bm{Z}_{ij}) \tau_{ij}
 \end{equation}
 where $\rho_j$ denotes exporter-specific costs, $\delta_{ij}$ denotes international freight costs, and $\tau_{ij}$ denotes policy barriers. $\delta_{ij}$ is a function, which takes a vector of bilateral geographic covariates $\bm{Z}_{ij}$ and outputs bilateral freight costs.^[I discuss how I model these costs in more detail in Appendix B.] I normalize $\delta_{ii} = \tau_{ii} = 1$. 
 
-![Trade cost decomposition. \label{fig:tcostsMap}](figure/tcosts.pdf){ width=75% }
+![Trade cost decomposition. \label{fig:tcostsMap}](figure/tcosts.pdf){ width=4in height=4in }
 
 Figure \ref{fig:tcostsMap} traces the path goods must travel from a factory in country $j$ to a market in country $i$. Goods first travel from the factory in $j$ to $j$'s border. Upon reaching the border (airport, port, or border crossing), goods must travel by land, sea, or air to the border of their destination country. Along the way, they incur freight costs $\delta_{ij}$. The market in $i$ is protected by a policy barrier $\tau_{ij}$ that can vary across importers. Once goods cross this border, they arrive at the market and are consumed at a price inclusive of the factory gate price $p_{jj}(\omega)$ and these transportation and policy costs. Substituting Equation \ref{eq:tcosts} into the gravity equation \ref{eq:Gravity} gives
 $$

@@ -31,7 +31,7 @@ P_i = \left( \int_\omega \tilde{\alpha}_{i, h(\omega)} p_i(\omega)^{1 - \sigma} 
 $$
 The ICP reports prices relative to their levels in the United States. In Appendix `r ApriceIndex`, I show consumers' demand for each good is a function their preferences ($\tilde{\alpha}_{ik}$), the good's price ($p_{ik}$), and the price level in the country ($P_i$). Differencing this demand equation with respect to its analogue in the United States eliminates the constant portion of the preference parameter, $\alpha_k$. Then, demand relative to the United States is a function the stochastic preference shocks ($\epsilon_{ik}$), the price of the good, and the overall price level in the country. I estimate this differenced equation on observed prices and relative expenditure shares by minimizing the squared magnitudes of the preference shocks. This generates estimates for the country-specific price indices, $\hat{P}_i$.
 
-```{r P, echo=FALSE, warning=FALSE, message=FALSE, fig.cap = "Price index estimates and tradable expenditure shares \\label{fig:P}", fig.height=5, dpi=300, fig.pos="t"}
+```{r P, echo=FALSE, warning=FALSE, message=FALSE, fig.cap = "Price index estimates and tradable expenditure shares \\label{fig:P}", fig.height=5, fig.width=6.5, dpi=300, fig.pos="t"}
 
 source(paste0("../", figs_dir, "P.R"))
 

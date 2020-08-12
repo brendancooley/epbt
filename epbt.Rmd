@@ -154,5 +154,6 @@ AexpCategories <- LETTERS[a]
 ```{r, echo=FALSE, warning=FALSE, message=FALSE, results='hide'}
 
 save.image('references.RData')
+gc()
 
 ```
