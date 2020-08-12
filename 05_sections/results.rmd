@@ -49,7 +49,7 @@ source(paste0("../", figs_dir, "/tau_ci.R"))
 
 ```
 
-![Policy barrier estimates, magnitudes and uncertainty intervals. Each panel displays the estimated policy barriers applied by an importing country on products from every in-sample source country. An interactive version of this plot is available at \protect\url{https://brendancooley.shinyapps.io/epbt}. \label{fig:tau_ci}](figure/tauq_ci.pdf){ width=7.5in height=9.5in}
+![Policy barrier estimates, magnitudes and uncertainty intervals. Each panel displays the estimated policy barriers applied by an importing country on products from every in-sample source country. An interactive version of this plot is available at \protect\url{https://brendancooley.shinyapps.io/epbt}. \label{fig:tau_ci}](figure/tauq_ci.pdf){ width=6in height=8in }
 
 These barriers can be aggregated into two numbers -- a Trade Restrictiveness Index (TRI) and a Market Access Index (MAI) -- that summarize each country's import restrictiveness and international market access conditions, respectively. The TRI is simply a weighted average of the policy barriers an importing country imposes on all other countries, where the weights are the gross tradable expenditures of these other countries.^[I use gross consumption, rather than observed flows, as weights for consistency with the theoretical framework. Trade flows are endogenous to each country's trade policy decisions. In a friction-less world, exporters would capture a constant share of every market's gross expenditure on tradables.]
 \begin{equation} \label{eq:tri}
