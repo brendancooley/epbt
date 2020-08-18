@@ -8,8 +8,9 @@ abstract: To what extent is international trade free and fair? Because policy ba
 thanks: Princeton's Research Program in Political Economy provided financial support for this research. The World Bank's International Comparison Program kindly shared data. Thanks to Jim Bisbee, Christina Fattore, Haosen Ge, Gene Grossman, Gleason Judd, Kathy Ingram, Sojeong Lee, Aurora Ling, John Londregan, Marco Martini, Helen Milner, Sayumi Miyano, Steve Monroe, Tim Peterson, Sondre Solstad, Kris Ramsay, Steve Redding, Noam Reich, Esther Robinson, Alexandra Zeitz, and Grace Zeng for comments on earlier drafts of this paper, as well audiences at the Princeton Political Economy Graduate Colloquium, the Princeton IR Graduate Seminar, Princeton's Fellowship of Woodrow Wilson Scholars, the Midwest Political Science Association's 2019 Annual Meeting, the International Studies Association's 2019 Midwest Annual Conference, and the Southern Political Science Association's 2020 Annual Meeting.
 # jelcodes: JEL codes go here
 
-bibliography: /Users/bcooley/Dropbox (Princeton)/References/library.bib
-biblio-style: apsr
+bibliography: bib/library.bib
+# biblio-style: apsr
+csl: "templates/apsa.csl"
 
 papersize: letter
 documentclass: article
@@ -914,5 +915,188 @@ Code & Basic Heading & Tradable?\\
 \clearpage
 
 # References
+
+<div id="refs"></div>
+
+# Software
+
+Arel-Bundock V (2020). _countrycode: Convert Country Names and Country
+Codes_. R package version 1.2.0, <URL:
+https://CRAN.R-project.org/package=countrycode>.
+
+Arel-Bundock V, Enevoldsen N, Yetman C (2018). "countrycode: An R
+package to convert country names and country codes." _Journal of Open
+Source Software_, *3*(28), 848. <URL:
+https://doi.org/10.21105/joss.00848>.
+
+Arnold JB (2019). _ggthemes: Extra Themes, Scales and Geoms for
+'ggplot2'_. R package version 4.2.0, <URL:
+https://CRAN.R-project.org/package=ggthemes>.
+
+Boettiger C (2019). _knitcitations: Citations for 'Knitr' Markdown
+Files_. R package version 1.0.10, <URL:
+https://CRAN.R-project.org/package=knitcitations>.
+
+Chang W, Wickham H (2019). _ggvis: Interactive Grammar of Graphics_. R
+package version 0.4.5, <URL: https://CRAN.R-project.org/package=ggvis>.
+
+Cooper N (2018). _NCmisc: Miscellaneous Functions for Creating Adaptive
+Functions and Scripts_. R package version 1.1.6, <URL:
+https://CRAN.R-project.org/package=NCmisc>.
+
+Cooper N (2017). _reader: Suite of Functions to Flexibly Read Data from
+Files_. R package version 1.0.6, <URL:
+https://CRAN.R-project.org/package=reader>.
+
+Francois R (2020). _bibtex: Bibtex Parser_. R package version 0.4.2.2,
+<URL: https://CRAN.R-project.org/package=bibtex>.
+
+from mda:mars SMD, utilities with Thomas Lumley's RTUAMF (2019).
+_earth: Multivariate Adaptive Regression Splines_. R package version
+5.1.2, <URL: https://CRAN.R-project.org/package=earth>.
+
+Gloeckner N (2020). _olpsR: Algorithms and functions for On-line
+Portfolio Selection_. R package version 0.5.
+
+Henry L, Wickham H (2020). _purrr: Functional Programming Tools_. R
+package version 0.3.4, <URL: https://CRAN.R-project.org/package=purrr>.
+
+Hlavac M (2018). _stargazer: Well-Formatted Regression and Summary
+Statistics Tables_. R package version 5.2.2, <URL:
+https://CRAN.R-project.org/package=stargazer>.
+
+Hornik K, Feinerer I, Kober M (2020). _skmeans: Spherical k-Means
+Clustering_. R package version 0.2-12, <URL:
+https://CRAN.R-project.org/package=skmeans>.
+
+Hornik K, Feinerer I, Kober M, Buchta C (2012). "Spherical $k$-Means
+Clustering." _Journal of Statistical Software_, *50*(10), 1-22. doi:
+10.18637/jss.v050.i10 (URL: https://doi.org/10.18637/jss.v050.i10).
+
+J L (2006). "Plotrix: a package in the red light district of R."
+_R-News_, *6*(4), 8-12.
+
+Lemon J, Bolker B, Oom S, Klein E, Rowlingson B, Wickham H, Tyagi A,
+Eterradossi O, Grothendieck G, Toews M, Kane J, Turner R, Witthoft C,
+Stander J, Petzoldt T, Duursma R, Biancotto E, Levy O, Dutang C,
+Solymos P, Engelmann R, Hecker M, Steinbeck F, Borchers H, Singmann H,
+Toal T, Ogle D, Baral D, Groemping U, Venables B (2020). _plotrix:
+Various Plotting Functions_. R package version 3.7-8, <URL:
+https://CRAN.R-project.org/package=plotrix>.
+
+Milborrow S (2020). _plotmo: Plot a Model's Residuals, Response, and
+Partial Dependence Plots_. R package version 3.5.7, <URL:
+https://CRAN.R-project.org/package=plotmo>.
+
+Müller K, Wickham H (2020). _tibble: Simple Data Frames_. R package
+version 3.0.3, <URL: https://CRAN.R-project.org/package=tibble>.
+
+Pedersen TL (2020). _patchwork: The Composer of Plots_. R package
+version 1.0.1, <URL: https://CRAN.R-project.org/package=patchwork>.
+
+R Core Team (2020). _R: A Language and Environment for Statistical
+Computing_. R Foundation for Statistical Computing, Vienna, Austria.
+<URL: https://www.R-project.org/>.
+
+Ripley B (2020). _nnet: Feed-Forward Neural Networks and Multinomial
+Log-Linear Models_. R package version 7.3-14, <URL:
+https://CRAN.R-project.org/package=nnet>.
+
+Sievert C (2020). _Interactive Web-Based Data Visualization with R,
+plotly, and shiny_. Chapman and Hall/CRC. ISBN 9781138331457, <URL:
+https://plotly-r.com>.
+
+Sievert C, Parmer C, Hocking T, Chamberlain S, Ram K, Corvellec M,
+Despouy P (2020). _plotly: Create Interactive Web Graphics via
+'plotly.js'_. R package version 4.9.2.1, <URL:
+https://CRAN.R-project.org/package=plotly>.
+
+Slowikowski K (2020). _ggrepel: Automatically Position Non-Overlapping
+Text Labels with 'ggplot2'_. R package version 0.8.2, <URL:
+https://CRAN.R-project.org/package=ggrepel>.
+
+Snow G (2020). _TeachingDemos: Demonstrations for Teaching and
+Learning_. R package version 2.12, <URL:
+https://CRAN.R-project.org/package=TeachingDemos>.
+
+Venables WN, Ripley BD (2002). _Modern Applied Statistics with S_,
+Fourth edition. Springer, New York. ISBN 0-387-95457-0, <URL:
+http://www.stats.ox.ac.uk/pub/MASS4>.
+
+Wickham H (2020). _forcats: Tools for Working with Categorical
+Variables (Factors)_. R package version 0.5.0, <URL:
+https://CRAN.R-project.org/package=forcats>.
+
+Wickham H (2019). _stringr: Simple, Consistent Wrappers for Common
+String Operations_. R package version 1.4.0, <URL:
+https://CRAN.R-project.org/package=stringr>.
+
+Wickham H (2019). _tidyverse: Easily Install and Load the 'Tidyverse'_.
+R package version 1.3.0, <URL:
+https://CRAN.R-project.org/package=tidyverse>.
+
+Wickham H (2016). _ggplot2: Elegant Graphics for Data Analysis_.
+Springer-Verlag New York. ISBN 978-3-319-24277-4, <URL:
+https://ggplot2.tidyverse.org>.
+
+Wickham H, Averick M, Bryan J, Chang W, McGowan LD, François R,
+Grolemund G, Hayes A, Henry L, Hester J, Kuhn M, Pedersen TL, Miller E,
+Bache SM, Müller K, Ooms J, Robinson D, Seidel DP, Spinu V, Takahashi
+K, Vaughan D, Wilke C, Woo K, Yutani H (2019). "Welcome to the
+tidyverse." _Journal of Open Source Software_, *4*(43), 1686. doi:
+10.21105/joss.01686 (URL: https://doi.org/10.21105/joss.01686).
+
+Wickham H, Bryan J (2019). _readxl: Read Excel Files_. R package
+version 1.3.1, <URL: https://CRAN.R-project.org/package=readxl>.
+
+Wickham H, Chang W, Henry L, Pedersen TL, Takahashi K, Wilke C, Woo K,
+Yutani H, Dunnington D (2020). _ggplot2: Create Elegant Data
+Visualisations Using the Grammar of Graphics_. R package version 3.3.2,
+<URL: https://CRAN.R-project.org/package=ggplot2>.
+
+Wickham H, François R, Henry L, Müller K (2020). _dplyr: A Grammar of
+Data Manipulation_. R package version 1.0.0, <URL:
+https://CRAN.R-project.org/package=dplyr>.
+
+Wickham H, Henry L (2020). _tidyr: Tidy Messy Data_. R package version
+1.1.0, <URL: https://CRAN.R-project.org/package=tidyr>.
+
+Wickham H, Hester J, Francois R (2018). _readr: Read Rectangular Text
+Data_. R package version 1.3.1, <URL:
+https://CRAN.R-project.org/package=readr>.
+
+Wilke CO (2020). _ggridges: Ridgeline Plots in 'ggplot2'_. R package
+version 0.5.2, <URL: https://CRAN.R-project.org/package=ggridges>.
+
+Xiao N (2018). _ggsci: Scientific Journal and Sci-Fi Themed Color
+Palettes for 'ggplot2'_. R package version 2.9, <URL:
+https://CRAN.R-project.org/package=ggsci>.
+
+Xie Y (2020). _knitr: A General-Purpose Package for Dynamic Report
+Generation in R_. R package version 1.29, <URL:
+https://CRAN.R-project.org/package=knitr>.
+
+Xie Y (2015). _Dynamic Documents with R and knitr_, 2nd edition.
+Chapman and Hall/CRC, Boca Raton, Florida. ISBN 978-1498716963, <URL:
+https://yihui.org/knitr/>.
+
+Xie Y (2014). "knitr: A Comprehensive Tool for Reproducible Research in
+R." In Stodden V, Leisch F, Peng RD (eds.), _Implementing Reproducible
+Computational Research_. Chapman and Hall/CRC. ISBN 978-1466561595,
+<URL: http://www.crcpress.com/product/isbn/9781466561595>.
+
+Zeileis A, Croissant Y (2018). _Formula: Extended Model Formulas_. R
+package version 1.2-3, <URL:
+https://CRAN.R-project.org/package=Formula>.
+
+Zeileis A, Croissant Y (2010). "Extended Model Formulas in R: Multiple
+Parts and Multiple Responses." _Journal of Statistical Software_,
+*34*(1), 1-13. doi: 10.18637/jss.v034.i01 (URL:
+https://doi.org/10.18637/jss.v034.i01).
+
+Zhu H (2019). _kableExtra: Construct Complex Table with 'kable' and
+Pipe Syntax_. R package version 1.1.0, <URL:
+https://CRAN.R-project.org/package=kableExtra>.
+
 
 
