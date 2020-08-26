@@ -42,11 +42,11 @@ All of these instruments can in principle be targeted to generate *de facto* dis
 
 Even armed with data on all such trade-distorting policy instruments, estimating the magnitude of aggregate policy barriers to trade would be challenging. Here, I propose and implement a new method to estimate policy barriers to trade with minimal data requirements. I construct a parsimonious model of international trade subject to frictions, following @Eaton2002.^[In their technology-based model, trade frictions enter as variable costs, introducing a wedge between the price of a good when it leaves an exporting country and when it is sold in an importing country. @Gulotty2020 argues that many of the regulatory barriers discussed above are better conceptualized as fixed costs, applied on firms as a condition for market entry. @Head2014 show that this distinction is important for modeling the effects of trade costs on trade flows. Namely, the elasticity of trade with respect to changes in fixed costs is different than the elasticity governing the responsiveness of trade to changes in variable costs [@Melitz2003; @Chaney2008; @Arkolakis2012]. The presence of fixed costs of exporting have also been used to rationalize the sparsity of the empirical trade flow matrix [@Helpman2008]. Methods developed in @Helpman2008 could in principle be used to separately measure fixed and variable policy barriers to trade.] I show that the magnitude of trade frictions between two countries $i$ and $j$ is related by the theoretical model to price levels in both countries, trade flows between them, and the market shares of domestic producers in home markets. I then decompose these barriers into their economic (transportation costs) and political (policy barriers) components. Finally, I calibrate this relationship to the data on prices, trade, and freight costs in 2011.
 
-The intuition underlying the model is straightforward. Cross-national price gaps inform about the existence of arbitrage opportunities, and imply that large trade flows should exist from countries with low prices toward those with high prices. The extent to which these flows are realized in the data informs about the magnitude of trade costs. If the cost of freight between countries is known, then the component of these costs than cannot be attributed to purely economic frictions can be independently identified. The remaining "missing trade" is attributed to the existence of policy distortions, broadly defined.
+The intuition underlying the model is straightforward. Cross-national price gaps inform about the existence of arbitrage opportunities, and imply that large trade flows should exist from countries with low prices toward those with high prices. The extent to which these flows are realized in the data informs about the magnitude of trade costs. If the cost of freight between countries is known, then the component of these costs that cannot be attributed to purely economic frictions can be independently identified. The remaining "missing trade" is attributed to the existence of policy distortions, broadly defined.
 
 The logic behind the approach employed here is also articulated in @Leamer1988. If consumers are homogenous across countries, they will consume the same basket of goods when trade is frictionless (and prices equalize across markets).^[Empirical studies of trade rely heavily on the (dubious) assumption of consumer homogeneity. For a prominent counterexample, see @Fajgelbaum2016. I hold consumers' preferences over tradable goods constant, but allow for heterogeneity in consumers' taste for tradable versus nontradable goods.] Observed heterogeneity in consumption baskets is then informative about the magnitude of trade frictions. Leveraging advances in the structural gravity literature, I am able to empirically connect Leamer's basic insight more tightly to theory.
 
-The results point to far more policy distortion and effective discrimination than would be inferred from the tariff data. Tariff equivalents of implied policy barriers are generically more than an order of magnitude larger than observed tariffs. Moreover, exporters in subset of favored countries enjoy far superior market access conditions than their peers in unfavored countries.
+The results point to far more policy distortion and effective discrimination than would be inferred from the tariff data. Tariff equivalents of implied policy barriers are generically more than an order of magnitude larger than observed tariffs. Moreover, exporters in a subset of favored countries enjoy far superior market access conditions than their peers in unfavored countries.
 
 ![Tariff rates (left) and structural trade restrictiveness (right) against GDP per capita \label{fig:triIncome}](figure/triIncome-1.pdf)
 
@@ -82,7 +82,7 @@ This relationship between cross national tradable prices, trade flows, and trade
 
 ## Environment
 
-There are $N$ countries in the international economy, indexed $i \in \left\{ 1, ..., N \right\}$. Within each country resides a representative consumer, with labor endowment $L_i$. The setup follows closely @Eaton2002, so I omit some derivations of the quantities presented here and direct readers to their paper. To match the data on consumer expenditure on tradable goods, I consider a variant their model which consumers value both tradable goods and nontradable services. Then, gross consumption of tradables in the economy is simply gross consumption (including final and intermediate goods) minus consumer expenditure on services. This is the denominator I use in calculating trade shares when calibrating the model.
+There are $N$ countries in the international economy, indexed $i \in \left\{ 1, ..., N \right\}$. Within each country resides a representative consumer, with labor endowment $L_i$. The setup follows closely @Eaton2002, so I omit some derivations of the quantities presented here and direct readers to their paper. To match the data on consumer expenditure on tradable goods, I consider a variant of their model which consumers value both tradable goods and nontradable services. Then, gross consumption of tradables in the economy is simply gross consumption (including final and intermediate goods) minus consumer expenditure on services. This is the denominator I use in calculating trade shares when calibrating the model.
 
 ### Consumption
 
@@ -123,7 +123,7 @@ P_i = \left( \int_{[0,1]} \tilde{\alpha}_{i, h(\omega)} p_i(\omega)^{1 - \sigma}
 
 ### Production
 
-Every country can produce every tradable variety $\omega$. Each country has an underlying mean productivity level $T_i$, but $\omega$-specific productivites $z_i(\omega)$ are modeled as the realization of a random variable drawn from a Frechet distribution. Production requires both labor and a composite intermediate good that is exactly analagous to an aggregate consumption good $Q_i$. The cost of producing a unit of variety $\omega$ is
+Every country can produce every tradable variety $\omega$. Each country has an underlying mean productivity level $T_i$, but $\omega$-specific productivities $z_i(\omega)$ are modeled as the realization of a random variable drawn from a Frechet distribution. Production requires both labor and a composite intermediate good that is exactly analogous to an aggregate consumption good $Q_i$. The cost of producing a unit of variety $\omega$ is
 \begin{equation} \label{eq:c}
 c_i(\omega) = \frac{1}{z_i(\omega)} w_i^{1 - \beta} P_i^{\beta}
 \end{equation}
@@ -250,13 +250,13 @@ Price indices and freight costs estimated below are measured with error. I emplo
 
 In order to calculate policy barriers to trade, I require an empirical analogue of the Equation \ref{eq:P}, the country-specific price index. This quantity summarizes the overall level of competition in the economy, summarized in the market price of tradable varieties. Data on cross-national prices comes from the World Bank's International Comparison Program, used to calculate Purchasing Power Parities (PPP).^[@Rao2013 details the underlying data and methodology. @Deaton2010 discusses challenges in working with these data.]
 
-The ICP surveys prices of hundreds of products and services across 146 countries, and chooses product lists to maximize comparability across markets. They also report the share of GDP that is allocated toward puchases of different product categories, termed "basic headings." After using the prevailing exchange rate to convert prices into U.S. dollars, various (largely atheoretical) statistical methods are used to compute internationally comparable price indices across basic headings.^[See @Redding2018 for a discussion of the conditions under which these price indices correspond to their theoretical counterparts.] I classify each basic heading as tradable or nontradable and report the results of this classification in Appendix F.^[@Simonovska2014 undertake the same exercise. My classification differs slightly from theirs.]
+The ICP surveys prices of hundreds of products and services across 146 countries, and chooses product lists to maximize comparability across markets. They also report the share of GDP that is allocated toward purchases of different product categories, termed "basic headings." After using the prevailing exchange rate to convert prices into U.S. dollars, various (largely atheoretical) statistical methods are used to compute internationally comparable price indices across basic headings.^[See @Redding2018 for a discussion of the conditions under which these price indices correspond to their theoretical counterparts.] I classify each basic heading as tradable or nontradable and report the results of this classification in Appendix F.^[@Simonovska2014 undertake the same exercise. My classification differs slightly from theirs.]
 
 I take these basic headings as the empirical analogue to good categories $k$ in the model. I assume that the local price of each variety in category $k$ is constant, $p_i(\omega) = p_i(\omega^\prime) = p_{ik}$ for all $\omega, \omega^\prime \in \Omega_k$. Then, the price index in Equation \ref{eq:P} can be written
 $$
 P_i = \left( \int_\omega \tilde{\alpha}_{i, h(\omega)} p_i(\omega)^{1 - \sigma} \right)^{\frac{1}{1 - \sigma}} = \frac{1}{K} \left( \sum_k \tilde{\alpha}_{ik} p_{ik}^{1 - \sigma} \right)^{\frac{1}{1 - \sigma}} .
 $$
-The ICP reports prices relative to their levels in the United States. In Appendix A, I show consumers' demand for each good is a function their preferences ($\tilde{\alpha}_{ik}$), the good's price ($p_{ik}$), and the price level in the country ($P_i$). Differencing this demand equation with respect to its analogue in the United States eliminates the constant portion of the preference parameter, $\alpha_k$. Then, demand relative to the United States is a function the stochastic preference shocks ($\epsilon_{ik}$), the price of the good, and the overall price level in the country. I estimate this differenced equation on observed prices and relative expenditure shares by minimizing the squared magnitudes of the preference shocks. This generates estimates for the country-specific price indices, $\hat{P}_i$.
+The ICP reports prices relative to their levels in the United States. In Appendix A, I show consumers' demand for each good is a function their preferences ($\tilde{\alpha}_{ik}$), the good's price ($p_{ik}$), and the price level in the country ($P_i$). Differencing this demand equation with respect to its analogue in the United States eliminates the constant portion of the preference parameter, $\alpha_k$. Then, demand relative to the United States is a function of the stochastic preference shocks ($\epsilon_{ik}$), the price of the good, and the overall price level in the country. I estimate this differenced equation on observed prices and relative expenditure shares by minimizing the squared magnitudes of the preference shocks. This generates estimates for the country-specific price indices, $\hat{P}_i$.
 
 ![Price index estimates and tradable expenditure shares \label{fig:P}](figure/P-1.pdf)
 
@@ -300,7 +300,7 @@ Accounting for these features of the market for transportation services would ad
 
 The results of this exercise reveal substantial unobserved policy barriers to trade. In 2011, across all in-sample markets, exporters faced an average $\tau$ of 2.4, equivalent to a 140 percent import tariff.^[Of course, this result is sensitive to my stance on the trade elasticity. Doubling the trade elasticity to 12 cuts the average $\tau$ to 1.62] The magnitude of these barriers dwarfs that of applied aggregate tariffs, which average only 4 percent within my sample. This result is consistent with @Anderson2003, @Bradford2003, @deSousa2012, and @Waugh2016 which also uncover large implied trade costs using indirect measurement methods. Figure \ref{fig:tcosts} shows the distribution of implied policy barriers (panel A), relative to tariffs and predicted freight costs.
 
-![Distribution of freight costs, tariff barriers, and structural policy barriers to trade ($\tau_{ij}$). Dashed lines show mean of each distribution. \label{fig:tcosts}](figure/tcosts-1.pdf)
+![Distribution of freight costs, tariff barriers, and structural policy barriers to trade ($\tau_{ij}$). Dashed lines show the mean of each distribution. \label{fig:tcosts}](figure/tcosts-1.pdf)
 
 The model and data jointly suggest that international trade remains far from free, even taking into account unavoidable freight costs. Returning to Equation \ref{eq:tau}, this result suggests that the observed international price gaps and trade flows are inconsistent with a trade barrier-less world, given predicted freight costs. The model suggests that if implied policy barriers were removed, some combination of increases in trade flows and the reduction of price gaps would occur.
 
@@ -385,11 +385,11 @@ In the preceding analysis, the European Union (EU) member states were treated as
 
 ![Intra and extra-European Union policy barriers to trade. Each cell reports the magnitude of the policy barrier each EU importing country (y-axis) imposes on every exporting country (x-axis). Barriers toward EU countries are on the left hand side of the solid line. Barriers toward non-EU countries are on the right hand side of the solid line. BNL is an aggregate of Belgium, Luxembourg, and the Netherlands (Benelux). ELL is an aggregate of the Baltic countries: Estonia, Latvia, and Lithuania. \label{fig:hmEUD}](figure/hmEUD-1.pdf)
 
-Figure \ref{fig:hmEUD} depicts the results of this exercise.^[In Appendix D, I reproduce Figure \ref{fig:hm} with the European Union disaggregated and re-implement K-means clustering, with $K=$ 4. The Asian and American blocs remain largely intact. The clustering uncovers 2 distinct European blocs -- a Western bloc consisting of Great Britain,France, Germany, and their neighbors as well as an Eatern bloc consisting of mostly post-Cold War EU entrants. Interestingly, Russia and Turkey are grouped with the Western bloc, rather than the more geographically proximate Eastern countries.] EU policy barriers toward other EU member states are on average 56 percent the size of barriers with non-EU states.^[This comparison was made by taking weighted means of tariff-equivalent policy barriers where the weights are the expenditures on tradable goods of the exporting countries.] Barriers are far from nonexistent, however. On average, EU countries implement an tariff-equivalent barrier of 69 percent on other EU member states, compared to 119 percent on non-EU states.^[These are unweighted averages of EU member states' TRIs, calculated with respect to EU and non-EU members respectively.] From the perspective of the model, there remained substantial policy-related trade frictions within the EU in 2011. This finding is consistent with the existence of "border effects" within the EU [@Comerford2015]. Of course, these inferences might be driven by features of the model itself. I discuss these limitations in more detail in the paper's conclusion.
+Figure \ref{fig:hmEUD} depicts the results of this exercise.^[In Appendix D, I reproduce Figure \ref{fig:hm} with the European Union disaggregated and re-implement K-means clustering, with $K=$ 4. The Asian and American blocs remain largely intact. The clustering uncovers 2 distinct European blocs -- a Western bloc consisting of Great Britain,France, Germany, and their neighbors as well as an Eatern bloc consisting of mostly post-Cold War EU entrants. Interestingly, Russia and Turkey are grouped with the Western bloc, rather than the more geographically proximate Eastern countries.] EU policy barriers toward other EU member states are on average 56 percent the size of barriers with non-EU states.^[This comparison was made by taking weighted means of tariff-equivalent policy barriers where the weights are the expenditures on tradable goods of the exporting countries.] Barriers are far from nonexistent, however. On average, EU countries implement a tariff-equivalent barrier of 69 percent on other EU member states, compared to 119 percent on non-EU states.^[These are unweighted averages of EU member states' TRIs, calculated with respect to EU and non-EU members respectively.] From the perspective of the model, there remained substantial policy-related trade frictions within the EU in 2011. This finding is consistent with the existence of "border effects" within the EU [@Comerford2015]. Of course, these inferences might be driven by features of the model itself. I discuss these limitations in more detail in the paper's conclusion.
 
 ## Discussion
 
-In the introduction, I noted that richer countries tend to have higher policy barriers to trade, contrary to their relatively liberal tariff regimes. From this fact, some conclude that political institutions in developed countries are more "welfare-concious" than those in their developing counterparts [@Gawande2009; @Gawande2015]. These results are consistent with an alternative approach, emphasizing state capacity, articulated in @Acemoglu2005b, @Rodrik2008, and @Queralt2015. Here, tariffs emerge as a "second-best" solution to a revenue-raising problem facing low-capacity governments, which struggle to raise revenue through other channels. As capacity grows, governments employ alternative instruments to raise revenues. As shown here, these governments do not necessarily become less protectionist in the process. In fact, they may become more closed to international trade.
+In the introduction, I noted that richer countries tend to have higher policy barriers to trade, contrary to their relatively liberal tariff regimes. From this fact, some conclude that political institutions in developed countries are more "welfare-conscious" than those in their developing counterparts [@Gawande2009; @Gawande2015]. These results are consistent with an alternative approach, emphasizing state capacity, articulated in @Acemoglu2005b, @Rodrik2008, and @Queralt2015. Here, tariffs emerge as a "second-best" solution to a revenue-raising problem facing low-capacity governments, which struggle to raise revenue through other channels. As capacity grows, governments employ alternative instruments to raise revenues. As shown here, these governments do not necessarily become less protectionist in the process. In fact, they may become more closed to international trade.
 
 ![Market access conditions and per capita national income \label{fig:maiGdppc}](figure/maiGdppc-1.pdf)
 
@@ -462,7 +462,7 @@ Exporters have preferences over the mode of transit and cost of freight. Let
 $$
 V_{ij}^{mk} = \tilde{\beta}_0 \delta_{ij}^{mk}(\bm{Z}_{ij}) + \tilde{\beta}_k + \eta_{ij}^{km}
 $$
-where $\eta_{ij}^{km}$ is a Type-I extreme value-distributed preference shock with $\E [\eta_{ij}^{km}] = 0$. $\tilde{\beta}_k$ modulates exporters' relative preference for mode $k$, independent of it's cost. This is a simple logit model of mode choice a la @Mcfadden1974. Under these assumptions, the share of exporters in sector $k$ that choose to ship from $j$ to $i$ via mode $m$ is
+where $\eta_{ij}^{km}$ is a Type-I extreme value-distributed preference shock with $\E [\eta_{ij}^{km}] = 0$. $\tilde{\beta}_k$ modulates exporters' relative preference for mode $k$, independent of its cost. This is a simple logit model of mode choice a la @Mcfadden1974. Under these assumptions, the share of exporters in sector $k$ that choose to ship from $j$ to $i$ via mode $m$ is
 \begin{equation} \label{eq:logitShares}
 \zeta_{ij}^{m k} = \frac{\exp \left( \tilde{\beta}_0 \delta_{ij}^{mk}(\bm{Z}_{ij}) + \tilde{\beta}_k \right)}{\sum_{k^\prime=1}^K \exp \left( \tilde{\beta}_0 \delta_{ij}^{mk^\prime}(\bm{Z}_{ij}) + \tilde{\beta}_{k^\prime} \right)} .
 \end{equation}
@@ -472,7 +472,7 @@ I model $\delta_{ij}^{mk}(\bm{Z}_{ij})$ as linear in distance and contiguity and
 
 I obtain estimates for $\tilde{\beta}_0$ and $\tilde{\beta}_k$ by taking the log of \ref{eq:logitShares}, differencing with respect to a base transportation mode, and estimating the resulting linear equation via ordinary least squares. With parameter estimates in hand, I can compute predictions for total trade costs by aggregating over sectors and projecting out of sample. 
 
-The total free on board (f.o.b.) value of imports of country $i$ from country $j$ is given by $X_{ij}$. The cost, insurance, and freight (c.i.f.) value of these goods is $\delta_{ij} X_{ij}$. These c.i.f. costs can be decomposed by product and mode of transporatation as follows
+The total free on board (f.o.b.) value of imports of country $i$ from country $j$ is given by $X_{ij}$. The cost, insurance, and freight (c.i.f.) value of these goods is $\delta_{ij} X_{ij}$. These c.i.f. costs can be decomposed by product and mode of transportation as follows
 $$
 \delta_{ij} X_{ij} = \sum_{m = 1}^M \delta_{ij}^m x_{ij}^m
 $$
@@ -499,9 +499,9 @@ $$
 
 To estimate freight costs and mode share choice, I employ data from the United States Census Bureau and the Australian Bureau of Statistics on the c.i.f. and f.o.b. values of its imports.^[The Australian data are also used by @Shapiro2016 and @Adao2017.] The ratio of the c.i.f. value of goods to their f.o.b. value can then be taken as a measure of the ad valorem freight cost. I supplement these values with international data on the costs of *maritime* shipments from the OECD's [Maritime Transport Cost Dataset](https://doi.org/10.1787/data-00490-en) [@Korinek2011]. I also observe the transportation modes of imports (air, land, or sea) to the European Union, Japan, Brazil, Australia and the United States .^[Data from the United States come from the Census Bureau and are available on the website of [Peter Schott](http://faculty.som.yale.edu/peterschott/sub_international.htm). Data from the European Union are from [Eurostat](https://ec.europa.eu/eurostat). Data from Japan are from the government's statistical agency, [e-Stat](https://www.e-stat.go.jp/en/stat-search/files?page=1&toukei=00350300&bunya_l=16&tstat=000001013142&result_page=1&second=1). Data from Brazil come from the [ministry of trade and industry](http://comexstat.mdic.gov.br/en/home). Data from Australia are from the Australian Bureau of Statistics.]
 
-To model the cost of transport via sea, I take sea distances are taken from [CERDI](http://www.ferdi.fr/en/indicator/cerdi-seadistance-database) [@Bertoli2016]. For land and air distances, I use CEPII's [GeoDist](http://www.cepii.fr/cepii/en/bdd_modele/presentation.asp?id=6) database [@Mayer2011].
+To model the cost of transport via sea, I take sea distances from [CERDI](http://www.ferdi.fr/en/indicator/cerdi-seadistance-database) [@Bertoli2016]. For land and air distances, I use CEPII's [GeoDist](http://www.cepii.fr/cepii/en/bdd_modele/presentation.asp?id=6) database [@Mayer2011].
 
-Parameter estimates for mode-specific freight cost models are reported in the following three tables. Across modes, distance is estimated to significantly increase freight costs. Continguity is estimated to decrease costs for land and air shipments while increasing costs for seaborne shipments. 
+Parameter estimates for mode-specific freight cost models are reported in the following three tables. Across modes, distance is estimated to significantly increase freight costs. Contiguity is estimated to decrease costs for land and air shipments while increasing costs for seaborne shipments. 
 
 
 
@@ -920,182 +920,142 @@ Code & Basic Heading & Tradable?\\
 
 # Software
 
-Arel-Bundock V (2020). _countrycode: Convert Country Names and Country
-Codes_. R package version 1.2.0, <URL:
+Arel-Bundock V (2018). _countrycode: Convert Country Names and
+Country Codes_. R package version 1.1.0, <URL:
 https://CRAN.R-project.org/package=countrycode>.
-
-Arel-Bundock V, Enevoldsen N, Yetman C (2018). "countrycode: An R
-package to convert country names and country codes." _Journal of Open
-Source Software_, *3*(28), 848. <URL:
-https://doi.org/10.21105/joss.00848>.
 
 Arnold JB (2019). _ggthemes: Extra Themes, Scales and Geoms for
 'ggplot2'_. R package version 4.2.0, <URL:
 https://CRAN.R-project.org/package=ggthemes>.
 
-Boettiger C (2019). _knitcitations: Citations for 'Knitr' Markdown
+Boettiger C (2020). _knitcitations: Citations for 'Knitr' Markdown
 Files_. R package version 1.0.10, <URL:
-https://CRAN.R-project.org/package=knitcitations>.
+https://github.com/cboettig/knitcitations>.
 
-Chang W, Wickham H (2019). _ggvis: Interactive Grammar of Graphics_. R
-package version 0.4.5, <URL: https://CRAN.R-project.org/package=ggvis>.
+Chang W, Wickham H (2019). _ggvis: Interactive Grammar of
+Graphics_. R package version 0.4.5, <URL:
+https://CRAN.R-project.org/package=ggvis>.
 
-Cooper N (2018). _NCmisc: Miscellaneous Functions for Creating Adaptive
-Functions and Scripts_. R package version 1.1.6, <URL:
+Cooper N (2018). _NCmisc: Miscellaneous Functions for Creating
+Adaptive Functions and Scripts_. R package version 1.1.6, <URL:
 https://CRAN.R-project.org/package=NCmisc>.
 
-Cooper N (2017). _reader: Suite of Functions to Flexibly Read Data from
-Files_. R package version 1.0.6, <URL:
+Cooper N (2017). _reader: Suite of Functions to Flexibly Read Data
+from Files_. R package version 1.0.6, <URL:
 https://CRAN.R-project.org/package=reader>.
 
-Francois R (2020). _bibtex: Bibtex Parser_. R package version 0.4.2.2,
-<URL: https://CRAN.R-project.org/package=bibtex>.
+Francois R (2020). _bibtex: Bibtex Parser_. R package version
+0.4.2.2, <URL: https://CRAN.R-project.org/package=bibtex>.
 
 from mda:mars SMD, utilities with Thomas Lumley's RTUAMF (2019).
-_earth: Multivariate Adaptive Regression Splines_. R package version
-5.1.2, <URL: https://CRAN.R-project.org/package=earth>.
+_earth: Multivariate Adaptive Regression Splines_. R package
+version 5.1.2, <URL: https://CRAN.R-project.org/package=earth>.
 
 Gloeckner N (2020). _olpsR: Algorithms and functions for On-line
 Portfolio Selection_. R package version 0.5.
 
-Henry L, Wickham H (2020). _purrr: Functional Programming Tools_. R
-package version 0.3.4, <URL: https://CRAN.R-project.org/package=purrr>.
+Henry L, Wickham H (2019). _purrr: Functional Programming Tools_.
+R package version 0.3.3, <URL:
+https://CRAN.R-project.org/package=purrr>.
 
 Hlavac M (2018). _stargazer: Well-Formatted Regression and Summary
 Statistics Tables_. R package version 5.2.2, <URL:
 https://CRAN.R-project.org/package=stargazer>.
 
-Hornik K, Feinerer I, Kober M (2020). _skmeans: Spherical k-Means
-Clustering_. R package version 0.2-12, <URL:
+Hornik K, Feinerer I, Kober M (2017). _skmeans: Spherical k-Means
+Clustering_. R package version 0.2-11, <URL:
 https://CRAN.R-project.org/package=skmeans>.
 
-Hornik K, Feinerer I, Kober M, Buchta C (2012). "Spherical $k$-Means
-Clustering." _Journal of Statistical Software_, *50*(10), 1-22. doi:
-10.18637/jss.v050.i10 (URL: https://doi.org/10.18637/jss.v050.i10).
+Lemon J, Bolker B, Oom S, Klein E, Rowlingson B, Wickham H, Tyagi
+A, Eterradossi O, Grothendieck G, Toews M, Kane J, Turner R,
+Witthoft C, Stander J, Petzoldt T, Duursma R, Biancotto E, Levy O,
+Dutang C, Solymos P, Engelmann R, Hecker M, Steinbeck F, Borchers
+H, Singmann H, Toal T, Ogle D, Baral D, Groemping U, Venables B
+(2019). _plotrix: Various Plotting Functions_. R package version
+3.7-7, <URL: https://CRAN.R-project.org/package=plotrix>.
 
-J L (2006). "Plotrix: a package in the red light district of R."
-_R-News_, *6*(4), 8-12.
-
-Lemon J, Bolker B, Oom S, Klein E, Rowlingson B, Wickham H, Tyagi A,
-Eterradossi O, Grothendieck G, Toews M, Kane J, Turner R, Witthoft C,
-Stander J, Petzoldt T, Duursma R, Biancotto E, Levy O, Dutang C,
-Solymos P, Engelmann R, Hecker M, Steinbeck F, Borchers H, Singmann H,
-Toal T, Ogle D, Baral D, Groemping U, Venables B (2020). _plotrix:
-Various Plotting Functions_. R package version 3.7-8, <URL:
-https://CRAN.R-project.org/package=plotrix>.
-
-Milborrow S (2020). _plotmo: Plot a Model's Residuals, Response, and
-Partial Dependence Plots_. R package version 3.5.7, <URL:
+Milborrow S (2019). _plotmo: Plot a Model's Residuals, Response,
+and Partial Dependence Plots_. R package version 3.5.6, <URL:
 https://CRAN.R-project.org/package=plotmo>.
 
-Müller K, Wickham H (2020). _tibble: Simple Data Frames_. R package
-version 3.0.3, <URL: https://CRAN.R-project.org/package=tibble>.
+Müller K, Wickham H (2020). _tibble: Simple Data Frames_. R
+package version 3.0.1, <URL:
+https://CRAN.R-project.org/package=tibble>.
 
-Pedersen TL (2020). _patchwork: The Composer of Plots_. R package
-version 1.0.1, <URL: https://CRAN.R-project.org/package=patchwork>.
+Pedersen TL (2019). _patchwork: The Composer of ggplots_. R
+package version 0.0.1.9000, <URL:
+https://github.com/thomasp85/patchwork>.
 
-R Core Team (2020). _R: A Language and Environment for Statistical
-Computing_. R Foundation for Statistical Computing, Vienna, Austria.
-<URL: https://www.R-project.org/>.
+R Core Team (2019). _R: A Language and Environment for Statistical
+Computing_. R Foundation for Statistical Computing, Vienna,
+Austria. <URL: https://www.R-project.org/>.
 
-Ripley B (2020). _nnet: Feed-Forward Neural Networks and Multinomial
-Log-Linear Models_. R package version 7.3-14, <URL:
+Ripley B (2016). _nnet: Feed-Forward Neural Networks and
+Multinomial Log-Linear Models_. R package version 7.3-12, <URL:
 https://CRAN.R-project.org/package=nnet>.
-
-Sievert C (2020). _Interactive Web-Based Data Visualization with R,
-plotly, and shiny_. Chapman and Hall/CRC. ISBN 9781138331457, <URL:
-https://plotly-r.com>.
 
 Sievert C, Parmer C, Hocking T, Chamberlain S, Ram K, Corvellec M,
 Despouy P (2020). _plotly: Create Interactive Web Graphics via
 'plotly.js'_. R package version 4.9.2.1, <URL:
 https://CRAN.R-project.org/package=plotly>.
 
-Slowikowski K (2020). _ggrepel: Automatically Position Non-Overlapping
-Text Labels with 'ggplot2'_. R package version 0.8.2, <URL:
-https://CRAN.R-project.org/package=ggrepel>.
+Slowikowski K (2019). _ggrepel: Automatically Position
+Non-Overlapping Text Labels with 'ggplot2'_. R package version
+0.8.1, <URL: https://CRAN.R-project.org/package=ggrepel>.
 
-Snow G (2020). _TeachingDemos: Demonstrations for Teaching and
-Learning_. R package version 2.12, <URL:
+Snow G (2016). _TeachingDemos: Demonstrations for Teaching and
+Learning_. R package version 2.10, <URL:
 https://CRAN.R-project.org/package=TeachingDemos>.
 
-Venables WN, Ripley BD (2002). _Modern Applied Statistics with S_,
-Fourth edition. Springer, New York. ISBN 0-387-95457-0, <URL:
-http://www.stats.ox.ac.uk/pub/MASS4>.
-
-Wickham H (2020). _forcats: Tools for Working with Categorical
-Variables (Factors)_. R package version 0.5.0, <URL:
+Wickham H (2019). _forcats: Tools for Working with Categorical
+Variables (Factors)_. R package version 0.4.0, <URL:
 https://CRAN.R-project.org/package=forcats>.
 
 Wickham H (2019). _stringr: Simple, Consistent Wrappers for Common
 String Operations_. R package version 1.4.0, <URL:
 https://CRAN.R-project.org/package=stringr>.
 
-Wickham H (2019). _tidyverse: Easily Install and Load the 'Tidyverse'_.
-R package version 1.3.0, <URL:
+Wickham H (2017). _tidyverse: Easily Install and Load the
+'Tidyverse'_. R package version 1.2.1, <URL:
 https://CRAN.R-project.org/package=tidyverse>.
-
-Wickham H (2016). _ggplot2: Elegant Graphics for Data Analysis_.
-Springer-Verlag New York. ISBN 978-3-319-24277-4, <URL:
-https://ggplot2.tidyverse.org>.
-
-Wickham H, Averick M, Bryan J, Chang W, McGowan LD, François R,
-Grolemund G, Hayes A, Henry L, Hester J, Kuhn M, Pedersen TL, Miller E,
-Bache SM, Müller K, Ooms J, Robinson D, Seidel DP, Spinu V, Takahashi
-K, Vaughan D, Wilke C, Woo K, Yutani H (2019). "Welcome to the
-tidyverse." _Journal of Open Source Software_, *4*(43), 1686. doi:
-10.21105/joss.01686 (URL: https://doi.org/10.21105/joss.01686).
 
 Wickham H, Bryan J (2019). _readxl: Read Excel Files_. R package
 version 1.3.1, <URL: https://CRAN.R-project.org/package=readxl>.
 
-Wickham H, Chang W, Henry L, Pedersen TL, Takahashi K, Wilke C, Woo K,
-Yutani H, Dunnington D (2020). _ggplot2: Create Elegant Data
-Visualisations Using the Grammar of Graphics_. R package version 3.3.2,
-<URL: https://CRAN.R-project.org/package=ggplot2>.
+Wickham H, Chang W, Henry L, Pedersen TL, Takahashi K, Wilke C,
+Woo K, Yutani H, Dunnington D (2020). _ggplot2: Create Elegant
+Data Visualisations Using the Grammar of Graphics_. R package
+version 3.3.0, <URL: https://CRAN.R-project.org/package=ggplot2>.
 
-Wickham H, François R, Henry L, Müller K (2020). _dplyr: A Grammar of
-Data Manipulation_. R package version 1.0.0, <URL:
+Wickham H, François R, Henry L, Müller K (2020). _dplyr: A Grammar
+of Data Manipulation_. R package version 0.8.5, <URL:
 https://CRAN.R-project.org/package=dplyr>.
 
-Wickham H, Henry L (2020). _tidyr: Tidy Messy Data_. R package version
-1.1.0, <URL: https://CRAN.R-project.org/package=tidyr>.
+Wickham H, Henry L (2019). _tidyr: Tidy Messy Data_. R package
+version 1.0.0, <URL: https://CRAN.R-project.org/package=tidyr>.
 
-Wickham H, Hester J, Francois R (2018). _readr: Read Rectangular Text
-Data_. R package version 1.3.1, <URL:
+Wickham H, Hester J, Francois R (2018). _readr: Read Rectangular
+Text Data_. R package version 1.3.1, <URL:
 https://CRAN.R-project.org/package=readr>.
 
-Wilke CO (2020). _ggridges: Ridgeline Plots in 'ggplot2'_. R package
-version 0.5.2, <URL: https://CRAN.R-project.org/package=ggridges>.
+Wilke CO (2018). _ggridges: Ridgeline Plots in 'ggplot2'_. R
+package version 0.5.1, <URL:
+https://CRAN.R-project.org/package=ggridges>.
 
 Xiao N (2018). _ggsci: Scientific Journal and Sci-Fi Themed Color
 Palettes for 'ggplot2'_. R package version 2.9, <URL:
 https://CRAN.R-project.org/package=ggsci>.
 
-Xie Y (2020). _knitr: A General-Purpose Package for Dynamic Report
-Generation in R_. R package version 1.29, <URL:
+Xie Y (2019). _knitr: A General-Purpose Package for Dynamic Report
+Generation in R_. R package version 1.25, <URL:
 https://CRAN.R-project.org/package=knitr>.
 
-Xie Y (2015). _Dynamic Documents with R and knitr_, 2nd edition.
-Chapman and Hall/CRC, Boca Raton, Florida. ISBN 978-1498716963, <URL:
-https://yihui.org/knitr/>.
-
-Xie Y (2014). "knitr: A Comprehensive Tool for Reproducible Research in
-R." In Stodden V, Leisch F, Peng RD (eds.), _Implementing Reproducible
-Computational Research_. Chapman and Hall/CRC. ISBN 978-1466561595,
-<URL: http://www.crcpress.com/product/isbn/9781466561595>.
-
-Zeileis A, Croissant Y (2018). _Formula: Extended Model Formulas_. R
-package version 1.2-3, <URL:
+Zeileis A, Croissant Y (2018). _Formula: Extended Model Formulas_.
+R package version 1.2-3, <URL:
 https://CRAN.R-project.org/package=Formula>.
 
-Zeileis A, Croissant Y (2010). "Extended Model Formulas in R: Multiple
-Parts and Multiple Responses." _Journal of Statistical Software_,
-*34*(1), 1-13. doi: 10.18637/jss.v034.i01 (URL:
-https://doi.org/10.18637/jss.v034.i01).
-
-Zhu H (2019). _kableExtra: Construct Complex Table with 'kable' and
-Pipe Syntax_. R package version 1.1.0, <URL:
+Zhu H (2019). _kableExtra: Construct Complex Table with 'kable'
+and Pipe Syntax_. R package version 1.1.0, <URL:
 https://CRAN.R-project.org/package=kableExtra>.
 
 

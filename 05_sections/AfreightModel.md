@@ -4,7 +4,7 @@ Exporters have preferences over the mode of transit and cost of freight. Let
 $$
 V_{ij}^{mk} = \tilde{\beta}_0 \delta_{ij}^{mk}(\bm{Z}_{ij}) + \tilde{\beta}_k + \eta_{ij}^{km}
 $$
-where $\eta_{ij}^{km}$ is a Type-I extreme value-distributed preference shock with $\E [\eta_{ij}^{km}] = 0$. $\tilde{\beta}_k$ modulates exporters' relative preference for mode $k$, independent of it's cost. This is a simple logit model of mode choice a la @Mcfadden1974. Under these assumptions, the share of exporters in sector $k$ that choose to ship from $j$ to $i$ via mode $m$ is
+where $\eta_{ij}^{km}$ is a Type-I extreme value-distributed preference shock with $\E [\eta_{ij}^{km}] = 0$. $\tilde{\beta}_k$ modulates exporters' relative preference for mode $k$, independent of its cost. This is a simple logit model of mode choice a la @Mcfadden1974. Under these assumptions, the share of exporters in sector $k$ that choose to ship from $j$ to $i$ via mode $m$ is
 \begin{equation} \label{eq:logitShares}
 \zeta_{ij}^{m k} = \frac{\exp \left( \tilde{\beta}_0 \delta_{ij}^{mk}(\bm{Z}_{ij}) + \tilde{\beta}_k \right)}{\sum_{k^\prime=1}^K \exp \left( \tilde{\beta}_0 \delta_{ij}^{mk^\prime}(\bm{Z}_{ij}) + \tilde{\beta}_{k^\prime} \right)} .
 \end{equation}
@@ -14,7 +14,7 @@ I model $\delta_{ij}^{mk}(\bm{Z}_{ij})$ as linear in distance and contiguity and
 
 I obtain estimates for $\tilde{\beta}_0$ and $\tilde{\beta}_k$ by taking the log of \ref{eq:logitShares}, differencing with respect to a base transportation mode, and estimating the resulting linear equation via ordinary least squares. With parameter estimates in hand, I can compute predictions for total trade costs by aggregating over sectors and projecting out of sample. 
 
-The total free on board (f.o.b.) value of imports of country $i$ from country $j$ is given by $X_{ij}$. The cost, insurance, and freight (c.i.f.) value of these goods is $\delta_{ij} X_{ij}$. These c.i.f. costs can be decomposed by product and mode of transporatation as follows
+The total free on board (f.o.b.) value of imports of country $i$ from country $j$ is given by $X_{ij}$. The cost, insurance, and freight (c.i.f.) value of these goods is $\delta_{ij} X_{ij}$. These c.i.f. costs can be decomposed by product and mode of transportation as follows
 $$
 \delta_{ij} X_{ij} = \sum_{m = 1}^M \delta_{ij}^m x_{ij}^m
 $$
